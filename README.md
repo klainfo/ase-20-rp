@@ -23,4 +23,4 @@ The `results` directory contains:
 3. `stat-tests` contains the full results of the statistical tests presented in section 4.
 4. `query-stats.csv` contains the full Table 10.
 
-[1]: https://doi.org/10.1145/3277001
+[1]: https://doi.org/10.1145/3236024.3236065
