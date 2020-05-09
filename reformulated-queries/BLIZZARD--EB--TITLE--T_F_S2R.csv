@@ -1,0 +1,384 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,,Bug Conversion associations doesn work collection values scenario unwrap elements convert DBRef instances Bug Conversion associations doesn work collection values type collection map write mongo output custom object,"org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-987,2014-07-14T12:01:52.000-05:00,,template mongotemplate bug problem dbref mongo data lazy loading entity mongo mongotemplate child parent load attribute situation parent reference database persisted save expected call happen,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.DbRefMappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,,indexes types associations bug missing involving list list type declaration spring catalog wrapper mongodb productwrapper data product mongo book books aware infer define created defined,"org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1290,2015-09-17T15:30:23.000-05:00,,Bug Query annotation parameter work repository finders equivalent find project test Bug Query annotation parameter work parameter update mongo property type key field query,"org.springframework.data.mongodb.repository.query.StringBasedMongoQuery
+org.springframework.data.mongodb.repository.query.StringBasedMongoQueryUnitTests"
+FILE,DATAMONGO,DATAMONGO-1406,2016-04-04T18:59:49.000-05:00,,nested keywords field mapper bug query combination field fields querying note template input java mongotemplate object mongo query mapped getmappedobject mongo correct call submit document,"org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,,Bug Query remove property collection embedded objects Query property attach test project demonstrate bug Bug Query remove property collection embedded objects nested type update correctly field write mapper model,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,,Bug geoNear matching elements returns max documents query expect matching documents Bug geoNear matching elements returns max documents text query sort mongo operation entity execution parameter,org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,,keyword query bug findbyinid pageable repository find returning correctly items swords identifiers types items testing total create returned expect,"org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1232,2015-06-03T10:27:23.000-05:00,,ignorecase bug escape queries ignore address case mail query regex generator characters special find properly,"org.springframework.data.mongodb.repository.query.MongoQueryCreator
+org.springframework.data.mongodb.repository.query.MongoQueryCreatorUnitTests"
+FILE,DATAMONGO,DATAMONGO-1236,2015-06-08T11:17:11.000-05:00,,mongooperations bug updatefirst map findandmodify operations mongo values update modify find include first maven and type map linked linkedhashmap data hash project test field correct leaving convert reads save attach,"org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.UpdateMapper"
+FILE,DATAMONGO,DATAMONGO-1289,2015-09-17T11:43:51.000-05:00,,object nullpointerexception field pointer bug exception annotation saving null file driver property java implicit annotated mapped generated save,"org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,,query method field field orderby bug annotation order ignores alias object answer approach score sort database annotate call create attempts,org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,,Bug Updating object write type objects updated complex domain model consist complex domain model instantiable domain classes point persist type inferred runtime persisted object definition Bug Updating object write type objects updated type map collection writes correctly object read reads,"org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+CLASS,derby-10.7.1.1,DERBY-4684,2010-06-01T10:46:19.000-05:00,,Bug Correct implicit casting types Derby support Standard rules data type Bug Correct implicit casting types test type column table data del based expected,"org.apache.derby.iapi.types.SQLBoolean
+org.apache.derby.impl.sql.compile.BooleanTypeCompiler"
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,,type data datatype bug nulls compare handle top field judge exception generate,"src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+CLASS,pig-0.11.1,PIG-3310,2013-05-03T02:59:57.000-05:00,,miscomputations bug uids implicitsplitinserter inserter split implicit schema fields nested leading generate column member,src.org.apache.pig.newplan.logical.relational.LOSplitOutput
+CLASS,pig-0.11.1,PIG-3424,2013-08-15T09:56:20.000-05:00,,Bug list Dudf list passed add list define list Bug list Dudf list passed schema input set key cache plan walker field,"test.org.apache.pig.test.TestPigContext
+src.org.apache.pig.impl.PigContext"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,,keeper count bug server snapcount snap zookeeper zoo set fails code source supposed,src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,argouml-0.22,1671,2003-02-26T02:12:06.000-06:00,,Bug extra searchpath time project saved start argouml create create newattr doubleclicking doubleclick attr compartment create oper doubleclicking doubleclick attr compartment save test zargo copy test zargo project open test zargo Theoretically zargo files identically Bug extra searchpath time project saved file set diagram element add action settings test,"org.argouml.kernel.Project
+org.argouml.kernel.TestProject"
+CLASS,argouml-0.22,2618,2004-05-21T11:07:40.000-05:00,,Bug Editing association rolename adds create association foo record role property foo parsing diagram user entered text process strip visibility characters Bug Editing association rolename adds set mouse add remove create ombo model message,"org.argouml.uml.notation.uml.NotationUtilityUml
+org.argouml.uml.diagram.ui.FigAssociation
+org.argouml.uml.notation.uml.InitNotationUml
+org.argouml.uml.notation.AssociationRoleNotation
+org.argouml.uml.notation.uml.AssociationRoleNotationUml"
+CLASS,argouml-0.22,3100,2005-02-22T00:28:44.000-06:00,,Bug funny explorer add explorer adding write string plenty room Bug funny explorer file dir box action key fig classifier event,"org.argouml.uml.ui.UMLListCellRenderer2
+org.argouml.ui.DisplayTextTree"
+CLASS,argouml-0.22,3774,2005-12-03T06:33:15.000-06:00,,Bug set namespace Model adding diagram drag created defaultmodel diagram Bug set namespace Model adding diagram set add classifier remove action model role buffered,org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+CLASS,argouml-0.22,4031,2006-03-03T09:18:11.000-06:00,,problem andromda mda bug tag profile definition andro type tagdefinition enumeration xmi argouml argo andromda uml generator hibernate hibernategeneratorclass generator internal compatible open greyed hibernate,"org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLReferenceValueListModel
+org.argouml.model.mdr.FacadeMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLTaggedValueTypeComboBoxModel
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTagDefinition
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionOwnerComboBoxModel
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLTaggedValueModelElementComboBoxModel
+org.argouml.model.mdr.ExtensionMechanismsHelperMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLDataValueListModel
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLStereotypeTagDefinitionListModel
+org.argouml.model.AbstractExtensionMechanismsHelperDecorator
+org.argouml.model.mdr.DataTypesHelperMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue
+org.argouml.uml.reveng.java.Modeller
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.ActionSetTaggedValueType
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.ActionSetTaggedValueModelElement"
+CLASS,argouml-0.22,4049,2006-03-08T11:50:37.000-06:00,,Bug Updating role phrase association diagram update connections pane change role phrase association change connections panel change tabs tabs happen Bug Updating role phrase association diagram update connections pane fig model update node diagram event message text,"org.argouml.uml.ui.foundation.core.UMLAssociationConnectionListModel
+org.argouml.uml.ui.UMLModelElementListModel2"
+CLASS,argouml-0.22,4200,2006-05-11T23:30:25.000-05:00,,Bug Activity diagrams vanish defect stand main Model folder click droped meniu add choose droped meniu add rename release remains unchanged expected expandable diagram tree Bug Activity diagrams vanish fig test set diagram assign nodes delete place,"org.argouml.ui.explorer.PerspectiveManager
+org.argouml.ui.explorer.rules.GoModelElementToBehavior"
+CLASS,argouml-0.22,4281,2006-06-17T13:52:25.000-05:00,,machine statemachine state context deleting bug delete namespace operation owns exists,"org.argouml.model.mdr.CoreFactoryMDRImpl
+org.argouml.kernel.TestProject
+org.argouml.uml.ui.ActionDeleteModelElements"
+CLASS,argouml-0.22,4324,2006-07-08T02:30:22.000-05:00,,Bug Wrong extension saving create project add component save foo save extension save resave project foo uml zargo file alreaedy save chosen extension deduce file Bug Wrong extension saving test file progress model stereotype extension version zip,"org.argouml.persistence.PersistenceManager
+org.argouml.ui.ProjectBrowser
+org.argouml.persistence.TestPersistenceManager"
+METHOD,eclipse-2.0,17707,2002-05-24T10:15:00.000-05:00,,Bug DAV Reselecting location misleading warning choose Deploy project select target site warning error delpoy site ignore deploy project choose deploy target Site warn message Bug DAV Reselecting location misleading warning remote dav exception values set stream resource dialog,"org.eclipse.team.internal.ui.target.ConfigureTargetWizard:setMapping(IWizardContainer, IProject, Site, IPath)"
+METHOD,eclipse-2.0,19686,2002-06-07T16:42:00.000-05:00,,Bug hover stops working mousing file move mouse whitespace Stay secs mouse text java file expect hover Bug hover stops working mousing file control mouse shell event hover set key snippet,org.eclipse.jface.text.TextViewerHoverManager:computeInformation()
+METHOD,eclipse-2.0,19976,2002-06-11T22:25:00.000-05:00,,Bug Dav Choosing add bad site user modify site properties add site bogus url add site Site explorer inform hitting inform error Bug Dav Choosing add bad site user modify site properties property object editor status site set save create,org.eclipse.team.internal.webdav.ui.WebDavConfigurationWizard:performFinish()
+METHOD,eclipse-2.0,23140,2002-09-04T01:34:00.000-05:00,,Bug CVS EXTSSH vulnerable man middle attacks dns poisoning access external cvs repository point ssh server open eclipse choose eclipse browse repository cvs Expected prompt key changed Bug CVS EXTSSH vulnerable man middle attacks dns poisoning parse input contexts connection context rogress table epository,"org.eclipse.team.internal.ccvs.ssh.Client:connect(IProgressMonitor)
+org.eclipse.team.internal.ccvs.ssh.Client:send_SSH_CMSG_SESSION_KEY(byte[], byte[], byte[], byte[], byte[], byte[])
+org.eclipse.team.internal.ccvs.ssh.Client:receive_SSH_SMSG_PUBLIC_KEY(ServerPacket)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,,file unified folder tree unifiedtree bug resources ensure exists operations system resource moment user workspace remove find refresh execute create assume,"org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"
+CLASS,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,,streamingkmeansreducer streaming kmeans nullpointerexception kmeans pointer reducer set bug exception reduce streaming null option getcentroid centroid input time fail happen clone,core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer
+CLASS,jabref-2.6,1503956,2006-06-10T11:18:03.000-05:00,,Bug text icon Options Preferences Entry preview button text usual icon Bug text icon file renderer string icon working print action error,"net.sf.jabref.ExternalTab
+net.sf.jabref.PrefsDialog3
+net.sf.jabref.PrefsDialog2
+net.sf.jabref.PreviewPrefsTab"
+CLASS,jabref-2.6,1709449,2007-04-29T00:03:55.000-05:00,,Bug Clicking DOI context menu fails suggestion icon document list hyperlink DOI user Bug Clicking DOI context menu fails menu test authors mouse set stream type change,"tests.net.sf.jabref.UtilTest
+net.sf.jabref.Util"
+CLASS,jabref-2.6,1711135,2007-05-02T10:16:51.000-05:00,,bibtex bib error space export bug breaks missing contents author concatonation andcontentsoffoobarstring type jabref bar string foo jab contentsoffoobarstring field correct opposed reads,"net.sf.jabref.gui.FileListTableModel
+net.sf.jabref.gui.ImportInspectionDialog.LinkLocalFile
+net.sf.jabref.imports.FieldContentParser
+net.sf.jabref.imports.RisImporter
+net.sf.jabref.external.AutoSetExternalFileForEntries
+net.sf.jabref.gui.FileListEditor
+net.sf.jabref.external.SynchronizeFileField
+net.sf.jabref.imports.EndnoteImporter
+net.sf.jabref.external.SynchronizeFileField.OptionsDialog
+net.sf.jabref.gui.ImportInspectionDialog.AutoSetLinks
+net.sf.jabref.BasePanel
+net.sf.jabref.JabRefFrame"
+CLASS,jabref-2.6,2207462,2008-10-29T14:31:16.000-05:00,,jab jabref bug web window search hidden acm ref library string focus background moves digital expect stay,"net.sf.jabref.imports.ACMPortalFetcher
+net.sf.jabref.imports.ImportInspectionCommandLine
+net.sf.jabref.gui.ImportInspectionDialog"
+CLASS,jabref-2.6,2904968,2009-11-27T13:26:49.000-06:00,,bug entry editor open editor jabref jab entry work beta opens clicking typing,net.sf.jabref.EntryEditor
+CLASS,lucene-4.0,LUCENE-4660,2013-01-04T08:21:54.000-06:00,,threads concurrentmergescheduler scheduler merge bug hysteresis incoming concurrent unexpected stalls count count set max segment maxmergecount resume resuming merge drops supposed wait stall creating,org.apache.lucene.index.ConcurrentMergeScheduler.MergeThread
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,,persistenceunitinfo info unit getclassloader data loader metadatarepository repository bug meta preload persistence loader ignores returned get classnotfoundexpcetions class appliation expcetions code pass loeader context report returning mentioned leades,"org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-2007,2011-05-25T14:51:51.000-05:00,,openjpa fetchplan fetch bug warning query isolation hint plan misleading setting log print set adding,"org.apache.openjpa.persistence.jdbc.JDBCPersistenceProductDerivation
+org.apache.openjpa.conf.TestQueryHints"
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,,escape method bug escapejavascript string java utils script escape uncorrectly stringescapeutils render javascripts codes difference expression script element test document scripts aaa getelementbyid parse including escaped uncorrect alert find,"org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+METHOD,lang,LANG-552,2009-11-09T12:40:57.000-06:00,,bug string documentation stringutils replaceeach utils replace missing each pointer exception methods friendly expected fail,"org.apache.commons.lang3.StringUtils:replaceEach(String, String[], String[], boolean, int)"
+FILE,SWARM,SWARM-863,2016-11-30T14:54:40.000-06:00,,Bug Version doesn properly custom main custom main react custom main single argument feed argument Procrun hold field main handle follow startup clone github project clone mvn start github project start mvn produce uber jar locate uber jar swarm module executable test directory rename file prunsrv exe testing wfs exe rename file prunsrv exe testing wfsw exe rename file prunmgr exe testing wfs exe rename file prunmgr exe testing wfsw exe command testing wfs exe testing wfsw exe configure service start service succesful start http localhost result response service Bug Version doesn properly custom main config file binding bean module socket create wrap,org.wildfly.swarm.container.runtime.ServerBootstrapImpl
+METHOD,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,,Bug condition pushed query FETCH snippet row French Roast result query Bug condition pushed query FETCH test table access join set row opt list,"org.apache.derby.impl.sql.compile.SelectNode:checkNoWindowFunctions(QueryTreeNode, String)"
+METHOD,derby-10.9.1.0,DERBY-6009,2012-12-07T04:15:23.000-06:00,,values checking order bug clause expressions stricter pointer error nullpointerexception exception query column result exception syntax raised,org.apache.derby.impl.sql.compile.OrderByList:getResultSetNumber()
+METHOD,jedit-4.2,2542,2006-05-27T22:49:10.000-05:00,,Bug Pasting Text Current Undoable Edit text area finish existing undoable edit user pastes text type characters undo characters paste text undo typed characters undo typed characters pre undo pasted text undo pasted text pre undo separately Bug Pasting Text Current Undoable Edit event set key action mouse changed update menu,"org.gjt.sp.jedit.Registers:paste(JEditTextArea, char, boolean)"
+METHOD,jedit-4.2,2571,2006-07-17T18:34:33.000-05:00,,Bug number highlighted selected highlight number gutter highlight number sense selection splits accross multiple lines single guess number highlighted Bug number highlighted selected set action buffer mouse highlight key search text,org.gjt.sp.jedit.search.SearchAndReplace:replace(View)
+FILE,eclipse-3.1,100799,2005-06-20T08:40:00.000-05:00,,error view log link bug error errorhandling unable handling create time pass entries jre log plugin message users problem embedded open compile eclipse aware relevant,"org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.part.StatusPart"
+FILE,eclipse-3.1,101434,2005-06-23T09:08:00.000-05:00,,Bug Contexts performance Slow cursor navigation Text fields open Find dialog alternatively open enter text text field press ARROW LEFT hold ARROW LEFT Expected caret move entered text Bug Contexts performance Slow cursor navigation Text fields context proposal adapt key content replacement assist position,"org.eclipse.ui.internal.handlers.HandlerService
+org.eclipse.ui.internal.contexts.ContextService
+org.eclipse.ui.internal.contexts.ContextAuthority
+org.eclipse.ui.internal.handlers.HandlerAuthority"
+FILE,eclipse-3.1,101644,2005-06-24T10:19:00.000-05:00,,Bug Browse plugin editor init actual click Overview click browse button initialzied actual file Bug Browse plugin editor init actual create file editor action attribute open property java,"org.eclipse.pde.internal.ui.editor.plugin.PluginGeneralInfoSection
+org.eclipse.pde.internal.ui.editor.plugin.rows.ClassAttributeRow"
+FILE,eclipse-3.1,106454,2005-08-09T06:45:00.000-05:00,,Bug Unbound linked resource workspace refresh start auto build job create Java project add linked folder location build job triggered resource changed Bug Unbound linked resource workspace refresh start auto build job rule set job element resource refresh java memento,org.eclipse.core.internal.refresh.PollingMonitor
+FILE,eclipse-3.1,106789,2005-08-11T15:57:00.000-05:00,,menu folder selector files bug folder folders radiobutton radio external chooser button selection application java folders file normal add add compare chosen choose correctly,org.eclipse.jdt.internal.debug.ui.actions.AddFolderAction
+FILE,eclipse-3.1,114565,2005-11-01T11:56:00.000-06:00,,Bug Markers Quick computation thread progress warnings type select problems select quick click problems view minimally busy indicator ideally move modal context thread avoid freezing periods Bug Markers Quick computation thread progress set compare marker listener resource change event progress,org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,126938,2006-02-08T12:20:00.000-06:00,,Bug Installed JREs preference file change location JRE install directory create workspace open preference window open view JRE jdk JRE configured argument Bug Installed JREs preference file selection set create node text definitions preference button,org.eclipse.jdt.internal.launching.JREPreferenceModifyListener
+FILE,eclipse-3.1,129834,2006-02-28T14:22:00.000-06:00,,Bug Glitches feature wizard Reload button pushed table viewer Progress monitor needed parsing reloading features location enter location combo box check top checkbox lose location Bug Glitches feature wizard feature action editor set content image plugin menu,"org.eclipse.pde.internal.ui.wizards.imports.FeatureImportWizard
+org.eclipse.pde.internal.ui.PDEUIMessages"
+FILE,eclipse-3.1,142881,2006-05-20T00:02:00.000-05:00,,Bug DEL works editable editor select item Execution environments table select item Overview DEL key editable model Bug DEL works editable editor set plugin activation viewer preference action highlight create,"org.eclipse.pde.internal.ui.editor.plugin.ImportPackageSection
+org.eclipse.pde.internal.ui.editor.plugin.RequiresSection
+org.eclipse.pde.internal.ui.editor.plugin.ExtensionPointsSection
+org.eclipse.pde.internal.ui.editor.plugin.ExportPackageSection"
+FILE,eclipse-3.1,149604,2006-07-04T18:17:00.000-05:00,,Bug Amnesia opening manifest JARd plug plug ins view represent blue icon turn tab turn tab close editor expected behavior editor opens tab Bug Amnesia opening manifest JARd plug set property missing create configuration model schema localized,org.eclipse.pde.internal.ui.editor.PDEFormEditor
+FILE,eclipse-3.1,157944,2006-09-20T01:11:00.000-05:00,,wizard string javaattributewizard attribute bug java shouldn errors empty open passed activator link overview click,org.eclipse.pde.internal.ui.editor.plugin.JavaAttributeWizardPage
+FILE,eclipse-3.1,32553,2003-02-22T10:31:00.000-06:00,,Bug Viewers Closing project remove icon launch couple icon couple workspace couple project couple existing projects close couple projects close projects remain closing click icon result happening result icon cleared project closed Bug Viewers Closing project remove icon set element selection add update tree shell cache,org.eclipse.ui.model.WorkbenchContentProvider
+FILE,eclipse-3.1,76969,2004-10-25T15:49:00.000-05:00,,Bug Preference change propegated open workbench popup menu perspective switcher choose Dock left NOTE respond Bug Preference change propegated preference change editor ant context element completion width,"org.eclipse.help.ui.internal.views.HelpView
+org.eclipse.ui.internal.WorkbenchPreferenceInitializer
+org.eclipse.ui.internal.UIPreferenceInitializer"
+FILE,eclipse-3.1,77703,2004-11-03T12:40:00.000-06:00,,Bug Deselecting Map Entry Key Deselects Map Map Entries turn logical structures Map Entry viewing array Map Entry Bug Deselecting Map Entry Key Deselects Map Map Entries element info entry string java compilation hash compute,"org.eclipse.debug.internal.ui.views.variables.SelectLogicalStructureAction
+org.eclipse.debug.internal.ui.views.variables.AvailableLogicalStructuresAction"
+FILE,eclipse-3.1,78315,2004-11-10T12:53:00.000-06:00,,Bug org eclipes team plugin startup code forces compare loaded compare loaded adapter registered add startup method compareuiplugin breakpoint Bug org eclipes team plugin startup code forces compare loaded synchronize object configuration create set load time point,org.eclipse.team.internal.ui.TeamUIPlugin
+FILE,eclipse-3.1,80058,2004-12-02T15:32:00.000-06:00,,Bug Wizards Create folder blocked avoid locking workspace team CVS update Resource perspective team CVS update large Java project send background create directory Navigation pane project project create folder time Bug Wizards Create folder blocked avoid locking workspace rule create handler node add folder flush child,org.eclipse.ui.dialogs.WizardNewFolderMainPage
+FILE,eclipse-3.1,83541,2005-01-24T10:42:00.000-06:00,,Bug find change special character open Change primitive dialog character array element Change primitive dialog character array element change current change current dialog enable button hand Eclipse accepted worked pressed tabulation dialog Bug find change special character key length preference indent read error find document,org.eclipse.jdt.internal.debug.ui.actions.JavaPrimitiveValueEditor
+FILE,eclipse-3.1,84546,2005-02-07T04:31:00.000-06:00,,Bug Escape empty commit comment commit empty commit comment dialog commit dialog press ESC expect dialog canceled commits Bug Escape empty commit comment set node element reference file comment project error,org.eclipse.team.internal.ccvs.ui.CommitCommentArea
+FILE,eclipse-3.1,84881,2005-02-10T07:19:00.000-06:00,,workspace workbench task launcher bug splash screen focus launcher workbenchlauncher dialog receives alt tab workaround front stay find receive,"org.eclipse.ui.internal.ide.IDEApplication
+org.eclipse.ui.internal.ide.ChooseWorkspaceDialog
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,85277,2005-02-15T10:53:00.000-06:00,,Bug Replace Latest HEAD restore deleted CUs choose replace latest context menu choose replace latest HEAD Expected deleted compilation unit restored HEAD Bug Replace Latest HEAD restore deleted CUs java add update selected action fragment string file,org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,,Bug enum erroneous keyword enum type produces error constructor code expected allowed enum type actual error reported code expected wrong modifier reported type Natural actual error constructor Bug enum erroneous keyword enum type produces error constructor proposal accept create property match type java element,"org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,85452,2005-02-16T11:47:00.000-06:00,,Bug IDE regression Backdrop missing perspectives closed close perspectives backdrop text button explaining open perspective Bug IDE regression Backdrop missing perspectives closed perspective view layout add editor set placeholder workbench,"org.eclipse.jdt.internal.ui.dialogs.PackageSelectionDialog
+org.eclipse.jdt.internal.ui.JavaUIMessages
+org.eclipse.ui.internal.ide.IDEWorkbenchAdvisor
+org.eclipse.ui.internal.ide.IDEWorkbenchWindowAdvisor"
+FILE,eclipse-3.1,85519,2005-02-16T14:10:00.000-06:00,,Bug implementation saveAs existing file fails content replaced original content pkg Test java open pkg Test java open save Test java Test java expected content Test replaced data Test actual editor Test java opened Test java closed unsaved Test java lost lost data Bug implementation saveAs existing file fails content replaced original content document element file content set buffer dialog text,"org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider
+org.eclipse.ui.editors.text.TextFileDocumentProvider"
+FILE,eclipse-3.1,85672,2005-02-17T05:53:00.000-06:00,,Bug projection Unfolding folded region delimiter selects code caret brace region fold region caret unfold type expected caret closing brace actual opening brace selected Bug projection Unfolding folded region delimiter selects projection annotation element text list set create formatting,org.eclipse.jface.text.source.projection.ProjectionViewer
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,,images bug imageloader jpeg save loader image invalid produces test majority jpg files proper expected produced tested,"org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,86268,2005-02-23T10:10:00.000-06:00,,Bug dialog plug ins features tables meet accessibility requirements choose Eclipse platform choose Feature details choose plug details views table problem exists properties cell contents achieved keyboard properties dialog full cell contents read screen reader Bug dialog plug ins features tables meet accessibility requirements set feature plugin add update remove install reference,"org.eclipse.ui.internal.dialogs.AboutPluginsDialog
+org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.dialogs.AboutFeaturesDialog"
+FILE,eclipse-3.1,87683,2005-03-10T13:36:00.000-06:00,,Bug Preferences Preferences hover unshortened text enable text hovers Bug Preferences Preferences hover unshortened text preference formatting set create diff context model ant,org.eclipse.jface.dialogs.DialogMessageArea
+FILE,eclipse-3.1,90714,2005-04-07T16:07:00.000-05:00,,Bug features install wizard empty unsuccessful search overkill simple message dialog presented user Bug features install wizard feature update job install progress open configuration set,"org.eclipse.update.internal.ui.wizards.InstallWizardOperation
+org.eclipse.update.internal.ui.wizards.ReviewPage"
+FILE,eclipse-3.1,90935,2005-04-10T14:03:00.000-05:00,,Bug Feature details dialog resize strange open feature details dialog notice feature details dialog grey area eliminated completely Failing resize Bug Feature details dialog resize strange check dialog set verification file table parent install,org.eclipse.ui.internal.dialogs.AboutFeaturesDialog
+FILE,eclipse-3.1,92063,2005-04-20T09:30:00.000-05:00,,Bug Editor closed replacing file HEAD contents select unit explorer unit explorer replace HEAD action Expectation editor refreshed Bug Editor closed replacing file HEAD contents type file tag buffer stream lock array save,org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,93119,2005-04-28T10:10:00.000-05:00,,Bug code assist proposals wildcard types code expected proposals actual dozens type proposals proposed template proposals jdt core problem expected proposed Bug code assist proposals wildcard types type variable assist field context completion proposal assign,org.eclipse.jdt.internal.codeassist.complete.CompletionParser
+FILE,eclipse-3.1,93584,2005-05-03T15:23:00.000-05:00,,Bug Fetching Revisions Revision Compare thread perform Sticky revision Compare revisions editor perform fetch thread modal context Bug Fetching Revisions Revision Compare thread remote file folder info resource tag epository add,org.eclipse.team.internal.ccvs.ui.CVSCompareRevisionsInput
+FILE,eclipse-3.1,94852,2005-05-11T17:17:00.000-05:00,,viewmgmt space mgmt menu view bug view regression button typing activate triangle tab bit consistency reader focus work accessibility type explorer screen keyboard drop pointing raised key expected,org.eclipse.ui.internal.presentations.defaultpresentation.DefaultTabFolder
+FILE,eclipse-3.1,94879,2005-05-11T22:13:00.000-05:00,,esc dialog properties preferences bug properties propertiesdialog dialog preferences dismiss field navigator file backspace filter clear intercepting select selected allowing choose clears dismissing,org.eclipse.ui.internal.dialogs.FilteredComboTree
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,,Bug content assist Content assist popup disappears completing statically imported method java lang Math constraining proposals members prefix popup closes Bug content assist Content assist popup disappears completing statically imported method content viewer text assist verify java widget display,"org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,,presentations view bug standalone regression title border layout buttons min browser max showtitle perspective view change addstandaloneview history view browserapp addview app title browser factory browserperspectivefactory views regular add,"org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,97018,2005-05-27T11:47:00.000-05:00,,Bug PDE generates strict access restrictions update manager observe install plug manifest file install plug manifest file plugin xml file export entries export plugin xml file liner manifest file legal setup PDE honor access restrictions plugin xml file generate forbidden rule Bug PDE generates strict access restrictions bundle set constraint path ava impl accept projects,"org.eclipse.pde.internal.core.MinimalState
+org.eclipse.pde.internal.core.ClasspathUtilCore"
+FILE,eclipse-3.1,97085,2005-05-27T17:10:00.000-05:00,,Bug code assist shouldn propose type Java file propose plain subpackages java lang java lang Bug code assist shouldn propose selection type viewer completion proposal ruler assist text,org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,97363,2005-05-30T17:14:00.000-05:00,,Bug Export deployable plug ins JARs load CVS pick dest dir export unjar plugin directories plug ins individual JAR archives unchecked Bug Export deployable plug ins JARs plugin set add model manifest content site path,org.eclipse.pde.internal.core.util.CoreUtility
+FILE,eclipse-3.1,97722,2005-05-31T16:41:00.000-05:00,,Bug Pref Ant Runtime Tasks Add Task dialog problems text location combo left aligned Bug Pref Ant Runtime Tasks Add Task dialog problems set task version ant runtime layout working map,org.eclipse.ant.internal.ui.preferences.AddCustomDialog
+FILE,eclipse-3.1,97726,2005-05-31T16:47:00.000-05:00,,Bug Carat location updated user types Console carat location updated user enters text console Bug Carat location updated user types Console console create partition set ant buffer document stream,org.eclipse.ui.internal.console.IOConsoleViewer
+FILE,eclipse-3.1,97792,2005-06-01T02:39:00.000-05:00,,Bug Misleading message error log view optional plugins optional plugin optional Bug Misleading message error log view optional plugins feature plugin image location site update enabled status,org.eclipse.pde.internal.core.MinimalState
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,,children container project bug refresh open attempts api workspace code java gesture projects user load disk loops infinite simple needed create existing perform performing,"org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,99235,2005-06-09T14:51:00.000-05:00,,Bug Fully qualified paths antfile attribute open file Ctrl clicking antfile attribute open external antBuildfile xml Bug Fully qualified paths antfile attribute open file source ava element resource projects aunch rogress copy,"org.eclipse.ant.internal.ui.model.AntAntNode
+org.eclipse.ant.internal.ui.editor.AntEditor"
+CLASS,openjpa-2.2.0,OPENJPA-2163,2012-03-27T15:56:55.000-05:00,,bug lifecycle callback event expect occurs manager factory scenario entitymanagerfactory entity listener life cycle behavior instance events expected initialize create registered uncover called,"openjpa-kernel.src.main.java.org.apache.openjpa.conf.OpenJPAConfigurationImpl
+openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.validation.TestValidationMode"
+METHOD,atunes-1.10.0,213,2008-09-14T08:05:44.000-05:00,,Bug supported formats skipped Xine copy files repository copy files rename supported extension set Xine engine play fake files Expected behaviour aTunes skip song Bug supported formats skipped Xine set check player repository drag files drop playback,"net.sourceforge.atunes.kernel.modules.player.xine.XineHandler:startPlayback(AudioObject, AudioObject)"
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,,shard ranges bug router collection implicit creating adds solrcloud wiki cloud collections solr,solr.core.src.java.org.apache.solr.cloud.Overseer
+METHOD,mahout-0.4,MAHOUT-625,2011-03-11T09:24:20.000-06:00,,Bug generated patterns support higher reality Test data retail http fimi data pattern occurs transactions times calculated test FPGrowth returns pattern support fail unit test test data maven project Bug generated patterns support higher reality output pattern reverse string patterns heap max data,"org.apache.mahout.fpm.pfpgrowth.fpgrowth.FPGrowth:pruneFPTree(MutableLong, FPTree)"
+FILE,AMQP,AMQP-290,2013-01-04T02:26:52.000-06:00,,map bug bug queue rabbit namespace queueargumentsmap reference arguments pass queues broker documentation xsd component bean declared work,"org.springframework.amqp.rabbit.config.AbstractExchangeParser
+org.springframework.amqp.rabbit.config.QueueParser
+org.springframework.amqp.rabbit.config.ExchangeParserTests
+org.springframework.amqp.rabbit.config.QueueParserTests"
+FILE,AMQP,AMQP-340,2013-11-18T09:41:01.000-06:00,,rabbit rabbitmq bug listener container simplemessagelistenercontainer error simple message credentials fatal wrong considered inbound reason adapter loop rabbit client amqpinboundchanneladapter amqp notification consumer channel exception endless real nice wrong comprehensive,"org.springframework.amqp.rabbit.listener.BlockingQueueConsumer
+org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests
+org.springframework.amqp.rabbit.support.RabbitExceptionTranslator"
+FILE,AMQP,AMQP-516,2015-08-06T01:25:34.000-05:00,,Bug Setting autoDelete exclusive including Queue queue disabled result queue declare exclusive set Making exclusive auto delete random good idea changed Bug Setting autoDelete exclusive including Queue queue disabled set queue test exchange message declaration rabbit binding,"org.springframework.amqp.rabbit.annotation.EnableRabbitIntegrationTests
+org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor"
+METHOD,commons-math-3-3.0,MATH-779,2012-04-11T10:28:35.000-05:00,,list population listpopulation iterator population bug chromosomes remove iterator wrap list method call unmodifiable returning,org.apache.commons.math3.genetics.ListPopulation:iterator()
+FILE,DATACMNS,DATACMNS-114,2011-12-19T03:21:41.000-06:00,,bug custom implementation wrong detected automatically getimplementationclassname application anothercontractrepositoryimpl anothercontractrepositorycustom contract anothercontractrepositoryimpl contractrepositoryimpl contract context contractrepositorycustom suffix custom type contractrepository anothercontractrepository contractrepository bean contractrepositoryimpl impl entity repository prefix implementation repositories,org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser
+FILE,DATACMNS,DATACMNS-228,2012-09-10T02:05:09.000-05:00,,Bug Mapping system exclude Groovy introduced properties persistent properties Groovy classes mapping metadata system Groovy compiler introduced fields metaClass considered persistent property Bug Mapping system exclude Groovy introduced properties persistent properties property persistent type path association create base correct,"org.springframework.data.mapping.context.AbstractMappingContext
+org.springframework.data.mapping.context.AbstractMappingContextUnitTests"
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,,sources domainclassconverter bug converter domain strings empty gracefully class reference manytoone post domain customer order imagine convert,"org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-3024,2007-08-23T05:24:31.000-05:00,,scalability plans bug validation hurts shared machine test prepared clients statement throughput increase preparedstatement cpu sql threads layer blocks genericpreparedstatement base uptodate validity append baseactivation object check time plan profiler,"java.engine.org.apache.derby.impl.store.access.heap.HeapConglomerateFactory
+java.engine.org.apache.derby.impl.store.raw.data.FileContainer
+java.engine.org.apache.derby.impl.store.raw.data.RAFContainer
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.DBInJarTest
+java.engine.org.apache.derby.impl.store.raw.data.TempRAFContainer
+java.engine.org.apache.derby.impl.store.raw.data.InputStreamContainer
+java.engine.org.apache.derby.impl.store.access.btree.index.B2IFactory"
+CLASS,derby-10.9.1.0,DERBY-5851,2012-07-08T12:28:49.000-05:00,,logicalpreparedstatement statement logical prepared code bug coverage inconsistent tests apache statements test tests org cpdecorator preparedstatementtest derby connection derbytesting connectioncpdecorator test functiontests preparedstatement method jdbc function testing calls,java.testing.org.apache.derbyTesting.functionTests.tests.jdbc4.PreparedStatementTest
+CLASS,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,,Bug condition pushed query FETCH snippet row French Roast result query Bug condition pushed query FETCH test table access join set row opt list,"java.engine.org.apache.derby.impl.sql.compile.ProjectRestrictNode
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.OrderByAndOffsetFetchInSubqueries
+java.engine.org.apache.derby.impl.sql.compile.SelectNode"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,,statement isolation transaction set client connection bug settransactionisolation prepared regular garbage parameter collection marker performance issues calls single repeated avoid,java.client.org.apache.derby.client.am.Connection
+METHOD,time,88,2013-11-25T19:15:46.000-06:00,,Bug Constructing invalid Partials work cases suppose Partials constructed Bug Constructing invalid Partials append parse period field standard day text readable,"org.joda.time.Partial:with(DateTimeFieldType, int)"
+METHOD,time,28,2013-05-31T00:52:24.000-05:00,,Bug Questionable behaviour GJChronology dates pass expect test thought job framework skip existent year Bug Questionable behaviour GJChronology dates pass test time year millis day add field local,"org.joda.time.chrono.GJChronology:getInstance(DateTimeZone, ReadableInstant, int)
+org.joda.time.chrono.GJChronology:add(long, long)
+org.joda.time.chrono.GJChronology:add(long, int)"
+FILE,COMPRESS,COMPRESS-273,2014-04-11T04:13:32.000-05:00,,entries bug exception creation pointer nullpointerexception fields scratch null documentation constructors couple issue test instance cases number usable set,"org.apache.commons.compress.archivers.zip.AbstractUnicodeExtraField
+org.apache.commons.compress.archivers.cpio.CpioArchiveEntry
+org.apache.commons.compress.archivers.zip.ExtraFieldUtils
+org.apache.commons.compress.archivers.zip.UnrecognizedExtraField"
+FILE,ENTESB,ENTESB-3099,2015-04-27T11:35:23.000-05:00,,Bug Quickstarts build warnings work fabric camel log instructions README fail wilth error Bug Quickstarts build warnings work fabric test transaction names command file sap destination symbolic,org.jboss.quickstarts.fuse.processor.BodyInAggregatingStrategy
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,,table patch selection bug table grid space cursor lines empty clicking separated result matter user set snippet lines follow click changed clicks setlinesvisible visible closely,org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,104545,2005-07-20T14:21:00.000-05:00,,Bug size empty composites smaller constants Widget java changed smaller equal work write RCP app enable cool bar pixel size Bug size empty composites smaller set selection create item layout data image child,org.eclipse.swt.widgets.CoolBar
+FILE,swt-3.1,77948,2004-11-05T09:53:00.000-06:00,,findmnemonic bug clabel exception pointer nullpointerexception mnemonic find keyboard null buttons projects navigation exception files investiage simple responsible disabling existing create,org.eclipse.swt.custom.CLabel
+FILE,swt-3.1,83262,2005-01-19T17:41:00.000-06:00,,rxvt terminator bug pastes strings styledtext mouse clipboard protocol string window field length button middle terminating text styled,"org.eclipse.swt.dnd.RTFTransfer
+org.eclipse.swt.dnd.TextTransfer"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,,images bug imageloader jpeg save loader image invalid produces test majority jpg files proper expected produced tested,org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,87460,2005-03-08T21:22:00.000-06:00,,styledtext bug style location caret text styled updated caret text change width listener screen set adjusted bold font offset rendered expected,org.eclipse.swt.custom.StyledText
+FILE,swt-3.1,88717,2005-03-22T04:34:00.000-06:00,,Bug DND Tree scrolling slow dragging Item Bottom create Tree items implement DND support expand items draggin item bottom thought DND FEEDBACK SCROLL enables automatic scrolling user drags Item bottom Bug DND Tree scrolling slow dragging Item Bottom set scroll selection child widget dest item drag,"org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.dnd.TableDragUnderEffect"
+FILE,swt-3.1,88829,2005-03-22T20:41:00.000-06:00,,setcolumnorder bug fire table order column events move set width columns column auto shifted displayed changed fired start,org.eclipse.swt.widgets.Table
+FILE,swt-3.1,94598,2005-05-11T00:01:00.000-05:00,,Bug DBCS Eclipse hangs activate IIMF input search scope search topics dialog pop CTRL SPACE key input active IIMF input method Expected Result IIMF input working properly inputing key DBCS characters Bug DBCS Eclipse hangs activate IIMF input search scope set window event text selection visible key widget,"org.eclipse.swt.browser.Browser
+org.eclipse.swt.widgets.Composite"
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,,tree mark insert cheese bug note child item collapse press tree button root snippet tips redraw left belongs,"org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+FILE,CONFIGURATION,CONFIGURATION-481,2012-02-26T20:27:46.000-06:00,,Bug Variable interpolation files broken declare variable properties file reference XML file syntax retrieve myvar product abc product Bug Variable interpolation files broken test node set interpolation property configuration lookup add,"org.apache.commons.configuration.DefaultConfigurationBuilder
+org.apache.commons.configuration.interpol.ConfigurationInterpolator
+org.apache.commons.configuration.TestDefaultConfigurationBuilder"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,,Bug materialized blobs Postgresql error entity property annotated entity Lob lazy fetch type read OID bytes read OID oid type oid read column application proper behavior dealing PostgreSQL behavior Hibernate oids Bug materialized blobs Postgresql error set test blob factory dialect proxy primitive major,"org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,,sql bug element order column elementjoincolumn join orderby embeddedid columns wrong embedded idea transacionid transacion transaction entity order fragment mbranch problem mamount generated mapped expected chose,"org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+CLASS,pig-0.8.0,PIG-1785,2011-01-04T17:20:28.000-06:00,,Bug logical plan uid conflict flattened fields produce wrong result Expected result Bug logical plan uid conflict flattened fields plan uid field schema flatten set column alias,"src.org.apache.pig.newplan.logical.rules.ImplicitSplitInserter
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+src.org.apache.pig.newplan.optimizer.PlanOptimizer
+src.org.apache.pig.newplan.optimizer.Rule"
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,,Bug logical plan push filter front Bincond produce wrong result Expected badsite Bug logical plan push filter front Bincond filter expression plan rule add required logical cond,"test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+CLASS,pig-0.8.0,PIG-730,2009-03-24T14:36:45.000-05:00,,Bug problem combining schema union LOAD expressions nested bag schema expect work works outlinks target works outlinks target works don care syntax work Bug problem combining schema union LOAD expressions nested bag schema schema test doubles alias nested func flatten list,"src.org.apache.pig.impl.logicalLayer.schema.Schema
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+METHOD,math,MATH-221,2008-08-29T13:31:56.000-05:00,,Bug Result multiplying equals complex numbers wrong bug java program output equals Bug Result multiplying equals complex numbers wrong test parse row column matrix function array number,org.apache.commons.math.complex.Complex:equals(Object)
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,,Bug ODE integrator integration range test event handled properly integration cover range fact covers range range Bug ODE integrator integration range integrator step function dense runge test kutta normalizer,"org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,,hypergeometricdistribution overflow hypergeometric bug integer distribution sample suffers values method work doesn returns large code,org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-274,2009-06-04T19:24:12.000-05:00,,choleskydecomposition matrix decomposition bug testing cholesky definite positive symmetric conditions methods possibility force test exception exceptions provide prior,"org.apache.commons.math.linear.CholeskyDecompositionImpl:CholeskyDecompositionImpl(RealMatrix, double, double)"
+FILE,WFCORE,WFCORE-229,2014-11-07T15:20:11.000-06:00,,Bug server config operations leaks server resources start regular domain operations server children names server config operations start restart kill executed rejected actual resources operation address define Bug server config operations leaks server resources server test operation resource property remove domain prop,"org.jboss.as.domain.controller.operations.AbstractOperationTestCase
+org.jboss.as.controller.registry.ConcreteResourceRegistration
+org.jboss.as.controller.registry.DelegatingManagementResourceRegistration
+org.jboss.as.controller.registry.AbstractResourceRegistration
+org.jboss.as.controller.registry.DelegatingImmutableManagementResourceRegistration
+org.jboss.as.controller.registry.ProxyControllerRegistration
+org.jboss.as.controller.registry.ImmutableManagementResourceRegistration
+org.jboss.as.subsystem.test.SubsystemTestDelegate
+org.jboss.as.controller.registry.AliasResourceRegistration
+org.jboss.as.controller.extension.ExtensionRegistry
+org.jboss.as.controller.registry.NodeSubregistry"
+FILE,WFCORE,WFCORE-604,2015-03-18T09:19:35.000-05:00,,Bug failed deploy remain deployment JBOSS standalone domaine data content directory deployment deploy success deploy find deployment info deployment info deployment created deploy failed removed deploy failed Bug failed deploy remain deployment JBOSS standalone domaine data content directory deployment action stream deploy shutdown server content file,"org.jboss.as.host.controller.mgmt.MasterDomainControllerOperationHandlerImpl
+org.jboss.as.server.controller.resources.ServerRootResourceDefinition
+org.jboss.as.host.controller.ManagedServerOperationsFactory
+org.jboss.as.host.controller.DomainModelControllerService
+org.jboss.as.host.controller.RemoteDomainConnectionService
+org.jboss.as.test.shared.ModelParserUtils
+org.jboss.as.server.deployment.DeploymentAddHandler
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentAddHandler
+org.jboss.as.server.logging.ServerLogger
+org.jboss.as.server.deployment.DeploymentRemoveHandler
+org.jboss.as.domain.controller.resources.ServerGroupResourceDefinition
+org.jboss.as.repository.LocalDeploymentFileRepository
+org.jboss.as.domain.controller.operations.ApplyRemoteMasterDomainModelHandler
+org.jboss.as.server.deployment.DeploymentReplaceHandler
+org.jboss.as.domain.controller.resources.DomainRootDefinition
+org.jboss.as.server.deploymentoverlay.DeploymentOverlayContentDefinition
+org.jboss.as.repository.logging.DeploymentRepositoryLogger
+org.jboss.as.domain.controller.operations.deployment.DeploymentFullReplaceHandler
+org.jboss.as.core.model.test.LegacyKernelServicesImpl
+org.jboss.as.subsystem.test.TestModelControllerService
+org.jboss.as.host.controller.HostControllerService
+org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.core.model.test.TestModelControllerService
+org.jboss.as.server.mgmt.domain.RemoteFileRepositoryService
+org.jboss.as.server.deploymentoverlay.DeploymentOverlayContentAdd
+org.jboss.as.server.ApplicationServerService
+org.jboss.as.repository.LocalFileRepository
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentRemoveHandler
+org.jboss.as.management.client.content.ManagedDMRContentTypeAddHandler
+org.jboss.as.server.test.InterfaceManagementUnitTestCase
+org.jboss.as.host.controller.model.host.HostResourceDefinition
+org.jboss.as.server.deployment.DeploymentAddHandlerTestCase
+org.jboss.as.repository.DeploymentFileRepository
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentReplaceHandler
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.domain.controller.operations.deployment.DeploymentRemoveHandler
+org.jboss.as.management.client.content.ManagedDMRContentTypeResource
+org.jboss.as.host.controller.mgmt.ServerToHostProtocolHandler
+org.jboss.as.server.deployment.DeploymentFullReplaceHandler"
+FILE,WFCORE,WFCORE-626,2015-04-06T15:53:19.000-05:00,,Bug Global list operation inadvertently create list elements sequence operations expected result test Bug Global list operation inadvertently create list elements bean element address pool attribute string style memory,"org.jboss.as.controller.operations.global.ListOperations
+org.jboss.as.controller.operations.global.MapOperations"
+FILE,WFCORE,WFCORE-763,2015-06-16T14:59:39.000-05:00,,list empty bug illegalargumentexception illegal argument string exception read persisting xml parser marshaller persist,"org.jboss.as.controller.AttributeParser
+org.jboss.as.controller.SimpleListAttributeDefinitionUnitTestCase"
+FILE,WFCORE,WFCORE-754,2015-06-02T11:17:26.000-05:00,,Bug EAP fails start bmanagement option specific settings ipv address option errors Bug EAP fails start bmanagement option specific settings test syslog handler add server file log auditlog,org.jboss.as.host.controller.ServerInventoryService
+FILE,WFCORE,WFCORE-1657,2016-07-15T11:51:17.000-05:00,,Bug Confusing tab completion adding module dependencies tab completion adding add module invalid module xml CLI prompt user module system layers base prefix add command tab completion dependencies correct module org jboss controller Bug Confusing tab completion adding module dependencies module command tab service create handler dependencies attribute,org.jboss.as.cli.handlers.module.ASModuleHandler
+FILE,WFCORE,WFCORE-815,2015-07-13T07:57:45.000-05:00,,Bug profile ancestors submodules fresh EAP errors Bug profile ancestors submodules bean slave write requires domain attribute profile node,"org.jboss.as.domain.controller.operations.ProfileIncludesHandlerTestCase
+org.jboss.as.domain.controller.operations.SocketBindingGroupIncludesHandlerTestCase
+org.jboss.as.host.controller.logging.HostControllerLogger"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,,Bug Warnings missing notification descriptions operation removes extension migration operation fill console log warning messages sequence operation migration operation warnings Bug Warnings missing notification descriptions operation removes extension model module operation resource subsystem register child extension,"org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,,Bug Inconsistent read resource host scoped roles set host scop roles follow https gist github heiko braun defd master monitor behave slave maintainer Bug Inconsistent read resource host scoped roles role runtime host update authorizer node roles map,"org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1062,2015-10-20T09:33:46.000-05:00,,host data folder domain content controller minutes backup bug option deployments missing started controller cli application hostcontroller deployment console deplpyments admin cached removed restart restore wait restarting deploy expected,"org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.controller.persistence.FilePersistenceUtils
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.server.deployment.ContentCleanerService"
+FILE,WFCORE,WFCORE-1572,2016-05-27T16:20:10.000-05:00,,Bug Suggestion list argument generated whitespace space war server groups headers rollout foo user hits tab whitespace suggestions generated based command current argument Bug Suggestion list argument generated whitespace suggestion argument list command separator tab level test,"org.jboss.as.cli.parsing.DefaultStateWithEndCharacter
+org.jboss.as.cli.parsing.ParserUtil
+org.jboss.as.cli.parsing.test.CommandTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,,Bug Saved rollout plan attribute discrepancy rollout plans EAP deployment scenarios create named rollout plan ease apply rollout command refer command command minor issue attributes aforementioned commands unified preferably user confused Bug Saved rollout plan attribute discrepancy test group header resource argument server content rollout,"org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,,Bug check names existing resources adding local remote destination outbound socket binding existing socket binding resource parse configuration create socket binding resource perform socket binding resource problem resources names names checked add operation resources socket binding remote local destination outbound socket binding Bug check names existing resources adding local remote destination outbound socket binding binding destination socket source resource includes children missing,"org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1756,2016-08-31T14:23:41.000-05:00,,Bug Adding content exploded deployment overwrite fail file exists overwrite set adding file fail Bug Adding content exploded deployment overwrite fail file exists deployment content test file exploded managed add deploy,"org.jboss.as.repository.ContentRepositoryTest
+org.jboss.as.repository.ContentRepositoryImpl"
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,,Bug Whitespaces removed dependencies module add command module add running result dependencies module dependencies stripped leading trailing whitespaces Bug Whitespaces removed dependencies module add command module list group separator prop concurrent sign identifier,"org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,,Bug Tab completion writing attribute access type metric writable write metric attribute message count print writable error attempt CLI writing attributes writable Bug Tab completion writing attribute access type metric writable attribute operation handler command update queue node thread,"org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1936,2016-11-04T10:57:06.000-05:00,,Bug parameters restart required fixed port attributes match reality socket binding destination outbound socket binding CLI fixed port attribute socket binding fixed source port attributes destination outbound socket binding define description reload restart change attributes Bug parameters restart required fixed port attributes match reality socket binding destination outbound socket binding CLI binding resource destination register port handler outbound write,"org.jboss.as.server.services.net.OutboundSocketBindingResourceDefinition
+org.jboss.as.controller.resource.AbstractSocketBindingResourceDefinition"
+CLASS,jedit-4.3,1536064,2006-08-07T15:14:23.000-05:00,,Bug focus filesystembrowser filenamefield open file Ctrl focus filesystembrowser Commands menu filename field Bug focus filesystembrowser filenamefield action set key file event update indent focus,org.gjt.sp.jedit.GUIUtilities
+CLASS,jedit-4.3,1538743,2006-08-11T14:34:44.000-05:00,,category tool toolbar editing bar bug remembered actions adding toolbar,org.gjt.sp.jedit.options.ToolBarEditDialog
+CLASS,jedit-4.3,1866836,2008-01-08T14:05:42.000-06:00,,Bug completion column cursor typing column cursor completion popup cursor column cursor Bug completion column cursor event column file key mouse create expanded change,"org.gjt.sp.jedit.gui.CompleteWord.Words
+org.gjt.sp.jedit.gui.CompleteWord"
+CLASS,jedit-4.3,1942313,2008-04-14T18:08:29.000-05:00,,Bug Expanding fold moves caret unexpectedly create file save test cpp move caret hij expand fold enter time bug caret stay jEdit print error message Bug Expanding fold moves caret unexpectedly set buffer mouse fold area highlight popup selection,org.gjt.sp.jedit.textarea.DisplayManager
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,,Bug Unnecesarry fold expantion folded lines edited fold buffer remove expand folds fold level changed Bug Unnecesarry fold expantion folded lines edited fold mode update content action option whitespace buffer,"org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,jedit-4.3,2218621,2008-11-03T10:05:46.000-06:00,,buffer filebrowser browser file directory bug current dropdown directory path search work type press inconsistency menu points commands path dialog field changing enter small empty appended replace choose,org.gjt.sp.jedit.MiscUtilities
+CLASS,jedit-4.3,2781716,2009-04-26T16:42:52.000-05:00,,Bug numbers Hypersearch wrongly highlighted hypersearch number shouldn highlighted Bug numbers Hypersearch wrongly highlighted set buffer mouse highlight create area rule fold,org.gjt.sp.jedit.search.HyperSearchResults.HighlightingTree
+CLASS,jedit-4.3,950961,2004-05-09T21:37:09.000-05:00,,Bug Folding handling newlines start closed folds explicit folding place caret brace press caret brace result enter text placing enter text pressing display contents fold close fold open display expected text text entered Folding Test text place caret braces start fold folded braces fold folded press fold explict folding Bug Folding handling newlines start closed folds white buffer set paint action virtual expand string,"org.gjt.sp.jedit.buffer.JEditBuffer
+org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.buffer.BufferChangeListener.Adapter
+org.gjt.sp.jedit.buffer.BufferAdapter
+org.gjt.sp.jedit.textarea.RangeMap"

@@ -1,0 +1,1021 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,,"Assume you have the following scenario:
+We need to unwrap the elements and convert them into DBRef instances one by one.","org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,,"I'm using quite complex domain model, that consist of instantiable domain classes as well as of abstract ones.
+The second point is that there should be a way to persist the type information inferred from runtime along the persisted object and not just the class definition.","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,,"I created a method using the ""query by method name"" approach:
+Inside my Answer object, I have a field called ""Score"" that is annotated with
+When the query is run, the database attempts to sort the results by ""score"" rather than my ""sr"" field name.",org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-987,2014-07-14T12:01:52.000-05:00,Problem with lazy loading in @DBRef when getting data using MongoTemplate,"The situation is simple: if we reference on an entity class another entity (both annotated with @Document) called Parent and Child.
+Here is the code:
+The following situation should never happen:
+mongoTemplate.save(parent); //ok, it is persisted like we expected.
+// Than we try to load this same entity from the database
+// The child attribute should be null, right?","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.DbRefMappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-1078,2014-10-28T02:23:26.000-05:00,,"Therefore annotated queries like:
+So we need to check for the presence of typeKey when converting id properties.","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,,"Following method on repository
+Query should be without _class property e.g.:
+I attached test project demonstrating this bug.","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,,"I have the following query:
+I expect 1000 ""matching"" documents But i only get 100.",org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,,"I've been trying to use the In-keyword with identifiers and making the query pageable.
+Also when you try to get any other page than 0, no results return.
+Below is a strip down example I used for testing;
+I've created 3 types and 10 items per those types, results in a total of 30 items.
+// expect 5 Items returned, total of 10 Items(SWORDS) in 2 Pages
+// expect 5 Items returned, total of 30 Items in 6 Pages","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1232,2015-06-03T10:27:23.000-05:00,IgnoreCase should escape queries,"In my case, I'm trying to perform a case-insensitive find on an e-mail address with the + sign, a legal character, but the regex interprets this as 1.
+The query generator needs to properly escape regex-special characters.","org.springframework.data.mongodb.repository.query.MongoQueryCreator
+org.springframework.data.mongodb.repository.query.MongoQueryCreatorUnitTests"
+FILE,DATAMONGO,DATAMONGO-1236,2015-06-08T11:17:11.000-05:00,,"When a map of type LinkedHashMap<String, Object>  is updated via MongoOperations findAndModify or updateFirst, the _class field is not saved for the map values.
+Therefore, later reads of the data do not convert the value to the correct type, instead leaving it as LinkedHashMap.
+Please see attached maven project for test illustrating the problem.","org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.UpdateMapper"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,,"Given:
+When defining a class Catalog with a list of ""wrapped"" books:
+Spring Data MongoDB should be able to infer type information from the list declaration ( List<ProductWrapper<Book>> ), becoming aware that Catalog contains a list of Books, hence indexes defined on Book should be created.","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1290,2015-09-17T15:30:23.000-05:00,,"In a repository, these finders should be equivalent:
+Please find an example project with test attached!","org.springframework.data.mongodb.repository.query.StringBasedMongoQuery
+org.springframework.data.mongodb.repository.query.StringBasedMongoQueryUnitTests"
+FILE,DATAMONGO,DATAMONGO-1289,2015-09-17T11:43:51.000-05:00,"NullPointerException when saving an object with no ""id"" field or @Id annotation","If no field or property specified above is present in the Java class then an implicit '_id' file will be generated by the driver but not mapped to a property or field of the Java class.
+Instead of this, I'm seeing a NullPointerException when attempting to save an object that doesn't have an ""id"" field or an @Id annotated field.","org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation"
+FILE,DATAMONGO,DATAMONGO-1406,2016-04-04T18:59:49.000-05:00,,"we have a document class;
+In MongoTemplate.java, the call to :
+The query submitted to mongo after getMappedObject is called:
+Note: The query input to getMappedObject is:
+The correct query from getMappedObject should be:","org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+CLASS,derby-10.7.1.1,DERBY-4684,2010-06-01T10:46:19.000-05:00,,"Derby should support the Standard rules.
+The following query shows how you can implicitly cast a non-BOOLEAN data type to BOOLEAN today:","org.apache.derby.iapi.types.SQLBoolean
+org.apache.derby.impl.sql.compile.BooleanTypeCompiler"
+CLASS,pig-0.11.1,PIG-2767,2012-06-25T09:11:20.000-05:00,,"The following script fails:
+The schema of ""dereferenced"" should be {f1: int, nested_tuple: (f2: int,
+f3: int)}.","src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+test.org.apache.pig.test.TestPigServer"
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,,"While using TOP, and if the DataBag contains null value to compare, it will generate the following exception:
+So we need to judge the field1 whether is null.","src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+CLASS,pig-0.11.1,PIG-3310,2013-05-03T02:59:57.000-05:00,,"Consider the following example
+On input data:
+{code}
+1       1001    101
+1       1002    103
+1       1003    102
+1       1004    102
+2       1005    101
+2       1003    101
+2       1002    123
+3       1042    101
+3       1005    101
+3       1002    133
+{code}
+The second column should be a member id so (1,2,3,4,5).",src.org.apache.pig.newplan.logical.relational.LOSplitOutput
+CLASS,pig-0.11.1,PIG-3424,2013-08-15T09:56:20.000-05:00,Package import list should consider class name as is first even if -Dudf.import.list is passed,"Currently if -Dudf.import.list is passed it adds them to the beginning of the list and """" (class name as is) which is defined by default always is pushed to end of list.","test.org.apache.pig.test.TestPigContext
+src.org.apache.pig.impl.PigContext"
+CLASS,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,StreamingKMeansReducer throws NullPointerException when REDUCE_STREAMING_KMEANS is set to true,"when REDUCE_STREAMING_KMEANS option is set to true (-rskm) the reducer fails with NullPointerException.
+it should be input.getCentroid().
+clone();
+it happens every time the REDUCE_STREAMING_KMEANS is set to true.",core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1619,2013-01-11T09:57:16.000-06:00,Allow spaces in URL,"This format will work.
+This format will not (notice the spaces around the comma)
+Please add a trim to both the port and the hostname parsing.",src.java.main.org.apache.zookeeper.client.ConnectStringParser
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,ZooKeeper Server fails if snapCount is set to 1,"If snapCount is set to 1, ZooKeeper Server can start but it fails with the below error:
+In source code,  it maybe be supposed that snapCount must be 2 or more:",src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,argouml-0.22,1671,2003-02-26T02:12:06.000-06:00,,"1 start argouml 0.13.2
+2 create a class and name it 'A'
+3 create an attr 'newAttr' by doubleclicking in the attr compartment
+4 create an oper by doubleclicking in the attr compartment
+5 save project as 'test.zargo'
+6 make a copy of test.zargo
+7 make new project (important!)
+8 open test.zargo
+9 save
+Theoretically, the two .
+zargo files should be identically since there
+were made no changes.","org.argouml.kernel.Project
+org.argouml.kernel.TestProject"
+CLASS,argouml-0.22,2618,2004-05-21T11:07:40.000-05:00,,"When I first create an association I see + and +, one for each role.
+If I double click on a ""+"" and type in a role name ""foo"", I now see ""++foo"", and the role name property is recorded as ""+foo"".
+To fix, the parsing of the in-diagram user-entered text must process and strip off any visibility characters (+, -, #).","org.argouml.uml.notation.uml.NotationUtilityUml
+org.argouml.uml.diagram.ui.FigAssociation
+org.argouml.uml.notation.uml.InitNotationUml
+org.argouml.uml.notation.AssociationRoleNotation
+org.argouml.uml.notation.uml.AssociationRoleNotationUml"
+CLASS,argouml-0.22,3100,2005-02-22T00:28:44.000-06:00,,"After adding a new package, the package is shown in the explorer with a funny 
+name: ""(anon Package)"" or ""(anon Class)"".
+Why not write the 
+whole string, there's plenty of room.","org.argouml.uml.ui.UMLListCellRenderer2
+org.argouml.ui.DisplayTextTree"
+CLASS,argouml-0.22,3774,2005-12-03T06:33:15.000-06:00,Do not set namespace of Model when adding to diagram,"To repeat:
+Start argouml.
+Drag the created defaultmodel into the class diagram.",org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+CLASS,argouml-0.22,4031,2006-03-03T09:18:11.000-06:00,,"Open the ArgoUML compatible (single file version) AndroMDA profile and look for the TagDefinition @andromda.
+hibernate.generator.class which is owned by the stereotype <<Entity>>.
+The type of the TagDefinition should be
+HibernateGeneratorClass but instead it shows up as what looks like an internal xmi.id and is greyed out.","org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLReferenceValueListModel
+org.argouml.model.mdr.FacadeMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLTaggedValueTypeComboBoxModel
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTagDefinition
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionOwnerComboBoxModel
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLTaggedValueModelElementComboBoxModel
+org.argouml.model.mdr.ExtensionMechanismsHelperMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLDataValueListModel
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLStereotypeTagDefinitionListModel
+org.argouml.model.AbstractExtensionMechanismsHelperDecorator
+org.argouml.model.mdr.DataTypesHelperMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue
+org.argouml.uml.reveng.java.Modeller
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.ActionSetTaggedValueType
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.ActionSetTaggedValueModelElement"
+CLASS,argouml-0.22,4049,2006-03-08T11:50:37.000-06:00,Updating the role phrase of an association on a diagram does not update the connections pane,"Changing the role phrase of an association end does not change the connections
+panel until you change tabs and back again.
+This should happen immediately.","org.argouml.uml.ui.foundation.core.UMLAssociationConnectionListModel
+org.argouml.uml.ui.UMLModelElementListModel2"
+CLASS,argouml-0.22,4200,2006-05-11T23:30:25.000-05:00,,"That is how you can get the defect:
+stand on the main Model folder;
+right mouse click and choose from droped meniu ""Add Package"";
+rename the package;
+there are some diagrams below, so i jus drag them one by one using right
+mouse button and releasing over the package;
+the package remains unchanged (i expected it should become expandable like a
+diagram in the tree);","org.argouml.ui.explorer.PerspectiveManager
+org.argouml.ui.explorer.rules.GoModelElementToBehavior"
+CLASS,argouml-0.22,4281,2006-06-17T13:52:25.000-05:00,Deleting the context of a StateMachine should not delete the StateMachine,"If you currently delete an operation, then its StateMachine and
+StatechartDiagram are deleted too.
+That is not necessary - the namespace that owns the StateMachine still exists.","org.argouml.model.mdr.CoreFactoryMDRImpl
+org.argouml.kernel.TestProject
+org.argouml.uml.ui.ActionDeleteModelElements"
+CLASS,argouml-0.22,4324,2006-07-08T02:30:22.000-05:00,,"- Create a new project, add a component, save it with name ""foo"" and extension
+"".
+uml""
+- Now, do some changes, and resave the project.
+If I press ""save"", I get a foo.uml.zargo file.
+Maybe we should alreaedy save the chosen extension, or just deduce it from the file name.","org.argouml.persistence.PersistenceManager
+org.argouml.ui.ProjectBrowser
+org.argouml.persistence.TestPersistenceManager"
+CLASS,lucene-4.0,LUCENE-4660,2013-01-04T08:21:54.000-06:00,,"Eg if you set maxMergeCount to 2, as soon as a 3rd merge need to kick off, we stall incoming segment-creating threads.
+Then we wait ... and we are supposed to resume the threads when the merge count drops back to 2, but instead we are only resuming when merge count gets to 1.",org.apache.lucene.index.ConcurrentMergeScheduler.MergeThread
+METHOD,eclipse-2.0,17707,2002-05-24T10:15:00.000-05:00,,"If I choose Deploy -> Target Site... on a project that is already deployed and I
+select the same target site I get a warning error telling me I am delpoyed to
+the site and confirming that I want to overwrite.
+It should just ignore in that
+case.
+STEPS
+1 Deploy a project to <site>/Foo
+2 Choose Deploy-Target Site and select <site>/Foo again
+3 Warning message","org.eclipse.team.internal.ui.target.ConfigureTargetWizard:setMapping(IWizardContainer, IProject, Site, IPath)"
+METHOD,eclipse-2.0,19686,2002-06-07T16:42:00.000-05:00,,"Move the mouse to the whitespace at the end of 
+the file.
+Stay there for 
+about 3 secs or so, then mouse over some text in the java file where you would 
+expect hover help.",org.eclipse.jface.text.TextViewerHoverManager:computeInformation()
+METHOD,eclipse-2.0,19976,2002-06-11T22:25:00.000-05:00,Dav: Choosing not to add a bad site should let user modify site properties,"If in Site Explorer you add a new site with a bogus url, the site shouldn't get 
+added.
+At present hitting <Finish> will inform you of the error but the site 
+will still get added.",org.eclipse.team.internal.webdav.ui.WebDavConfigurationWizard:performFinish()
+METHOD,eclipse-2.0,23140,2002-09-04T01:34:00.000-05:00,,"1 Set up access to an external cvs repository with extssh and a
+password.
+(preferably with a username that doesn't exist locally eg -
+notme).
+Close eclipse.
+2 Edit /etc/hosts to point to another ssh server (eg localhost)
+3 Open eclipse and choose to browse the repository from the cvs
+perspective.
+Expected results:  Should get a prompt saying key changed.","org.eclipse.team.internal.ccvs.ssh.Client:connect(IProgressMonitor)
+org.eclipse.team.internal.ccvs.ssh.Client:send_SSH_CMSG_SESSION_KEY(byte[], byte[], byte[], byte[], byte[], byte[])
+org.eclipse.team.internal.ccvs.ssh.Client:receive_SSH_SMSG_PUBLIC_KEY(ServerPacket)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,[resources] UnifiedTree should ensure file/folder exists,"This problem appears to the user when executing refresh operations.
+At the first moment, the file is found in the file system and assumed to be a folder, and a corresponding resource is created in the workspace.
+At the second refresh, the folder corresponding to that resource is not found in the file system, and then it is removed from the workspace.","org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"
+CLASS,jabref-2.6,1503956,2006-06-10T11:18:03.000-05:00,,"In Options -> Preferences -> Entry preview, the help button contains the text ""help"" instead of the usual help icon","net.sf.jabref.ExternalTab
+net.sf.jabref.PrefsDialog3
+net.sf.jabref.PrefsDialog2
+net.sf.jabref.PreviewPrefsTab"
+CLASS,jabref-2.6,1709449,2007-04-29T00:03:55.000-05:00,Clicking a DOI from context menu fails,"Now: Clicking the DOI icon fails, since the default DOI server is not prepended, i.e. Firefox says
+A suggestion: You should use a 3rd icon in the document list if both, the hyperlink and the DOI, are available to show this to the user.","tests.net.sf.jabref.UtilTest
+net.sf.jabref.Util"
+CLASS,jabref-2.6,1711135,2007-05-02T10:16:51.000-05:00,,"In JabRef, I type in the author field:
+This results in a concatonation for BibTeX that reads ""andContentsOfFooBarString"" as opposed to the correct ""and ContentsOfFooBarString"".","net.sf.jabref.gui.FileListTableModel
+net.sf.jabref.gui.ImportInspectionDialog.LinkLocalFile
+net.sf.jabref.imports.FieldContentParser
+net.sf.jabref.imports.RisImporter
+net.sf.jabref.external.AutoSetExternalFileForEntries
+net.sf.jabref.gui.FileListEditor
+net.sf.jabref.external.SynchronizeFileField
+net.sf.jabref.imports.EndnoteImporter
+net.sf.jabref.external.SynchronizeFileField.OptionsDialog
+net.sf.jabref.gui.ImportInspectionDialog.AutoSetLinks
+net.sf.jabref.BasePanel
+net.sf.jabref.JabRefFrame"
+CLASS,jabref-2.6,2207462,2008-10-29T14:31:16.000-05:00,,"When searching for a string with the ""Web Search > Search ACM Digital Library"" function, the following happens \(e.g. searching ""sql injection"" in The Guide\):
+\* Hitting ok: Message box closes, but the result window stays in the background \(invisible\).
+I would expect that the focus moves to the results window again.","net.sf.jabref.imports.ACMPortalFetcher
+net.sf.jabref.imports.ImportInspectionCommandLine
+net.sf.jabref.gui.ImportInspectionDialog"
+CLASS,jabref-2.6,2904968,2009-11-27T13:26:49.000-06:00,,"Usually, double-clicking on an entry opens the entry editor.
+Typing Return does the same thing.
+I have just noticed that in JabRef 6.2Beta2 \(rev 3140\), this does not always work \(in fact, nothing happens after a double-click\).",net.sf.jabref.EntryEditor
+METHOD,apache-nutch-2.1,NUTCH-1393,2012-06-13T18:38:39.000-05:00,,"This should not be the case, instead it should print traditional usage to stdout.
+An example is below
+All I wanted to do was get the usage params printed to stdout but instead it generated my batch willy nilly.","org.apache.nutch.crawl.GeneratorJob:generate(long, long, boolean, boolean)
+org.apache.nutch.crawl.GeneratorJob:run(String[])"
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,,"We pass the appliation class loeader as part of our PersistenceUnitInfo implementation by returning it from PersistenceUnitInfo.getClassLoader().
+However, the code in MetaDataRepository.preload() only uses the context class loader and not the class loader from PersistenceUnitInfo, which leades to ClassNotFoundExpcetions like mentioned at the end of this report.","org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-1928,2011-01-20T17:43:52.000-06:00,,"For example:
+        @Persistent(optional = false)
+	@Column(name = ""STATUS"")
+	@Externalizer(""getName"")
+	@Factory(""valueOf"")
+	public OrderStatus getStatus() {
+		return this.status;
+	}
+Expected results:
+valueOf(String) should always be selected.",org.apache.openjpa.meta.FieldMetaData
+CLASS,openjpa-2.0.1,OPENJPA-2007,2011-05-25T14:51:51.000-05:00,"Setting query hint ""openjpa.FetchPlan.Isolation"" results in misleading warning","Setting query hint ""openjpa.FetchPlan.Isolation"" on a query results in this misleading warning being printed in the log:
+It should be adding openjpa.FetchPlan.Isolation instead.","org.apache.openjpa.persistence.jdbc.JDBCPersistenceProductDerivation
+org.apache.openjpa.conf.TestQueryHints"
+METHOD,lang,LANG-292,2006-10-31T01:45:01.000-06:00,"unescapeXml(""&12345678;"") should be ""&12345678;""","Following test (in EntitiesTest.java) fails:
+Maximim value for char is 0xFFFF, so &#12345678; is invalid entity reference, and so should be left as is.","org.apache.commons.lang.Entities:unescape(String)
+org.apache.commons.lang.Entities:unescape(Writer, String)"
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,,"If Javascripts including'/', IE will parse the scripts uncorrectly, actually '/' should be escaped to '\/'.
+For example, document.getElementById(""test"").
+value = '<script>alert(\'aaa\');</script>';this expression will make IE render page uncorrect, it should be document.getElementById(""test"").
+Try  to run below codes, you will find the difference:
+  String s = ""<script>alert('aaa');</script>"";
+  String str = org.springframework.web.util.JavaScriptUtils.javaScriptEscape(s);
+  System.out.println(""Spring JS Escape : ""+str);
+  str = org.apache.commons.lang.StringEscapeUtils.escapeJavaScript(s);
+  System.out.println(""Apache Common Lang JS Escape : ""+ str);","org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+METHOD,lang,LANG-552,2009-11-09T12:40:57.000-06:00,,"The following Test Case for replaceEach fails with a null pointer exception.
+I have expected that all StringUtils methods are ""null-friendly""","org.apache.commons.lang3.StringUtils:replaceEach(String, String[], String[], boolean, int)"
+METHOD,lang,LANG-788,2012-02-11T12:36:48.000-06:00,,"I understand the intention of the ClassLoaderAwareObjectInputStream, but this implementation should also implement a fallback to the original implementation.
+For example:","org.apache.commons.lang3.SerializationUtils:ClassLoaderAwareObjectInputStream(InputStream, ClassLoader)
+org.apache.commons.lang3.SerializationUtils:resolveClass(ObjectStreamClass)"
+METHOD,lang,LANG-832,2012-09-27T00:27:58.000-05:00,,"For example:
+This should fail to parse the format and date but it actually works.",org.apache.commons.lang3.time.FastDateParser:init()
+FILE,SWARM,SWARM-863,2016-11-30T14:54:40.000-06:00,,"We are using a custom main class whose main method reacts on a single argument: ""start"" or ""stop"".
+Actually we are feeding that argument through Procrun (https://commons.apache.org/proper/commons-daemon/procrun.html).
+Inside that main class we hold a field
+which we handle as following during startup:
+The reaction on the ""stop"" signal is as easy as following:
+1) Clone the github project and start a ""mvn package"" to produce the uber-jar, which is located in the ""swarm"" sub-module of that project.
+2) Copy that uber-jar and both procrun executables (""prunsrv.exe"" and ""prunmgr.exe"") into a test directory.
+For 64-bit OS's use the file ""amd64/prunsrv.exe"" (inside that procrun zip file).
+Rename the file ""prunsrv.exe"" to ""testing-wfs.exe"" and the file ""prunmgr.exe"" to ""testing-wfsw.exe"".
+3) Install a Windows service by running the command ""testing-wfs.exe //IS"".
+Now this service can be configured by running the ""testing-wfsw.exe"" (a Windows GUI Tool for that purpose).
+4) Configure the service as following:
+5) Now start the service.
+After a succesful start you can ""GET http://localhost:8080/hello"", which should result in a ""Hello World"" response.
+7) Now stop the service.",org.wildfly.swarm.container.runtime.ServerBootstrapImpl
+METHOD,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,,"Take the following snippet:
+The row (French_Roast,5) should not be there since it is not a result of the first query.","org.apache.derby.impl.sql.compile.SelectNode:checkNoWindowFunctions(QueryTreeNode, String)"
+METHOD,derby-10.9.1.0,DERBY-6009,2012-12-07T04:15:23.000-06:00,,"For example:
+It should probably have raised the same exception as the first query.
+And if not, the result should only have had one column.
+And the next example should probably have raised a syntax error too, instead of a NullPointerException:",org.apache.derby.impl.sql.compile.OrderByList:getResultSetNumber()
+METHOD,jedit-4.2,2542,2006-05-27T22:49:10.000-05:00,Pasting Text Should End Current Undoable Edit,"The text area should finish the existing undoable edit when the user 
+pastes text into it.
+In 4.2final and 4.3pre4, if you type some characters, 
+paste some text, and then undo, it undos the typed characters and the 
+pasted text together.
+It should undo each separately.","org.gjt.sp.jedit.Registers:paste(JEditTextArea, char, boolean)"
+METHOD,jedit-4.2,2571,2006-07-17T18:34:33.000-05:00,,"\- When line of text is selected, or part of that line,
+the number of line is not highlighted in the gutter.
+This makes sense when the selection splits accross
+multiple lines, however on single line I guess the line
+number should be highlighted.",org.gjt.sp.jedit.search.SearchAndReplace:replace(View)
+FILE,eclipse-3.1,100799,2005-06-20T08:40:00.000-05:00,[ErrorHandling] 'Unable to create view' error page should link to error log view,"I compiled a plug-in with a view against a 5.0 JRE.
+When I ran this plugin in a run-time eclipse with a 1.4 VM, startup passed without any error message.
+When I opened the view, I got a view with an embedded error dialog showing a
+Either the view should show the relevant error, or it should contain a link to the Error Log, such that users are aware that other log entries could be relevant for this problem.","org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.part.StatusPart"
+FILE,eclipse-3.1,101434,2005-06-23T09:08:00.000-05:00,,"- open the Find dialog (alternatively: open the preference dialog, or the
+Team>Create Patch wizard)
+- in a text field, enter some text, at least 20 characters
+- press and hold the ARROW_LEFT / _RIGHT keys
+Expected: I see the caret move through the entered text","org.eclipse.ui.internal.handlers.HandlerService
+org.eclipse.ui.internal.contexts.ContextService
+org.eclipse.ui.internal.contexts.ContextAuthority
+org.eclipse.ui.internal.handlers.HandlerAuthority"
+FILE,eclipse-3.1,101644,2005-06-24T10:19:00.000-05:00,Browse in plugin editor should init with actual value,"Click on the 'Browse' button in the Overview page of the plugin editor.
+It should better be initialzied with the actual value of the class file","org.eclipse.pde.internal.ui.editor.plugin.PluginGeneralInfoSection
+org.eclipse.pde.internal.ui.editor.plugin.rows.ClassAttributeRow"
+FILE,eclipse-3.1,106454,2005-08-09T06:45:00.000-05:00,,"- Create a Java project and add a linked folder to a location that does not exist (e.g. '/xxx')
+- Enable Preferences > General > Workspace > Refresh automatically
+The build job should not be triggered, since no resource has changed.",org.eclipse.core.internal.refresh.PollingMonitor
+FILE,eclipse-3.1,106789,2005-08-11T15:57:00.000-05:00,,"Select ""Run..."" from the Run menu and choose ""Java Application"".
+When editing the Classpath (""Classpath"" tab) of a configuration by trying to add a folder
+(Button ""Advanced"" -> RadioButton ""Add Folders""), a file chooser pops up, showing not only folders, but normal files, too, which is not very nice.
+Compare this with the other possible selection with
+RadioButton ""Add External Folder"", where -- correctly -- only folders can be chosen!
+So, the ""Add Folders"" file chooser should become such a folder chooser, too.",org.eclipse.jdt.internal.debug.ui.actions.AddFolderAction
+FILE,eclipse-3.1,108705,2005-09-02T11:48:00.000-05:00,[Contributions] errors: ObjectActionContributor should safeguard against misbehaving plugins,"If I right-click on a project that is open (which does show the menu) and then try to right-click on a closed project again, the menu now shows up.",org.eclipse.ui.internal.ObjectPluginAction
+FILE,eclipse-3.1,114565,2005-11-01T11:56:00.000-06:00,,"1) Configure the problems view to be showing several warnings of the same type
+(say about 100).
+2) Ctrl+A to select all problems
+3) Right click in problems view, and select ""Quick Fix""
+There should minimally be a busy indicator, and ideally move into a modal context thread to avoid freezing the UI for long periods.",org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,126938,2006-02-08T12:20:00.000-06:00,,"Below are the contents of the preferences file I am trying to import.
+To reproduce, you may need to change the location of the JRE since you probably don't have it installed in the directory I do.
+1. Create a new workspace.
+2. Import a preference file.
+3. Open the preference window and view the JRE's
+To see one JRE ""jdk1.5.0_04"" and that JRE is configured with the default argument of ""-ea"".",org.eclipse.jdt.internal.launching.JREPreferenceModifyListener
+FILE,eclipse-3.1,129834,2006-02-28T14:22:00.000-06:00,,"The Reload button should probably be pushed down next to the table viewer.
+3. Progress monitor is needed when parsing/reloading features from a new location
+4. If you enter a location in the combo box, check the top checkbox and then uncheck it, you lose the location you had entered.","org.eclipse.pde.internal.ui.wizards.imports.FeatureImportWizard
+org.eclipse.pde.internal.ui.PDEUIMessages"
+FILE,eclipse-3.1,142881,2006-05-20T00:02:00.000-05:00,,"1. Open Plug-ins View
+2. Double-click on any plug-in with a blue/purple icon (e.g. org.eclipse.core.runtime.compatibility.auth.
+3. On the Overview page, select an item in the Execution Environments table.
+DEL key should do nothing on such a non-editable model.","org.eclipse.pde.internal.ui.editor.plugin.ImportPackageSection
+org.eclipse.pde.internal.ui.editor.plugin.RequiresSection
+org.eclipse.pde.internal.ui.editor.plugin.ExtensionPointsSection
+org.eclipse.pde.internal.ui.editor.plugin.ExportPackageSection"
+FILE,eclipse-3.1,149604,2006-07-04T18:17:00.000-05:00,,"1 Go to plug-ins view
+2 double-click on any plug-in represented by a blue icon (without children).
+4 Turn to a tab other than the first tab.
+5 close the editor.
+6 repeat #2.
+expected behavior: the editor opens on tab from #4.",org.eclipse.pde.internal.ui.editor.PDEFormEditor
+FILE,eclipse-3.1,157944,2006-09-20T01:11:00.000-05:00,JavaAttributeWizard shouldn't open with errors when passed an empty string,"1. On the overview page of the plugin editor, make sure the Activator field is empty.
+2. Click the Activator link.",org.eclipse.pde.internal.ui.editor.plugin.JavaAttributeWizardPage
+FILE,eclipse-3.1,32553,2003-02-22T10:31:00.000-06:00,,"I just launched I20030220 and imported a couple of existing projects into the workspace, with the [+] icon by each project (denoting contents).
+I then closed a couple of the projects that I was not looking at, and the [+] icon remained after closing the projects.
+Of course clicking on this icon resulted in nothing happening, except the [+] disappeared.
+It would be better if the icon was cleared when the project was closed.",org.eclipse.ui.model.WorkbenchContentProvider
+FILE,eclipse-3.1,63433,2004-05-21T11:31:00.000-05:00,,"1) delete any project from you workspace.
+This should say something like ""Deleting resources..."",
+""Deleting project..."" or similar.",org.eclipse.core.internal.localstore.FileSystemResourceManager
+FILE,eclipse-3.1,76969,2004-10-25T15:49:00.000-05:00,,"- open the workbench
+- popup a menu over the perspective switcher and choose Dock On > Left
+NOTE that the UI does not respond right away (and it should).","org.eclipse.help.ui.internal.views.HelpView
+org.eclipse.ui.internal.WorkbenchPreferenceInitializer
+org.eclipse.ui.internal.UIPreferenceInitializer"
+FILE,eclipse-3.1,77703,2004-11-03T12:40:00.000-06:00,Deselecting Map$Entry/Show As>/Key And Value Deselects Map/Show As>/Map Entries,Should be able to turn off logical structures of Map$Entry while viewing as an array of Map$Entry.,"org.eclipse.debug.internal.ui.views.variables.SelectLogicalStructureAction
+org.eclipse.debug.internal.ui.views.variables.AvailableLogicalStructuresAction"
+FILE,eclipse-3.1,78315,2004-11-10T12:53:00.000-06:00,,"Only when a compare will be done it needs to be loaded and the adapter being registered.
+1. add startup() method to CompareUIPlugin
+2. put a breakpoint there",org.eclipse.team.internal.ui.TeamUIPlugin
+FILE,eclipse-3.1,80058,2004-12-02T15:32:00.000-06:00,[Wizards] Create folder blocked should avoid locking workspace,"- In the Resource perspective, I did a Team/CVS Update on a large Java project and sent it to the background.
+- I then went into a different project, and tried to create a new directory from the Navigation pane.
+Should I not be able to create a new folder at the same time?",org.eclipse.ui.dialogs.WizardNewFolderMainPage
+FILE,eclipse-3.1,80672,2004-12-10T04:44:00.000-06:00,,"Define 2 files:
+p/Use.
+Build - all is fine
+Now incrementally change q/Ann.
+java to:
+package q;
+import java.lang.annotation.
+*;
+@Target(ElementType.METHOD)
+public @interface Ann {
+}
+ 
+Build - still fine though p/Use.
+java should have got a problem due to disallowed
+location for use of annotation @Ann.",org.eclipse.jdt.internal.compiler.classfmt.ClassFileReader
+FILE,eclipse-3.1,83541,2005-01-24T10:42:00.000-06:00,,"For character array element I open Change Primitive Value dialog and try to change current value to \t or \n. Dialog does not enable OK button either I input \t, or 0x09 or \\u0009 or press tabulation key.
+On the other hand, Eclipse
+2.1.2 accepted ""\t"" (or it worked OK if I just pressed tabulation) and \n in this dialog.",org.eclipse.jdt.internal.debug.ui.actions.JavaPrimitiveValueEditor
+FILE,eclipse-3.1,84546,2005-02-07T04:31:00.000-06:00,Escape on empty commit-comment is yes instead of no,"When you commit something with an empty commit comment, you'll get the 
+following dialog:
+Now, when you press No, you'll go back to the commit dialog.
+Pressing Yes 
+commits.
+If you press ESC, you'd expect the dialog to be canceled (=no), but 
+it still commits.",org.eclipse.team.internal.ccvs.ui.CommitCommentArea
+FILE,eclipse-3.1,84881,2005-02-10T07:19:00.000-06:00,[WorkbenchLauncher] Splash screen receives focus after task switch (instead of workspace launcher dialog),"If you then switch to another task and switch
+back to eclipse using ALT+Tab (MS Windows), the Splash-Screen receives the focus
+while the ""Select a workspace"" dialog stays in front but is inactive.
+I've not found any workaround to
+this problem (closing the splash-screen via ALT+F4 removes the task from the
+task bar, while the dialog stays in front without focus).","org.eclipse.ui.internal.ide.IDEApplication
+org.eclipse.ui.internal.ide.ChooseWorkspaceDialog
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,85277,2005-02-15T10:53:00.000-06:00,,"In a build where bug 85267 is fixed (JDT/UI from HEAD or I20050215-1600), delete
+a compilation unit (*.
+java file) from a package in a java project.
+Then choose
+'Replace With > Latest from HEAD' from the package's context menu.
+Expected: The deleted compilation unit is restored from HEAD.",org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,,"- have this code:
+expected: strictfp is not allowed on the enum type actual: no error is reported
+- alternatively, have this code:
+expected: the wrong modifier is reported with the type name 'Natural' actual: the error is shown for the constructor_","org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,85452,2005-02-16T11:47:00.000-06:00,,"- close all perspectives
+- it should have a backdrop with text and button explaining how to open a
+perspective","org.eclipse.jdt.internal.ui.dialogs.PackageSelectionDialog
+org.eclipse.jdt.internal.ui.JavaUIMessages
+org.eclipse.ui.internal.ide.IDEWorkbenchAdvisor
+org.eclipse.ui.internal.ide.IDEWorkbenchWindowAdvisor"
+FILE,eclipse-3.1,85519,2005-02-16T14:10:00.000-06:00,,"- have pkg/Test1.java open
+- have pkg/Test2.java open
+- dirty Test1.java
+- save Test1.java as Test2.java
+expected: content of Test2 gets replaced with data in Test1 actual: a second editor with Test2.java is opened, Test1.java is closed, the unsaved changes in Test1.java are lost -> lost data.","org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider
+org.eclipse.ui.editors.text.TextFileDocumentProvider"
+FILE,eclipse-3.1,85672,2005-02-17T05:53:00.000-06:00,,"Have this code:
+Put the caret right after the closing brace and fold the region.
+Put the caret on the last line and unfold the type.
+expected: caret is right after the closing brace actual: everything from after the *opening* brace is selected",org.eclipse.jface.text.source.projection.ProjectionViewer
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,,"Simple test case below loads
+ PNG Files and Saves them as JPEG.
+Many files were tested and the majority 
+ did produced the proper JPG images as expected.","org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,86268,2005-02-23T10:10:00.000-06:00,,"1. Choose Help > About Eclipse Platform
+2. Choose Feature Details or Plug-in Details
+In other views that use this table, the problem also exists, however, properties for cell contents can be achieved using the keyboard and, in the resulting properties dialog, the full cell contents can be read by the screen reader.","org.eclipse.ui.internal.dialogs.AboutPluginsDialog
+org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.dialogs.AboutFeaturesDialog"
+FILE,eclipse-3.1,87683,2005-03-10T13:36:00.000-06:00,[Preferences] Preferences hover should show unshortened text,"On the menu bar from the main Workbench panel, click Window > Preferences > Java
+> Editor
+Select Hovers tab in the right panel
+Enable all the text hovers, an error message will display.",org.eclipse.jface.dialogs.DialogMessageArea
+FILE,eclipse-3.1,89621,2005-03-30T12:41:00.000-06:00,,"Select addWindowListener in the list of proposal.
+I would expect:","org.eclipse.jdt.ui.text.java.CompletionProposalCollector
+org.eclipse.jdt.internal.ui.text.java.ExperimentalResultCollector
+org.eclipse.jdt.internal.ui.text.java.GenericJavaTypeProposal"
+FILE,eclipse-3.1,89814,2005-03-31T07:29:00.000-06:00,Replace With > Another Branch or Version: tree allows multi-selection,"Replace With > Another Branch or Version: The tree allows multi-selection, but the operation only considers one of the selected items.
+The tree should be in single-selection mode, as the (filtered) table already is.",org.eclipse.team.internal.ccvs.ui.tags.TagSelectionArea
+FILE,eclipse-3.1,90600,2005-04-07T09:32:00.000-05:00,[model] CreateElementInCUOperation.apply: should use project options for rewriter,"When executing the rewriter, (rewriter.rewriteAST(document, null))
+CreateElementInCUOperation.apply should pass in the current projects options instead of null","org.eclipse.jface.text.source.SourceViewer
+org.eclipse.jdt.internal.core.CreateElementInCUOperation
+org.eclipse.jface.text.source.OverviewRuler"
+FILE,eclipse-3.1,90714,2005-04-07T16:07:00.000-05:00,,"The second install wizard shows empty results after an unsuccessful search.
+This is an overkill, as a simple message dialog should be presented to the user saying no results have been found.","org.eclipse.update.internal.ui.wizards.InstallWizardOperation
+org.eclipse.update.internal.ui.wizards.ReviewPage"
+FILE,eclipse-3.1,90935,2005-04-10T14:03:00.000-05:00,,"open the feature details dialog and notice there is a large area of grey at towards the bottom.
+Resize vertically and notice that the feature list gets smaller but the large grey area remains the same.
+Suggest that the grey area be eliminated completely.
+Failing that, on resize it should be the first to go.",org.eclipse.ui.internal.dialogs.AboutFeaturesDialog
+FILE,eclipse-3.1,92063,2005-04-20T09:30:00.000-05:00,,"In order to do so, I selected unit in package explorer, and did ""replace with HEAD"" action.
+Expectation: editor should have refreshed instead",org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,93119,2005-04-28T10:10:00.000-05:00,,"- have this code (caret at |):
+- invoke code assist
+< expected: there are exactly two proposals: 'extends' and 'super'
+- alternatively, press 'e' and invoke code assist
+> actual: dozens of type proposals are proposed (and two template proposals, but
+that is not a jdt-core problem)
+< expected: only 'extends' is proposed.",org.eclipse.jdt.internal.codeassist.complete.CompletionParser
+FILE,eclipse-3.1,93584,2005-05-03T15:23:00.000-05:00,,"If you perform a Get Sticky Revision from a Compare Revisions editor, the fetch is performed in the UI thread.
+In the least, it should be done in a modal context.",org.eclipse.team.internal.ccvs.ui.CVSCompareRevisionsInput
+FILE,eclipse-3.1,94852,2005-05-11T17:17:00.000-05:00,[ViewMgmt] (regression) Typing space should activate view menu button,"Give focus to a view menu button.
+For example, in the Package Explorer view, 
+give focus to the tree, and type shift+tab, shift+tab.
+The view menu (little 
+down-pointing triangle) button should have focus (it looks a bit raised).
+It should drop down the view menu.
+I realize that pressing Ctrl+F10 does drop down the menu, therefore typing 
+space is not technically needed for accessibility, however it is really 
+strange that here is a button (in a toolbar) that does nothing when ""pressed"" 
+using the keyboard space key.
+For consistency, and to do the expected thing 
+when used with a screen reader, we should allow space key to work here.
+(Note 
+that all of our other toolbar buttons do activate when they have focus and 
+space is pressed - including the very similar ""Open Perspective"" menu toolbar 
+button).",org.eclipse.ui.internal.presentations.defaultpresentation.DefaultTabFolder
+FILE,eclipse-3.1,94879,2005-05-11T22:13:00.000-05:00,,"- select a file in the Navigator and choose Properties
+- after looking at the properties, press Esc to dismiss the dialog
+- instead of dismissing the dialog, it clears the filter field
+Esc is not normally used to clear a field.
+Esc within a dialog should dismiss it.
+Suggest not intercepting Esc, and just allowing backspace to clear the field
+(it's selected by default anyway).",org.eclipse.ui.internal.dialogs.FilteredComboTree
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,,"- Create a new Class ""Foo""
+- Type ""import static java.lang.Math.""
+- Press Ctrl+Space
+- Type ""a""
+-> Instead of constraining the proposals to all members with prefix a, the popup closes","org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,,"- change the browser example's BrowserPerspectiveFactory to have the following instead of the regular addView layout.addStandaloneView(BrowserApp.BROWSER_VIEW_ID, false,
+- run the example, and show the history view
+Standalone views should still have their border, just not the title or min/max buttons if showTitle==false.","org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,97018,2005-05-27T11:47:00.000-05:00,,"- download EMF using the update manager (don't know if this is necessary)
+- observe: the install plug-in has a manifest file which only contains one line:
+- it also contains a plugin.xml file which exports the following entries:
+Since having a one liner manifest file seems to be a legal setup PDE should honor the access restrictions from the plugin.xml file and not generate a ALL forbidden rule only.","org.eclipse.pde.internal.core.MinimalState
+org.eclipse.pde.internal.core.ClasspathUtilCore"
+FILE,eclipse-3.1,97085,2005-05-27T17:10:00.000-05:00,(3.1M7) Static import code assist shouldn't propose <package>.*;,"With J2SE 5.0 compliance enabled, type the following into a new Java file:
+Instead, it should propose plain subpackages (""java.lang"" instead of ""java.lang.",org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,97363,2005-05-30T17:14:00.000-05:00,,"- org.eclipse.sdk loaded from CVS
+- File > Export > Deployable plug-ins and fragments
+- Ensure ""Package plug-ins as individual JAR archives"" is unchecked
+- pick a dest dir, e.g. d:\temp\export
+Should export as unjar'ed plugin directories if ""Package plug-ins as individual
+JAR archives"" is unchecked.",org.eclipse.pde.internal.core.util.CoreUtility
+FILE,eclipse-3.1,97722,2005-05-31T16:41:00.000-05:00,Pref Page Ant/Runtime/Tasks/Add Task dialog problems,The name text and location combo should be left aligned.,org.eclipse.ant.internal.ui.preferences.AddCustomDialog
+FILE,eclipse-3.1,97726,2005-05-31T16:47:00.000-05:00,Carat location should be updated when user types in Console.,The carat location should be updated whenever a user enters text in a console.,org.eclipse.ui.internal.console.IOConsoleViewer
+FILE,eclipse-3.1,97792,2005-06-01T02:39:00.000-05:00,,"When a plugin has an optional plugin, (ie see attached sample from o.e.jem.util)
+with an optional=true (ie non OSGI manifest), the pde runtime error log view shows a warning but the message says:
+It should instead say:",org.eclipse.pde.internal.core.MinimalState
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,,"Take an existing simple project on disk and import the project into the workspace by performing a simple create with code like:
+Do not open the project with the project.open() API.
+Now create a project either by API or UI and open it.
+Or simply switch to the
+Java perspective.
+Our particular use case is that we are loading existing Java projects on disk by performing a create, but never an open.
+On the next UI gesture, we get refresh infinite loops, one for each closed project.
+The end user will open them by using the open project UI when needed.","org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,99235,2005-06-09T14:51:00.000-05:00,,Ctrl clicking on the antfile attribute should open the external antBuildfile.xml,"org.eclipse.ant.internal.ui.model.AntAntNode
+org.eclipse.ant.internal.ui.editor.AntEditor"
+FILE,eclipse-3.1,99282,2005-06-09T19:46:00.000-05:00,,"For example, the following program should print ""1999"" 40 times
+(once from each thread).","org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding
+org.eclipse.jdt.internal.compiler.codegen.CodeStream"
+FILE,eclipse-3.1,99631,2005-06-13T09:21:00.000-05:00,,"@B<Ctrl+Space>
+public class Test {}
+-> A list of annotations starting with 'B' would be more helpful","org.eclipse.jdt.internal.corext.refactoring.reorg.JavaMoveProcessor
+org.eclipse.jdt.internal.codeassist.CompletionEngine"
+CLASS,openjpa-2.2.0,OPENJPA-2163,2012-03-27T15:56:55.000-05:00,,"A problem was uncovered in a scenario where multiple EntityManager instances created from the same EntityManagerFactory, and each instance is initialized with a new instance of a LifecycleListener instance, i.e.
+The expected behavior is only the listener registered in the em from which the life cycle events are related should be called.","openjpa-kernel.src.main.java.org.apache.openjpa.conf.OpenJPAConfigurationImpl
+openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.validation.TestValidationMode"
+METHOD,atunes-1.10.0,213,2008-09-14T08:05:44.000-05:00,,"- Copy a few files (not music) into the repository and rename them to have a supported extension (for example .
+mp3)
+- Start aTunes, set Xine as engine, refresh repository and try to play the fake files
+Expected behaviour:
+- aTunes should skip to the next song","net.sourceforge.atunes.kernel.modules.player.xine.XineHandler:startPlayback(AudioObject, AudioObject)"
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,,"Using the Example A from SolrCloud wiki:
+bq.
+Collections with implicit router should not have shard ranges at all.",solr.core.src.java.org.apache.solr.cloud.Overseer
+METHOD,mahout-0.4,MAHOUT-625,2011-03-11T09:24:20.000-06:00,,"Test is using data (retail) found here: http://fimi.ua.ac.be/data/
+The pattern (36, 39, 41) occurs in the transactions 572 times (this is also calculated in test), but the FPGrowth returns pattern (36, 39, 41) with support 573.
+Please find attached failing unit test - it's actually a maven project, which contains test data and is ready to run.","org.apache.mahout.fpm.pfpgrowth.fpgrowth.FPGrowth:pruneFPTree(MutableLong, FPTree)"
+FILE,AMQP,AMQP-290,2013-01-04T02:26:52.000-06:00,,"I am using some queues like that:
+I wanted to use:
+And when using:
+I think both way should work.
+XSD documentation says: ref = The bean name of the Map to pass to the broker when this component is declared.","org.springframework.amqp.rabbit.config.AbstractExchangeParser
+org.springframework.amqp.rabbit.config.QueueParser
+org.springframework.amqp.rabbit.config.ExchangeParserTests
+org.springframework.amqp.rabbit.config.QueueParserTests"
+FILE,AMQP,AMQP-340,2013-11-18T09:41:01.000-06:00,,"If I connect an AmqpInboundChannelAdapter to the RabbitMQ (3.1.0) with wrong credentials (wrong password) the SimpleMessageListenerContainer doesn't detect the real reason and continues to restart the consumer in a seemingly endless loop.
+It would be nice to have a notification (exception) about wrong credentials right away (there is a comprehensive rabbit client exception that gets swallowed in SimpleMessageListenerContainer.run())","org.springframework.amqp.rabbit.listener.BlockingQueueConsumer
+org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests
+org.springframework.amqp.rabbit.support.RabbitExceptionTranslator"
+FILE,AMQP,AMQP-516,2015-08-06T01:25:34.000-05:00,,"The following queue declaration will result in a queue being declared with auto delete and exclusive set to false:
+Making them exclusive and auto delete by default when using a random name seems like a good idea, but it should probably be changed to something like:","org.springframework.amqp.rabbit.annotation.EnableRabbitIntegrationTests
+org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor"
+METHOD,commons-math-3-3.0,MATH-779,2012-04-11T10:28:35.000-05:00,,"Calling the iterator method of ListPopulation returns an iterator of the protected modifiable list.
+Before returning the iterator we should wrap it in an unmodifiable list.",org.apache.commons.math3.genetics.ListPopulation:iterator()
+FILE,DATACMNS,DATACMNS-114,2011-12-19T03:21:41.000-06:00,,"We have two repositories with a similar name suffix.
+Both repositories have a custom interface and implementation, also ending with a similar name suffix.
+When automatically scanning the repositories, and their custom implementation, the wrong custom implementation is wired to our repository bean.
+For example:
+We have a repository named ContractRepository with a custom interface ContractRepositoryCustom and an implementation ContractRepositoryImpl, all defined inside the same package.
+In another package we have a repository, for another entity type, named AnotherContractRepository with a custom interface AnotherContractRepositoryCustom and an implementation AnotherContractRepositoryImpl.
+When starting the application context, the contractRepository bean is linked to our anotherContractRepositoryImpl rather than the contractRepositoryImpl.
+It might be desirable to scan on getImplementationClassName() before applying the wildcard prefix.",org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser
+FILE,DATACMNS,DATACMNS-228,2012-09-10T02:05:09.000-05:00,Mapping sub-system should exclude Groovy introduced properties from persistent properties,"When using Groovy classes with the mapping metadata sub-system, the Groovy compiler introduced fields like metaClass should not be considered a persistent property.","org.springframework.data.mapping.context.AbstractMappingContext
+org.springframework.data.mapping.context.AbstractMappingContextUnitTests"
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,DomainClassConverter should gracefully return null for null sources or empty strings,"Imagine the use case where you have an Order domain class which has a ManyToOne reference to Customer.
+When posting a new Order where Order.customer == """" then a converter exception is thrown:
+I think it should not try to convert to Domain class if id is null or empty.
+This is the code I used:","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-3024,2007-08-23T05:24:31.000-05:00,,"To investigate whether there was anything in the SQL execution layer that prevented scaling on a multi-CPU machine, I wrote a multi-threaded test which continuously executed ""VALUES 1"" using a PreparedStatement. I ran the test on a machine with 8 CPUs and expected the throughput to be proportional to the number of concurrent clients up to 8 clients (the same as the number of CPUs). However, the throughput only had a small increase from 1 to 2 clients, and adding more clients did not increase the throughput. Looking at the test in a profiler, it seems like the threads are spending a lot of time waiting to enter synchronization blocks in GenericPreparedStatement.upToDate() and BaseActivation.checkStatementValidity() (both of which are synchronized on the a GenericPreparedStatement object).
+I then changed the test slightly, appending a comment with a unique thread id to the ""VALUES 1"" statement.
+We should try to find a way to make the scalability the same regardless of whether or not the threads share the same plan.","java.engine.org.apache.derby.impl.store.access.heap.HeapConglomerateFactory
+java.engine.org.apache.derby.impl.store.raw.data.FileContainer
+java.engine.org.apache.derby.impl.store.raw.data.RAFContainer
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.DBInJarTest
+java.engine.org.apache.derby.impl.store.raw.data.TempRAFContainer
+java.engine.org.apache.derby.impl.store.raw.data.InputStreamContainer
+java.engine.org.apache.derby.impl.store.access.btree.index.B2IFactory"
+CLASS,derby-10.9.1.0,DERBY-5851,2012-07-08T12:28:49.000-05:00,,"I tried running org.apache.derbyTesting.functionTests.tests.jdbc4.PreparedStatementTest with a connectionCPDecorator in a JDBC4 environment.
+So this should actually run the test with LogicalPreparedStatement40 statements.
+Actually those method calls should go to PreparedStatement40 through LogicalPreparedStatement40.",java.testing.org.apache.derbyTesting.functionTests.tests.jdbc4.PreparedStatementTest
+CLASS,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,,"Take the following snippet:
+The row (French_Roast,5) should not be there since it is not a result of the first query.","java.engine.org.apache.derby.impl.sql.compile.ProjectRestrictNode
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.OrderByAndOffsetFetchInSubqueries
+java.engine.org.apache.derby.impl.sql.compile.SelectNode"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,Client should use a prepared statement rather than regular statement for Connection.setTransactionIsolation,"It would be better for performance and also for avoid possible garbage collection issues, to have a single prepared statement with a parameter marker.
+The program below shows repeated calls to setTransactionIsolation.",java.client.org.apache.derby.client.am.Connection
+METHOD,time,28,2013-05-31T00:52:24.000-05:00,,"I expect the following test to pass:
+I thought it was the job of the framework to skip over non-existent year 0 for me to return 1 BC?","org.joda.time.chrono.GJChronology:getInstance(DateTimeZone, ReadableInstant, int)
+org.joda.time.chrono.GJChronology:add(long, long)
+org.joda.time.chrono.GJChronology:add(long, int)"
+METHOD,time,88,2013-11-25T19:15:46.000-06:00,,"However, the above doesn't work in all cases:
+I suppose the Partials should not allow to be constructed in either case.","org.joda.time.Partial:with(DateTimeFieldType, int)"
+FILE,COMPRESS,COMPRESS-273,2014-04-11T04:13:32.000-05:00,,"Either (1) these constructors should be non-public, (2) there should be documentation that certain fields need to be set later for an instance to be usable.
+The attachment contains a number of similar test cases that show the same issue in a couple of classes.
+An example:","org.apache.commons.compress.archivers.zip.AbstractUnicodeExtraField
+org.apache.commons.compress.archivers.cpio.CpioArchiveEntry
+org.apache.commons.compress.archivers.zip.ExtraFieldUtils
+org.apache.commons.compress.archivers.zip.UnrecognizedExtraField"
+FILE,ENTESB,ENTESB-3099,2015-04-27T11:35:23.000-05:00,Quickstarts should build without warnings; most should work without fabric,Running camel-log following instructions in README gives lots of warnings then fails wilth following error,org.jboss.quickstarts.fuse.processor.BodyInAggregatingStrategy
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,,"No matter which part of the table the user clicks on, the table cursor should follow the table selection as closely as possible if the selection is changed as a result of the click.
+To reproduce the problem, use snippet 96 with an added table.setLinesVisible(true).",org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,104545,2005-07-20T14:21:00.000-05:00,Make default size of empty composites smaller,"Could the following two constants in Widget.java be changed to something smaller?
+Anything less than or equal to 16 would work for us, 0 would be OK too.
+Background: When you write an RCP app and enable the cool bar, the cool bar will initially be empty, but 64x64 pixels in size.",org.eclipse.swt.widgets.CoolBar
+FILE,swt-3.1,77948,2004-11-05T09:53:00.000-06:00,,"I was creating new simple files in existing projects, and then deleting them.
+I was using the keyboard heavily for navigation.  I found the exception below
+responsible for some buttons not disabling when they should.  I'll investiage",org.eclipse.swt.custom.CLabel
+FILE,swt-3.1,81264,2004-12-15T13:17:00.000-06:00,,"Here's my testcase to demonstrate the problem:
+Calling setTopIndex(40) should move table item #40 to the top of the table.
+Calling getTopIndex after should return 40.","org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.List
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,83262,2005-01-19T17:41:00.000-06:00,,"When pasting using the middle mouse button from StyledText into an rxvt window,
+it contains a null terminator at the end.
+Since the X clipboard protocol has a string length field, we do not need to be
+null terminating these strings.","org.eclipse.swt.dnd.RTFTransfer
+org.eclipse.swt.dnd.TextTransfer"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,,"Simple test case below loads
+ PNG Files and Saves them as JPEG.
+Many files were tested and the majority 
+ did produced the proper JPG images as expected.",org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,87460,2005-03-08T21:22:00.000-06:00,,"In the snippet below, there is a StyledText with a line style listener.
+In the line style listener, a bold font style is set, changing the width of the rendered text.
+I would have expected the on-screen caret location (not the offset) to be adjusted to the change.",org.eclipse.swt.custom.StyledText
+FILE,swt-3.1,88717,2005-03-22T04:34:00.000-06:00,[DND] Tree is scrolling very slow when dragging an Item to the Bottom,"Create a Tree with some items and implement DND support as explained in this
+Snippet:
+Now expand some items so that vertical scrollbars are appearing.
+When draggin an item to the bottom, the Tree is not scrolling.
+I would have thought that DND.FEEDBACK_SCROLL enables automatic scrolling, in case the user drags an Item to the bottom but it does'nt.","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.dnd.TableDragUnderEffect"
+FILE,swt-3.1,88829,2005-03-22T20:41:00.000-06:00,,"- start with five columns, all different widths
+- do Table.setColumnOrder(new int[] {4,1,2,3,0});
+-> but Move should have been fired for all of the columns since the width of the first displayed column changed, and therefore all of the other columns are auto-shifted accordingly",org.eclipse.swt.widgets.Table
+FILE,swt-3.1,93724,2005-05-04T17:35:00.000-05:00,,"Here is an example of some code in DragSource.java for GTK+:
+Rather than converting the names for the signals every time, these signal names should be defined in OS.java so that they can be only created once.","org.eclipse.swt.dnd.DropTarget
+org.eclipse.swt.dnd.DragSource"
+FILE,swt-3.1,94598,2005-05-11T00:01:00.000-05:00,,"1 Install Eclipse SDK and NL pack
+2 Click ""Help"" from menu -> select ""Help Content"" -> Click ""Search Scope"", a
+Search Scope dialog pop up.
+3 Select ""Search all topics"", Click ""New"", the New Search List dialog pop up.
+4 Then try to active IIMF input method by ""CTRL+SPACE"" key in order to input
+DBCS characters, but Eclipse hangs.
+No response from Eclipse.
+Expected Result:  IIMF input should be working properly for inputing/key in 
+DBCS characters.","org.eclipse.swt.browser.Browser
+org.eclipse.swt.widgets.Composite"
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,,"- run the snippet below
+- the insert line is set to be under the ""root"" item
+- collapse the root item
+This line should not go away because it belongs to the ""root"" item, not to the ""child"" item, but if it really wants to go away, then its end tips should not be left
+- press the button to the right of the Table: this does a Tree.redraw(), and note that the insert line reappears, so I guess it never really meant to go away","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+FILE,CONFIGURATION,CONFIGURATION-214,2006-05-26T21:35:46.000-05:00,,"Try this in a BeanShell:
+It could try to convert it to a Number first and then try to convert it to a long.","org.apache.commons.configuration.TestPropertyConverter
+org.apache.commons.configuration.PropertyConverter
+org.apache.commons.configuration.TestBaseConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-481,2012-02-26T20:27:46.000-06:00,,"With Commons Configuration 1.6, I was able to declare a variable in a properties file, and then reference it in a XML file using the ${myvar} syntax.
+For example:
+When I try to retrieve the value, like so:
+I get ""${myvar}-product"" instead of ""abc-product"".","org.apache.commons.configuration.DefaultConfigurationBuilder
+org.apache.commons.configuration.interpol.ConfigurationInterpolator
+org.apache.commons.configuration.TestDefaultConfigurationBuilder"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,,"I have entity with byte[] property annotated as @Lob and lazy fetch type, when table is createad the created column is of type oid, but when the column is read in application, the Hibernate reads the OID value instead of bytes under given oid.
+The proper behavior for dealing in PostgreSQL (and this behavior is in Hibernate 3.4) is to use oids.","org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,,"The problem is that the order by in the generated SQL is for columns mapped in the transaction entity NOT the TransacionId as expected.
+So the Account class has the following fragment....
+(no idea why it chose mamount, mbranch)
+The last line should be:","org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+METHOD,openjpa-2.0.1,OPENJPA-1762,2010-08-09T14:42:31.000-05:00,,"ManyToMany relationship between A(owner) and B.
+Em1 - Find A, no lock
+Em1 - Refresh A, PESSIMISTIC_FORCE_INCREMENT and javax.persistence.lock.scope=PessimisticLockScope.EXTENDED -- this SHOULD lock the join table for A_B
+Em2 - Find, lock B. Remove B.  should block while trying to remove from Join table.","org.apache.openjpa.persistence.lockmgr.Employee:toString()
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:getId()
+org.apache.openjpa.persistence.lockmgr.Employee:readExternal(ObjectInput)
+org.apache.openjpa.persistence.lockmgr.Employee:setDepartment(Department)
+org.apache.openjpa.jdbc.kernel.PessimisticLockManager:getLockRows(DBDictionary, Object, ClassMapping, JDBCFetchConfiguration, SQLFactory)
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:appendSize(SQLBuffer, Select, Joins)
+org.apache.openjpa.jdbc.meta.strats.StoreCollectionFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:writeExternal(ObjectOutput)"
+CLASS,pig-0.8.0,PIG-1188,2010-01-14T13:32:46.000-06:00,,"When we have schema, we should generate input data according to the schema, and padding nulls if necessary.
+Here is one example:
+Pig script:
+Input file:
+Desired result:
+{code}
+(1 2)
+(1 2)
+(1 null)
+{code}","test.org.apache.pig.test.TestMergeForEachOptimization
+src.org.apache.pig.newplan.logical.rules.TypeCastInserter
+test.org.apache.pig.test.TestNewPlanLogicalOptimizer
+test.org.apache.pig.test.TestNewPlanFilterRule
+test.org.apache.pig.test.TestNewPlanPushDownForeachFlatten
+test.org.apache.pig.test.TestEvalPipeline2
+test.org.apache.pig.test.TestMultiQueryCompiler
+test.org.apache.pig.test.TestPartitionFilterPushDown
+test.org.apache.pig.test.TestNewPlanFilterAboveForeach"
+CLASS,pig-0.8.0,PIG-1277,2010-03-05T13:02:03.000-06:00,Pig should give error message when cogroup on tuple keys of different inner type,"It is desirable to give error/warnings when it happens.
+Here is one example:
+UDF:
+{code}
+public class MapGenerate extends EvalFunc<Map> {
+    @Override
+    public Map exec(Tuple input) throws IOException {
+        // TODO Auto-generated method stub
+        Map m = new HashMap();
+        m.put(""key"", new Integer(input.size()));
+        return m;
+    }
+    
+    @Override
+    public Schema outputSchema(Schema input) {
+        return new Schema(new Schema.FieldSchema(null, DataType.MAP));
+    }
+}
+{code}
+Pig script: 
+{code}
+a = load '1.
+User expected result (which is not right):
+{code}
+((1 1),{(1,1)},{(1,1)})
+{code}
+We shall give user the message that we can not merge the key due to the type mismatch.","src.org.apache.pig.impl.io.NullableBytesWritable
+test.org.apache.pig.test.TestPackage
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigBytesRawComparator
+src.org.apache.pig.backend.hadoop.HDataType
+src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.relationalOperators.POMultiQueryPackage
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapReduce
+test.org.apache.pig.test.TestSecondarySort
+src.org.apache.pig.newplan.logical.relational.LOUnion"
+CLASS,pig-0.8.0,PIG-1785,2011-01-04T17:20:28.000-06:00,,"The following script produce wrong result:
+{code}
+a = load '1.
+1 txt:
+Expected result:","src.org.apache.pig.newplan.logical.rules.ImplicitSplitInserter
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+src.org.apache.pig.newplan.optimizer.PlanOptimizer
+src.org.apache.pig.newplan.optimizer.Rule"
+CLASS,pig-0.8.0,PIG-1893,2011-03-10T20:43:13.000-06:00,,"In the following script:
+In this case, we should count inputs ""1.txt"" 0 instead -1.","src.org.apache.pig.tools.pigstats.JobStats
+test.org.apache.pig.test.TestPigRunner"
+CLASS,pig-0.8.0,PIG-1912,2011-03-16T16:11:46.000-05:00,,"-- FILES FOR REPLICATING THE PROBLEM
+In particular, this file SHOULD just be
+the first and third columns of data.csv, but it sometimes uses the
+second column in place of the third.","src.org.apache.pig.backend.hadoop.executionengine.HExecutionEngine
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.relational.LOLoad"
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,New logical plan: Should not push up filter in front of Bincond,"The following script produce wrong result:
+Expected:
+(badsite.com,127.0.0.1)","test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+CLASS,pig-0.8.0,PIG-730,2009-03-24T14:36:45.000-05:00,"problem combining schema from a union of several LOAD expressions, with a nested bag inside the schema.","---> Would expect both C and D to work, but only C works.
+---> Turns out using outlinks.t.target (instead of outlinks.target) works for D but not for C.
+---> I don't care which one, but the same syntax should work for both!","src.org.apache.pig.impl.logicalLayer.schema.Schema
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+CLASS,pig-0.8.0,PIG-767,2009-04-15T23:43:29.000-05:00,,"The following script:
+As expected, actual data observed from DUMP urlContentsG and DUMP urlContentsF do contain the tuple inside the inner bags.
+The correct schema for urlContentsG is:  {group: chararray,urlContents: {t1:(url: chararray,pg: chararray)}}","test.org.apache.pig.test.TestNewPlanLogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+test.org.apache.pig.test.TestLogicalPlanMigrationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+test.org.apache.pig.test.TestSchema
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,,"It looks like the HypergeometricDistribution.sample() method doesn't work as well as it used to with large integer values -- the example code below should return a sample between 0 and 50, but usually returns -50.",org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-221,2008-08-29T13:31:56.000-05:00,,"little java program + output that shows the bug:
+I think the ""equals"" should return ""true"".",org.apache.commons.math.complex.Complex:equals(Object)
+METHOD,math,MATH-274,2009-06-04T19:24:12.000-05:00,testing for symmetric positive definite matrix in CholeskyDecomposition,"I used this matrix:
+I tried this matrix:
+And it should throw an exception but it does not.
+If you are going to force the use to try and catch these exceptions at least provide methods  to test the conditions prior to the possibility of the exception.","org.apache.commons.math.linear.CholeskyDecompositionImpl:CholeskyDecompositionImpl(RealMatrix, double, double)"
+METHOD,math,MATH-280,2009-07-06T21:26:57.000-05:00,,"This code:
+It should return (approx) 2.0000...
+normal.inverseCumulativeProbability(0.977249868051820); works fine
+0 9986501019683698 (should return 3.0000...)
+0 9999683287581673 (should return 4.0000...)","org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtils:bracket(UnivariateRealFunction, double, double, double, int)"
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,,"The following test case shows the end event is not handled properly and an integration that should cover a 60s range in fact covers a 160s range, more than twice the specified range.","org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+METHOD,math,MATH-482,2011-01-17T19:52:10.000-06:00,"FastMath.max(50.0f, -50.0f) => -50.0f; should be +50.0f","FastMath.max(50.0f, -50.0f) => -50.0f; should be +50.0f.
+The bug was not detected by the test case ""testMinMaxFloat()"" because that has a bug too - it tests doubles, not floats.","org.apache.commons.math.util.FastMath:max(float, float)"
+FILE,WFCORE,WFCORE-229,2014-11-07T15:20:11.000-06:00,,"Start a regular domain
+Any operations on server children with the same names that server-config operations (:start, :stop, :restart, :kill) are executed instead of being rejected because the actual resources at the operation address does not define them.
+Examples:","org.jboss.as.domain.controller.operations.AbstractOperationTestCase
+org.jboss.as.controller.registry.ConcreteResourceRegistration
+org.jboss.as.controller.registry.DelegatingManagementResourceRegistration
+org.jboss.as.controller.registry.AbstractResourceRegistration
+org.jboss.as.controller.registry.DelegatingImmutableManagementResourceRegistration
+org.jboss.as.controller.registry.ProxyControllerRegistration
+org.jboss.as.controller.registry.ImmutableManagementResourceRegistration
+org.jboss.as.subsystem.test.SubsystemTestDelegate
+org.jboss.as.controller.registry.AliasResourceRegistration
+org.jboss.as.controller.extension.ExtensionRegistry
+org.jboss.as.controller.registry.NodeSubregistry"
+FILE,WFCORE,WFCORE-604,2015-03-18T09:19:35.000-05:00,,"1. Fail to deploy application via jboss-cli
+2. Find deployment info in JBOSS_HOME/{standalone|domaine}/data/content, but there are no standalone.xml in <deployments> tag.
+3. Fix deployment and success to deploy.
+4. Find ""new"" deployment info in JBOSS_HOME/{standalone|domaine}/data/content, and the old deployment info will be still there.
+- The deployment information which created when deploy was failed should be removed if the deploy is failed.","org.jboss.as.host.controller.mgmt.MasterDomainControllerOperationHandlerImpl
+org.jboss.as.server.controller.resources.ServerRootResourceDefinition
+org.jboss.as.host.controller.ManagedServerOperationsFactory
+org.jboss.as.host.controller.DomainModelControllerService
+org.jboss.as.host.controller.RemoteDomainConnectionService
+org.jboss.as.test.shared.ModelParserUtils
+org.jboss.as.server.deployment.DeploymentAddHandler
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentAddHandler
+org.jboss.as.server.logging.ServerLogger
+org.jboss.as.server.deployment.DeploymentRemoveHandler
+org.jboss.as.domain.controller.resources.ServerGroupResourceDefinition
+org.jboss.as.repository.LocalDeploymentFileRepository
+org.jboss.as.domain.controller.operations.ApplyRemoteMasterDomainModelHandler
+org.jboss.as.server.deployment.DeploymentReplaceHandler
+org.jboss.as.domain.controller.resources.DomainRootDefinition
+org.jboss.as.server.deploymentoverlay.DeploymentOverlayContentDefinition
+org.jboss.as.repository.logging.DeploymentRepositoryLogger
+org.jboss.as.domain.controller.operations.deployment.DeploymentFullReplaceHandler
+org.jboss.as.core.model.test.LegacyKernelServicesImpl
+org.jboss.as.subsystem.test.TestModelControllerService
+org.jboss.as.host.controller.HostControllerService
+org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.core.model.test.TestModelControllerService
+org.jboss.as.server.mgmt.domain.RemoteFileRepositoryService
+org.jboss.as.server.deploymentoverlay.DeploymentOverlayContentAdd
+org.jboss.as.server.ApplicationServerService
+org.jboss.as.repository.LocalFileRepository
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentRemoveHandler
+org.jboss.as.management.client.content.ManagedDMRContentTypeAddHandler
+org.jboss.as.server.test.InterfaceManagementUnitTestCase
+org.jboss.as.host.controller.model.host.HostResourceDefinition
+org.jboss.as.server.deployment.DeploymentAddHandlerTestCase
+org.jboss.as.repository.DeploymentFileRepository
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentReplaceHandler
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.domain.controller.operations.deployment.DeploymentRemoveHandler
+org.jboss.as.management.client.content.ManagedDMRContentTypeResource
+org.jboss.as.host.controller.mgmt.ServerToHostProtocolHandler
+org.jboss.as.server.deployment.DeploymentFullReplaceHandler"
+FILE,WFCORE,WFCORE-626,2015-04-06T15:53:19.000-05:00,,"Consider the following sequence of operations:
+The expected result of #4 is ""test"".","org.jboss.as.controller.operations.global.ListOperations
+org.jboss.as.controller.operations.global.MapOperations"
+FILE,WFCORE,WFCORE-763,2015-06-16T14:59:39.000-05:00,,"e.g. if I persist an empty list to xml, and read it back again, using the default parser/marshaller, I should get back an empty list.","org.jboss.as.controller.AttributeParser
+org.jboss.as.controller.SimpleListAttributeDefinitionUnitTestCase"
+FILE,WFCORE,WFCORE-754,2015-06-02T11:17:26.000-05:00,,"EAP fails to start with -bmanagement= option.
+IPv4 address is used in this option.
+Example on dev98 machine:
+No errors",org.jboss.as.host.controller.ServerInventoryService
+FILE,WFCORE,WFCORE-815,2015-07-13T07:57:45.000-05:00,,"get fresh EAP
+No errors.","org.jboss.as.domain.controller.operations.ProfileIncludesHandlerTestCase
+org.jboss.as.domain.controller.operations.SocketBindingGroupIncludesHandlerTestCase
+org.jboss.as.host.controller.logging.HostControllerLogger"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,,"When I use migration operation the console log is filled with warning messages of type
+If I do the sequence of operation
+I think that the migration operation should not show those warnings.","org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,,"Setting up host scoped roles as follows https://gist.github.com/heiko-braun/0dc810ed04db8739defd there are inconsistent results in the filtering.
+master-monitor should behave the same as slave-maintainer.","org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1062,2015-10-20T09:33:46.000-05:00,,"1. Setup domaincontroller
+2. Setup hostcontroller
+3. Start domaincontroller
+4. Start hostcontroller with --backup option.
+5. deploy an application using cli or admin console
+7. Wait for approximately 10 minutes
+9. After restarting the Host Controller, the deployment is restored and the cached deployment can now be seen under the Host Controller's domain/data/content folder.
+Expected results: The cached deplpyments folder should never be removed from the HostController's domain/data/content folder.","org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.controller.persistence.FilePersistenceUtils
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.server.deployment.ContentCleanerService"
+FILE,WFCORE,WFCORE-1572,2016-05-27T16:20:10.000-05:00,,"When an argument value contains a space (eg.
+deploy /path/to/test-application.
+war --all-server-groups --headers={rollout id=foo}) and if user hits tab after the whitespace, suggestions are generated based on the command, rather than the current argument's name.","org.jboss.as.cli.parsing.DefaultStateWithEndCharacter
+org.jboss.as.cli.parsing.ParserUtil
+org.jboss.as.cli.parsing.test.CommandTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,,"When using rollout plans for EAP deployment scenarios I can create my own named rollout-plan for ease of use.
+I can then apply rollout command later on, referring with name of my own rollout plan that should be used.
+When I create rollout-plan, I use command like:
+When I then refer to it I use following command:
+Yes, this is really minor issue, but I think that these two attributes used in aforementioned commands should be unified (preferably to name instead of id) as user might be confused when using it.","org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,,"Lets have some /socket-binding-group=standard-sockets/socket-binding with particular name.
+Then when I create some /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding or /socket-binding-group=standard-sockets/local-destination-outbound-socket-binding using same name as of already existing socket-binding resource, add operation is successful but when I perform server reload, it crashes as it is not able to parse configuration.
+Start EAP and log to CLI create your own socket-binding resource and {remote|local}-destination-outbound-socket-binding resource with same names and perform reload
+If there is a problem for those resources to have same names I would welcome that names are checked during the add operation already regarding to all resources in socket-binding and {remote|local}-destination-outbound-socket-binding.","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1756,2016-08-31T14:23:41.000-05:00,Adding content to an exploded deployment with overwrite to false should fail if file already exists,If overwrite is set to false then adding the file should fail.,"org.jboss.as.repository.ContentRepositoryTest
+org.jboss.as.repository.ContentRepositoryImpl"
+FILE,WFCORE,WFCORE-1714,2016-08-15T08:26:57.000-05:00,,"reproduce
+expected",org.jboss.as.cli.CommandCompleter
+FILE,WFCORE,WFCORE-1657,2016-07-15T11:51:17.000-05:00,,"Using tab completion for adding a module dependencies with module add command could lead to invalid module.xml as CLI prompt user to use module name with ""system.layers.base"" prefix, which is not a part of module name.
+Add a new module via module add command, use tab-completion for dependencies
+however correct module name is org.jboss.as.controller",org.jboss.as.cli.handlers.module.ASModuleHandler
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,,"Running module add --name=foo.bar --resources=foo.jar --dependencies=[org.a, org.b ] will result in following dependencies in module.xml
+The module name in dependencies should be stripped of leading and trailing whitespaces.","org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,,"Example
+On attempt to write metric attribute, for example message-count, non writable error is printed
+CLI should not suggest writing attributes that are not writable.","org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1936,2016-11-04T10:57:06.000-05:00,,"fixed-port attribute of socket-binding and fixed-source-port attributes of *-destination-outbound-socket-binding define in its description that there is not necessary to do reload or restart for any of them.
+If you tries to change such attributes you are informed that reload is necessary.","org.jboss.as.server.services.net.OutboundSocketBindingResourceDefinition
+org.jboss.as.controller.resource.AbstractSocketBindingResourceDefinition"
+METHOD,tika-1.3,TIKA-1109,2013-04-18T06:06:06.000-05:00,,"I think it would be more useful to have the metadata populated first.
+As a symptom:",org.apache.tika.parser.microsoft.ooxml.XSSFExcelExtractorDecorator:getMetadataExtractor()
+CLASS,jedit-4.3,1536064,2006-08-07T15:14:23.000-05:00,,When I try to open a file \(Ctrl-O\) the focus in the filesystembrowser is on the Commands menu instead of the filename field.,org.gjt.sp.jedit.GUIUtilities
+CLASS,jedit-4.3,1538743,2006-08-11T14:34:44.000-05:00,"While editing ToolBar, the category should be remembered","While editing ToolBar, the category of actions should 
+be remembered when adding actions to the toolbar.",org.gjt.sp.jedit.options.ToolBarEditDialog
+CLASS,jedit-4.3,1834620,2007-11-19T16:13:11.000-06:00,,"For example...
+Expected output: 123456789abc",org.gjt.sp.jedit.search.SearchAndReplace
+CLASS,jedit-4.3,1866836,2008-01-08T14:05:42.000-06:00,After completion column cursor should be kept,"Hi, when typing in a column cursor, after using the completion popup it would be better if the cursor would still be column cursor","org.gjt.sp.jedit.gui.CompleteWord.Words
+org.gjt.sp.jedit.gui.CompleteWord"
+CLASS,jedit-4.3,1942313,2008-04-14T18:08:29.000-05:00,,"Create the following file, and save it as test.cpp:
+Change the folding mode \(if necessary\) to \`indent'.
+Move the caret to the \`hij' line.
+Press Alt+Backspace to contract the fold.
+Press Alt+Enter to expand the fold.
+Press Alt+Enter a second time.
+I think this is a bug: I think the caret should stay where it is, and jEdit should either do nothing or print an error message.",org.gjt.sp.jedit.textarea.DisplayManager
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,,"\(Quoted from Matthieu's comment for patch \#1999448\)
+if I use explicit fold, with this buffer
+I remove one ""l"" from hello.
+I
+think it should not expand folds since the fold level
+is not changed.","org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,jedit-4.3,2218621,2008-11-03T10:05:46.000-06:00,,"When I type ""-"" \(minus\) in FileBrowser's Path dropdown and press enter, minus is appended to the path instead of changing path to current buffer.
+When I choose ""Directory of current buffer"" from commands menu, it works ok.
+There is also small inconsistency, because in search and replace dialog to current buffer points empty dropdown, not minus.
+Maybe in FileBrowser it should as well, but for now neither minus nor empty field points to current directory.",org.gjt.sp.jedit.MiscUtilities
+CLASS,jedit-4.3,2781716,2009-04-26T16:42:52.000-05:00,,"Reproduction recipe:
+Put ""1"" for an empty buffer, and do hypersearch for ""1"".
+The line number shouldn't be highlighted.",org.gjt.sp.jedit.search.HyperSearchResults.HighlightingTree
+CLASS,jedit-4.3,950961,2004-05-09T21:37:09.000-05:00,,"Here is the example text folded using explicit folding:
+1| //\{\{\{
+2| Folding
+3| Test
+4| Case
+5| //\}\}\}
+6| Other text
+By placing the caret after the last brace and pressing 
+return we get the
+following result:
+1| //\{\{\{
+2| New text entered
+7| Other text
+To display the 
+contents of the fold you have to close the fold and open 
+it again which then would display the expected text:
+1| //\{\{\{
+2| New text entered
+3| Folding
+4| Test
+5| Case
+6| //\}\}\}
+7| Other text
+Secondly, with explict folding only, 
+placing the caret between the braces that make up the 
+start of the fold whilst folded and pressing return causes 
+the fold to be 'lost'.","org.gjt.sp.jedit.buffer.JEditBuffer
+org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.buffer.BufferChangeListener.Adapter
+org.gjt.sp.jedit.buffer.BufferAdapter
+org.gjt.sp.jedit.textarea.RangeMap"

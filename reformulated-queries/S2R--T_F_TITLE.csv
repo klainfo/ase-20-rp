@@ -1,0 +1,1940 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+CLASS,tika-1.3,TIKA-1152,2013-07-23T08:45:11.000-05:00,process loops on parsing parse of CHM file,"By parsing [the attachment CHM file|^eventcombmt.chm] (MS Microsoft Help Files), Java process stuck.",tika-parsers.src.main.java.org.apache.tika.parser.chm.lzx.ChmLzxBlock
+FILE,DATAMONGO,DATAMONGO-398,2012-02-10T07:11:53.000-06:00,store org.osgi.service.event.Event,"When I attempt to save an object from org.apache.felix's versions of org.osgi.service.event.Event, the stack trace below occurs.
+I am using the following dependency versions","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.MappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-430,2012-04-10T03:35:56.000-05:00,not consider query criteria in query,"When I perform a query that includes more than one criteria, only the first criteria is being considered, others are discarded.
+An example is attached; When the query is performed by MongoDB driver it works fine, but with Spring, the problem occurs.","org.springframework.data.mongodb.core.QueryMapper
+org.springframework.data.mongodb.core.query.QueryMapperUnitTests"
+FILE,DATAMONGO,DATAMONGO-467,2012-06-24T08:58:49.000-05:00,use QueryDSL,"Using this entity (@Document) definition with a String as the declared ID:
+and the following query",org.springframework.data.mongodb.repository.support.SpringDataMongodbSerializerUnitTests
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,not work for collection values,Assume you have the following scenario:,"org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-523,2012-09-01T03:39:51.000-05:00,not use with AbstractMongoConfiguration,When using the AbstractMongoConfiguration without any further modifications regarding the converter (afterMappingMongoConverterCreation) the @TypeAlias annotation is not used when writing the _class property.,org.springframework.data.mongodb.core.convert.MappingMongoConverterUnitTests
+FILE,DATAMONGO,DATAMONGO-585,2012-12-01T08:28:43.000-06:00,exception during authentication,"Specifically what can be used for a test case is use a ThreadPoolExecutor, set a minpool and maxpool value of 5, add 25 objects to be executed.
+Those objects are a class which implements Runnable.
+Those objects each then perform a bunch of inserts into mongoDB using a DocumentDao which calls mongoOperations.insert.",org.springframework.data.mongodb.core.MongoDbUtils
+FILE,DATAMONGO,DATAMONGO-629,2013-03-22T04:08:25.000-05:00,count with field find with field,Assume we have following query:,"org.springframework.data.mongodb.core.mapping.MongoMappingContext
+org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+FILE,DATAMONGO,DATAMONGO-571,2012-11-09T08:00:10.000-06:00,not save null values add @Version to domain class,"1. Domain class is loaded from mongodb using CrudRepository.findOne() method.
+2. The loaded instances any non id nor @Version annotated field is set to null.
+3. The loaded instance is saved to same mongodb using CrudRepository.save() method.
+4. The field that has been set to null doesnt write to database, its unchanged.","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.query.Update"
+FILE,DATAMONGO,DATAMONGO-688,2013-06-03T14:11:53.000-05:00,name id,"If you have a domain class with an attribute named ""id"", even if you annotate a DIFFERENT field with ""@Id"", spring-data-mongo errors trying to map 2 things to the id.","org.springframework.data.mongodb.core.mapping.MongoPersistentProperty
+org.springframework.data.mongodb.core.mapping.BasicMongoPersistentProperty
+org.springframework.data.mongodb.core.mapping.BasicMongoPersistentEntity
+org.springframework.data.mongodb.core.mapping.MongoMappingContextUnitTests"
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,update object not write type information for objects,"I'm using quite complex domain model, that consist of instantiable domain classes as well as of abstract ones.","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-702,2013-06-20T00:12:30.000-05:00,not configure spring Data MongoDB projection with respective Java pojo,"If Model Java POJO, is annotated with @Field, then during search with query.fields().
+include(field)
+uning mongoTemplate it does not java property field as field parameter, rather it needs the name declared with name defined with @Field annotation.","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-717,2013-07-10T11:13:46.000-05:00,not distribute application context to persistent entities,Current code:,org.springframework.data.mongodb.config.AbstractMongoConfigurationUnitTests
+FILE,DATAMONGO,DATAMONGO-721,2013-07-11T11:36:06.000-05:00,persist on update operations,"Here is our situation: we have an entity which have an attribute which is a list of another kind of entity, like the code below.
+When using MongoTemplate class with code such as below, the _class attribute is not inserted on the embedded document, so, if one of the items of the list attribute is a subclass of ChildClass, and ChildClass is an abstract class, we begin to face instantiation problems.
+Here is one example of usage of MongoTemplate in which we found a problem.",org.springframework.data.mongodb.core.convert.QueryMapper
+FILE,DATAMONGO,DATAMONGO-602,2013-01-30T02:22:53.000-06:00,Querying with $in operator on the id field of type BigInteger returns zero results,"There is a problem when trying to query for documents with id field is in a given list of BigInteger values.
+For example, these lines will work only if given id list contains only one item.",org.springframework.data.mongodb.core.MongoTemplateTests
+FILE,DATAMONGO,DATAMONGO-805,2013-12-02T06:34:36.000-06:00,Excluding DBRef field in a query causes a MappingException,"Excluding a field in a query where the field is a DBRef as below throws a MappingException.
+I've attached a simple test case that throws the MappingException.","org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.mapping.MappingTests
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+FILE,DATAMONGO,DATAMONGO-897,2014-04-01T04:38:51.000-05:00,use @DbRef as target use interface as target,NullPointerException is thrown when using MongoTemplate.findAndModify(...) with @DbRef and interface as @DbRef target.,"org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.QueryMapper"
+FILE,DATAMONGO,DATAMONGO-892,2014-03-28T09:08:03.000-05:00,not configure as nested bean definition,"The sample config which worked in the 1.1.1 version, but doesn't work now:","org.springframework.data.mongodb.config.MappingMongoConverterParser
+org.springframework.data.mongodb.config.MappingMongoConverterParserIntegrationTests"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,ignore @Field annotation for field alias,"I created a method using the ""query by method name"" approach:
+Inside my Answer object, I have a field called ""Score"" that is annotated with
+When the query is run, the database attempts to sort the results by ""score"" rather than my ""sr"" field name.",org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-938,2014-05-21T06:09:48.000-05:00,Exception when creating geo within Criteria using MapReduce,I am getting an IllegalArgumentException when I try to query a MongoDB collection using a Criteria.within and a Box.,"org.springframework.data.mongodb.core.mapreduce.MapReduceTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-952,2014-06-10T22:45:47.000-05:00,not work with only field restrictions,"If you are using repository based queries and try to use @Query annotation to limit the fetched fields, it has zero effect.
+For example repository query:
+If you are using @Query with value attribute to define the query, then the fields limitation is applied though.",org.springframework.data.mongodb.repository.query.PartTreeMongoQuery
+FILE,DATAMONGO,DATAMONGO-987,2014-07-14T12:01:52.000-05:00,Problem with lazy loading in @DBRef when getting data using MongoTemplate,"The situation is simple: if we reference on an entity class another entity (both annotated with @Document) called Parent and Child.
+Here is the code:
+// Than we try to load this same entity from the database","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.DbRefMappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-1027,2014-08-16T13:49:22.000-05:00,inherit complex index from embedded class/object,"Say I have two collections:
+Books and Author
+Author has a unique compound index and Book has a list of authors as property.
+Now if I add different book with the same author to books, the insert is ignored because books inherits the index from authors.","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.Indexed
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexCreatorUnitTests
+org.springframework.data.mongodb.core.index.CompoundIndex
+org.springframework.data.mongodb.core.index.GeoSpatialIndexed"
+FILE,DATAMONGO,DATAMONGO-1068,2014-10-08T19:43:32.000-05:00,build special cirteria,"There is an entity like this:
+I need to issue a criteria to fetch all documents in which none of elements of occupied falls into a specified date range.
+The query JSON is:
+Then, I tried on","org.springframework.data.mongodb.core.query.CriteriaTests
+org.springframework.data.mongodb.core.query.Criteria"
+FILE,DATAMONGO,DATAMONGO-1078,2014-10-28T02:23:26.000-05:00,map complex id structure,Therefore annotated queries like:,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,not remove _ class property on collection,"Following method on repository
+I attached test project demonstrating this bug.","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,not return matching elements return max of documents,I have the following query:,org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,keyword query findByInId with pageable,"I've been trying to use the In-keyword with identifiers and making the query pageable.
+Also when you try to get any other page than 0, no results return.
+Below is a strip down example I used for testing;
+I've created 3 types and 10 items per those types, results in a total of 30 items.","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1232,2015-06-03T10:27:23.000-05:00,escape queries,"In my case, I'm trying to perform a case-insensitive find on an e-mail address with the + sign, a legal character, but the regex interprets this as 1.","org.springframework.data.mongodb.repository.query.MongoQueryCreator
+org.springframework.data.mongodb.repository.query.MongoQueryCreatorUnitTests"
+FILE,DATAMONGO,DATAMONGO-1250,2015-07-03T21:07:44.000-05:00,not use in updates,"I have a custom (de)serialiser for an enumerated type, and it works perfectly when saving and loading a @Document annotated POJO.
+However when used in an Update, it is either ignored, or called in situations where it shouldn't.
+Please clone https://github.com/patrickherrera/converter_test.git for a full test application.
+In brief there is a POJO and for the purposes of the test it has a static enum with the desired converters:
+There is a unit test that drives a few scenarios:","org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.UpdateMapper"
+FILE,DATAMONGO,DATAMONGO-1236,2015-06-08T11:17:11.000-05:00,not include _ class in map values,"When a map of type LinkedHashMap<String, Object>  is updated via MongoOperations findAndModify or updateFirst, the _class field is not saved for the map values.
+Please see attached maven project for test illustrating the problem.","org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.UpdateMapper"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,involve generic types,"Given:
+When defining a class Catalog with a list of ""wrapped"" books:","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1289,2015-09-17T11:43:51.000-05:00,"NullPointerException when saving an object with no ""id"" field or @Id annotation","Instead of this, I'm seeing a NullPointerException when attempting to save an object that doesn't have an ""id"" field or an @Id annotated field.","org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation"
+FILE,DATAMONGO,DATAMONGO-1360,2016-01-16T07:47:34.000-06:00,not query with JSR310,"I have a MongoDb document I successfully store using Spring Data MongoDb.
+It looks like this:
+When I create a custom Criteria query that looks like this:","org.springframework.data.mongodb.core.Venue
+org.springframework.data.mongodb.core.geo.AbstractGeoSpatialTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1288,2015-09-16T23:51:16.000-05:00,work with AtomicInteger,"For example, if you pass in an AtomicInteger, the update fails to execute, as the generated json isn't correct.","org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.MongoConverters
+org.springframework.data.mongodb.core.convert.CustomConversions"
+FILE,DATAMONGO,DATAMONGO-1436,2016-05-24T02:53:21.000-05:00,complain about built-in converters,"When registering any custom converters for MongoDB, the CustomConversions constructor_ adds a whole slew of hard-coded converters to the list.","org.springframework.data.mongodb.core.convert.MongoConvertersUnitTests
+org.springframework.data.mongodb.core.convert.MongoConverters"
+FILE,DATAMONGO,DATAMONGO-1438,2016-05-26T14:01:14.000-05:00,get warning in logs switch in Spring boot 1.3.5 switch to Spring,"When I start my Spring Boot 1.3.5 application with no custom conversions and with Spring Data MongoDB Release Train Hopper-SR1 I get following warning in my logs:
+I have alle my Domain classes they are saved in MongoDB annotated with @Document (see DATAMONGO-1413)","org.springframework.data.mongodb.core.convert.MongoConvertersUnitTests
+org.springframework.data.mongodb.core.convert.MongoConverters"
+FILE,DATAMONGO,DATAMONGO-1394,2016-03-09T10:36:46.000-06:00,use querydsl,"Trying to use eq on reference's $id, with no luck.
+This is an example code:
+Doing:
+or:","org.springframework.data.mongodb.repository.support.SpringDataMongodbSerializer
+org.springframework.data.mongodb.repository.support.QuerydslRepositorySupportTests"
+FILE,DATAMONGO,DATAMONGO-1406,2016-04-04T18:59:49.000-05:00,not use @Field field name nest fields with nested keywords nest fields in combination,"we have a document class;
+In MongoTemplate.java, the call to :
+The query submitted to mongo after getMappedObject is called:
+Note: The query input to getMappedObject is:","org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+CLASS,derby-10.7.1.1,DERBY-4684,2010-06-01T10:46:19.000-05:00,correct implicit casting of other types correct implicit casting to BOOLEAN,The following query shows how you can implicitly cast a non-BOOLEAN data type to BOOLEAN today:,"org.apache.derby.iapi.types.SQLBoolean
+org.apache.derby.impl.sql.compile.BooleanTypeCompiler"
+CLASS,derby-10.7.1.1,DERBY-4693,2010-06-05T06:36:41.000-05:00,rename attribute,"renaming an identity column causes the column to loose its 'identity' attribute.
+you can reproduce the problem as follows:",org.apache.derby.impl.sql.execute.RenameConstantAction
+CLASS,derby-10.7.1.1,DERBY-4835,2010-10-06T11:05:13.000-05:00,cause java.lang.NoSuchMethodError not recompile with upgrade not recompile from 10.5.3.0 not recompile to 10.6.1.0,"To reproduce, run the attached script 10_5_3_work.sql with the 10.5.3.0  release and then connect with 10.6.1.0 and insert into the table with the trigger:","org.apache.derby.impl.sql.catalog.DD_Version
+org.apache.derbyTesting.functionTests.tests.upgradeTests.BasicSetup"
+CLASS,derby-10.7.1.1,DERBY-4889,2010-11-05T20:06:56.000-05:00,boolean conversion on embedded boolean conversion on client,"The following code prints ""true"" with the embedded driver and ""false"" with the client driver:
+If setByte() is replaced with setInt(), they both print ""true"".","org.apache.derbyTesting.functionTests.tests.jdbcapi.ParameterMappingTest
+org.apache.derby.impl.drda.DRDAConnThread"
+CLASS,pig-0.11.1,PIG-2767,2012-06-25T09:11:20.000-05:00,create wrong schema after dereferencing dereference nested tuple fields,The following script fails:,"src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+test.org.apache.pig.test.TestPigServer"
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,null in DataType.compare,"While using TOP, and if the DataBag contains null value to compare, it will generate the following exception:","src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+CLASS,pig-0.11.1,PIG-3114,2013-01-03T19:49:42.000-06:00,duplicate macro name error use pigunit,"I'm using PigUnit to test a pig script within which a macro is defined.
+Pig script which is failing :","src.org.apache.pig.PigServer
+test.org.apache.pig.test.pigunit.TestPigTest
+test.org.apache.pig.pigunit.PigTest
+test.org.apache.pig.pigunit.pig.PigServer"
+CLASS,pig-0.11.1,PIG-3267,2013-04-03T16:14:30.000-05:00,fail in limit query,The following query fail:,"src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.relationalOperators.POStore
+test.org.apache.pig.test.TestMRCompiler"
+CLASS,pig-0.11.1,PIG-3292,2013-04-24T03:06:41.000-05:00,get cross product,"The problem:
+We want to do self join to get cross-product
+{code}
+a = load '/input' as (key, x);","test.org.apache.pig.test.TestEvalPipelineLocal
+src.org.apache.pig.newplan.logical.relational.LOCross"
+CLASS,pig-0.11.1,PIG-3310,2013-05-03T02:59:57.000-05:00,not generate new uids for nested schema fields lead to miscomputations,"Consider the following example
+On input data:
+{code}
+1       1001    101
+1       1002    103
+1       1003    102
+1       1004    102
+2       1005    101
+2       1003    101
+2       1002    123
+3       1042    101
+3       1005    101
+3       1002    133
+{code}",src.org.apache.pig.newplan.logical.relational.LOSplitOutput
+CLASS,pig-0.11.1,PIG-3316,2013-05-08T14:01:36.000-05:00,interpret DateTime values in special cases,"For the query
+with input data
+1 1970-01-01
+2 1970-01","test.org.apache.pig.test.TestDefaultDateTimeZone
+src.org.apache.pig.builtin.ToDate"
+CLASS,pig-0.11.1,PIG-3329,2013-05-16T22:44:41.000-05:00,work with SPLIT,"input.txt:
+1 2 3
+4 5 6
+7 8 9
+script:
+a = load 'input.txt' using PigStorage(' ') as (a:int, b:int, c:int);
+SPLIT a into b if a > 0, c if a > 5;
+d = RANK b;
+dump d;","src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MapReduceOper
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler"
+CLASS,pig-0.11.1,PIG-3379,2013-07-16T13:37:26.000-05:00,cause PIG script,The following script fails:,"src.org.apache.pig.parser.LogicalPlanBuilder
+src.org.apache.pig.PigServer
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.expression.ProjectExpression"
+CLASS,pig-0.11.1,PIG-3424,2013-08-15T09:56:20.000-05:00,Package import list should consider class name as is first even if -Dudf.import.list is passed,"Currently if -Dudf.import.list is passed it adds them to the beginning of the list and """" (class name as is) which is defined by default always is pushed to end of list.","test.org.apache.pig.test.TestPigContext
+src.org.apache.pig.impl.PigContext"
+CLASS,pig-0.11.1,PIG-3495,2013-10-02T16:40:25.000-05:00,test failures for streaming test failures on windows,"Register a jython script with an absolute path fail.
+For Example:
+{code}
+register 'D:\scriptingudf.py' using jython as myfuncs;
+a = load 'studenttab10k' using PigStorage() as (name, age:int, gpa:double);
+b = foreach a generate myfuncs.square(age);
+dump b;
+{code}",src.org.apache.pig.scripting.ScriptEngine
+CLASS,pig-0.11.1,PIG-3510,2013-10-09T18:02:45.000-05:00,fail with filter statement,"Here is an example that demonstrates the problem:
+{code:title=two filters}
+b = FILTER a BY (dateint >= 20130901 AND dateint <= 20131001);
+c = FILTER b BY (event_id == 419 OR event_id == 418);
+{code}
+{code:title=one filter}
+b = FILTER a BY (dateint >= 20130901 AND dateint <= 20131001) AND (event_id == 419 OR event_id == 418);
+{code}
+Both dateint and event_id are partition columns.",src.org.apache.pig.newplan.logical.optimizer.LogicalPlanOptimizer
+CLASS,mahout-0.8,MAHOUT-1285,2013-07-15T16:31:28.000-05:00,misparse string data,Have successfully loaded numerous ARFF files with Mahout (originally generated via WEKA).,"integration.src.main.java.org.apache.mahout.utils.vectors.arff.ARFFVectorIterable
+integration.src.main.java.org.apache.mahout.utils.vectors.arff.MapBackedARFFModel"
+CLASS,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,StreamingKMeansReducer throws NullPointerException when REDUCE_STREAMING_KMEANS is set to true,"when REDUCE_STREAMING_KMEANS option is set to true (-rskm) the reducer fails with NullPointerException.
+it happens every time the REDUCE_STREAMING_KMEANS is set to true.",core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer
+CLASS,mahout-0.8,MAHOUT-1358,2013-11-18T01:58:22.000-06:00,StreamingKMeansThread throws IllegalArgumentException when REDUCE_STREAMING_KMEANS is set to true,"Running StreamingKMeans Clustering with REDUCE_STREAMING_KMEANS = true and when no estimatedDistanceCutoff is specified, throws the following error
+The issue is caused by the following code in StreamingKMeansThread.call()",core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansThread
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1179,2011-09-13T11:20:56.000-05:00,not close socket on letter word requests,"When calling a 4-letter-word to a server configured to use NettyServerCnxnFactory, the factory will not properly cancel all the keys and close the socket after sending the response for the 4lw.","src.java.main.org.apache.zookeeper.server.NettyServerCnxn
+src.java.main.org.apache.zookeeper.server.NettyServerCnxnFactory"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1619,2013-01-11T09:57:16.000-06:00,allow spaces in URL,"This format will work.
+This format will not (notice the spaces around the comma)",src.java.main.org.apache.zookeeper.client.ConnectStringParser
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1667,2013-03-14T03:56:56.000-05:00,reestablish to server,"1) Client a set a data watch on /d, then disconnect, client b delete /d and create it again.
+2) Client a set a exists watch on /e(not exist), then disconnect, client b create /e.",src.java.main.org.apache.zookeeper.server.DataTree
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,ZooKeeper Server fails if snapCount is set to 1,"If snapCount is set to 1, ZooKeeper Server can start but it fails with the below error:",src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+METHOD,bookkeeper-4.1.0,BOOKKEEPER-337,2012-07-11T09:03:38.000-05:00,Add entry fails with MetadataVersionException when last ensemble has morethan one bookie failures,,"org.apache.bookkeeper.client.LedgerMetadata:resolveConflict(LedgerMetadata)
+org.apache.bookkeeper.client.LedgerMetadata:LedgerMetadata(int, int)
+org.apache.bookkeeper.client.LedgerHandle:handleBookieFailure(InetSocketAddress, int)
+org.apache.bookkeeper.client.LedgerMetadata:getEnsemble(long)
+org.apache.bookkeeper.client.LedgerMetadata:addEnsemble(long, ArrayList<InetSocketAddress>)
+org.apache.bookkeeper.client.LedgerHandle:rereadMetadata(GenericCallback<LedgerMetadata>)"
+CLASS,argouml-0.22,2618,2004-05-21T11:07:40.000-05:00,add for editing association rolename,"When I first create an association I see + and +, one for each role.
+If I double click on a ""+"" and type in a role name ""foo"", I now see ""++foo"", and the role name property is recorded as ""+foo"".","org.argouml.uml.notation.uml.NotationUtilityUml
+org.argouml.uml.diagram.ui.FigAssociation
+org.argouml.uml.notation.uml.InitNotationUml
+org.argouml.uml.notation.AssociationRoleNotation
+org.argouml.uml.notation.uml.AssociationRoleNotationUml"
+CLASS,argouml-0.22,3100,2005-02-22T00:28:44.000-06:00,show with funny name,"After adding a new package, the package is shown in the explorer with a funny 
+name: ""(anon Package)"" or ""(anon Class)"".","org.argouml.uml.ui.UMLListCellRenderer2
+org.argouml.ui.DisplayTextTree"
+CLASS,argouml-0.22,3619,2005-10-29T13:06:55.000-05:00,add to diagram,"Adding a Class with an Association to itself to a Class diagram creates an
+invisible edge (with a very helpful critic note attached saying it should be
+made more visible).",org.argouml.uml.diagram.ui.FigAssociation
+CLASS,argouml-0.22,3711,2005-11-16T11:53:59.000-06:00,diagram from poseidon * xmi file,"tried loading an XMI formatted file that was created with poseidon UML and
+received the following beauty.","org.argouml.persistence.XMIParser
+org.argouml.ui.SettingsTabPreferences"
+CLASS,argouml-0.22,3774,2005-12-03T06:33:15.000-06:00,not set namespace of Model add to diagram,"To repeat:
+Start argouml.
+Drag the created defaultmodel into the class diagram.",org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+CLASS,argouml-0.22,3790,2005-12-14T05:37:52.000-06:00,save to readonly directory,"To reproduce the error:
+1 Open a zargo-File (I tried to open a zargo-file created under 0.20.
+alpha3) 
+2 Try to save it after performing some changes.",org.argouml.ui.ProjectBrowser
+CLASS,argouml-0.22,3803,2005-12-15T17:25:48.000-06:00,double first character,"For instance, in a statechart, select a previously unselected transition.
+Now 
+the first character that you type will be doubled in the text field.",org.argouml.uml.diagram.ui.FigNodeModelElement
+CLASS,argouml-0.22,3923,2006-02-07T13:17:48.000-06:00,import Poseidon activity diagrams from XMI,"1) Import an XMI from Poseidon, which works well with AndroMDA (the
+PiggyBank example).
+2) If I add my activity diagram under the use case diagram I always get a new activity graph, so I have 2 activity graphs alltogether.
+3) This code, which works with Poseidon, won't work with ArgoUML:
+4) Importing the activity diagram from Poseidon works and the result can be processed by AndroMDA but if you are making the activity diagram from the beginning with ArgoUML, it won't work because of the error above",org.argouml.persistence.XMIParser
+CLASS,argouml-0.22,3945,2006-02-13T04:04:40.000-06:00,assign operation to callevent,"1 Start ArgoUML.
+2 Draw a class.
+3 Create an operation for the class.
+4 Select the class, and create a statechart diagram.
+5 Create 2 states and a transition.
+6 Rightclick the trigger fiels of the transition and create a new callevent.
+7 Create a parameter for this callevent.
+8 Set the type of the parameter to int and the initial value to 1, and give
+it a name.
+9 Navigate to the callevent, and select the ""newOperation"" from the dropdown.
+Bang:",org.argouml.uml.ui.behavior.state_machines.UMLCallEventOperationComboBox2
+CLASS,argouml-0.22,3947,2006-02-13T08:19:43.000-06:00,remove simple states call actions,"I have created a sequence diagram for an use case.
+I have added to it some 
+classified roles and some callings and returns, in one of the returns of a 
+call the 'activity' doens't finish at the point of the return and this causes 
+that I can't insert new call at the lane.
+When I reload the seuqence diagram 
+to check if the problem persist the white rectangle that indicates the 
+duration of the call doesn't appear in any lane for any call and is imposible 
+to add new calls.",org.argouml.model.mdr.CommonBehaviorFactoryMDRImpl
+CLASS,argouml-0.22,3974,2006-02-19T03:58:40.000-06:00,not update in class diagrams,"If I change the name of a method or property in a class diagrams, it won't be
+updated until I reload the diagram, or add a parameter.
+The same thing happens
+if I change the visibility or modifier (static for example) of a method or property.",org.argouml.uml.diagram.static_structure.ui.FigClass
+CLASS,argouml-0.22,4037,2006-03-06T11:33:42.000-06:00,redraw in diagrams,"I have made a simple diagram with one association that triggers this behavior.
+Look at the ""Redraw Problem Demonstrated"" class diagram.
+If you open the context menu on the Association and choose
+""Navigability/bidirectional"" the constant repainting stops.",org.argouml.uml.diagram.ui.FigAssociation
+CLASS,argouml-0.22,4049,2006-03-08T11:50:37.000-06:00,Updating the role phrase of an association on a diagram does not update the connections pane,"Changing the role phrase of an association end does not change the connections
+panel until you change tabs and back again.","org.argouml.uml.ui.foundation.core.UMLAssociationConnectionListModel
+org.argouml.uml.ui.UMLModelElementListModel2"
+CLASS,argouml-0.22,4085,2006-03-13T10:43:14.000-06:00,add deferrable event in Action state,"An IllegalArgumentException is thrown when you select from the Deferrable Events
+pane of the Action State property panel when you choose Select -> Add... from
+the context (popup) menu.",org.argouml.uml.ui.behavior.state_machines.PopupMenuNewEvent
+CLASS,argouml-0.22,4103,2006-03-19T08:42:23.000-06:00,delete transition,"1 Create a statechart diagram.with 2 states and a transition.
+2 Make the transition visible in the explorer.
+3 Delete one of the states.",org.argouml.ui.DisplayTextTree
+CLASS,argouml-0.22,4155,2006-04-10T17:03:04.000-05:00,overwrite without confirmation,"If you create a new project and then select File->Save and specify an existing
+filename, the file will be overwritten without any warning or confirmation.",org.argouml.uml.ui.ActionSaveProject
+CLASS,argouml-0.22,4200,2006-05-11T23:30:25.000-05:00,vanish in new package,"That is how you can get the defect:
+stand on the main Model folder;
+right mouse click and choose from droped meniu ""Add Package"";
+rename the package;
+there are some diagrams below, so i jus drag them one by one using right
+mouse button and releasing over the package;","org.argouml.ui.explorer.PerspectiveManager
+org.argouml.ui.explorer.rules.GoModelElementToBehavior"
+CLASS,argouml-0.22,4245,2006-06-04T13:09:07.000-05:00,repaint exception create sequence diagram,I get the following exception the first time a sequence diagram is created.,org.argouml.uml.diagram.ui.TabDiagram
+CLASS,argouml-0.22,4279,2006-06-16T10:38:30.000-05:00,set notation language on project load,"I had a project loaded and cleared it using File->New, then tried to load a new
+project and got the following exception.","org.argouml.uml.notation.java.InitNotationJava
+org.argouml.uml.notation.java.AssociationEndNameNotationJava"
+CLASS,argouml-0.22,4281,2006-06-17T13:52:25.000-05:00,delete context of StateMachine not delete StateMachine,"If you currently delete an operation, then its StateMachine and
+StatechartDiagram are deleted too.","org.argouml.model.mdr.CoreFactoryMDRImpl
+org.argouml.kernel.TestProject
+org.argouml.uml.ui.ActionDeleteModelElements"
+CLASS,argouml-0.22,4330,2006-07-11T06:48:26.000-05:00,exception in send email to expert,"Steps to reproduce:
+- select an active critic from the ToDoPane
+- press the ""send email to expert"" button",org.argouml.cognitive.ui.TabToDo
+CLASS,argouml-0.22,4342,2006-07-13T16:17:34.000-05:00,not enable save project,"When an item is removed using ""Delete from model"" the ""Save Project"" entry in
+the ""File"" menu is not enabled.",org.argouml.model.mdr.UmlFactoryMDRImpl
+CLASS,argouml-0.22,4349,2006-07-15T12:49:43.000-05:00,not refresh after deletion,"1 Delete all the transiton associted with the action state you want to delete.
+2 Delete the action state.","org.argouml.uml.diagram.activity.ui.FigActionState
+org.argouml.uml.diagram.collaboration.ui.FigClassifierRole
+org.argouml.uml.diagram.activity.ui.FigObjectFlowState
+org.argouml.uml.diagram.sequence.ui.FigClassifierRole
+org.argouml.uml.diagram.activity.ui.FigCallState
+org.argouml.uml.diagram.state.ui.FigSubmachineState"
+CLASS,argouml-0.22,4362,2006-07-18T12:07:56.000-05:00,draw generalization,"Place 2 collaborations and draw a generalization between them, an exception is
+thrown.",org.argouml.uml.diagram.collaboration.ui.CollabDiagramRenderer
+CLASS,argouml-0.22,4364,2006-07-18T15:30:05.000-05:00,drag association onto diagram create n-ary diamond,"1 Start ArgoUML
+2 Place 2 classes and association them
+3 Drag the association from explorer onto diagram","org.argouml.uml.diagram.collaboration.CollabDiagramGraphModel
+org.argouml.uml.diagram.use_case.UseCaseDiagramGraphModel
+org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+org.argouml.uml.diagram.deployment.DeploymentDiagramGraphModel"
+CLASS,argouml-0.22,4367,2006-07-19T19:00:56.000-05:00,delete call self action throw InvalidElementException make InvalidElementException,"steps:
+1 - create a *new file*
+2 - create a sequence diagram
+3 - create 2 classifier roles
+4 - create new call action from 1st to 2nd
+5 - create new call action from 2nd to it self
+6 - assign a name to calls
+7 - select call action in step 5
+8 - Right click and select delete from model
+9 - Save & get a report (0.22b2 only)","org.argouml.uml.diagram.sequence.ui.FigClassifierRole
+org.argouml.uml.diagram.sequence.ui.SequenceDiagramLayer"
+CLASS,lucene-4.0,LUCENE-4461,2012-10-05T10:21:38.000-05:00,create inconsistent results,Multiple FacetRequest are getting merged into one creating wrong results in this case:,org.apache.lucene.facet.search.StandardFacetsAccumulator
+CLASS,lucene-4.0,LUCENE-4660,2013-01-04T08:21:54.000-06:00,stall incoming threads have unexpected hysteresis,"Eg if you set maxMergeCount to 2, as soon as a 3rd merge need to kick off, we stall incoming segment-creating threads.",org.apache.lucene.index.ConcurrentMergeScheduler.MergeThread
+CLASS,jedit-4.3,1193683,2005-05-02T09:22:25.000-05:00,be in black hole,"Hi, when you have some folded text \(folding closed\)
+Close it you'll get
+Delete one \{",org.gjt.sp.jedit.textarea.BufferHandler
+CLASS,jedit-4.3,1520774,2006-07-11T20:43:16.000-05:00,enter field in VFSFileChooser File,"If I type '/' + enter in the File-Browser I get the
+file list in the attatched screen shot.
+In 4.2 Final, just typeing '/' took me to the root
+directory ""/"".",org.gjt.sp.jedit.MiscUtilities
+CLASS,jedit-4.3,1536064,2006-08-07T15:14:23.000-05:00,focus in filesystembrowser NOT,When I try to open a file \(Ctrl-O\) the focus in the filesystembrowser is on the Commands menu instead of the filename field.,org.gjt.sp.jedit.GUIUtilities
+CLASS,jedit-4.3,1542026,2006-08-17T14:41:54.000-05:00,char into buffer,"Using the keyboard \(characters, or space for 
+checkboxes \[return for checkboxes works correctly\]\) 
+to navigate through the menubar inserts the pressed 
+characters literally in the current buffer if the 
+choice is not a sub-/menu, but an action, even if the 
+pressed character is not anything choosable \(e. g. 
+Alt+p -&gt; a\)",org.gjt.sp.jedit.jEdit.MyFocusManager
+CLASS,jedit-4.3,1571752,2006-10-05T21:26:12.000-05:00,fold wrong comments in PHP mode,Before 'Add Explicit fold' the content of buffer looks like this \('X' means selection boundaries\):,org.gjt.sp.jedit.textarea.TextArea
+CLASS,jedit-4.3,1575505,2006-10-11T19:54:43.000-05:00,j bug,"Enter this text:
+Select the word \(solid\).
+Press C+j.",org.gjt.sp.jedit.textarea.TextArea
+CLASS,jedit-4.3,1593359,2006-11-09T12:26:59.000-06:00,process keyboard input be not keyboard input,"e. g. if focus is on Activity Log
+Dockable or Java Insight Dockable, pressing Del-key deletes characters from the buffer.",org.gjt.sp.jedit.gui.InputHandler
+CLASS,jedit-4.3,1658252,2007-02-12T17:48:03.000-06:00,match in multi-line defines,Try this define:,"org.gjt.sp.jedit.syntax.ParserRule
+org.gjt.sp.jedit.syntax.XModeHandler
+org.gjt.sp.jedit.syntax.XModeHandler.TagDecl
+org.gjt.sp.jedit.syntax.TokenMarker"
+CLASS,jedit-4.3,1724940,2007-05-24T15:02:18.000-05:00,type in multiple,"If I highlight multiple selections of text in the text area and then begin typing, only the first character of what I type is inserted in the selected areas \(except for where the cursor ended up after making the selection\).
+For example if I have the text:
+and I highlight both p's in the &lt;p&gt; tags and then type ""div"" I end up with:",org.gjt.sp.jedit.textarea.BufferHandler
+CLASS,jedit-4.3,1739675,2007-06-19T11:44:12.000-05:00,error in jedit svn revision,After compile and update my jedit to pre10 \(revision 9820+\) i got some erros trying to use c+i with python files.,org.gjt.sp.jedit.indent.WhitespaceRule
+CLASS,jedit-4.3,1768638,2008-01-14T19:10:55.000-06:00,check after buffer switch,"1\.
+Open a clean jEdit session, i.e. rename your .
+jedit settings directory to something else
+2\.
+Start jEdit
+3\.
+Open Global Options and select General
+4\.
+Set option 'if open files are changed on disk' to 'prompt'
+5\.
+Set option 'Check for file change upon' to 'visiting or saving the buffer'
+6\.
+Create two buffers and save them, e.g. f1 and f2
+7\.
+Select buffer f1
+8\.
+Overwrite buffer f2 from the command line, e.g. echo Hello &gt; f2
+9\.
+Switch back to jEdit
+10\.
+Switch to buffer f2 with the buffer switcher
+Switch focus to another window and back to jEdit again.
+Install the RecentBufferSwitcher
+15\.
+Open the Global options and select a shortcut for Open Buffers command, e.g. C+TAB.
+16\.
+Select the f1 buffer again
+17\.
+Overwrite the f2 buffer from command line again
+18\.
+Switch back to jEdit
+19\.
+Switch buffer with C+TAB","org.gjt.sp.jedit.View
+org.gjt.sp.jedit.search.SearchAndReplace
+org.gjt.sp.jedit.options.GeneralOptionPane
+org.gjt.sp.jedit.Buffer
+org.gjt.sp.jedit.EditServer
+org.gjt.sp.jedit.jEdit
+org.gjt.sp.jedit.View.WindowHandler
+org.gjt.sp.jedit.gui.CloseDialog.ActionHandler"
+CLASS,jedit-4.3,1866836,2008-01-08T14:05:42.000-06:00,keep column cursor after completion,"Hi, when typing in a column cursor, after using the completion popup it would be better if the cursor would still be column cursor","org.gjt.sp.jedit.gui.CompleteWord.Words
+org.gjt.sp.jedit.gui.CompleteWord"
+CLASS,jedit-4.3,1869978,2008-01-12T16:00:50.000-06:00,not close with views,"When jEdit has only one buffer open, which name is untitled-x and which is empty and not dirty, it is closed automatically when another buffer is opened.",org.gjt.sp.jedit.jEdit
+CLASS,jedit-4.3,1942313,2008-04-14T18:08:29.000-05:00,expand fold move caret,"Create the following file, and save it as test.cpp:
+Change the folding mode \(if necessary\) to \`indent'.
+Move the caret to the \`hij' line.
+Press Alt+Backspace to contract the fold.
+Press Alt+Enter to expand the fold.
+Press Alt+Enter a second time.",org.gjt.sp.jedit.textarea.DisplayManager
+CLASS,jedit-4.3,1984000,2008-06-03T23:51:25.000-05:00,Untitled buffer is lost after C+n,"When I'm editing an untitled buffer and call File &gt; New, the edited buffer is lost from the buffer list.",org.gjt.sp.jedit.bufferset.BufferSet
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,fold expantion,"\(Quoted from Matthieu's comment for patch \#1999448\)
+if I use explicit fold, with this buffer
+I remove one ""l"" from hello.","org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,jedit-4.3,2017514,2008-07-13T20:48:23.000-05:00,context menu,"Summary: Select all \(Ctrl+A\), then right-click in the selection \(as if to copy, or cut\).",org.gjt.sp.jedit.textarea.MouseHandler
+CLASS,jedit-4.3,2129419,2008-09-25T23:53:11.000-05:00,quit jEdit,"When trying to quit jEdit, I get the following Null-Pointer-Exception, which is probably related to some files being changed/deleted \(due to a ""cvs up"" in the background\).",org.gjt.sp.jedit.gui.CloseDialog.ListHandler
+CLASS,jedit-4.3,2173112,2008-10-16T23:00:21.000-05:00,not match last line in selection not match regex in selection,"In a new buffer, make 10 empty lines.
+\(NOTE: they don't have to be empty\)
+Select any five lines \(i.e. a text selection\)
+Search for $ \(with hypersearch, selection, and regular expressions turned on\)
+Now search for $ and replace with z",org.gjt.sp.jedit.search.HyperSearchRequest
+CLASS,jedit-4.3,2824045,2009-07-20T00:56:45.000-05:00,end up under others,"Sometimes when I toggle fullscreen mode, the jEdit window appears behind other windows \(such as my desktop panel\).",org.gjt.sp.jedit.View
+CLASS,jabref-2.6,1436014,2006-02-21T16:27:48.000-06:00,add to separate keywords,"When adding a keyword via the content selector, no comma is added before the keyword.
+I have set ""When adding/removing keywords separate them by:"" to "", "" in the Preferences > Groups panel.","net.sf.jabref.groups.GroupDialog
+net.sf.jabref.FieldContentSelector
+net.sf.jabref.EntryEditor"
+CLASS,jabref-2.6,1503956,2006-06-10T11:18:03.000-05:00,help text instead_of Help icon,"In Options -> Preferences -> Entry preview, the help button contains the text ""help"" instead of the usual help icon","net.sf.jabref.ExternalTab
+net.sf.jabref.PrefsDialog3
+net.sf.jabref.PrefsDialog2
+net.sf.jabref.PreviewPrefsTab"
+CLASS,jabref-2.6,1538769,2006-08-11T15:12:07.000-05:00,Freezes when exiting Import dialog box by Cancel button,"Jabref freezes with status string ""Starting import""
+when closing the Import dialog box without opening a file.
+Steps to reproduce:
+Choose File|Import into new database|Autodetect format.
+Press the Cancel button",net.sf.jabref.gui.FileDialogs
+CLASS,jabref-2.6,1631548,2007-01-09T14:20:57.000-06:00,depend on working dir,Example:,net.sf.jabref.JabRefFrame
+CLASS,jabref-2.6,1709449,2007-04-29T00:03:55.000-05:00,Clicking a DOI from context menu fails,"Now: Clicking the DOI icon fails, since the default DOI server is not prepended, i.e. Firefox says","tests.net.sf.jabref.UtilTest
+net.sf.jabref.Util"
+CLASS,jabref-2.6,2207462,2008-10-29T14:31:16.000-05:00,hide behind JabRef window,"When searching for a string with the ""Web Search > Search ACM Digital Library"" function, the following happens \(e.g. searching ""sql injection"" in The Guide\):
+\* Hitting ok: Message box closes, but the result window stays in the background \(invisible\).","net.sf.jabref.imports.ACMPortalFetcher
+net.sf.jabref.imports.ImportInspectionCommandLine
+net.sf.jabref.gui.ImportInspectionDialog"
+CLASS,jabref-2.6,2938562,2010-01-24T12:59:46.000-06:00,turn relative filenames,"The ""general""-tab provides the management of files attached to a bib entry.
+The context-menu of files in this list provides to move/rename functions.
+Using this turns relative filenames \(relative to the doc-folder of the database settings\) to absolute filenames.",net.sf.jabref.external.MoveFileAction
+METHOD,mahout-0.8,MAHOUT-1301,2013-08-01T09:31:21.000-05:00,have excess comma at end,"Example: 
+Consider following sparse vector
+{code:java}
+Vector v = new SequentialAccessSparseVector(capacity);
+v.set(1, 0.1);
+v.set(3, 0.3);
+{code}
+In 0.7 v.toString() returns following string:
+{code:java}
+{1:0.1,3:0.3}
+{code}
+but in 0.8 it returns
+{code:java}
+{1:0.1,3:0.3,}
+{code}
+As you can see, there is extra comma at the end of the string.","org.apache.mahout.math.SequentialAccessSparseVector:toString()
+org.apache.mahout.math.RandomAccessSparseVector:toString()"
+METHOD,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,throw NullPointerException set REDUCE_STREAMING_KMEANS to true,"when REDUCE_STREAMING_KMEANS option is set to true (-rskm) the reducer fails with NullPointerException.
+it happens every time the REDUCE_STREAMING_KMEANS is set to true.","org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer:reduce(IntWritable, Iterable<CentroidWritable>, Context)
+org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer:getBestCentroids(List<Centroid>, Configuration)"
+METHOD,mahout-0.8,MAHOUT-1319,2013-08-26T13:28:30.000-05:00,run as MR,"Running ""seqdirectory"" (Sequence Files from Input Directory) from the command line and specifying a custom filter using the -filter parameter, the argument is ignored and the default ""PrefixAdditionFilter"" is used on the input.","org.apache.mahout.text.WholeFileRecordReader:initialize(InputSplit, TaskAttemptContext)
+org.apache.mahout.common.HadoopUtil:buildDirList(FileSystem, FileStatus)
+org.apache.mahout.text.WholeFileRecordReader:WholeFileRecordReader(CombineFileSplit, TaskAttemptContext, Integer)
+org.apache.mahout.text.TestSequenceFilesFromDirectory.ExcludeDotFiles:accept(Path)"
+METHOD,mahout-0.8,MAHOUT-1358,2013-11-18T01:58:22.000-06:00,throw IllegalArgumentException set REDUCE_STREAMING_KMEANS to true,"Running StreamingKMeans Clustering with REDUCE_STREAMING_KMEANS = true and when no estimatedDistanceCutoff is specified, throws the following error","org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansThread:StreamingKMeansThread(Path, Configuration)
+org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansThread:StreamingKMeansThread(Iterable<Centroid>, Configuration)"
+CLASS,openjpa-2.0.1,OPENJPA-1787,2010-09-10T11:23:51.000-05:00,merge new entity,If you try to merge a new entity.,"org.apache.openjpa.kernel.BrokerImpl
+org.apache.openjpa.kernel.AttachStrategy
+org.apache.openjpa.integration.validation.TestValidationGroups"
+CLASS,openjpa-2.0.1,OPENJPA-1903,2010-12-06T13:05:34.000-06:00,work first time,"Basically I have two Entities which both use multiple Ids to produce the Primary Key, ""Preis"" contains a foreign key on ""Website"":
+I use the following to set up a website and a Preis:
+Afterwards, if I run the query as follows:
+However if I put the query as",org.apache.openjpa.jdbc.kernel.PreparedQueryImpl
+CLASS,openjpa-2.0.1,OPENJPA-1912,2011-01-03T13:48:09.000-06:00,generate invalid code,"If openjpa.DetachState =fetch-groups is used, the enhancer will add a 'implements Externalizable' + writeExternal + readExternal.
+Example:",org.apache.openjpa.enhance.PCEnhancer
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,ignore class loader,We pass the appliation class loeader as part of our PersistenceUnitInfo implementation by returning it from PersistenceUnitInfo.getClassLoader().,"org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-1928,2011-01-20T17:43:52.000-06:00,not allow method overriding,"For example:
+        @Persistent(optional = false)
+	@Column(name = ""STATUS"")
+	@Externalizer(""getName"")
+	@Factory(""valueOf"")
+	public OrderStatus getStatus() {
+		return this.status;
+	}",org.apache.openjpa.meta.FieldMetaData
+CLASS,openjpa-2.0.1,OPENJPA-1986,2011-04-27T11:44:53.000-05:00,cascade persist,"See the following example:
+and the following scenario:
+CascadePersistEntity cpe1 = new CascadePersistEntity(1);
+CascadePersistEntity cpe2 = new CascadePersistEntity(2);
+cpe1.setOther(cpe2);
+em.persist(cpe1);","org.apache.openjpa.kernel.BrokerImpl
+org.apache.openjpa.conf.Compatibility
+org.apache.openjpa.kernel.SingleFieldManager"
+CLASS,openjpa-2.0.1,OPENJPA-2007,2011-05-25T14:51:51.000-05:00,"Setting query hint ""openjpa.FetchPlan.Isolation"" results in misleading warning","Setting query hint ""openjpa.FetchPlan.Isolation"" on a query results in this misleading warning being printed in the log:","org.apache.openjpa.persistence.jdbc.JDBCPersistenceProductDerivation
+org.apache.openjpa.conf.TestQueryHints"
+METHOD,lang,LANG-300,2006-12-19T17:47:43.000-06:00,throw NumberFormatException for digit,"NumberUtils.createNumber throws a NumberFormatException when parsing ""1l"", ""2l"" .
+.
+etc..
+.
+It works fine if you try to parse ""01l"" or ""02l"".",org.apache.commons.lang.math.NumberUtils:createNumber(String)
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,not escape /' into '\/ make IE render page,"For example, document.getElementById(""test"").
+Try  to run below codes, you will find the difference:
+  String s = ""<script>alert('aaa');</script>"";
+  String str = org.springframework.web.util.JavaScriptUtils.javaScriptEscape(s);
+  System.out.println(""Spring JS Escape : ""+str);
+  str = org.apache.commons.lang.StringEscapeUtils.escapeJavaScript(s);
+  System.out.println(""Apache Common Lang JS Escape : ""+ str);","org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+METHOD,lang,LANG-457,2008-09-08T20:00:51.000-05:00,"NumberUtils createNumber thows a StringIndexOutOfBoundsException when only an ""l"" is passed in.",,org.apache.commons.lang.NumberUtils:createNumber(String)
+METHOD,lang,LANG-477,2009-01-09T10:05:53.000-06:00,contain single quotes,Example that will cause error:,"org.apache.commons.lang.text.ExtendedMessageFormat:appendQuotedString(String, ParsePosition, StringBuffer, boolean)"
+METHOD,lang,LANG-480,2009-01-20T17:36:44.000-06:00,convert unicode characters into characters convert unicode characters above u ffff,The following test displays the problem quite nicely:,"org.apache.commons.lang.Entities:escape(Writer, String)"
+METHOD,lang,LANG-538,2009-10-16T16:47:39.000-05:00,not change Calendar TimeZone in certain situations,"For example, the following unit test fails:
+However, this unit test passes:","org.apache.commons.lang3.time.FastDateFormat:format(Calendar, StringBuffer)"
+METHOD,lang,LANG-710,2011-07-01T20:57:30.000-05:00,"StringIndexOutOfBoundsException when calling unescapeHtml4(""&#03"")","When calling unescapeHtml4() on the String ""&#03"" (or any String that contains these characters) an Exception is thrown:","org.apache.commons.lang3.text.translate.NumericEntityUnescaper:translate(CharSequence, int, Writer)"
+METHOD,lang,LANG-788,2012-02-11T12:36:48.000-06:00,throw ClassNotFoundException clone primitive classes,For example:,"org.apache.commons.lang3.SerializationUtils:ClassLoaderAwareObjectInputStream(InputStream, ClassLoader)
+org.apache.commons.lang3.SerializationUtils:resolveClass(ObjectStreamClass)"
+METHOD,lang,LANG-832,2012-09-27T00:27:58.000-05:00,not handle unterminated quotes,For example:,org.apache.commons.lang3.time.FastDateParser:init()
+METHOD,lang,LANG-879,2013-03-18T21:46:29.000-05:00,fail with new Locale,"The Test below fails with the following error on JDK7, but succeeds on JDK6:",org.apache.commons.lang3.LocaleUtils:toLocale(String)
+FILE,SWARM,SWARM-485,2016-05-26T18:01:46.000-05:00,Using a JAX-RS provider that extends JacksonJaxbJsonProvider throws a  java.lang.NoClassDefFoundError Link Error,A java.lang.NoClassDefFoundError Link Error is thrown when deploying a JAX-RS application with a custom provider that overrides com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider,org.wildfly.swarm.jaxrs.JAXRSArquillianTest
+FILE,SWARM,SWARM-528,2016-06-22T02:53:46.000-05:00,not work with @ArquillianResource URL baseURL,"If you set the swarm port using either swarm.http.port or swarm.port.offset via arquillian.xml e.g.
+The problem is that if you use:
+If you set the port property in arquillian.xml
+Attempting to combine the port property and the offset does not work either e.g.",org.wildfly.swarm.arquillian.resources.SwarmURLResourceProvider
+FILE,SWARM,SWARM-486,2016-05-28T18:25:37.000-05:00,not load project-stages.yml with arq not load project-stages.yml on classpath,I attached the error log and the reproducer in 'Steps to Reproduce' section.,org.wildfly.swarm.container.ProjectStagesTest
+FILE,SWARM,SWARM-553,2016-07-08T19:50:16.000-05:00,use PeriodicSizeRotatingFileHandler,"When using LoggingFraction and PeriodicSizeRotatingFileHandler it gives me the following error:
+Here is my whole code:",org.wildfly.swarm.container.runtime.RuntimeServer
+FILE,SWARM,SWARM-757,2016-10-06T11:58:09.000-05:00,javax.persistence.PersistenceException: [PersistenceUnit: primary] Unable to build Hibernate SessionFactory when using Infinispan as 2nd level cache for hibernate,"I am trying to enable Infinispan as a 2nd level cache for hibernate.
+As soon as I enable it, I get the following startup exception:",org.wildfly.swarm.infinispan.runtime.InfinispanCustomizer
+FILE,SWARM,SWARM-793,2016-10-25T19:04:09.000-05:00,not add custom modules to WildFly swarm use <resource-root> instead_of <artifact>,"Custom module ""oracle.jdbc"" (module.xml and JAR) copied into Uber-JAR's ""modules\oracle\jdbc\main"" directory (there are also some default modules there - jboss, javax, etc) when module is configured like this:
+JAR is copied to ""m2repo\com\hynnet\oracle-driver-ojdbc6\12.1.0.1"" directory of Uber-JAR and driver was successfully loaded.","org.wildfly.swarm.bootstrap.modules.NestedJarResourceLoader
+org.wildfly.swarm.bootstrap.modules.BootstrapClasspathModuleFinder"
+METHOD,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,push into sub-query push with FETCH,Take the following snippet:,"org.apache.derby.impl.sql.compile.SelectNode:checkNoWindowFunctions(QueryTreeNode, String)"
+METHOD,derby-10.9.1.0,DERBY-5951,2012-10-16T10:33:53.000-05:00,use Clobs with territory base collation,The following script shows this problem:,org.apache.derby.iapi.types.CollatorSQLClob:getNewNull()
+METHOD,derby-10.9.1.0,DERBY-6009,2012-12-07T04:15:23.000-06:00,need stricter checking of ORDER BY clause,"For example:
+And the next example should probably have raised a syntax error too, instead of a NullPointerException:",org.apache.derby.impl.sql.compile.OrderByList:getResultSetNumber()
+METHOD,derby-10.9.1.0,DERBY-6027,2012-12-29T20:41:18.000-06:00,give NPE,"The following gives a NPE:
+or",org.apache.derby.impl.sql.compile.OrderByColumn:isReferedColByNum(ValueNode)
+METHOD,jedit-4.2,2542,2006-05-27T22:49:10.000-05:00,end Current for pasting Text,"In 4.2final and 4.3pre4, if you type some characters, 
+paste some text, and then undo, it undos the typed characters and the 
+pasted text together.","org.gjt.sp.jedit.Registers:paste(JEditTextArea, char, boolean)"
+METHOD,jedit-4.2,2752,2006-11-23T12:15:33.000-06:00,freeze on regexpr | |,"set ""Search for:"" to ""||""
+check ""Regular expressions""
+click ""Replace All""","org.gjt.sp.jedit.search.SearchAndReplace:_replace(Buffer, SearchMatcher, int, int, boolean)"
+FILE,eclipse-3.1,100137,2005-06-15T04:29:00.000-05:00,not work in details pane,"1. create a fresh Java project
+2. delete the JRE System Library
+3. add a new User Library which is marked as system library and has the rt.jar as single library (I used JDK 1.5.0_03)
+4. add the following class:
+5. add breakpoint on line 8
+6. debug",org.eclipse.jdt.launching.StandardClasspathProvider
+FILE,eclipse-3.1,100177,2005-06-15T09:49:00.000-05:00,[Import/Export] Importing existing project with different case over existing project fails with empty error dialog,"1. Have a Java project 'p' (lower-case p) on disk
+2. Create a Java project 'P' (upper-case P) in your workspace
+3. File > Import > Existing Projects Into Workspace
+4. Select the directory that contains 'p' on disk
+5. Finish","org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage
+org.eclipse.ui.wizards.datatransfer.WizardExternalProjectImportPage"
+FILE,eclipse-3.1,100336,2005-06-15T20:11:00.000-05:00,open file,"When opening a .java file for the first time, the default editor is ignored and the file is opened with the Colorer Editor (plugin).","org.eclipse.ui.internal.dialogs.FileEditorsPreferencePage
+org.eclipse.ui.internal.IWorkbenchConstants
+org.eclipse.ui.internal.registry.FileEditorMapping"
+FILE,eclipse-3.1,100799,2005-06-20T08:40:00.000-05:00,create error page link to error log view,"I compiled a plug-in with a view against a 5.0 JRE.
+When I ran this plugin in a run-time eclipse with a 1.4 VM, startup passed without any error message.
+When I opened the view, I got a view with an embedded error dialog showing a","org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.part.StatusPart"
+FILE,eclipse-3.1,100808,2005-06-20T09:30:00.000-05:00,replace range for package proposals,"- have an empty .java file with the contents below (no line termination)
+- invoke code assist at the end of the first line",org.eclipse.jdt.internal.codeassist.complete.CompletionScanner
+FILE,eclipse-3.1,100868,2005-06-20T11:50:00.000-05:00,not recommend methods in anonymous enum subclass,"Consider code:
+Where the cursor is at <<>>.","org.eclipse.jdt.internal.compiler.parser.RecoveredType
+org.eclipse.jdt.internal.ui.text.java.OverrideCompletionProposal"
+FILE,eclipse-3.1,101090,2005-06-21T13:26:00.000-05:00,console output run ant in separate jvm,"When I RC->Run as->Ant Build, no stdout or stderr gets written to console.","org.eclipse.ant.internal.ui.IAntUIPreferenceConstants
+org.eclipse.ant.internal.ui.AntUIPreferenceInitializer
+org.eclipse.ant.internal.ui.preferences.AntPreferencePage
+org.eclipse.ant.internal.ui.preferences.AntPreferencesMessages
+org.eclipse.ant.internal.ui.launchConfigurations.RemoteAntBuildListener"
+FILE,eclipse-3.1,101328,2005-06-22T15:13:00.000-05:00,get error commit removal,"Using N0622, select the removal that you want to commit and you will get an error in the log about the fact that the resource does't exist.",org.eclipse.team.internal.ccvs.core.CVSWorkspaceSubscriber
+FILE,eclipse-3.1,101644,2005-06-24T10:19:00.000-05:00,init with actual value,Click on the 'Browse' button in the Overview page of the plugin editor.,"org.eclipse.pde.internal.ui.editor.plugin.PluginGeneralInfoSection
+org.eclipse.pde.internal.ui.editor.plugin.rows.ClassAttributeRow"
+FILE,eclipse-3.1,102055,2005-06-28T14:01:00.000-05:00,not allow editing of included features,"Start eclipse 3.1R4
+Create a plugin Small and feature SmallFeature containing the Small plugin
+Create a feature LargeFeature with no plugins
+In the Included Features tab of the LargeFeature add the SmallFeature","org.eclipse.pde.internal.core.feature.FeaturePlugin
+org.eclipse.pde.internal.ui.editor.feature.IncludedFeaturesDetailsSection
+org.eclipse.pde.internal.ui.editor.feature.OpenReferenceAction
+org.eclipse.pde.internal.ui.editor.feature.PluginDetailsSection
+org.eclipse.pde.internal.ui.PDELabelProvider"
+FILE,eclipse-3.1,102427,2005-06-30T20:45:00.000-05:00,not import methods,"Consider:
+When debugging, if you select 'getValue()' in the method 'doit' and execute
+display (or inspect) you get an error indicating that the method 'getValue()' is
+not undefined for type Doer.",org.eclipse.jdt.internal.debug.eval.ast.engine.SourceBasedSourceGenerator
+FILE,eclipse-3.1,102473,2005-07-01T09:10:00.000-05:00,debug info in class files not harvest from debug,"3.1 get this zip http://prdownloads.sourceforge.net/jggapi/jggapi-1.0.1-bin.zip?download
+extract the jar file from it and put on build path
+open the class file editor for LoginContext.
+Look at constructor.
+Now, try completing:
+new LoginContext(<CODEASSIST>","org.eclipse.jdt.internal.core.BinaryMethod
+org.eclipse.jdt.internal.compiler.classfmt.MethodInfo"
+FILE,eclipse-3.1,102485,2005-07-01T10:54:00.000-05:00,lose current selection in Package explorer,"In the Package Explorer (in ""Show Working Sets"" mode), I have several projects
+selected, with one of them being expanded in the Package Explorer tree.
+Now when
+my selection includes the ""JRE System Library"" entry in that project, and when I
+then chose ""Export""-""To Filesystem"", the wizard coming up has nothing selected
+for export, i.e. it loses completely the current selection in the Package
+Explorer View.",org.eclipse.ui.internal.dialogs.WorkbenchWizardElement
+FILE,eclipse-3.1,103379,2005-07-11T15:37:00.000-05:00,leak time leak editor instance,"It creates a new simple project and a new file.
+It opens up the new file in the editor that comes with the testcase, then close the editor.
+Repeat 500 times.
+If you run this testcase with -Xmx256M, you will run out of memory.
+However, if you explicitly set the String array to null in the dispose() method of the editor, then the same testcase will not run out of memory.",org.eclipse.ui.operations.OperationHistoryActionHandler
+FILE,eclipse-3.1,103918,2005-07-14T17:25:00.000-05:00,create dynamic proxy in rich client,my start method contains the following code:,org.eclipse.core.runtime.internal.adaptor.ContextFinder
+FILE,eclipse-3.1,104966,2005-07-24T23:17:00.000-05:00,Link displays as enabled when setText called after setEnabled,"1. Create a new Visual bean (SWT)
+2. Drop a link on the composite
+3. Set the enabled property on the link to be disabled
+5. Close the editor
+6. Re-open the editor
+When you run the application the link shows as enabled, but is actually disabled.
+If you change the order of the initialization such that the enabled status is set after the text is set it displays correctly.",org.eclipse.swt.widgets.Link
+FILE,eclipse-3.1,104987,2005-07-25T06:43:00.000-05:00,switch perspectives,"- start eclipse on a fresh workspace
+- create a java project and a class Foo.java
+- switch to the debug perspective","org.eclipse.ui.internal.PartStack
+org.eclipse.ui.internal.PartPane"
+FILE,eclipse-3.1,104991,2005-07-25T07:07:00.000-05:00,not reopen closed views,"- new workspace
+- close Problems view
+- Window > Show View > Problems",org.eclipse.ui.internal.PartStack
+FILE,eclipse-3.1,106454,2005-08-09T06:45:00.000-05:00,start auto-build job,"- Create a Java project and add a linked folder to a location that does not exist (e.g. '/xxx')
+- Enable Preferences > General > Workspace > Refresh automatically",org.eclipse.core.internal.refresh.PollingMonitor
+FILE,eclipse-3.1,106725,2005-08-11T04:57:00.000-05:00,assist ] wrong method,"create some class with method main.
+create another class that extends first class.
+type ""main"" in class body, press ctrl-space for content assistant choose there
+""main - main method"".","org.eclipse.jdt.internal.codeassist.RelevanceConstants
+org.eclipse.jdt.internal.codeassist.CompletionEngine"
+FILE,eclipse-3.1,107391,2005-08-18T21:20:00.000-05:00,not work with trailing trail in code style prefix list,While editing my code style prefix list regarding generating getters and setters I appended a comma at the end.,org.eclipse.jdt.internal.corext.util.Strings
+FILE,eclipse-3.1,108162,2005-08-26T14:27:00.000-05:00,use MoveFilesAndFoldersOperation from refactoring participant,The following line of code in the participant causes the deadlock:,org.eclipse.ui.actions.WorkspaceModifyOperation
+FILE,eclipse-3.1,108473,2005-08-31T11:22:00.000-05:00,degrade over time,"After running Tomcat several times, there is a huge slow down in Tomcat:",org.eclipse.jdt.internal.debug.ui.JavaDebugOptionsManager
+FILE,eclipse-3.1,108705,2005-09-02T11:48:00.000-05:00,safeguard against misbehaving plugins,"If I right-click on a project that is open (which does show the menu) and then try to right-click on a closed project again, the menu now shows up.",org.eclipse.ui.internal.ObjectPluginAction
+FILE,eclipse-3.1,109104,2005-09-08T17:35:00.000-05:00,not write to disk,"Several times while using this build, I have hit save in an editor but the buffer contents have not been flushed to disk.
+1) Did a search and replace in a Java file (Ctrl+F, Replace All)
+2) Hit save.
+3) Discovered that I replaced with the wrong thing
+4) Hit Undo (Ctrl+Z)
+5) Did another search and replace with the correct value
+6) Hit Save.",org.eclipse.jface.text.AbstractDocument
+FILE,eclipse-3.1,109254,2005-09-11T12:02:00.000-05:00,cause entire machine compare large files,"1. Commit a file of >50k lines.
+2. Compare it against a similar local file.
+- After a while I give up and press Cancel.","org.eclipse.compare.rangedifferencer.RangeDifferencer
+org.eclipse.compare.rangedifferencer.LinkedRangeDifference
+org.eclipse.compare.internal.CompareUIPlugin
+org.eclipse.compare.rangedifferencer.RangeDifference"
+FILE,eclipse-3.1,110837,2005-09-27T13:16:00.000-05:00,throw exception in IDE,Here's the code:,"org.eclipse.jdt.launching.AbstractJavaLaunchConfigurationDelegate
+org.eclipse.jdt.internal.launching.JRERuntimeClasspathEntryResolver
+org.eclipse.jdt.internal.launching.StandardVMType"
+FILE,eclipse-3.1,111259,2005-09-30T16:53:00.000-05:00,not go away on GTK,"In the logic example, on GTK, if you click-and-drop a part in the outline 
+view, the insertion mark does not go away when you exit the viewer.
+You see 
+the same problem even if you don't drop the part in the outline.",org.eclipse.swt.widgets.Tree
+FILE,eclipse-3.1,112137,2005-10-10T16:22:00.000-05:00,ConcurrentModificationException when CTRL+LeftClick on constructor_ call in Java editor,"While coding in Java, I CTRL+clicked on an allocation call to InetSocketAddress, in order to open the sources and read a bit.",org.eclipse.jdt.internal.core.SourceMapper
+FILE,eclipse-3.1,114565,2005-11-01T11:56:00.000-06:00,fix computation do with progress do in UI thread,"1) Configure the problems view to be showing several warnings of the same type
+(say about 100).
+2) Ctrl+A to select all problems
+3) Right click in problems view, and select ""Quick Fix""",org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,120414,2005-12-12T13:02:00.000-06:00,not catch ctrl + x.,"When I cut all the text from the text field the list of wizards in the new wizard is not updated.
+Unlike when I backspace to remove all text for example.",org.eclipse.ui.internal.dialogs.FilteredTree
+FILE,eclipse-3.1,126392,2006-02-03T14:06:00.000-06:00,not set properties for ant editor,"user.properties file contains:
+ 
+   projectname=required","org.eclipse.ant.internal.ui.model.AntModel
+org.eclipse.ant.internal.ui.model.AntPropertyNode"
+FILE,eclipse-3.1,126938,2006-02-08T12:20:00.000-06:00,not import Installed jres from preference file,"Below are the contents of the preferences file I am trying to import.
+To reproduce, you may need to change the location of the JRE since you probably don't have it installed in the directory I do.
+1. Create a new workspace.
+2. Import a preference file.
+3. Open the preference window and view the JRE's",org.eclipse.jdt.internal.launching.JREPreferenceModifyListener
+FILE,eclipse-3.1,133072,2006-03-23T16:58:00.000-06:00,not launch eclipse application without ws argument,Here's the test class we used:,"org.eclipse.pde.internal.ui.IPDEUIConstants
+org.eclipse.pde.internal.ui.launcher.LaunchAction"
+FILE,eclipse-3.1,142881,2006-05-20T00:02:00.000-05:00,work on non-editable editor,"1. Open Plug-ins View
+2. Double-click on any plug-in with a blue/purple icon (e.g. org.eclipse.core.runtime.compatibility.auth.
+3. On the Overview page, select an item in the Execution Environments table.","org.eclipse.pde.internal.ui.editor.plugin.ImportPackageSection
+org.eclipse.pde.internal.ui.editor.plugin.RequiresSection
+org.eclipse.pde.internal.ui.editor.plugin.ExtensionPointsSection
+org.eclipse.pde.internal.ui.editor.plugin.ExportPackageSection"
+FILE,eclipse-3.1,148081,2006-06-21T13:49:00.000-05:00,not work for error messages,"create a try block without a catch or finally.
+Type ""; ff"" in a method body somewhere.","org.eclipse.jdt.internal.ui.text.JavaWordFinder
+org.eclipse.jdt.internal.ui.text.java.hover.AbstractJavaEditorTextHover"
+FILE,eclipse-3.1,149506,2006-07-03T21:29:00.000-05:00,need little nudge,"1. Create an extension on the Extensions page of the plug-in manifest editor.
+2. Flip to the source page.
+Enter a space or something on the source page.",org.eclipse.pde.internal.ui.editor.plugin.ManifestEditor
+FILE,eclipse-3.1,149604,2006-07-04T18:17:00.000-05:00,manifest of jard plug-in,"1 Go to plug-ins view
+2 double-click on any plug-in represented by a blue icon (without children).
+4 Turn to a tab other than the first tab.
+5 close the editor.
+6 repeat #2.",org.eclipse.pde.internal.ui.editor.PDEFormEditor
+FILE,eclipse-3.1,157944,2006-09-20T01:11:00.000-05:00,JavaAttributeWizard shouldn't open with errors when passed an empty string,"1. On the overview page of the plugin editor, make sure the Activator field is empty.
+2. Click the Activator link.",org.eclipse.pde.internal.ui.editor.plugin.JavaAttributeWizardPage
+FILE,eclipse-3.1,164438,2006-11-14T04:04:00.000-06:00,mistake for plug-ins,"When you import features from the Target platform via the Feature Import wizard, the imported features do not recognized by PDE as features in the workspace.",org.eclipse.pde.internal.ui.wizards.imports.FeatureImportOperation
+FILE,eclipse-3.1,247198,2008-09-12T16:22:00.000-05:00,not work with required features,"When filteredDependencyCheck is turned on and one of the included feature requires another feature using a match rule other than perfect, then the build fails when trying to add plugins for this requirement.",org.eclipse.pde.internal.build.site.BuildTimeSite
+FILE,eclipse-3.1,300054,2010-01-19T10:12:00.000-06:00,copy changes from right copy changes to left,"1 start with new workspace
+2 paste this into the Package Explorer:
+4 delete ""System.out.println();"" and save
+5 compare the current state with the previous one
+6 double-click on 'bar' in the compare editor's upper pane
+7 click 'Copy Current Change from Right to Left' button",org.eclipse.compare.internal.Utilities
+FILE,eclipse-3.1,32553,2003-02-22T10:31:00.000-06:00,not remove [ + ] icon,"I just launched I20030220 and imported a couple of existing projects into the workspace, with the [+] icon by each project (denoting contents).
+I then closed a couple of the projects that I was not looking at, and the [+] icon remained after closing the projects.
+Of course clicking on this icon resulted in nothing happening, except the [+] disappeared.",org.eclipse.ui.model.WorkbenchContentProvider
+FILE,eclipse-3.1,76217,2004-10-13T19:33:00.000-05:00,not filter added buildfiles,"If you turn off the Only show *.xml files, you lose the filtering of the already added buildfiles","org.eclipse.ant.internal.ui.preferences.FileSelectionDialog
+org.eclipse.ant.internal.ui.preferences.FileFilter"
+FILE,eclipse-3.1,76529,2004-10-18T22:30:00.000-05:00,rename custom group,"Set to group by custom groups.
+Expand all
+If I rename one of the groups all of the groups are collapsed.","org.eclipse.debug.internal.ui.views.breakpoints.BreakpointContainer
+org.eclipse.debug.internal.ui.views.breakpoints.BreakpointsView
+org.eclipse.debug.internal.ui.views.breakpoints.BreakpointsViewEventHandler"
+FILE,eclipse-3.1,76534,2004-10-18T22:57:00.000-05:00,not perform evaluations with constructor _ parameters not perform evaluations inside inner class,"For example, see the CheckBoxTreeViewer that's created in BreakpointsView#createViewer(...).",org.eclipse.jdt.internal.debug.eval.ast.engine.SourceBasedSourceGenerator
+FILE,eclipse-3.1,76869,2004-10-23T01:13:00.000-05:00,not find feature.xml,"I added the Web Tools into plugins/ and into features/.
+After starting the SDK, the web tools aren't available.",org.eclipse.update.internal.configurator.SiteEntry
+FILE,eclipse-3.1,77060,2004-10-26T17:10:00.000-05:00,show qualified names in Debug view collapses thread,Suspend at a breakpoint,"org.eclipse.debug.internal.ui.views.launch.DebugViewContentProvider
+org.eclipse.debug.internal.ui.views.launch.LaunchViewer"
+FILE,eclipse-3.1,77184,2004-10-28T09:58:00.000-05:00,not select enum declarations,"- create enum class with a few constants
+- place caret on enum name
+- right-click and open refactor context menu",org.eclipse.jdt.internal.codeassist.SelectionEngine
+FILE,eclipse-3.1,77234,2004-10-28T15:41:00.000-05:00,not see inherited method,"1 Create a detail formatter for the type JavaExceptionBreakpoint.
+2 Set the contents to ""getTypeName()""
+3 Debug to a breakpoint with a JavaExceptionBreakpoint in the variables view.
+I'm debugging RemoveBreakpointAction and I delete an exception breakpoint to see
+this.
+4 Select the JavaExceptionBreakpoint.",org.eclipse.jdt.internal.debug.ui.JavaDetailFormattersManager
+FILE,eclipse-3.1,77239,2004-10-28T16:56:00.000-05:00,navigate ill-formed stack,"For example, pasting the 
+following trace into the console has these problems:","org.eclipse.jdt.internal.debug.ui.JavaDebugImages
+org.eclipse.jdt.internal.debug.ui.console.JavaStackTracePageParticipant
+org.eclipse.jdt.internal.debug.ui.console.FormatStackTraceActionDelegate"
+FILE,eclipse-3.1,77398,2004-11-01T13:02:00.000-06:00,not honor enum types,"200410260800: When running organize imports on a cu with references to enum types, existing imports to enum types are incorrectly removed",org.eclipse.jdt.core.dom.TypeBinding
+FILE,eclipse-3.1,77573,2004-11-03T04:43:00.000-06:00,not propose static fields,"- Write ""import static java.lang.Math."" in a cu
+- Press Ctrl+Space","org.eclipse.jdt.internal.codeassist.CompletionEngine
+org.eclipse.jdt.core.CompletionProposal
+org.eclipse.jdt.core.CompletionRequestor"
+FILE,eclipse-3.1,77703,2004-11-03T12:40:00.000-06:00,Deselecting Map$Entry/Show As>/Key And Value Deselects Map/Show As>/Map Entries,,"org.eclipse.debug.internal.ui.views.variables.SelectLogicalStructureAction
+org.eclipse.debug.internal.ui.views.variables.AvailableLogicalStructuresAction"
+FILE,eclipse-3.1,78160,2004-11-09T08:03:00.000-06:00,classfile for problem type,"When compiling the following testcase, the problem classfile issued has an invalid signature in it:",org.eclipse.jdt.internal.compiler.lookup.ClassScope
+FILE,eclipse-3.1,78460,2004-11-11T18:37:00.000-06:00,leak after launch,"Ran a program to termination.
+Removed the program via the Debug view","org.eclipse.ui.console.TextConsolePage
+org.eclipse.debug.internal.ui.actions.AbstractDebugActionDelegate
+org.eclipse.ui.internal.EditorPluginAction
+org.eclipse.ui.internal.ViewPluginAction
+org.eclipse.ui.internal.ViewerActionBuilder
+org.eclipse.ui.internal.PluginActionBuilder
+org.eclipse.ui.internal.EditorActionBuilder"
+FILE,eclipse-3.1,78548,2004-11-12T16:15:00.000-06:00,fire before MouseUp,"- run the ControlExample, Button tab
+- turn on listeners MouseUp and Selection
+- click on an example Button","org.eclipse.swt.widgets.Button
+org.eclipse.swt.widgets.ToolItem"
+FILE,eclipse-3.1,78740,2004-11-16T10:57:00.000-06:00,represent interface flags,This code demonstrates that calling getComment on an IDOMType will change the flags from correctly encoding the type as being interface to incorrectly encoding it (because during becomeDetailed() that information is lost):,org.eclipse.jdt.internal.compiler.DocumentElementParser
+FILE,eclipse-3.1,79123,2004-11-19T19:09:00.000-06:00,switch editors with ctrl-pageup,"- open several files with e.g. texteditors (no multipageeditors)
+- place the cursor in the middle of the text
+- switch to the next editor with ctrl-pageup
+- switch back to the editor you started with ctrl-pagedown",org.eclipse.ui.internal.PartPane
+FILE,eclipse-3.1,79318,2004-11-23T12:49:00.000-06:00,replace directory with file contain very file delete file delete directory,"There is a directory/folder named ""bar"" somewhere in the workspace.
+This directory contains a file also called ""bar"".
+When trying to move the file ""bar"" one level up, Eclipse will show a dialog stating that there already is a file named ""bar"" in this directory and asking the user if he really wants to overwrite it.
+If the user clicks ""Yes"" Eclipse will run into an exception and will show this error dialog: ""An exception has been caught while processing the refactoring
+There are two buttons: ""Undo"" and ""Abort"".
+No matter what button is clicked, both the directory ""bar"" and the file ""bar"" are lost.",org.eclipse.jdt.internal.corext.refactoring.reorg.OverwriteHelper
+FILE,eclipse-3.1,79793,2004-11-30T12:22:00.000-06:00,deadlock in JavaWorkingSetUpdater,"* Started workspace
+* Pressed CTRL-Shift-T to open a type
+* pressed cancel
+* Pressed CTRL-Shift-T again",org.eclipse.jdt.internal.ui.workingsets.JavaWorkingSetUpdater
+FILE,eclipse-3.1,79957,2004-12-02T00:47:00.000-06:00,change input usingTableViewer,"i've straight forward code ... 
+<code>
+Table table=new Table(shell,SWT.VIRTUAL);
+TableViewer tv=new TableViewer(table);
+tv.setContentProvider(new NetworkContentProvider());
+tv.setLabelProvider(new NetworkLabelProvider());
+tv.setInput(model);
+.",org.eclipse.jface.viewers.TableViewer
+FILE,eclipse-3.1,80058,2004-12-02T15:32:00.000-06:00,lock workspace,"- In the Resource perspective, I did a Team/CVS Update on a large Java project and sent it to the background.
+- I then went into a different project, and tried to create a new directory from the Navigation pane.",org.eclipse.ui.dialogs.WizardNewFolderMainPage
+FILE,eclipse-3.1,80387,2004-12-07T12:10:00.000-06:00,compare editor,I got this while opening a compare editor from the synch view.,org.eclipse.compare.CompareEditorInput
+FILE,eclipse-3.1,80672,2004-12-10T04:44:00.000-06:00,not trigger recompilation,"Define 2 files:
+p/Use.
+Build - all is fine
+Now incrementally change q/Ann.
+java to:
+package q;
+import java.lang.annotation.
+*;
+@Target(ElementType.METHOD)
+public @interface Ann {
+}
+ 
+Build - still fine though p/Use.",org.eclipse.jdt.internal.compiler.classfmt.ClassFileReader
+FILE,eclipse-3.1,81045,2004-12-14T20:13:00.000-06:00,change value,"Debug to the breakpoint.
+Right-click on the 'inner' variable > change value ...","org.eclipse.jdt.internal.debug.ui.actions.JavaVariableValueEditor
+org.eclipse.jdt.internal.debug.eval.ast.engine.ASTEvaluationEngine
+org.eclipse.jdt.internal.debug.core.model.JDILocalVariable"
+FILE,eclipse-3.1,81333,2004-12-15T16:51:00.000-06:00,not filter out class files,"1 Press ctrl+shift+r to open the ""Open Resource"" dialog.
+2 Type the name of a class file in the workspace (for example, ""Hello.class"").
+3 The dialog does not show the class file, even though it exists.","org.eclipse.ui.internal.ide.dialogs.OpenResourceDialog
+org.eclipse.ui.views.navigator.GotoResourceDialog
+org.eclipse.ui.dialogs.ResourceListSelectionDialog"
+FILE,eclipse-3.1,81449,2004-12-16T14:23:00.000-06:00,compare with revision trigger by shortcut,"1) Assign a shortcut to ""Compare with revision""
+2) Select a shared file and perform the shortcut
+3) While revisions are being fetched, click Cancel",org.eclipse.team.internal.ccvs.ui.actions.CVSAction
+FILE,eclipse-3.1,81834,2004-12-22T21:09:00.000-06:00,not convert European number to Arabic number,"How to reproduce:
+1 Change the user language to Arabic on ""Regional and Language Options"" panel
+on Windows.
+(do not specify ""-nl"" command line arguments.)
+2 Create Shell with SWT.RIGHT_TO_LEFT flag.
+3 add StyledText on the shell.
+4 Set text ""012345 abc 012345"" in StyledText widget.
+5 Open and run the shell.","org.eclipse.swt.internal.win32.OS
+org.eclipse.swt.graphics.TextLayout"
+FILE,eclipse-3.1,82486,2005-01-10T11:47:00.000-06:00,not update project name,The Ant view does not update the name of the project node when the user edits the project name attribute in the buildfile.,org.eclipse.ant.internal.ui.model.AntProjectNode
+FILE,eclipse-3.1,82712,2005-01-12T15:54:00.000-06:00,not show method parameters from static imports,Test:,org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,83216,2005-01-19T13:19:00.000-06:00,change in new Working set,"I20050118-1015
+Navigator view menu>Select Working Set>New
+Select a working set type
+Next
+Back","org.eclipse.jdt.internal.compiler.ast.ParameterizedQualifiedTypeReference
+org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference
+org.eclipse.jdt.internal.compiler.ast.QualifiedAllocationExpression
+org.eclipse.ui.internal.WorkbenchPage
+org.eclipse.ui.internal.ide.dialogs.ResourceWorkingSetPage"
+FILE,eclipse-3.1,83489,2005-01-22T17:33:00.000-06:00,select ] code select returns itype instead_of ITypeParameter,"Consider following test case:
+When I select ""T"" in method declaration, selection engine returns an IType",org.eclipse.jdt.internal.codeassist.SelectionEngine
+FILE,eclipse-3.1,83541,2005-01-24T10:42:00.000-06:00,not find way change char value to special character,"For character array element I open Change Primitive Value dialog and try to change current value to \t or \n. Dialog does not enable OK button either I input \t, or 0x09 or \\u0009 or press tabulation key.",org.eclipse.jdt.internal.debug.ui.actions.JavaPrimitiveValueEditor
+FILE,eclipse-3.1,83577,2005-01-24T18:38:00.000-06:00,not find source,"For a stack like the following:
+clcking on the lower 3 frames produces the ""Source not found"" editor",org.eclipse.ant.internal.ui.debug.model.AntDebugModelPresentation
+FILE,eclipse-3.1,84194,2005-02-01T18:05:00.000-06:00,assist at end assist in import statements insert,"Open any Java file that contains > 1 import statements.
+Let's say the first import statement reads:
+delete the '*;' from the end and try to use code assist to insert
+IRunnableWithProgress for example.
+You will see that upon pressing Enter to select, the text gets inserted several lines down under all the import statements.","org.eclipse.jdt.internal.ui.text.java.JavaTypeCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.ExperimentalResultCollector"
+FILE,eclipse-3.1,84257,2005-02-02T14:05:00.000-06:00,collapse tree for expanding,"When I inspect a tree structure in the variable view, as soon as I open a new node the whole tree is collapsed.",org.eclipse.debug.internal.ui.views.AbstractViewerState
+FILE,eclipse-3.1,84336,2005-02-03T10:34:00.000-06:00,remove source attachments from library jars,"If I add a jar as a library to a plugin project
+and then declare which sources are ""attached"" to the jar
+when I perform a 'PDE Tools | Update classpath ...' action on the plugin project,
+the .
+classpath file loses its sourcepath for the jar.
+e.g. plugin.xml
+<plugin
+.
+e.g. in .
+classpath:
+after an update classpath I just find",org.eclipse.ui.internal.progress.WorkbenchSiteProgressService
+FILE,eclipse-3.1,84557,2005-02-07T07:06:00.000-06:00,not appear in table,"ctrl esc E brings up the handy switch to editor window, but unfortuantley the list is empty :(","org.eclipse.swt.widgets.TableColumn
+org.eclipse.swt.widgets.TreeColumn"
+FILE,eclipse-3.1,84561,2005-02-07T08:01:00.000-06:00,set clash with merging,"When doing a CVS merge in M4, enabling commit sets confuses the view.",org.eclipse.team.internal.ccvs.ui.subscriber.MergeSynchronizeParticipant
+FILE,eclipse-3.1,84652,2005-02-08T03:05:00.000-06:00,fail with non std,"I have a workspace with 3 plugin projects, one feature project and one site project.
+all projects are physically not in the workspace but at different positions on the harddrive.
+the layout is something like this:
++dir1
++ plugin 1
++ plugin 2
++ feature
++ site
++dir2
++ plugin 3
+the workspace looks something like this
++plugin1
++plugin2
++plugin3
++feature
++site
+plugin1 and plugin2 both make use of plugin3.
+if i try to build the site i get classnotfound/import not found errors from the compiler for each reference to plugin3.",org.eclipse.pde.internal.build.builder.ClasspathComputer3_0
+FILE,eclipse-3.1,84724,2005-02-08T13:41:00.000-06:00,find call sites for varargs constructor_s,"Simply highlight the constructor_'s name and invoke ""References"" -
+> ""Workspace"" from the Java editor context menu; no occurrences will be found.",org.eclipse.jdt.internal.core.search.matching.ConstructorLocator
+FILE,eclipse-3.1,84770,2005-02-09T06:46:00.000-06:00,fail in specific case,"1 Make a new class in default package:
+2 Try to format it by Ctrl+Shift+F  - nothing happens
+3 Now change the 'Object.class' to 'Object.class.toString()'
+(You can also delete the last ' + "")""'
+4 Try to format it by Ctrl+Shift+F  - everything is ok",org.eclipse.jdt.internal.formatter.BinaryExpressionFragmentBuilder
+FILE,eclipse-3.1,84881,2005-02-10T07:19:00.000-06:00,receive focus after task switch,"If you then switch to another task and switch
+back to eclipse using ALT+Tab (MS Windows), the Splash-Screen receives the focus
+while the ""Select a workspace"" dialog stays in front but is inactive.
+I've not found any workaround to
+this problem (closing the splash-screen via ALT+F4 removes the task from the
+task bar, while the dialog stays in front without focus).","org.eclipse.ui.internal.ide.IDEApplication
+org.eclipse.ui.internal.ide.ChooseWorkspaceDialog
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,85277,2005-02-15T10:53:00.000-06:00,not restore deleted cus in package,"In a build where bug 85267 is fixed (JDT/UI from HEAD or I20050215-1600), delete
+a compilation unit (*.
+java file) from a package in a java project.
+Then choose
+'Replace With > Latest from HEAD' from the package's context menu.",org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,85309,2005-02-15T14:03:00.000-06:00,not step out_of macrodef,"Debug the following script, with a breakpoint on line 18 (<delete dir=""@
+perform ""step over"" until the end of the macrodef is reached, and press step over expecting to step out of the marcro def.",org.eclipse.ant.internal.ui.antsupport.logger.util.AntDebugState
+FILE,eclipse-3.1,85344,2005-02-15T17:36:00.000-06:00,evaluate logical structure value in Java evaluate logical structure value for map,"System.out.println();     // <-- breakpoint here
+I get ""Error: The method entrySet() is undefined for the type Map__"" when I expand map in the variables view.",org.eclipse.jdt.internal.debug.eval.ast.engine.BinaryBasedSourceGenerator
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,produce error on constructor _,"- have this code:
+- alternatively, have this code:","org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,85402,2005-02-16T08:50:00.000-06:00,assist ] NPE while trying complete on empty annotation,"Having following test case:
+If you try to complete at caret position, then you get an Error Excuting Command
+dialog.","org.eclipse.jdt.internal.codeassist.complete.CompletionOnAnnotationOfType
+org.eclipse.jdt.internal.codeassist.CompletionEngine
+org.eclipse.jdt.internal.codeassist.complete.CompletionParser"
+FILE,eclipse-3.1,85519,2005-02-16T14:10:00.000-06:00,replace with original content,"- have pkg/Test1.java open
+- have pkg/Test2.java open
+- dirty Test1.java
+- save Test1.java as Test2.java","org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider
+org.eclipse.ui.editors.text.TextFileDocumentProvider"
+FILE,eclipse-3.1,85672,2005-02-17T05:53:00.000-06:00,unfold folded region with line delimiter,"Have this code:
+Put the caret right after the closing brace and fold the region.
+Put the caret on the last line and unfold the type.",org.eclipse.jface.text.source.projection.ProjectionViewer
+FILE,eclipse-3.1,85696,2005-02-17T09:06:00.000-06:00,use eclipse,"I said yes, and it opened
+the Search Results window.
+When I clicked Cancel it gave me the Automatic Updates dialog again.
+I selected Yes again, got the empty Search Results dialog again.
+So the next time I said No.",org.eclipse.update.internal.scheduler.SchedulerStartup
+FILE,eclipse-3.1,85734,2005-02-17T12:28:00.000-06:00,debug view excessively for debug,"In particular, I have set a
+breakpoint on ""Runtime.exec(...)"" and started a debugging session on Eclipse.","org.eclipse.debug.internal.ui.views.RemoteTreeViewer
+org.eclipse.debug.internal.ui.views.launch.LaunchViewer
+org.eclipse.debug.internal.ui.views.launch.LaunchViewEventHandler
+org.eclipse.debug.internal.ui.views.RemoteTreeContentManager"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,produce invalid JPEG images,"Simple test case below loads
+ PNG Files and Saves them as JPEG.","org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,86112,2005-02-22T06:14:00.000-06:00,assist wrong reference in javadoc assist wrong reference to binary static initializer,"- Create 1.4 project
+- Write javadoc comment
+The first proposal (static initializer) inserts wrong reference","org.eclipse.jdt.core.CompletionContext
+org.eclipse.jdt.internal.compiler.parser.AbstractCommentParser
+org.eclipse.jdt.internal.codeassist.InternalCompletionContext
+org.eclipse.jdt.internal.codeassist.CompletionEngine"
+FILE,eclipse-3.1,86268,2005-02-23T10:10:00.000-06:00,dialog plug-ins dialog features tables not meet accessibility requirements,"1. Choose Help > About Eclipse Platform
+2. Choose Feature Details or Plug-in Details","org.eclipse.ui.internal.dialogs.AboutPluginsDialog
+org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.dialogs.AboutFeaturesDialog"
+FILE,eclipse-3.1,86596,2005-02-25T03:25:00.000-06:00,find segments in import,"1. select org.eclipse.jdt.ui
+2. open Java search page
+3. enter ""Link"" (note: uppercase L)
+4. ensure case-sensitve box is un-checked
+5. select ""Type""
+6. select ""References""
+7. click ""Search""
+(scope must include at least org.eclipse.jdt.ui project)",org.eclipse.jdt.internal.core.search.matching.TypeReferenceLocator
+FILE,eclipse-3.1,86725,2005-02-25T18:50:00.000-06:00,var on windows,> >> So later on when I use something like:,"org.eclipse.debug.internal.core.EnvironmentVariableResolver
+org.eclipse.debug.internal.core.LaunchManager
+org.eclipse.debug.ui.EnvironmentTab
+org.eclipse.debug.core.ILaunchManager"
+FILE,eclipse-3.1,86917,2005-03-01T12:00:00.000-06:00,launch runtime workbench,"- I was running build i022 and had a workspace set up that I ran against a lot
+for self-hosting
+- I downloaded this build and then started it and when I tried to run my launch
+config against the same workspace, I got the errors in the attached log file.
+- I exited Eclipse and then re-started and tried to run the launch config again
+and got an error saying ""could not find product org.eclipse.platform.ide,
+application not found"".
+- Then I added -clean to my launch config and started and everything worked OK.
+Note that when you try and start this build on a fresh target workspace you will
+get errors as described in bug 86916.",org.eclipse.osgi.internal.resolver.StateImpl
+FILE,eclipse-3.1,87171,2005-03-04T14:19:00.000-06:00,declare node use type parameters not work for methods/fields,"The code below is all in compilation unit Inline.java
+- take the method binding of the invocation foo in i.foo(""Eclipse"");
+- take the root node representing the whole CU
+- call root.findDeclaringNode(methodBinding);
+observe: null is returned although the CU contains the corresponding declaration.","org.eclipse.jdt.core.dom.CompilationUnit
+org.eclipse.jdt.core.dom.DefaultBindingResolver"
+FILE,eclipse-3.1,87569,2005-03-09T16:41:00.000-06:00,obtain image switch to Debug perspective,"Create a Java Project using Java 5 (not sure it matters)
+Create a class which implements java.io.Serializable
+Use the ""Add generated serial version ID"" quickfix
+Switch to the Debug perspective",org.eclipse.debug.internal.ui.DefaultLabelProvider
+FILE,eclipse-3.1,87665,2005-03-10T11:38:00.000-06:00,open details with errors,"Take a look at:
+Scroll down to performance.OpenJavaEditorStressTest#testOpenJavaEditor1()""
+Click on the red x ==> details show up all green.","org.eclipse.swt.printing.PrintDialog
+org.eclipse.swt.widgets.MessageBox"
+FILE,eclipse-3.1,87683,2005-03-10T13:36:00.000-06:00,show unshortened text,"On the menu bar from the main Workbench panel, click Window > Preferences > Java
+> Editor
+Select Hovers tab in the right panel
+Enable all the text hovers, an error message will display.",org.eclipse.jface.dialogs.DialogMessageArea
+FILE,eclipse-3.1,88243,2005-03-16T15:29:00.000-06:00,switch perspectives open in new window,"For example, when invoking team synchronize, a popup message asks you if you 
+want to switch to the ""Team Perspective"".",org.eclipse.ui.internal.ide.IDEWorkbenchAdvisor
+FILE,eclipse-3.1,88328,2005-03-17T09:42:00.000-06:00,run error validate plug-in set,"If I change it to be [No
+Application - Headless Mode], and make sure only the plug-ins I will actually need are selected in the Plug-ins tab (that excludes org.eclipse.ui.ide), and fire ""Validate Plug-in Set"", the validation will return an error about not being able to run org.eclipse.ui.ide.workbench application, because its plug-in",org.eclipse.pde.internal.ui.launcher.AdvancedLauncherTab
+FILE,eclipse-3.1,88963,2005-03-24T00:20:00.000-06:00,not mark as occurrences,"Turn on mark occurrences
+Place the on any of the K2 references","org.eclipse.ant.internal.ui.model.AntAntNode
+org.eclipse.ant.internal.ui.model.AntTaskNode"
+FILE,eclipse-3.1,89259,2005-03-28T13:50:00.000-06:00,open Compare editor for MANIFEST.MF,"- select two random MANIFEST.MF files
+- compare with each other
+The same happens when comparing with CVS resource history.","org.eclipse.ui.IEditorInput
+org.eclipse.ui.internal.PartTester"
+FILE,eclipse-3.1,89632,2005-03-30T13:10:00.000-06:00,evaluate in Snippet editor,"Testcase:
+I added the testcase to the snippet editor.
+I then did a ""Set Imports..."" to include java.util.
+* to resolve collection and iterator.
+Trying a ""Display"" or ""Inspect"" resulted in the following error in the console:",org.eclipse.jdt.internal.eval.CodeSnippetMessageSend
+FILE,eclipse-3.1,89682,2005-03-30T15:48:00.000-06:00,inconsistent with defnition inconsistent for location props,"* In the fowllowing buildfile, if I put the cursor in a reference to a property, like ""destBase"", all occurrences are found.
+If I place the cursor on the definition of ""destBase"" (i.e. in the property def itself), no occurrences are found.","org.eclipse.ant.internal.ui.model.IAntModelConstants
+org.eclipse.ant.internal.ui.model.AntPropertyNode
+org.eclipse.jdt.internal.ui.packageview.PackageExplorerActionGroup"
+FILE,eclipse-3.1,89883,2005-03-31T15:22:00.000-06:00,trigger by Memory view,"Got the following exception when starting the workbench and the Memory View is 
+visible.","org.eclipse.debug.internal.ui.views.memory.RenderingViewPane
+org.eclipse.debug.internal.ui.views.memory.MemoryBlocksTreeViewPane
+org.eclipse.debug.internal.ui.views.memory.NewMemoryViewAction"
+FILE,eclipse-3.1,89936,2005-04-01T06:35:00.000-06:00,not show correct thread,"I create a breakpoint and switch it to ""Suspend VM"".",org.eclipse.debug.internal.ui.views.RemoteTreeViewer
+FILE,eclipse-3.1,90289,2005-04-05T09:17:00.000-05:00,call IStackFrame.getVariables(),"If I add a Suspsend VM breakpoint on the call to IStackFrame.getVariables() in 
+my StackFrame object, I am seeing it hit 2 or more times.","org.eclipse.debug.internal.ui.views.variables.VariablesViewEventHandler
+org.eclipse.debug.internal.ui.views.registers.RegistersView
+org.eclipse.debug.internal.ui.views.registers.RegistersViewEventHandler
+org.eclipse.debug.internal.ui.views.expression.ExpressionViewEventHandler"
+FILE,eclipse-3.1,90600,2005-04-07T09:32:00.000-05:00,use project options for rewriter,"When executing the rewriter, (rewriter.rewriteAST(document, null))","org.eclipse.jface.text.source.SourceViewer
+org.eclipse.jdt.internal.core.CreateElementInCUOperation
+org.eclipse.jface.text.source.OverviewRuler"
+FILE,eclipse-3.1,90782,2005-04-08T07:34:00.000-05:00,retrieve targets,1 select a Ant build file and select Run As > Ant Build...,"org.eclipse.ant.internal.ui.AntUtil
+org.eclipse.jdt.internal.ui.wizards.buildpaths.UserLibraryMarkerResolutionGenerator"
+FILE,eclipse-3.1,90935,2005-04-10T14:03:00.000-05:00,dialog resize,"open the feature details dialog and notice there is a large area of grey at towards the bottom.
+Resize vertically and notice that the feature list gets smaller but the large grey area remains the same.",org.eclipse.ui.internal.dialogs.AboutFeaturesDialog
+FILE,eclipse-3.1,91098,2005-04-12T06:07:00.000-05:00,not mark occurrences,"The precise test case is the following:
+Put the cursor on String or String[].
+Now put the cursor on String[][].",org.eclipse.jdt.core.dom.ASTConverter
+FILE,eclipse-3.1,91346,2005-04-13T16:43:00.000-05:00,mark occurrences not find for marking,"Cursor in property=""${buildDirectory}"" does not mark the property declaration 
+occurrence",org.eclipse.ant.internal.ui.model.AntPropertyNode
+FILE,eclipse-3.1,92063,2005-04-20T09:30:00.000-05:00,replace corresponding file with HEAD contents,"In order to do so, I selected unit in package explorer, and did ""replace with HEAD"" action.",org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,92451,2005-04-22T16:36:00.000-05:00,assist failure cast + arrays,Code assist fails in the following (self-contained) class (see comments for line of error),org.eclipse.jdt.internal.codeassist.complete.CompletionParser
+FILE,eclipse-3.1,92591,2005-04-25T11:26:00.000-05:00,enable for VM args run in same JRE,Set an ant build to occur in the same JRE.,org.eclipse.jdt.internal.debug.ui.launcher.VMArgumentsBlock
+FILE,eclipse-3.1,93245,2005-04-29T05:14:00.000-05:00,show up in locations,"1) select a Java project
+2) open the properties dialog
+3) navigate to Java Compiler>Building
+4) enable project specific settings
+5) enter a letter into the maximum number of problems field
+6) resize the dialog","org.eclipse.ui.internal.dialogs.FilteredPreferenceDialog
+org.eclipse.jface.dialogs.DialogMessageArea
+org.eclipse.jface.preference.PreferenceDialog
+org.eclipse.jface.preference.PreferencePage"
+FILE,eclipse-3.1,93249,2005-04-29T05:49:00.000-05:00,not propose full method stub,"- take revision 1.8 of BuildPathAction.
+- in run method add the following
+- inside the runnable type run<code assist> and select run","org.eclipse.jdt.internal.codeassist.CompletionEngine
+org.eclipse.jdt.internal.ui.text.java.OverrideCompletionProposal"
+FILE,eclipse-3.1,93584,2005-05-03T15:23:00.000-05:00,fetch Revisions compare for fetching do in UI thread,"If you perform a Get Sticky Revision from a Compare Revisions editor, the fetch is performed in the UI thread.",org.eclipse.team.internal.ccvs.ui.CVSCompareRevisionsInput
+FILE,eclipse-3.1,93623,2005-05-04T04:27:00.000-05:00,not import DBCS name features display DBCS name features,"1. Select File->New->Other, and then Plug-in Development->Feature Project.
+2. Enter a DBCS project name, and click Finish.
+3. Under Plug-Ins, select an existing Plug-In (If there is none available,create a new one).
+Select File->Save All.
+4. Select File->Export->Deployable features.
+Under Export Options, select Directory Structure.
+Choose a location to save the directory structure.
+5. Close both the Plug-In project and the Feature project.
+6. Select File->Import->External Features.
+Browse to the location chosen in step 4).","org.eclipse.pde.internal.builders.FeatureErrorReporter
+org.eclipse.pde.internal.ui.wizards.feature.BaseFeatureSpecPage
+org.eclipse.pde.internal.ui.wizards.imports.FeatureImportWizardDetailedPage
+org.eclipse.pde.internal.build.tasks.IdReplaceTask
+org.eclipse.pde.internal.ui.wizards.feature.PatchSpecPage
+org.eclipse.team.internal.ccvs.ui.wizards.GenerateDiffFileWizard"
+FILE,eclipse-3.1,93727,2005-05-04T17:43:00.000-05:00,fail with Method Parameter annotations,"Example:
+import org.drools.semantics.annotation.DroolsParameter;",org.eclipse.jdt.internal.formatter.CodeFormatterVisitor
+FILE,eclipse-3.1,94216,2005-05-09T20:04:00.000-05:00,not work for generic types,"Try to do 'open declaring type' or 'open concrete type' for 'gen' at the breakpoint, nothing happens.","org.eclipse.jdt.internal.debug.ui.actions.OpenVariableDeclaredTypeAction
+org.eclipse.jdt.internal.debug.ui.actions.OpenVariableConcreteTypeAction"
+FILE,eclipse-3.1,94366,2005-05-10T11:11:00.000-05:00,appear in feature selection dialog,"I20050510-0010
+- Create a new RCP app using the mail template
+- Create a feature F, including the plugin previously created
+- In F, create a product file called foo.product.
+- In the product editor, change the product configuration to use 'features'
+- Move to the configuration tab of the product editor and try to ""add..."" a
+feature, you will notice that F appears twice.",org.eclipse.pde.internal.core.WorkspaceModelManager
+FILE,eclipse-3.1,94465,2005-05-10T14:33:00.000-05:00,modify value in Variables view,"Test case:
+1. In the variables, expand the array, and then expand the first element, [0]
+=""abc"".
+2. Select the ""value=char[3]"" field.
+RMC->Change Value.
+3. In the Change Primitive Value dialog, type in a new string value.
+4. Click ok and it will result in a java dump.","org.eclipse.jdt.internal.debug.ui.JDIModelPresentation
+org.eclipse.jdt.internal.debug.ui.actions.JavaObjectValueEditor
+org.eclipse.jdt.internal.debug.ui.actions.ActionMessages"
+FILE,eclipse-3.1,94535,2005-05-10T17:19:00.000-05:00,remain in Debug view,attempted to connect the debugger to a process (not a java vm) that was listening to port 1033.,"org.eclipse.jdt.internal.launching.LaunchingMessages
+org.eclipse.jdt.internal.launching.SocketAttachConnector"
+FILE,eclipse-3.1,94769,2005-05-11T11:58:00.000-05:00,resume ant debugger,"* in the attached script, I placed a breakpoint on the ""generate all"" target
+* stepped over, over, and into ""<process destdir=""${destBase}\exercise1.1"" symbols=""ex1""/>"", and ""into"" again to get into the marcro def
+* stepped thur the macrodef using ""step over""
+* when I stepped over the last line of the macrodef (""preprocess""), the ant script  simply resumed to completion",org.eclipse.ant.internal.ui.antsupport.logger.util.AntDebugState
+FILE,eclipse-3.1,94852,2005-05-11T17:17:00.000-05:00,activate view menu button,"Give focus to a view menu button.
+For example, in the Package Explorer view, 
+give focus to the tree, and type shift+tab, shift+tab.
+I realize that pressing Ctrl+F10 does drop down the menu, therefore typing 
+space is not technically needed for accessibility, however it is really 
+strange that here is a button (in a toolbar) that does nothing when ""pressed"" 
+using the keyboard space key.
+(Note 
+that all of our other toolbar buttons do activate when they have focus and 
+space is pressed - including the very similar ""Open Perspective"" menu toolbar 
+button).",org.eclipse.ui.internal.presentations.defaultpresentation.DefaultTabFolder
+FILE,eclipse-3.1,94879,2005-05-11T22:13:00.000-05:00,not dismiss properties not dismiss preferences,"- select a file in the Navigator and choose Properties
+- after looking at the properties, press Esc to dismiss the dialog",org.eclipse.ui.internal.dialogs.FilteredComboTree
+FILE,eclipse-3.1,94972,2005-05-12T11:08:00.000-05:00,show error status on initial display,"- Make sure that last selected preference page is not the formatter preference page
+- Open the preferences dialog
+- Show the formatter preference page",org.eclipse.ant.internal.ui.preferences.AbstractAntEditorPreferencePage
+FILE,eclipse-3.1,95044,2005-05-12T15:51:00.000-05:00,NPE when requested for a password and try to cancel,"I didn't give a pasword and I tried to cancel the dialog and I ended up with
+this exception.",org.eclipse.team.internal.ccvs.ssh2.JSchSession
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,assist popup complete imported method name,"- Create a new Class ""Foo""
+- Type ""import static java.lang.Math.""
+- Press Ctrl+Space
+- Type ""a""","org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,95152,2005-05-13T12:14:00.000-05:00,not find synthetic constructor _,"1) Add org.eclipse.debug.ui to the search path (i.e., by clicking ""Add to Java
+Search"" in the plugins view.
+2) Open type on ""ProcessConsole"" (class file with source attached)
+3) Go to line 483:
+4) Highlight the InputReadJob constructor_ and hit F3.","org.eclipse.ant.internal.ui.views.AntViewDropAdapter
+org.eclipse.ant.internal.ui.launchConfigurations.AntLaunchShortcut
+org.eclipse.ant.internal.ui.AntUtil
+org.eclipse.jdt.internal.core.search.matching.ConstructorLocator
+org.eclipse.jdt.internal.core.search.indexing.BinaryIndexer
+org.eclipse.jdt.internal.core.index.DiskIndex
+org.eclipse.jdt.internal.core.search.matching.ConstructorPattern"
+FILE,eclipse-3.1,95431,2005-05-16T15:09:00.000-05:00,format code,"Using M7, I could not format the code attached.",org.eclipse.jdt.internal.formatter.Scribe
+FILE,eclipse-3.1,95490,2005-05-16T23:39:00.000-05:00,lose string substitution variables during import,To reproduce import preferences from the attached file.,org.eclipse.core.internal.variables.StringVariableManager
+FILE,eclipse-3.1,95505,2005-05-17T02:56:00.000-05:00,not use code completion,For example:,org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,95580,2005-05-17T11:34:00.000-05:00,have enum constants have enum type,Try to add a field to an enum type that has enum constants.,org.eclipse.jdt.internal.core.CreateFieldOperation
+FILE,eclipse-3.1,95598,2005-05-17T12:54:00.000-05:00,call in UI thread,"If the user has configured validateEdit to prompt before connecting, the connection to the server is done in the UI thread.",org.eclipse.team.internal.ccvs.core.connection.CVSRepositoryLocation
+FILE,eclipse-3.1,95612,2005-05-17T13:44:00.000-05:00,do nothing click on link cause scroll,"- open a product editor
+- size your window such that the editor has a vertical scrollbar and that the
+""eclipse product export wizard"" link is visible when the scroll bar is to the top.
+- scroll to the top (just in case you did not do it before).
+- click on the link previously indicated","org.eclipse.help.ui.internal.views.ContextHelpPart
+org.eclipse.help.ui.internal.views.DynamicHelpPart
+org.eclipse.ui.forms.widgets.FormText
+org.eclipse.help.ui.internal.views.SearchPart
+org.eclipse.ui.forms.widgets.SharedScrolledComposite
+org.eclipse.ui.internal.forms.widgets.FormUtil"
+FILE,eclipse-3.1,95710,2005-05-18T03:50:00.000-05:00,take minutes,open the NLS wizard on 'AdvancedQuickAssistTest' (in jdt.ui.tests),"org.eclipse.jdt.internal.corext.refactoring.nls.NLSRefactoring
+org.eclipse.jdt.internal.corext.refactoring.nls.NLSSubstitution"
+FILE,eclipse-3.1,95902,2005-05-19T03:20:00.000-05:00,leave manifest.mf out_of sync leave manifest.mf after import,I imported the binary plug-ins from N20050519-0010 into my existing workpspace which already contained older versions for those plug-ins and used 'File' search to find a plug-in ID.,org.eclipse.pde.internal.core.PDEPluginConverter
+FILE,eclipse-3.1,95945,2005-05-19T10:10:00.000-05:00,compare editor switches to Java editor,"1 Open a .
+java, .
+xml etc. file that has been modified since last cvs checkout
+in resource/java perspective.
+2 Synchronize  entire project -> switch to synchronize perspective
+3 Double click a changed file that is NOT currently open in perspective - you
+get a side-by-side compare view of the two files (good).
+4 Double click the changed file that was opened in step 1.
+The side-by-side
+perspective is displayed for a second, and then the display switches to the
+single file view of this file instead of staying in the compare view.",org.eclipse.ui.views.navigator.ResourceNavigator
+FILE,eclipse-3.1,95958,2005-05-19T11:43:00.000-05:00,cause exception in Breakpoints view,"1. Create multiple projects and files.
+2. Add some breakpoints in different projects
+3. Show breakpoints with Project Group.
+4. Close one of the projects.
+5. Reopen the closed project.",org.eclipse.debug.internal.ui.views.breakpoints.BreakpointsViewEventHandler
+FILE,eclipse-3.1,96294,2005-05-23T07:11:00.000-05:00,double clicking on a stack frame / hitting a breakpoint does not reveal the editor,,org.eclipse.jdt.internal.debug.ui.JDIModelPresentation
+FILE,eclipse-3.1,96440,2005-05-24T11:11:00.000-05:00,determine sizes lay out times,"STEPS
+1 Put a breakpoint in the JFace TableLayout class
+2 Launch a self hosted workspace
+3 Open Preferences-> Ant Runtime
+4 You will see a client area size of about 81
+5 Do the same in M6 - it will be about 320 or so.",org.eclipse.jface.preference.PreferencePage
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,have border,"- change the browser example's BrowserPerspectiveFactory to have the following instead of the regular addView layout.addStandaloneView(BrowserApp.BROWSER_VIEW_ID, false,
+- run the example, and show the history view","org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,96859,2005-05-26T15:37:00.000-05:00,remove validation at runtime remove validation of default target,"Hi,
+having the build.xml file like
+<?xml version=""1.0"" encoding=""UTF-8"" ?>
+<project name=""namespace-test"" default=""hip"" basedir=""."">
+	<target name=""hello"">
+	</target>
+</project>
+2 I can run the file with ""Run as->Ant build"" adn get a failure saying
+3 Even if I choose the ""hello"" target in ""Run as->Ant build ..."" I get an error
+4 If I remove the default=""hip"", I can run the ""hello"" target.","org.eclipse.ant.internal.ui.antsupport.InternalAntRunner
+org.eclipse.ant.internal.core.ant.InternalAntRunner"
+FILE,eclipse-3.1,97018,2005-05-27T11:47:00.000-05:00,generate to strict access restrictions,"- download EMF using the update manager (don't know if this is necessary)
+- observe: the install plug-in has a manifest file which only contains one line:
+- it also contains a plugin.xml file which exports the following entries:","org.eclipse.pde.internal.core.MinimalState
+org.eclipse.pde.internal.core.ClasspathUtilCore"
+FILE,eclipse-3.1,97085,2005-05-27T17:10:00.000-05:00,not propose <package>,"With J2SE 5.0 compliance enabled, type the following into a new Java file:",org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,97421,2005-05-31T06:58:00.000-05:00,create MANIFEST.MF with mixed line delimiters,"Create a new Plug-in Project, give a name and step through the wizard accepting default values.",org.eclipse.core.runtime.internal.adaptor.PluginConverterImpl
+FILE,eclipse-3.1,97608,2005-05-31T13:36:00.000-05:00,contain byte message,"If you create a marker with a String property containing more than 65,536 bytes, it causes workspace save to fail.",org.eclipse.core.internal.resources.MarkerInfo
+FILE,eclipse-3.1,97674,2005-05-31T15:16:00.000-05:00,not report error for changing,"* Suspended in VectorTest.testCapacity()
+* selected fFull in variables viwe
+* selecetd ""change value"" from context menu
+* entered expression ""fEmpty.toString().
+charAt(100000)""
+* pressed OK
+> no error, no change","org.eclipse.jdt.internal.debug.ui.actions.JavaObjectValueEditor
+org.eclipse.jdt.internal.debug.ui.actions.EvaluateAction"
+FILE,eclipse-3.1,97722,2005-05-31T16:41:00.000-05:00,Pref Page Ant/Runtime/Tasks/Add Task dialog problems,,org.eclipse.ant.internal.ui.preferences.AddCustomDialog
+FILE,eclipse-3.1,97741,2005-05-31T17:16:00.000-05:00,create for same JRE,"When capture is turned off for a same JRE build, a console is still created.","org.eclipse.ant.internal.ui.launchConfigurations.AntLaunchDelegate
+org.eclipse.ant.internal.ui.launchConfigurations.AntProcess"
+FILE,eclipse-3.1,97792,2005-06-01T02:39:00.000-05:00,log view for optional plugins,"When a plugin has an optional plugin, (ie see attached sample from o.e.jem.util)
+with an optional=true (ie non OSGI manifest), the pde runtime error log view shows a warning but the message says:",org.eclipse.pde.internal.core.MinimalState
+FILE,eclipse-3.1,97818,2005-06-01T08:18:00.000-05:00,not ignore cvsignore on update/sync,in our projects we have the following structure,org.eclipse.team.core.variants.AbstractResourceVariantTree
+FILE,eclipse-3.1,98147,2005-06-02T13:09:00.000-05:00,not show children,"- Debug the class below with the breakpoint where indicated.
+- Expand t1 in the Variables view -> expands fine and shows fID and fName.
+- Expand t2 -> only child fID is shown",org.eclipse.debug.internal.ui.views.RemoteTreeViewer
+FILE,eclipse-3.1,98272,2005-06-03T10:04:00.000-05:00,work for terminate,"With a project set up to run, first have the debug view open.
+Run the application in your project.",org.eclipse.debug.internal.ui.views.launch.LaunchViewEventHandler
+FILE,eclipse-3.1,98604,2005-06-06T18:08:00.000-05:00,change Package explorer,"See bug 98602 for initial steps to reproduce.
+After doing that, I selected PDE Tools > Update Classpath.",org.eclipse.pde.internal.core.ClasspathComputer
+FILE,eclipse-3.1,98686,2005-06-07T10:39:00.000-05:00,pref page mnemonics,"context menu of shared project -> properties; cvs page
+Click on ""Change Sharing...""","org.eclipse.pde.internal.ui.IHelpContextIds
+org.eclipse.team.internal.ccvs.ui.CVSProjectPropertiesPage"
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,refresh children on project,"Take an existing simple project on disk and import the project into the workspace by performing a simple create with code like:
+Do not open the project with the project.open() API.
+Now create a project either by API or UI and open it.
+Or simply switch to the
+Java perspective.
+Our particular use case is that we are loading existing Java projects on disk by performing a create, but never an open.
+On the next UI gesture, we get refresh infinite loops, one for each closed project.","org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,98906,2005-06-08T06:43:00.000-05:00,rebuild after upgrade,"1. Start with a workspace running with N20050607 and org.eclipse.jdt.core only.
+2. Turn autobuild off
+3. Shutdown
+4. Restart with N20050608
+5. Press build","org.eclipse.jdt.internal.core.builder.ClasspathJar
+org.eclipse.jdt.internal.core.builder.ClasspathLocation
+org.eclipse.jdt.internal.core.builder.State
+org.eclipse.jdt.internal.core.DeltaProcessor"
+FILE,eclipse-3.1,99235,2005-06-09T14:51:00.000-05:00,not open file,Ctrl clicking on the antfile attribute should open the external antBuildfile.xml,"org.eclipse.ant.internal.ui.model.AntAntNode
+org.eclipse.ant.internal.ui.editor.AntEditor"
+FILE,eclipse-3.1,99282,2005-06-09T19:46:00.000-05:00,not initialize switch method in thread safe way,"For example, the following program should print ""1999"" 40 times
+(once from each thread).","org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding
+org.eclipse.jdt.internal.compiler.codegen.CodeStream"
+FILE,eclipse-3.1,99355,2005-06-10T09:48:00.000-05:00,extract method trips,if you extract method where indicated below.,org.eclipse.jdt.core.dom.ASTConverter
+FILE,eclipse-3.1,99629,2005-06-13T09:17:00.000-05:00,enter expression in change variable value dialog,"I was entering an expression to change the value of an array of doubles, and
+received an exception after typing a "".""
+in a double, like ""new double[] {1.2
+3 """,org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,99631,2005-06-13T09:21:00.000-05:00,assist [ ] unnecessary proposals on annotation completion,"@B<Ctrl+Space>
+public class Test {}","org.eclipse.jdt.internal.corext.refactoring.reorg.JavaMoveProcessor
+org.eclipse.jdt.internal.codeassist.CompletionEngine"
+FILE,eclipse-3.1,99693,2005-06-13T11:29:00.000-05:00,invalid during display,"Debug the following method to a breakpoint:
+Select everything between start eval and end eval comments and ctrl-shift-d.","org.eclipse.debug.internal.ui.views.variables.VariablesViewEventHandler
+org.eclipse.debug.internal.ui.views.expression.ExpressionViewEventHandler"
+CLASS,openjpa-2.2.0,OPENJPA-2227,2012-07-09T14:24:05.000-05:00,not find custom SequenceGenerators,"ExampleConfiguration:
+{code}
+@Entity
+@SequenceGenerator(name=""MySequence"", sequenceName=""org.apache.openjpa.generator.UIDGenerator()"")
+public class Customer implements Serializable {
+    @Id
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator=""MySequence"")
+    private long id;
+{code}",openjpa-kernel.src.main.java.org.apache.openjpa.meta.SequenceMetaData
+CLASS,openjpa-2.2.0,OPENJPA-2247,2012-08-03T10:29:58.000-05:00,map unidirectional own OneToOne be OneToOne in SecondaryTable,For example:,openjpa-jdbc.src.main.java.org.apache.openjpa.jdbc.meta.MappingRepository
+METHOD,atunes-1.10.0,213,2008-09-14T08:05:44.000-05:00,not skip under xine,"- Copy a few files (not music) into the repository and rename them to have a supported extension (for example .
+mp3)
+- Start aTunes, set Xine as engine, refresh repository and try to play the fake files","net.sourceforge.atunes.kernel.modules.player.xine.XineHandler:startPlayback(AudioObject, AudioObject)"
+METHOD,atunes-1.10.0,220,2008-09-20T18:53:54.000-05:00,OSD not displayed when jumping to next or previous track,OSD only appears when pressing play button (after stop the track),"net.sourceforge.atunes.kernel.handlers.PlayerHandler:playCurrentAudioObject(boolean)
+net.sourceforge.atunes.kernel.handlers.PlayerHandler:playAudioObject(AudioObject)"
+METHOD,atunes-1.10.0,231,2008-10-04T18:31:26.000-05:00,not add image read repository,"1. Read repository by older version of aTunes
+2. Update to latest SVN
+3. Try to add an image (assuming supported file format)",net.sourceforge.atunes.kernel.modules.repository.audio.AudioFile:supportsInternalPicture()
+CLASS,solr-4.4.0,SOLR-5188,2013-08-26T16:53:30.000-05:00,not work in branch_4x not work in trunk,The problem can be seen by starting the example in the latest checkout from branch_4x or trunk.,"solr.core.src.java.org.apache.solr.logging.LogWatcher
+solr.core.src.java.org.apache.solr.core.CoreContainer
+solr.core.src.java.org.apache.solr.core.ConfigSolr"
+CLASS,solr-4.4.0,SOLR-5243,2013-09-17T13:42:17.000-05:00,kill shard in collection result in leader election,"Discovered while doing some more ad-hoc testing... if I create two collections with the same shard name and then kill the leader in one, it can sometimes cause a leader election in the other (leaving the first leaderless).",solr.core.src.java.org.apache.solr.cloud.ZkController
+CLASS,solr-4.4.0,SOLR-5295,2013-10-02T00:09:02.000-05:00,create maxShardsPerNode number of replicas,"I've just created a very simple test collection on 3 machines where I set maxShardsPerNode at collection creation time to 1, and
+I made 3 shards.
+So I try again -- I create a collection with 3 shards and set maxShardsPerNode to 1000 (just as a silly test).
+Now I add shard4 and it immediately tries to add 1000 replicas of shard4...",solr.core.src.java.org.apache.solr.cloud.OverseerCollectionProcessor
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,create collection with implicit router add shard ranges to shard,"Using the Example A from SolrCloud wiki:
+bq.",solr.core.src.java.org.apache.solr.cloud.Overseer
+METHOD,mahout-0.4,MAHOUT-569,2010-12-28T14:27:05.000-06:00,cause NullPointerException in ConfusionMatrix test classifier,"If you try to perform classification using categories with spaces in their names then the classifier will happily train and create a model for you, but when you go to test the model you get:","org.apache.mahout.classifier.ConfusionMatrix:ConfusionMatrix(Collection<String>, String)
+org.apache.mahout.classifier.ConfusionMatrix:getAccuracy(String)
+org.apache.mahout.classifier.ConfusionMatrix:merge(ConfusionMatrix)
+org.apache.mahout.classifier.ConfusionMatrix:getLabels()
+org.apache.mahout.classifier.ConfusionMatrix:getCount(String, String)
+org.apache.mahout.classifier.ConfusionMatrix:putCount(String, String, int)"
+METHOD,mahout-0.4,MAHOUT-625,2011-03-11T09:24:20.000-06:00,support in reality,"Please find attached failing unit test - it's actually a maven project, which contains test data and is ready to run.","org.apache.mahout.fpm.pfpgrowth.fpgrowth.FPGrowth:pruneFPTree(MutableLong, FPTree)"
+FILE,AMQP,AMQP-190,2011-09-10T20:24:17.000-05:00,synchronize with TransactionManager,"It seems that when I use RabbitTemplate, channelTransacted=true, to convertAndSend() a message to an exchange within the context of a synchronized TransactionManager (e.g. an active transaction on the current thread), the channel is never closed, hence new publishes will always get their ""own"", shiny, new channel (that is never closed or released to the channel pool) until Rabbit can't handle any more channels.","org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer
+org.springframework.amqp.rabbit.core.RabbitTemplatePerformanceIntegrationTests
+org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils
+org.springframework.amqp.rabbit.connection.RabbitResourceHolder"
+FILE,AMQP,AMQP-332,2013-09-11T06:35:56.000-05:00,add multiple listeners inside single listener-container element,"If I am adding multiple listener classes inside a single <listener-container> element, only one of them is working i.e. the listener class which is defined at the last in XML e.g Please refer to the stackoverflow link above","org.springframework.amqp.rabbit.config.ListenerContainerParserTests
+org.springframework.amqp.rabbit.config.ListenerContainerParser
+org.springframework.amqp.rabbit.config.ListenerContainerPlaceholderParserTests"
+FILE,AMQP,AMQP-290,2013-01-04T02:26:52.000-06:00,namespace little bug use reference to queueArgumentsMap,"I am using some queues like that:
+I wanted to use:
+And when using:","org.springframework.amqp.rabbit.config.AbstractExchangeParser
+org.springframework.amqp.rabbit.config.QueueParser
+org.springframework.amqp.rabbit.config.ExchangeParserTests
+org.springframework.amqp.rabbit.config.QueueParserTests"
+FILE,AMQP,AMQP-340,2013-11-18T09:41:01.000-06:00,not consider wrong RabbitMQ credentials as fatal error,If I connect an AmqpInboundChannelAdapter to the RabbitMQ (3.1.0) with wrong credentials (wrong password) the SimpleMessageListenerContainer doesn't detect the real reason and continues to restart the consumer in a seemingly endless loop.,"org.springframework.amqp.rabbit.listener.BlockingQueueConsumer
+org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests
+org.springframework.amqp.rabbit.support.RabbitExceptionTranslator"
+FILE,AMQP,AMQP-502,2015-06-19T03:02:33.000-05:00,route key not create fanout binding due_to missing,"Currently i am using spring-cloud-starter-bus-amqp which in terms references spring-amqp 1.4.3.
+when i declare a rabbitlistener like this:","org.springframework.amqp.rabbit.annotation.EnableRabbitIntegrationTests
+org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor"
+FILE,AMQP,AMQP-653,2016-10-08T02:53:08.000-05:00,not take advantage of registered converters,"When using RabbitTemplate in a Spring Boot application, it's very easy to register a Spring AMQP Message Converter.
+Just add this to your code:
+However, if you switch to RabbitMessagingTemplate, that bean no longer works, because RabbitMessagingTemplate doesn't offer to look up RabbitTemplate's converters, and instead relies on its own.","org.springframework.amqp.rabbit.core.RabbitMessagingTemplateTests
+org.springframework.amqp.rabbit.core.RabbitMessagingTemplate"
+FILE,AMQP,AMQP-656,2016-10-15T00:25:46.000-05:00,use @Argument within @RabbitListener refer to default exchange,"For example, you should be able to configure a queue to use the default exchange as part of the dead letter config similar to the following:","org.springframework.amqp.rabbit.annotation.EnableRabbitIntegrationTests
+org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor"
+METHOD,commons-math-3-3.0,MATH-718,2011-12-03T18:40:44.000-06:00,return wrong value for large trials,Following code will be reproduce the problem.,"org.apache.commons.math3.util.ContinuedFraction:evaluate(double, double, int)"
+METHOD,commons-math-3-3.0,MATH-779,2012-04-11T10:28:35.000-05:00,remove chromosomes from population,Calling the iterator method of ListPopulation returns an iterator of the protected modifiable list.,org.apache.commons.math3.genetics.ListPopulation:iterator()
+FILE,DATACMNS,DATACMNS-157,2012-04-20T01:24:38.000-05:00,extend interface,"I try to define an interface method in a super repository interface and 'implement' this in an extending interface with @Query.
+Tested in the latest nightly build:","org.springframework.data.repository.core.support.DefaultRepositoryInformationUnitTests
+org.springframework.data.repository.core.support.DefaultRepositoryInformation"
+FILE,DATACMNS,DATACMNS-228,2012-09-10T02:05:09.000-05:00,exclude Groovy for mapping introduce properties from persistent properties,"When using Groovy classes with the mapping metadata sub-system, the Groovy compiler introduced fields like metaClass should not be considered a persistent property.","org.springframework.data.mapping.context.AbstractMappingContext
+org.springframework.data.mapping.context.AbstractMappingContextUnitTests"
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,return null for null sources return null for empty strings,"Imagine the use case where you have an Order domain class which has a ManyToOne reference to Customer.
+When posting a new Order where Order.customer == """" then a converter exception is thrown:
+This is the code I used:","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+FILE,DATACMNS,DATACMNS-257,2012-11-29T02:29:27.000-06:00,not deal with uppercase fields,"Here an example:
+1) create an entity like in example code snippet in MongoDb
+2) try to perform find by id operation by calling MongoOperations.findOne","org.springframework.data.mapping.PropertyPath
+org.springframework.data.mapping.PropertyPathUnitTests"
+FILE,DATACMNS,DATACMNS-379,2013-10-08T11:52:55.000-05:00,resolve comma-only sort parameter,"If specified "",""(comma only) in parameter value of sort, occurred the ArrayIndexOutOfBoundsException.","org.springframework.data.web.SortHandlerMethodArgumentResolverUnitTests
+org.springframework.data.web.SortHandlerMethodArgumentResolver"
+FILE,DATACMNS,DATACMNS-509,2014-05-08T08:39:02.000-05:00,break JSON conversion,I have a MVC method that is returning:,"org.springframework.data.repository.core.support.DummyRepositoryFactory
+org.springframework.data.repository.core.support.RepositoryFactorySupport
+org.springframework.data.repository.core.support.RepositoryFactorySupportUnitTests"
+FILE,DATACMNS,DATACMNS-511,2014-05-22T00:04:43.000-05:00,cause infinite loop,"We use quite a few abstract MappedSuperclasses that have circular references and apparently this does not work.
+An example:",org.springframework.data.util.TypeVariableTypeInformation
+FILE,DATACMNS,DATACMNS-562,2014-08-19T01:25:20.000-05:00,resolve TreeMap as map value type,"This is the Class of entity used to save to mongodb.
+This is the call entry:","org.springframework.data.mapping.model.AbstractPersistentPropertyUnitTests
+org.springframework.data.mapping.model.AbstractPersistentProperty"
+FILE,DATACMNS,DATACMNS-594,2014-11-14T03:39:52.000-06:00,behaviour for nested generic types,"After the resolution of DATACMNS-590, we found another strange behaviour using Spring Data MongoDB, but only disabling the default type mapper resolution, which resolves the class type to map using an attribute.
+Retrieving a Customer and navigate to ItemType will lead to a ClassCastException due the lost of generic type.","org.springframework.data.util.ClassTypeInformationUnitTests
+org.springframework.data.util.ClassTypeInformation
+org.springframework.data.util.ParameterizedTypeInformation
+org.springframework.data.util.TypeDiscoverer
+org.springframework.data.util.GenericArrayTypeInformation"
+FILE,DATACMNS,DATACMNS-609,2014-11-30T07:31:51.000-06:00,create multiple bean definitions for RepositoryInterfaceAwareBeanPostProcessor,"This can easily be reproduced with the version 51d1c5d of git@github.com:spring-projects/spring-data-jpa-examples.git by adding an extra stanza like <jpa:repositories base-package=""org.springframework.dummy"" /> to simple-repository-context.xml and running XmlConfigCachingRepositoryTests.","org.springframework.data.repository.config.RepositoryConfigurationExtensionSupportUnitTests
+org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport"
+FILE,DATACMNS,DATACMNS-616,2014-12-17T02:25:54.000-06:00,not access private fields,Trying to use a custom Envers revision class:,org.springframework.data.util.AnnotationDetectionFieldCallback
+FILE,DATACMNS,DATACMNS-683,2015-04-13T05:31:25.000-05:00,enable Spring break @ModelAttribute binding in Spring MVC,"Given following Java config class
+, following Controller class
+and following JSP","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-1914,2006-10-02T22:04:24.000-05:00,give output on zOS,When running the test lang/wisconsin.,java.testing.org.apache.derbyTesting.functionTests.tests.lang.wisconsin
+CLASS,derby-10.9.1.0,DERBY-5407,2011-09-12T08:50:38.000-05:00,produce unusable DDL for VARCHAR FOR BIT DATA columns run across network,"I can reproduce this problem as follows:
+1 Bring up a server (here I am using port 8246).
+2 Create a database with the following ij script:
+3 Now run dblook across the network:","java.testing.org.apache.derbyTesting.functionTests.tests.lang.SystemCatalogTest
+java.engine.org.apache.derby.catalog.types.BaseTypeIdImpl"
+CLASS,derby-10.9.1.0,DERBY-5546,2011-12-16T12:08:12.000-06:00,not do underflow checking,Cf. the attached repro program MissingUnderflowCheck.,"java.engine.org.apache.derby.iapi.types.SQLReal
+java.engine.org.apache.derby.iapi.types.SQLDouble
+java.testing.org.apache.derbyTesting.functionTests.tests.jdbcapi.ParameterMappingTest"
+CLASS,derby-10.9.1.0,DERBY-5638,2012-03-01T13:43:10.000-06:00,intermittent test failure in test_05_ClobNegative when running full largedata._Suite; LobLimitsTestjava.sql.SQLException: Table/View 'BLOBTBL' already exists in Schema 'APP'.,,"java.testing.org.apache.derbyTesting.junit.CleanDatabaseTestSetup
+java.testing.org.apache.derbyTesting.functionTests.tests.largedata.LobLimitsTest
+java.testing.org.apache.derbyTesting.functionTests.tests.largedata.LobLimitsLiteTest"
+CLASS,derby-10.9.1.0,DERBY-5750,2012-05-08T22:56:42.000-05:00,Sending an empty string as table name to compress table procedure or empty string as index name to update statistics procedure makes the parser throw an exception.,"When empty string is passed for the index name to the update statistics procedure, it throws following exception(passing an empty string for table to compress table procedure also gives simiar exception).","java.testing.org.apache.derbyTesting.functionTests.tests.lang.UpdateStatisticsTest
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.CompressTableTest
+java.engine.org.apache.derby.catalog.SystemProcedures"
+CLASS,derby-10.9.1.0,DERBY-5838,2012-07-02T07:53:00.000-05:00,"By using syscs_set_database_property, you can set the database version to a garbage string which prevents you from booting the database.",The following script shows this problem:,"java.engine.org.apache.derby.impl.sql.LanguageDbPropertySetter
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.SQLAuthorizationPropTest"
+CLASS,derby-10.9.1.0,DERBY-5851,2012-07-08T12:28:49.000-05:00,show for LogicalPreparedStatement40,I tried running org.apache.derbyTesting.functionTests.tests.jdbc4.PreparedStatementTest with a connectionCPDecorator in a JDBC4 environment.,java.testing.org.apache.derbyTesting.functionTests.tests.jdbc4.PreparedStatementTest
+CLASS,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,push into sub-query push with FETCH,Take the following snippet:,"java.engine.org.apache.derby.impl.sql.compile.ProjectRestrictNode
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.OrderByAndOffsetFetchInSubqueries
+java.engine.org.apache.derby.impl.sql.compile.SelectNode"
+CLASS,derby-10.9.1.0,DERBY-5916,2012-08-31T23:16:09.000-05:00,connect to network server,"I got a report of the exception below trying to connect to  database with absolute path and network server and the database name attribute.
+I haven't gotten  information  on the derby version or  platform, Below is the url I received with some characters replaced.",java.engine.org.apache.derby.impl.store.raw.data.BaseDataFileFactory
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,use prepared statement for Connection.setTransactionIsolation use regular statement for Connection.setTransactionIsolation,The program below shows repeated calls to setTransactionIsolation.,java.client.org.apache.derby.client.am.Connection
+CLASS,derby-10.9.1.0,DERBY-6131,2013-03-27T08:17:37.000-05:00,throw ClassCastException,"the issue can be reproduced
+1 create table myTbl1 (name varchar(1000));
+2 create table myTbl2 (name varchar(1000));
+3 create view myView (name) as select t1.name from myTbl1 t1 union all select t2.name from myTbl2 t2;
+4 select name from myView where upper(name) in ('AA', 'BB');
+#4 failed with ""org.apache.derby.impl.sql.compile.SimpleStringOperatorNode incompatible with org.apache.derby.impl.sql.compile.ColumnReference: java.lang.ClassCastException""
+If the view is created as ""create myView (name) as select t1.name from myTbl1 t1"", the query worked fine.","java.testing.org.apache.derbyTesting.functionTests.tests.lang._Suite
+java.testing.org.apache.derbyTesting.junit.BaseJDBCTestCase
+java.engine.org.apache.derby.impl.sql.compile.PredicateList"
+METHOD,time,28,2013-05-31T00:52:24.000-05:00,questionable behaviour of GJChronology pass 1BC,I expect the following test to pass:,"org.joda.time.chrono.GJChronology:getInstance(DateTimeZone, ReadableInstant, int)
+org.joda.time.chrono.GJChronology:add(long, long)
+org.joda.time.chrono.GJChronology:add(long, int)"
+METHOD,time,77,2013-10-16T15:36:22.000-05:00,change value of MutableDateTime,The code,"org.joda.time.MutableDateTime:add(DurationFieldType, int)
+org.joda.time.MutableDateTime:addWeeks(int)
+org.joda.time.MutableDateTime:addYears(int)
+org.joda.time.MutableDateTime:addMonths(int)
+org.joda.time.MutableDateTime:addMinutes(int)
+org.joda.time.MutableDateTime:addHours(int)
+org.joda.time.MutableDateTime:addWeekyears(int)
+org.joda.time.MutableDateTime:addDays(int)
+org.joda.time.MutableDateTime:addSeconds(int)
+org.joda.time.MutableDateTime:addMillis(int)"
+METHOD,time,93,2013-12-01T09:33:58.000-06:00,fail with NPE,With the latest master:,"org.joda.time.Partial:Partial(DateTimeFieldType[], int[], Chronology)
+org.joda.time.field.UnsupportedDurationField:compareTo(DurationField)"
+FILE,COMPRESS,COMPRESS-184,2012-03-23T13:33:32.000-05:00,fail for non-ASCII values,"E.g.
+11 path=
+takes 11 bytes (one has to account for the trailing newline) for 10 characters and the parser fails with ""Expected 3 chars, read 2""",org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+FILE,COMPRESS,COMPRESS-187,2012-05-23T14:00:58.000-05:00,not produce equals ZipArchiveEntry instances,I'm trying to use a ZipArchiveEntry coming from ZipArchiveInputStream that I stored somwhere for later with a ZipFile and it does not work.,"org.apache.commons.compress.archivers.zip.ZipArchiveEntry
+org.apache.commons.compress.archivers.zip.ZipArchiveEntryTest"
+FILE,COMPRESS,COMPRESS-189,2012-06-26T21:30:39.000-05:00,read bytes read from nested zip file,"When the following code is run an error ""Underlying input stream returned zero bytes"" is produced.
+The zip file used to produce this behavious is available at http://wwmm.ch.cam.ac.uk/~dl387/test.ZIP","org.apache.commons.compress.archivers.zip.ZipArchiveInputStreamTest
+org.apache.commons.compress.archivers.zip.ZipArchiveInputStream"
+FILE,COMPRESS,COMPRESS-252,2013-12-18T16:12:34.000-06:00,write 7z empty entries produce incorrect corrupt archive,"Input: A folder with certain files -> tried to archive it.
+Scenario 1: 7 empty files
+Scenario 2: 7 files, some empty, some with content
+Scenario 3: 8 empty files
+Scenario 4.1: 8 files: some empty, some with content, last file (alphabetically) with content
+Scenario 4.2: 8 files, some empty, some with content, last file empy","org.apache.commons.compress.archivers.sevenz.SevenZOutputFile
+org.apache.commons.compress.archivers.sevenz.SevenZOutputFileTest"
+FILE,COMPRESS,COMPRESS-309,2015-02-18T17:22:16.000-06:00,read to full buffer,"It seems like a pretty stupid thing to do - but I'm getting this when trying to use Kryo serialization (which is probably a bug on their part, too), so it does occur and has negative affects.
+Here's a JUnit test that shows the problem specifically:",org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
+FILE,ENTESB,ENTESB-3099,2015-04-27T11:35:23.000-05:00,build without warnings work without fabric,Running camel-log following instructions in README gives lots of warnings then fails wilth following error,org.jboss.quickstarts.fuse.processor.BodyInAggregatingStrategy
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-336,2012-07-09T23:49:01.000-05:00,take more time,"1) Start three bookies.
+Create ledger with ensemblesize=3, quorumsize=2
+2) Add 100 entries to this ledger
+3) Make first bookie down and read the entries from 0-99","bookkeeper-server.src.main.java.org.apache.bookkeeper.client.RoundRobinDistributionSchedule
+bookkeeper-server.src.main.java.org.apache.bookkeeper.client.DistributionSchedule
+bookkeeper-server.src.main.java.org.apache.bookkeeper.client.LedgerHandle
+bookkeeper-server.src.main.java.org.apache.bookkeeper.conf.ClientConfiguration
+bookkeeper-server.src.main.java.org.apache.bookkeeper.client.PendingReadOp
+bookkeeper-server.src.main.java.org.apache.bookkeeper.client.LedgerEntry"
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-337,2012-07-11T09:03:38.000-05:00,morethan bookie failures fail with MetadataVersionException,"Start Five BK's
+Write ledger's with ensemble three and quroum size=2 while write inprogress down two bookies(Bookies should be in ensemble)","bookkeeper-server.src.main.java.org.apache.bookkeeper.client.LedgerHandle
+bookkeeper-server.src.main.java.org.apache.bookkeeper.client.LedgerMetadata"
+FILE,swt-3.1,100040,2005-06-14T14:19:00.000-05:00,change to ImageList,"I tried running one of them, the OpenCloseWindowTest on N20050602, and also with
+N20050602+RC1's SWT.","org.eclipse.swt.widgets.TabFolder
+org.eclipse.swt.widgets.Button
+org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.ImageList
+org.eclipse.swt.widgets.Display
+org.eclipse.swt.widgets.Menu
+org.eclipse.swt.widgets.ToolItem
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,click on empty space click on grid lines,"To reproduce the problem, use snippet 96 with an added table.setLinesVisible(true).",org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,104966,2005-07-24T23:17:00.000-05:00,call after setEnabled,"1. Create a new Visual bean (SWT)
+2. Drop a link on the composite
+3. Set the enabled property on the link to be disabled
+6. Re-open the editor
+If you change the order of the initialization such that the enabled status is set after the text is set it displays correctly.",org.eclipse.swt.widgets.Link
+FILE,swt-3.1,58185,2004-04-12T15:16:00.000-05:00,load oldstyle BMP files,"I have several old style BMP files.
+When I attempt to load them into an image eclipse runs out of memory.
+In my case, I have a BMP file with the following header:","org.eclipse.swt.internal.image.OS2BMPFileFormat
+org.eclipse.swt.SWT
+org.eclipse.swt.internal.image.FileFormat
+org.eclipse.swt.internal.image.WinBMPFileFormat"
+FILE,swt-3.1,78548,2004-11-12T16:15:00.000-06:00,fire before MouseUp,"- run the ControlExample, Button tab
+- turn on listeners MouseUp and Selection
+- click on an example Button","org.eclipse.swt.widgets.Button
+org.eclipse.swt.widgets.ToolItem"
+FILE,swt-3.1,78559,2004-11-12T17:08:00.000-06:00,fire Selection events before MouseDown,"- run the ControlExample, Slider/Scale tab
+- turn on the MouseDown and Selection listeners
+- click on the example Slider's thumb",org.eclipse.swt.widgets.Slider
+FILE,swt-3.1,81264,2004-12-15T13:17:00.000-06:00,fail to setTopIndex add new items to table,Here's my testcase to demonstrate the problem:,"org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.List
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,81834,2004-12-22T21:09:00.000-06:00,not convert European number to Arabic number,"How to reproduce:
+1 Change the user language to Arabic on ""Regional and Language Options"" panel
+on Windows.
+(do not specify ""-nl"" command line arguments.)
+2 Create Shell with SWT.RIGHT_TO_LEFT flag.
+3 add StyledText on the shell.
+4 Set text ""012345 abc 012345"" in StyledText widget.
+5 Open and run the shell.","org.eclipse.swt.internal.win32.OS
+org.eclipse.swt.graphics.TextLayout"
+FILE,swt-3.1,83262,2005-01-19T17:41:00.000-06:00,paste null terminator,"When pasting using the middle mouse button from StyledText into an rxvt window,
+it contains a null terminator at the end.","org.eclipse.swt.dnd.RTFTransfer
+org.eclipse.swt.dnd.TextTransfer"
+FILE,swt-3.1,84557,2005-02-07T07:06:00.000-06:00,not appear in table,"ctrl esc E brings up the handy switch to editor window, but unfortuantley the
+list is empty :(","org.eclipse.swt.widgets.TableColumn
+org.eclipse.swt.widgets.TreeColumn"
+FILE,swt-3.1,84609,2005-02-07T13:35:00.000-06:00,have NPE while calling call pack() on last column,"Consider followed code, table has only 3 columns:","org.eclipse.swt.widgets.TableColumn
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,produce invalid JPEG images,"Simple test case below loads
+ PNG Files and Saves them as JPEG.",org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,87363,2005-03-08T08:00:00.000-06:00,open new menus,The following example demonstrates the problem:,"org.eclipse.swt.widgets.Text
+org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.Widget
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,87997,2005-03-14T19:21:00.000-06:00,cause NPE,"Specifically this prevents one from adding a dispose listener on the Table
+or a TableItem and trying to dispose of the associated editor, as in the code
+below.","org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,88717,2005-03-22T04:34:00.000-06:00,[DND] Tree is scrolling very slow when dragging an Item to the Bottom,"Create a Tree with some items and implement DND support as explained in this
+Snippet:
+Now expand some items so that vertical scrollbars are appearing.
+When draggin an item to the bottom, the Tree is not scrolling.","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.dnd.TableDragUnderEffect"
+FILE,swt-3.1,88829,2005-03-22T20:41:00.000-06:00,not fire enough Move events,"- start with five columns, all different widths
+- do Table.setColumnOrder(new int[] {4,1,2,3,0});",org.eclipse.swt.widgets.Table
+FILE,swt-3.1,93380,2005-05-01T22:12:00.000-05:00,[DnD] 100% CPU usage when dragging files in the navigator or package explorer,"When i drag and drop a file inside the package explorer or navigator views the
+I do not see this massive use of CPU when dragging an external file into the navigator or when dragging a file out of the navigator.",org.eclipse.swt.dnd.DragSource
+FILE,swt-3.1,93724,2005-05-04T17:35:00.000-05:00,create signal names,Here is an example of some code in DragSource.java for GTK+:,"org.eclipse.swt.dnd.DropTarget
+org.eclipse.swt.dnd.DragSource"
+FILE,swt-3.1,94467,2005-05-10T14:35:00.000-05:00,give bogus sizes,Use ctrl-shift-e to bring up the editor list.,"org.eclipse.swt.widgets.Scrollable
+org.eclipse.swt.widgets.ScrollBar
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,94598,2005-05-11T00:01:00.000-05:00,activate IIMF input in search scope,"1 Install Eclipse SDK and NL pack
+2 Click ""Help"" from menu -> select ""Help Content"" -> Click ""Search Scope"", a
+Search Scope dialog pop up.
+3 Select ""Search all topics"", Click ""New"", the New Search List dialog pop up.
+4 Then try to active IIMF input method by ""CTRL+SPACE"" key in order to input
+DBCS characters, but Eclipse hangs.
+No response from Eclipse.","org.eclipse.swt.browser.Browser
+org.eclipse.swt.widgets.Composite"
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,mark cheese,"- run the snippet below
+- the insert line is set to be under the ""root"" item
+- collapse the root item
+- press the button to the right of the Table: this does a Tree.redraw(), and note that the insert line reappears, so I guess it never really meant to go away","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+FILE,CONFIGURATION,CONFIGURATION-214,2006-05-26T21:35:46.000-05:00,add integer cause exception,Try this in a BeanShell:,"org.apache.commons.configuration.TestPropertyConverter
+org.apache.commons.configuration.PropertyConverter
+org.apache.commons.configuration.TestBaseConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-241,2006-12-02T00:03:48.000-06:00,not generate events,"I am loading configuration information from multiple sources and have registered a listener with the resulting configuration object.
+Below is a watered down version of what I am doing (note, my configuration file simply pulls in a property file containing this property: name.first=Mike):","org.apache.commons.configuration.TestCompositeConfiguration
+org.apache.commons.configuration.CompositeConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-332,2008-07-04T15:54:10.000-05:00,not persist properties add through DataConfiguration,The following test fails on the last assertion :,"org.apache.commons.configuration.TestPropertiesConfiguration
+org.apache.commons.configuration.DataConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-347,2008-11-05T21:06:22.000-06:00,Iterating over the keys of a file-based configuration can cause a ConcurrentModificationException,,"org.apache.commons.configuration.TestFileConfiguration
+org.apache.commons.configuration.AbstractFileConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-408,2010-02-11T01:01:05.000-06:00,"When I save a URL as a property value, the forward slashes are getting escaped",Example Code :,org.apache.commons.configuration.TestPropertiesConfiguration
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,use materialized blobs with Postgresql cause error,"I have entity with byte[] property annotated as @Lob and lazy fetch type, when table is createad the created column is of type oid, but when the column is read in application, the Hibernate reads the OID value instead of bytes under given oid.","org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+CLASS,hibernate-3.5.0b2,HHH-5042,2010-03-26T05:06:09.000-05:00,not increment hibernate_sequences.next_hi_value exhaust current lo-range,"Please see attached testcase.
+as the testcase uses 2 sessionfactories hibernate.hbm2ddl.auto=create cannot be used!!
+Schema has to be exported separately and the testcase must run without hbm2ddl.auto property!
+Here the schema for HSQLDB:","org.hibernate.id.SequenceHiLoGenerator
+org.hibernate.id.enhanced.OptimizerFactory
+org.hibernate.id.SequenceGenerator
+org.hibernate.id.MultipleHiLoPerTableGenerator"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,use wrong columns in SQL,So the Account class has the following fragment....,"org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+METHOD,openjpa-2.0.1,OPENJPA-1762,2010-08-09T14:42:31.000-05:00,join tables,ManyToMany relationship between A(owner) and B.,"org.apache.openjpa.persistence.lockmgr.Employee:toString()
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:getId()
+org.apache.openjpa.persistence.lockmgr.Employee:readExternal(ObjectInput)
+org.apache.openjpa.persistence.lockmgr.Employee:setDepartment(Department)
+org.apache.openjpa.jdbc.kernel.PessimisticLockManager:getLockRows(DBDictionary, Object, ClassMapping, JDBCFetchConfiguration, SQLFactory)
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:appendSize(SQLBuffer, Select, Joins)
+org.apache.openjpa.jdbc.meta.strats.StoreCollectionFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:writeExternal(ObjectOutput)"
+METHOD,openjpa-2.0.1,OPENJPA-526,2008-02-27T13:28:05.000-06:00,cause sqlexception,"Here's the persistence class:
+public class Exam... {
+    @Lob
+    @Column(name = ""text"", nullable = false) ***** NOTE: set nullable = true will fix the problem but it leads to bug OPENJPA-525 *****
+    private String text;
+}","org.apache.openjpa.persistence.kernel.common.apps.Lobs:getId()
+org.apache.openjpa.persistence.kernel.common.apps.Lobs:getLob()
+org.apache.openjpa.persistence.kernel.common.apps.Lobs:Lobs(String, int)
+org.apache.openjpa.persistence.kernel.common.apps.Lobs:setLob(String)
+org.apache.openjpa.jdbc.sql.OracleDictionary:setNull(PreparedStatement, int, int, Column)"
+METHOD,adempiere-3.1.0,1240,2008-05-16T03:03:55.000-05:00,produce produc,"1. En Gardenworld , Production windows , create a row in the tab Production Header for  ""Production 2 Patio  set"".
+2. in the tab Production Plan create a row for the Patio Furniture Set product, Production Quantity= 2
+3. Then click on  ""Create/post Production"" button in the Production header tab, this create the production line.
+4. the first line is necesary divide in two for give a serial each one.
+then in the Patio Furniture Set product set in movement quantity 1 and give a serial  in the attribute set instance field, then create other row similar but the other serial
+5. then click on  ""Create/post Production"" button in the Production header tab
+6. click on ""Not Postet"" Button, then there the botton label is changed to ""Dont Balanced""",org.compiere.acct.Doc_Production:createFacts(MAcctSchema)
+CLASS,pig-0.8.0,PIG-1188,2010-01-14T13:32:46.000-06:00,null to input tuple,"Here is one example:
+Pig script:
+Input file:","test.org.apache.pig.test.TestMergeForEachOptimization
+src.org.apache.pig.newplan.logical.rules.TypeCastInserter
+test.org.apache.pig.test.TestNewPlanLogicalOptimizer
+test.org.apache.pig.test.TestNewPlanFilterRule
+test.org.apache.pig.test.TestNewPlanPushDownForeachFlatten
+test.org.apache.pig.test.TestEvalPipeline2
+test.org.apache.pig.test.TestMultiQueryCompiler
+test.org.apache.pig.test.TestPartitionFilterPushDown
+test.org.apache.pig.test.TestNewPlanFilterAboveForeach"
+CLASS,pig-0.8.0,PIG-1277,2010-03-05T13:02:03.000-06:00,give cogroup on tuple keys,"Here is one example:
+UDF:
+{code}
+public class MapGenerate extends EvalFunc<Map> {
+    @Override
+    public Map exec(Tuple input) throws IOException {
+        // TODO Auto-generated method stub
+        Map m = new HashMap();
+        m.put(""key"", new Integer(input.size()));
+        return m;
+    }
+    
+    @Override
+    public Schema outputSchema(Schema input) {
+        return new Schema(new Schema.FieldSchema(null, DataType.MAP));
+    }
+}
+{code}
+Pig script: 
+{code}
+a = load '1.","src.org.apache.pig.impl.io.NullableBytesWritable
+test.org.apache.pig.test.TestPackage
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigBytesRawComparator
+src.org.apache.pig.backend.hadoop.HDataType
+src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.relationalOperators.POMultiQueryPackage
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapReduce
+test.org.apache.pig.test.TestSecondarySort
+src.org.apache.pig.newplan.logical.relational.LOUnion"
+CLASS,pig-0.8.0,PIG-1771,2010-12-16T14:45:37.000-06:00,return different schema with load AS,The following script fail:,"test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LogicalSchema"
+CLASS,pig-0.8.0,PIG-1776,2010-12-17T16:28:09.000-06:00,"changing statement corresponding to alias after explain , then doing dump gives incorrect result",/* but dumping c after following steps gives incorrect results */,"src.org.apache.pig.PigServer
+src.org.apache.pig.newplan.logical.relational.LOLoad
+test.org.apache.pig.test.TestUDFContext"
+CLASS,pig-0.8.0,PIG-1813,2011-01-20T10:25:01.000-06:00,throw ERROR while refer map in result,The above script fails when run with Pig 0.8 but runs fine with Pig 0.7 or if pig.usenewlogicalplan=false.,"src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.expressionOperators.POUserFunc
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+CLASS,pig-0.8.0,PIG-1837,2011-02-01T17:57:48.000-06:00,use IsEmpty function,"I have the following 2 inputs:
+And the following script to work on the data:","test.org.apache.pig.test.TestAccumulator
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.AccumulatorOptimizer"
+CLASS,pig-0.8.0,PIG-1850,2011-02-11T07:50:43.000-06:00,fail with ClassCastException,The below is the script :,"test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.expression.ProjectExpression"
+CLASS,pig-0.8.0,PIG-1854,2011-02-14T03:03:15.000-06:00,return exit code for failed pig script,"Suppose in Pig script we have following statement:
+On executing the pig script, script failed with following exception
+But when executed the similar Pig script through Oozie workflow, Pig script failed but Oozie show the ""succeeded"" status message instead of ""killed"" status as return exit code is 0.","src.org.apache.pig.impl.util.LogUtils
+test.org.apache.pig.test.TestPigRunner
+src.org.apache.pig.tools.grunt.GruntParser"
+CLASS,pig-0.8.0,PIG-1856,2011-02-15T17:26:16.000-06:00,not package custom jar with new job,The script:,"src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.MRCompiler
+test.org.apache.pig.test.TestMRCompiler"
+CLASS,pig-0.8.0,PIG-1858,2011-02-17T02:27:48.000-06:00,result frontend exception,"The below is my script :
+{code}
+register myanotherudf.jar;
+A = load 'myinput' using PigStorage() as ( date:chararray,bcookie:chararray,count:int,avg:double,pvs:int);
+B = foreach A generate (int)(avg / 100.0) * 100   as avg, pvs;
+C = group B by ( avg );
+D = foreach C {
+        Pvs = order B by pvs;
+        Const = org.vivek.MyAnotherUDF(Pvs.pvs).
+When i trun off new logical plan the script executes successfully.",test.org.apache.pig.test.TestEvalPipeline2
+CLASS,pig-0.8.0,PIG-1868,2011-02-24T00:42:05.000-06:00,have complex data types from udf,"The below is my script :
+The below is the describe on C1 ;
+{code}
+C1: {seq: {t: (previous: (id: chararray,ts: int,url: chararray),current: (id: chararray,ts: int,url: chararray),next: (id: chararray,ts: int,url: chararray))}}
+{code}
+The script works if I turn off new logical plan or use Pig 0.7.","src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+CLASS,pig-0.8.0,PIG-1893,2011-03-10T20:43:13.000-06:00,report input size for empty input file,In the following script:,"src.org.apache.pig.tools.pigstats.JobStats
+test.org.apache.pig.test.TestPigRunner"
+CLASS,pig-0.8.0,PIG-1911,2011-03-16T16:06:11.000-05:00,function in nested foreach,Sample script:,"src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.expressionOperators.POUserFunc
+src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.relationalOperators.POForEach
+test.org.apache.pig.test.TestAccumulator"
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,push up filter in_front_of bincond,The following script produce wrong result:,"test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+CLASS,pig-0.8.0,PIG-1963,2011-04-04T17:18:24.000-05:00,take input from order-by not get results in nested foreach,"This happens only when secondary sort is not being used for the order-by.
+For example -
+{code}
+a1 = load 'fruits.txt' as (f1:int,f2);
+a2 = load 'fruits.txt' as (f1:int,f2);","test.org.apache.pig.test.TestAccumulator
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.AccumulatorOptimizer"
+CLASS,pig-0.8.0,PIG-1979,2011-04-08T02:24:01.000-05:00,not find matching uid fail with ERROR,"The below is my script 
+{code}
+register myudf.jar;
+c01 = LOAD 'input'  USING org.test.MyTableLoader('');
+c02 = FILTER c01  BY result == 'OK'  AND formatted IS NOT NULL  AND formatted !
+The problem is happening when I try to include doc_005::category in the projection for relation finalresult.
+The script goes through fine if I disable AddForEach rule by -t AddForEach","test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression"
+CLASS,pig-0.8.0,PIG-1993,2011-04-12T19:47:41.000-05:00,throw NPE with ColumnPruning,The following script fail:,"contrib.piggybank.java.src.test.java.org.apache.pig.piggybank.test.TestPigStorageSchema
+contrib.piggybank.java.src.main.java.org.apache.pig.piggybank.storage.PigStorageSchema"
+CLASS,pig-0.8.0,PIG-730,2009-03-24T14:36:45.000-05:00,"problem combining schema from a union of several LOAD expressions, with a nested bag inside the schema.",---> Turns out using outlinks.t.target (instead of outlinks.target) works for D but not for C.,"src.org.apache.pig.impl.logicalLayer.schema.Schema
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+CLASS,pig-0.8.0,PIG-767,2009-04-15T23:43:29.000-05:00,report from DESCRIBE,The following script:,"test.org.apache.pig.test.TestNewPlanLogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+test.org.apache.pig.test.TestLogicalPlanMigrationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+test.org.apache.pig.test.TestSchema
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+CLASS,pig-0.8.0,PIG-946,2009-09-04T17:51:37.000-05:00,follow group,"The following script is combinable but is not optimized:
+a = load '/user/pig/tests/data/singlefile/studenttab10k';
+b = group a by $1;
+c = foreach b generate group, AVG(a.$2);
+d = limit c 10;
+dump d;","test.org.apache.pig.test.TestCombiner
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.CombinerOptimizer"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,suffer from integer overflow,"It looks like the HypergeometricDistribution.sample() method doesn't work as well as it used to with large integer values -- the example code below should return a sample between 0 and 50, but usually returns -50.",org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-221,2008-08-29T13:31:56.000-05:00,multiply for complex numbers equal for complex numbers,little java program + output that shows the bug:,org.apache.commons.math.complex.Complex:equals(Object)
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,go past specified end of integration range,"The following test case shows the end event is not handled properly and an integration that should cover a 60s range in fact covers a 160s range, more than twice the specified range.","org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+METHOD,math,MATH-369,2010-05-03T15:48:27.000-05:00,throw NullPointerException,invoke:,"org.apache.commons.math.analysis.solvers.BisectionSolver:solve(UnivariateRealFunction, double, double, double)"
+METHOD,math,MATH-60,2006-05-14T04:20:21.000-05:00,illogical result,"Please see the following code segment for more details:
+Note: Similarly, when I passed in the following inputs:
+input 2: (source = 1 2 / -3, pos = 0)
+input 3: ( source =  -1 -2 / 3, pos = 0)","org.apache.commons.math.fraction.ProperFractionFormat:parse(String, ParsePosition)"
+METHOD,math,MATH-691,2011-10-16T17:18:34.000-05:00,produce nan,The code to reproduce it:,org.apache.commons.math.stat.descriptive.SummaryStatistics:addValue(double)
+METHOD,math,MATH-865,2012-09-19T21:10:42.000-05:00,bound to CMAESOptimizer result pass to fitness function,"If you give large values as lower/upper bounds (for example -Double.MAX_VALUE as a lower bound), the optimizer can call the fitness function with parameters set to NaN.",org.apache.commons.math3.optimization.direct.CMAESOptimizer:checkParameters()
+METHOD,math,MATH-929,2013-01-15T11:45:28.000-06:00,return wrong value,"To reproduce:
+{code}
+Assert.assertEquals(0.398942280401433, new MultivariateNormalDistribution(new double[]{0}, new double[][]{{1}}).",org.apache.commons.math3.distribution.MultivariateNormalDistribution:density(double[])
+METHOD,math,MATH-942,2013-03-09T15:05:04.000-06:00,throw exception if first element,"To reproduce:
+{code}
+List<Pair<Object,Double>> list = new ArrayList<Pair<Object, Double>>();
+list.add(new Pair<Object, Double>(new Object() {}, new Double(0)));
+list.add(new Pair<Object, Double>(new Object() {}, new Double(1)));
+new DiscreteDistribution<Object>(list).",org.apache.commons.math3.distribution.DiscreteDistribution:sample(int)
+METHOD,math,MATH-949,2013-03-15T18:11:56.000-05:00,report iterations,I've put a test case below.,"org.apache.commons.math3.optim.nonlinear.scalar.gradient.NonLinearConjugateGradientOptimizer:doOptimize()
+org.apache.commons.math3.optim.nonlinear.scalar.noderiv.CMAESOptimizer:doOptimize()
+org.apache.commons.math3.optim.nonlinear.vector.jacobian.GaussNewtonOptimizer:doOptimize()
+org.apache.commons.math3.optim.nonlinear.scalar.noderiv.SimplexOptimizer:doOptimize()
+org.apache.commons.math3.optim.BaseOptimizer:BaseOptimizer(ConvergenceChecker<PAIR>)
+org.apache.commons.math3.optim.nonlinear.scalar.noderiv.PowellOptimizer:doOptimize()
+org.apache.commons.math3.optim.nonlinear.vector.jacobian.LevenbergMarquardtOptimizer:doOptimize()"
+FILE,WFCORE,WFCORE-58,2014-08-18T05:18:45.000-05:00,set locales cause missing buttons on console throw errors,"When WildFly 9 Alpha1 is started with the following system properties in the ""standalone.conf"" then the admin console behaves abnormally and shows some missing buttons in the console.","org.jboss.as.domain.management.security.password.PasswordCheckUtil
+org.jboss.as.controller.access.rbac.StandardRoleMapper
+org.jboss.as.host.controller.discovery.S3Util
+org.jboss.as.host.controller.DirectoryGrouping
+org.jboss.as.remoting.Protocol
+org.jboss.as.test.integration.management.rbac.PermissionsCoverageTestUtil
+org.jboss.as.test.integration.management.interfaces.JmxInterfaceStringUtils
+org.jboss.as.controller.operations.global.ReadResourceDescriptionHandler
+org.jboss.as.threads.ThreadPoolManagementUtils"
+FILE,WFCORE,WFCORE-268,2014-11-19T19:55:59.000-06:00,connect to as7 connect to eap6,"If you try to use a WildFly version CLI GUI to connect to AS7 or EAP6, you will get a failure.","org.jboss.as.cli.gui.GuiMain
+org.jboss.as.cli.gui.ServerLogsPanel"
+FILE,WFCORE,WFCORE-145,2014-10-02T13:28:22.000-05:00,not process files with comments not process files with blank lines,"However, running the batch file containing comments/blank lines as a parameter to jboss-cli.sh works just fine (.
+/jboss-cli.sh -c --file=script.cli).","org.jboss.as.cli.handlers.batch.BatchRunHandler
+org.jboss.as.cli.handlers.BaseOperationCommand
+org.jboss.as.test.integration.management.cli.BatchFileTestCase"
+FILE,WFCORE,WFCORE-285,2014-11-14T14:25:02.000-06:00,confuse cli tab completion,Using two slashes in a CLI path and hitting TAB confuses the auto-completion,"org.jboss.as.cli.operation.impl.DefaultCallbackHandler
+org.jboss.as.cli.operation.impl.DefaultOperationRequestParser
+org.jboss.as.cli.parsing.test.AddressOnlyParsingTestCase
+org.jboss.as.cli.operation.CommandLineParser"
+FILE,WFCORE,WFCORE-267,2014-11-19T19:47:31.000-06:00,print output use cli client jar,"If you are using the CLI client jar, all output is printed twice.",org.jboss.as.cli.CommandLineMain
+FILE,WFCORE,WFCORE-500,2015-01-13T13:10:50.000-06:00,remove path entry from server instance,"Adding a ""path"" to a ""server-config"" in domain mode (works fine) and then remove it again results in a NullPointerException",org.jboss.as.controller.services.path.PathRemoveHandler
+FILE,WFCORE,WFCORE-495,2015-01-12T08:48:29.000-06:00,not startup to wflyctl0212,"If you firstly deploy a .
+war application by CLI command, then deploy 2nd time same .
+war application by copying it to /depolyment directory.
+After server restart, it shows:
+1. start wildfly and deploy a .
+war application by CLI.
+2. copy same .
+war application to /deployment directory
+3. restart wildfly to see the error message.",org.jboss.as.server.deployment.DeploymentFullReplaceHandler
+FILE,WFCORE,WFCORE-499,2015-01-13T01:54:46.000-06:00,break system properties in domain mode,"The only way I could get the property to be applied was to start the server first, then add the property using boot-time=false, although even in this case the property will disappear if the domain is restarted or the server is reloaded.","org.jboss.as.host.controller.ManagedServerBootCmdFactory
+org.jboss.as.test.integration.domain.suites.CoreResourceManagementTestCase
+org.jboss.as.server.operations.SystemPropertyAddHandler
+org.jboss.as.server.controller.resources.SystemPropertyResourceDefinition"
+FILE,WFCORE,WFCORE-626,2015-04-06T15:53:19.000-05:00,create list elements,Consider the following sequence of operations:,"org.jboss.as.controller.operations.global.ListOperations
+org.jboss.as.controller.operations.global.MapOperations"
+FILE,WFCORE,WFCORE-230,2014-11-07T17:46:38.000-06:00,launch server vm,For example:,"org.jboss.as.host.controller.ServerInventoryImpl
+org.jboss.as.host.controller.ManagedServer
+org.jboss.as.test.integration.domain.ServerManagementTestCase
+org.jboss.as.test.integration.domain.management.ServerAutoStartTestCase"
+FILE,WFCORE,WFCORE-442,2014-12-02T19:15:13.000-06:00,not propagate failures to top level failure-description,An example is worth a thousand words:,org.jboss.as.controller.operations.global.GlobalOperationHandlers
+FILE,WFCORE,WFCORE-727,2015-06-02T06:44:33.000-05:00,throw NPE on tab completion,"Some commands throws NullPointerException when CLI is disconnected from controller and user tries to use tab completion (so far I found these: ls, read-attribute, read-operation).","org.jboss.as.cli.handlers.ReadAttributeHandler
+org.jboss.as.cli.impl.CommandCandidatesProvider
+org.jboss.as.cli.handlers.LsHandler"
+FILE,WFCORE,WFCORE-716,2015-05-27T10:21:36.000-05:00,check at stage,"The following command is referencing a non-existent capability: -
+When I execute :reload it will fail: -",org.jboss.as.controller.CapabilityReferenceRecorder
+FILE,WFCORE,WFCORE-763,2015-06-16T14:59:39.000-05:00,persist empty list read with empty string [ read as list result in IllegalArgumentException,"e.g. if I persist an empty list to xml, and read it back again, using the default parser/marshaller, I should get back an empty list.","org.jboss.as.controller.AttributeParser
+org.jboss.as.controller.SimpleListAttributeDefinitionUnitTestCase"
+FILE,WFCORE,WFCORE-754,2015-06-02T11:17:26.000-05:00,start with bmanagement start with specific IP settings,"EAP fails to start with -bmanagement= option.
+IPv4 address is used in this option.
+Example on dev98 machine:",org.jboss.as.host.controller.ServerInventoryService
+FILE,WFCORE,WFCORE-815,2015-07-13T07:57:45.000-05:00,have more ancestors with same submodules,get fresh EAP,"org.jboss.as.domain.controller.operations.ProfileIncludesHandlerTestCase
+org.jboss.as.domain.controller.operations.SocketBindingGroupIncludesHandlerTestCase
+org.jboss.as.host.controller.logging.HostControllerLogger"
+FILE,WFCORE,WFCORE-798,2015-07-07T19:42:47.000-05:00,miss for EAP version,Trying to run WildFly full's ParseAndMarshalModelsTestCase against the EAP 6.3 configs results in failures like this:,org.jboss.as.domain.management.parsing.ManagementXml_Legacy
+FILE,WFCORE,WFCORE-896,2015-08-20T11:24:44.000-05:00,not patch EAP exclude Docs from installation,"EAP installer allows user to exclude some packs from installation.
+Docs directory is one of them.
+If user choose to do so, $JBOSS_HOME/docs directory is not present in distribution.
+Trying to apply a patch (contains changes with docs files) on such a distribution gives me:
+Patch was generated using:","org.jboss.as.patching.metadata.PatchXml
+org.jboss.as.patching.runner.ModuleRemoveTask
+org.jboss.as.patching.runner.ModuleUpdateTask
+org.jboss.as.patching.tests.PatchStepAssertions
+org.jboss.as.patching.runner.BundlePatchingTask
+org.jboss.as.patching.runner.FileUpdateTask
+org.jboss.as.patching.runner.IdentityPatchRunner
+org.jboss.as.patching.tests.AbstractPatchTestBuilder
+org.jboss.as.patching.runner.FileRemoveTask
+org.jboss.as.patching.runner.PatchingTaskDescription
+org.jboss.as.patching.metadata.PatchXmlUtils
+org.jboss.as.patching.runner.AbstractPatchingTask
+org.jboss.as.patching.metadata.ContentModification
+org.jboss.as.patching.runner.PatchingTask
+org.jboss.as.patching.runner.ContentModificationUtils
+org.jboss.as.patching.metadata.RollbackPatchXml_1_0
+org.jboss.as.patching.logging.PatchLogger
+org.jboss.as.patching.metadata.PatchXml_1_0
+org.jboss.as.patching.metadata.ModificationBuilderTarget"
+FILE,WFCORE,WFCORE-955,2015-08-27T14:34:07.000-05:00,Server is not responding after attempt to set parent of profile to non-existent profile,"Server is not responding after attempt to set parent of profile to non-existent profile.
+Server is not responding also after attempt to set parent of socket-binding-group to non-existent socket-binding-group.
+Get fresh EAP
+Get fresh EAP","org.jboss.as.controller.OperationContextImpl
+org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.controller.SocketCapabilityResolutionUnitTestCase
+org.jboss.as.controller.capability.registry.IncludingResourceCapabilityScope
+org.jboss.as.controller.AbstractCapabilityResolutionTestCase"
+FILE,WFCORE,WFCORE-868,2015-08-05T08:12:55.000-05:00,not handle special characters strings with parenthesis,When using CLI if-else scripting that uses a string that contains parenthesis it fails with the following message:,"org.jboss.as.cli.handlers.ifelse.LesserThanOperation
+org.jboss.as.cli.parsing.ifelse.test.IfExpressionParsingTestCase
+org.jboss.as.cli.handlers.ifelse.BaseOperation
+org.jboss.as.cli.handlers.ifelse.EqualsOperation
+org.jboss.as.cli.handlers.ifelse.IfElseControlFlow
+org.jboss.as.cli.handlers.ifelse.AndOperation
+org.jboss.as.cli.impl.ArgumentWithValue
+org.jboss.as.cli.parsing.DefaultStateWithEndCharacter
+org.jboss.as.cli.handlers.ifelse.IfHandler
+org.jboss.as.cli.parsing.ifelse.test.ComparisonTestBase
+org.jboss.as.cli.handlers.ifelse.OrOperation
+org.jboss.as.cli.handlers.ifelse.NotLesserThanOperation
+org.jboss.as.cli.handlers.ifelse.NotGreaterThanOperation
+org.jboss.as.cli.handlers.ifelse.GreaterThanOperation
+org.jboss.as.cli.handlers.ifelse.NotEqualsOperation"
+FILE,WFCORE,WFCORE-949,2015-09-03T05:08:35.000-05:00,autocomplete for removing,Executing /core-service=management/management-interface=http-interface:remove() autocompletes but does not succeed.,"org.jboss.as.server.operations.NativeRemotingManagementRemoveHandler
+org.jboss.as.host.controller.operations.HttpManagementRemoveHandler
+org.jboss.as.jmx.RemotingConnectorResource
+org.jboss.as.test.integration.domain.HTTPSManagementInterfaceTestCase
+org.jboss.as.server.mgmt.NativeManagementResourceDefinition
+org.jboss.as.subsystem.test.AdditionalInitialization
+org.jboss.as.remoting.management.ManagementRemotingServices
+org.jboss.as.server.operations.HttpManagementRemoveHandler
+org.jboss.as.server.operations.NativeManagementRemoveHandler
+org.wildfly.core.test.standalone.mgmt.HTTPSConnectionWithCLITestCase
+org.wildfly.core.test.standalone.mgmt.HTTPSManagementInterfaceTestCase
+org.jboss.as.remoting.logging.RemotingLogger
+org.jboss.as.server.mgmt.HttpManagementResourceDefinition
+org.jboss.as.host.controller.resources.NativeManagementResourceDefinition
+org.jboss.as.host.controller.resources.HttpManagementResourceDefinition"
+FILE,WFCORE,WFCORE-940,2015-08-31T12:20:01.000-05:00,fool CLI,# run while domain is booting,org.jboss.as.cli.impl.CommandContextImpl
+FILE,WFCORE,WFCORE-931,2015-08-28T12:00:07.000-05:00,throw NPE on regular shutdown,Invoking the /host=master:shutdown operation on embedded host-controller gives me NPE.,org.jboss.as.host.controller.model.host.HostResourceDefinition
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,remove extension,"When I use migration operation the console log is filled with warning messages of type
+If I do the sequence of operation","org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,scop roles,Setting up host scoped roles as follows https://gist.github.com/heiko-braun/0dc810ed04db8739defd there are inconsistent results in the filtering.,"org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-916,2015-08-18T05:52:06.000-05:00,authentication into Management console,"In cases when Kerberos authentication to Management Console is configured also with fallback mechanism (properties, security-domain...) and one of:
+realm in principal is not set correctly path to keytab is not set correctly
+is set in EAP configuration and when user with valid kerberos ticket tries to access Management Console then fallback is not taken into account and user cant access management console.","org.jboss.as.domain.management.security.KeytabService
+org.jboss.as.domain.management.logging.DomainManagementLogger"
+FILE,WFCORE,WFCORE-997,2015-09-22T03:53:31.000-05:00,use ldaps hang during SSL handshake,"When ldap server is killed in particular time of ssl handshake EAP hangs and waits forever on response, which will never come.","org.jboss.as.domain.management.connections.ldap.ThreadLocalSSLSocketFactory
+org.jboss.as.domain.management.security.WrapperSSLContext"
+FILE,WFCORE,WFCORE-1062,2015-10-20T09:33:46.000-05:00,start backup option start Host controller miss after few minutes,"1. Setup domaincontroller
+2. Setup hostcontroller
+3. Start domaincontroller
+4. Start hostcontroller with --backup option.
+5. deploy an application using cli or admin console
+7. Wait for approximately 10 minutes
+9. After restarting the Host Controller, the deployment is restored and the cached deployment can now be seen under the Host Controller's domain/data/content folder.","org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.controller.persistence.FilePersistenceUtils
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.server.deployment.ContentCleanerService"
+FILE,WFCORE,WFCORE-1214,2015-12-11T23:17:45.000-06:00,header to domain servers,"For example, if I add some stdout printing of what the headers are on the various processes and invoke this:","org.jboss.as.domain.controller.operations.coordination.DomainRolloutStepHandler
+org.jboss.as.domain.controller.operations.coordination.OperationCoordinatorStepHandler"
+FILE,WFCORE,WFCORE-1198,2015-12-09T09:30:00.000-06:00,not resolve multiple properties,"For example :
+and if I execute "".","org.jboss.as.cli.parsing.test.PropertyReplacementTestCase
+org.jboss.as.cli.parsing.ExpressionBaseState"
+FILE,WFCORE,WFCORE-1288,2016-01-11T18:27:07.000-06:00,install CP over one-off not patch modules in CP,"If a CP is installed over active one-off patches, the patch application may fail if the CP does not contain updates for the modules that were patched by the one-offs.","org.jboss.as.patching.installation.InstallationManager
+org.jboss.as.patching.installation.MutableTargetImpl
+org.jboss.as.patching.runner.PatchingTask
+org.jboss.as.patching.runner.IdentityPatchRunner
+org.jboss.as.patching.runner.IdentityPatchContext"
+FILE,WFCORE,WFCORE-1229,2015-12-15T22:24:13.000-06:00,reload embed host controller log ERROR messages,Embed host controller sometime logs ERROR message while booting up after the reload ('reload --host=master --admin-only=true').,org.jboss.as.domain.controller.operations.coordination.PrepareStepHandler
+FILE,WFCORE,WFCORE-701,2015-05-19T15:06:17.000-05:00,report between server-config resource report between server resource,"To reproduce, run domain.sh, find the pid of a server process, and kill -9 <thepid>.
+Then with the CLI:",org.jboss.as.host.controller.ManagedServer
+FILE,WFCORE,WFCORE-1333,2016-01-27T03:12:39.000-06:00,cause server crash,Setting value of relative-to attribute of default deployment scanner on standalone server to a path which does not exists in file system causes server crash.,"org.jboss.as.server.deployment.scanner.logging.DeploymentScannerLogger
+org.jboss.as.server.deployment.scanner.DeploymentScannerDefinition"
+FILE,WFCORE,WFCORE-1572,2016-05-27T16:20:10.000-05:00,contain whitespace,"When an argument value contains a space (eg.
+deploy /path/to/test-application.
+war --all-server-groups --headers={rollout id=foo}) and if user hits tab after the whitespace, suggestions are generated based on the command, rather than the current argument's name.","org.jboss.as.cli.parsing.DefaultStateWithEndCharacter
+org.jboss.as.cli.parsing.ParserUtil
+org.jboss.as.cli.parsing.test.CommandTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,save name id attribute discrepancy,"When using rollout plans for EAP deployment scenarios I can create my own named rollout-plan for ease of use.
+I can then apply rollout command later on, referring with name of my own rollout plan that should be used.
+When I create rollout-plan, I use command like:
+When I then refer to it I use following command:","org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1611,2016-06-22T08:49:33.000-05:00,send during authentication dialogue,"Either use a remote server, --no-local-auth cli script arg or remove a local element from ManagementRealm configuration
+start a standalone server and launch a CLI
+Username: <Press Ctrl+C here>",org.jboss.as.cli.impl.CliShutdownHook
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,add local | remote-destination-outbound-socket-binding,"Lets have some /socket-binding-group=standard-sockets/socket-binding with particular name.
+Then when I create some /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding or /socket-binding-group=standard-sockets/local-destination-outbound-socket-binding using same name as of already existing socket-binding resource, add operation is successful but when I perform server reload, it crashes as it is not able to parse configuration.
+Start EAP and log to CLI create your own socket-binding resource and {remote|local}-destination-outbound-socket-binding resource with same names and perform reload","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1635,2016-07-05T07:04:51.000-05:00,fail in batch,Creating a new deployment-scanner and altering it's attribute fails if done in single batch.,org.jboss.as.server.deployment.scanner.AbstractWriteAttributeHandler
+FILE,WFCORE,WFCORE-1590,2016-06-12T14:18:43.000-05:00,ignore setMinSize(0),"With the following attribute definition: -
+The following error is reported if an empty string is used as a parameter: -","org.jboss.as.controller.operations.validation.BytesValidator
+org.jboss.as.controller.SimpleAttributeDefinitionUnitTestCase
+org.jboss.as.controller.test.WriteAttributeOperationTestCase
+org.jboss.as.controller.AbstractAttributeDefinitionBuilder
+org.jboss.as.controller.AttributeDefinition"
+FILE,WFCORE,WFCORE-1756,2016-08-31T14:23:41.000-05:00,Adding content to an exploded deployment with overwrite to false should fail if file already exists,,"org.jboss.as.repository.ContentRepositoryTest
+org.jboss.as.repository.ContentRepositoryImpl"
+FILE,WFCORE,WFCORE-1714,2016-08-15T08:26:57.000-05:00,not offer more options match value,reproduce,org.jboss.as.cli.CommandCompleter
+FILE,WFCORE,WFCORE-1765,2016-09-05T16:22:02.000-05:00,unclear NullPointerException if the deployment-scanner element is removed from the configuration,If the deployment scanner element is removed from the configuration of the standalone server a NullPointerException is logged which is unclear and difficult to find as the stack does not show any hint.,org.jboss.as.controller.ParallelBootOperationStepHandler
+FILE,WFCORE,WFCORE-1657,2016-07-15T11:51:17.000-05:00,add module,"Using tab completion for adding a module dependencies with module add command could lead to invalid module.xml as CLI prompt user to use module name with ""system.layers.base"" prefix, which is not a part of module name.
+Add a new module via module add command, use tab-completion for dependencies",org.jboss.as.cli.handlers.module.ASModuleHandler
+FILE,WFCORE,WFCORE-1793,2016-09-14T08:08:21.000-05:00,overwrite existing content with overwrite = true pass content by file path,"Upon overwriting content in managed exploded deployments on wildfly-core, the following errors are produced:","org.jboss.as.server.controller.resources.DeploymentAttributes
+org.jboss.as.server.deployment.ExplodedDeploymentAddContentHandler"
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,add command not remove whitespaces from dependencies,"Running module add --name=foo.bar --resources=foo.jar --dependencies=[org.a, org.b ] will result in following dependencies in module.xml","org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,write attribute have access type metric have attribute,"Example
+On attempt to write metric attribute, for example message-count, non writable error is printed","org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1936,2016-11-04T10:57:06.000-05:00,not match reality for socket-binding not match reality for *,If you tries to change such attributes you are informed that reload is necessary.,"org.jboss.as.server.services.net.OutboundSocketBindingResourceDefinition
+org.jboss.as.controller.resource.AbstractSocketBindingResourceDefinition"
+FILE,WFCORE,WFCORE-1959,2016-11-08T16:28:30.000-06:00,Deploying an empty managed exploded deployment to server group in domain fails,Deploying an empty exploded deployment created on domain controller fails with the following:,org.jboss.as.domain.controller.operations.coordination.ServerOperationResolver
+METHOD,tika-1.3,TIKA-1109,2013-04-18T06:06:06.000-05:00,not extract before content,As a symptom:,org.apache.tika.parser.microsoft.ooxml.XSSFExcelExtractorDecorator:getMetadataExtractor()
+METHOD,eclipse-2.0,17707,2002-05-24T10:15:00.000-05:00,reselect same location give misleading warning,"If I choose Deploy -> Target Site... on a project that is already deployed and I
+select the same target site I get a warning error telling me I am delpoyed to
+the site and confirming that I want to overwrite.
+STEPS
+1 Deploy a project to <site>/Foo
+2 Choose Deploy-Target Site and select <site>/Foo again
+3 Warning message","org.eclipse.team.internal.ui.target.ConfigureTargetWizard:setMapping(IWizardContainer, IProject, Site, IPath)"
+METHOD,eclipse-2.0,19686,2002-06-07T16:42:00.000-05:00,mouse over end of file work after mousing,"Move the mouse to the whitespace at the end of 
+the file.
+Stay there for 
+about 3 secs or so, then mouse over some text in the java file where you would 
+expect hover help.",org.eclipse.jface.text.TextViewerHoverManager:computeInformation()
+METHOD,eclipse-2.0,19976,2002-06-11T22:25:00.000-05:00,not add bad site modify site properties,"If in Site Explorer you add a new site with a bogus url, the site shouldn't get 
+added.
+At present hitting <Finish> will inform you of the error but the site 
+will still get added.",org.eclipse.team.internal.webdav.ui.WebDavConfigurationWizard:performFinish()
+METHOD,eclipse-2.0,22809,2002-08-23T19:36:00.000-05:00,not resize with dialog,"(1 In the Resource Perspective's Navigator pane, select a file deep in a
+directory tree.
+(2 Open a Properties dialog that file.
+(3 Resize the dialog to try see the full file ""Path"" and ""Location"".
+(4 Observe that the labels are NOT resized with the dialog.","org.eclipse.ui.internal.dialogs.ResourceInfoPage:createBasicInfoGroup(Composite, IResource)"
+METHOD,eclipse-2.0,23140,2002-09-04T01:34:00.000-05:00,man in middle attacks poisoning,"1 Set up access to an external cvs repository with extssh and a
+password.
+(preferably with a username that doesn't exist locally eg -
+notme).
+Close eclipse.
+2 Edit /etc/hosts to point to another ssh server (eg localhost)
+3 Open eclipse and choose to browse the repository from the cvs
+perspective.","org.eclipse.team.internal.ccvs.ssh.Client:connect(IProgressMonitor)
+org.eclipse.team.internal.ccvs.ssh.Client:send_SSH_CMSG_SESSION_KEY(byte[], byte[], byte[], byte[], byte[], byte[])
+org.eclipse.team.internal.ccvs.ssh.Client:receive_SSH_SMSG_PUBLIC_KEY(ServerPacket)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,ensure [ resources,"This problem appears to the user when executing refresh operations.
+At the first moment, the file is found in the file system and assumed to be a folder, and a corresponding resource is created in the workspace.
+At the second refresh, the folder corresponding to that resource is not found in the file system, and then it is removed from the workspace.","org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"

@@ -1,0 +1,2577 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,Conversion of associations doesn't work for collection values,"have following scenario
+class Entity {
+Long id;
+@DBRef
+Property property;
+}
+class Property {
+Long id;
+}
+interface EntityRepository extends Repository<Entity, Long> {
+Entity findByPropertyIn(Property... property);
+}
+unwrap elements convert into DBRef instances","org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,Updating an object does not write type information for objects to be updated,"use complex domain model consist complex domain model of instantiable domain classes
+That worked perfectly for me till my upgrade to 1.0.0.
+I had to comment out this call in order to
+The first point is that there is a contradiction: why to save type information to DBObject if it is later removed by other method?
+infer from runtime","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,"Using ""OrderBy"" in ""query by method name"" ignores the @Field annotation for field alias.","create method use query approach
+have field inside Answer object call score annotate score
+@Field(""sr"")
+int Score
+List<Answer> findByQuestionIdOrderByScoreDesc(String questionId)
+sort results by score sort results by sr field name",org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,"@Query $in does not remove ""_class"" property on collection of embedded objects","@Query(value = ""{ embedded : { $in : ?
+0} }"")
+List<Foo> findByEmbeddedIn2(Collection<EmbeddedObject> c);
+{ ""embedded"" : { ""$in"" : [ {  ""_class"" : ""demo.EmbeddedObject"" , ""s"" : ""hello""}]}}
+be without _ class property
+{ ""embedded"" : { ""$in"" : [ { ""s"" : ""hello""}]}}
+attach test project demonstrate bug
+This bug is related to https://jira.spring.io/browse/DATAMONGO-893","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,"geoNear, does not return all matching elements, it returns only a max of 100 documents","Aloha,
+have following query
+public GeoResults<MyObject> findByTypeAndLocationNear(MyObjectType type, Point p, Distance distance) {
+final NearQuery nearQuery = NearQuery.near(p).
+maxDistance(distance);
+log.info(""{}"",nearQuery.toDBObject());
+return mongoTemplate.geoNear(nearQuery, MyObject.class);
+}
+The geoNear method is documented like this:
+Returns {@link GeoResults} for all entities matching the given {@link NearQuery}.
+expect matching documents
+That should be stated in the method.
+And another method having a pageable should be added.
+What do you think?",org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,Repository keyword query findByInId with pageable not returning correctly,"use with identifiers make query pageable
+get other page
+I've tried using In with another member other than id and it works as expected.
+use for testing
+create types in total create types per types create items in total create items per types
+@Document
+public class Item {
+@Id
+private String id;
+private String type;
+}
+public interface ItemRepository extends MongoRepository<Item, String> {
+Page<Item> findByIdIn(Collection ids, Pageable pageable);
+Page<Item> findByTypeIn(Collection types, Pageable pageable);
+}
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {MongoDbConfig.class})
+@TransactionConfiguration(defaultRollback = false)
+public class TestPageableIdIn {
+@Autowired
+private ItemRepository itemRepository;
+private List<String> allIds = new LinkedList<>();
+@Before
+public void setUp() {
+itemRepository.deleteAll();
+String[] types = {""SWORD"", ""SHIELD"", ""ARMOUR""};
+// 10 items per type
+for (String type : types) {
+for (int i = 0; i < 10; i++) {
+String id = UUID.randomUUID().
+toString();
+allIds.add(id);
+itemRepository.save(new Item(id, type));
+}
+}
+}
+@Test
+public void testPageableIdIn() {
+Pageable pageable = new PageRequest(0, 5);
+expect items
+Page<Item> results = itemRepository.findByTypeIn(Arrays.asList(""SWORD""), pageable);
+Assert.assertEquals(5, results.getContent().
+size());
+Assert.assertEquals(10, results.getTotalElements());
+Assert.assertEquals(2, results.getTotalPages());
+expect items
+results = itemRepository.findByIdIn(allIds, pageable);
+Assert.assertEquals(5, results.getContent().
+size());
+}
+}","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,Missing indexes in associations involving generic types,"Please, see https://github.com/agustisanchez/SpringDataMongoDBBug, for code samples.
+class Book with index on ""ISBN"" attribute super class AbstractProduct with index on ""name"" attribute class ProductWrapper holding attribute ""content"" of generic type ""T extends AbstractProduct""
+define class Catalog with list
+List<ProductWrapper<Book>> books2 = new ArrayList<>
+infer type information from list declaration define on Book","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1289,2015-09-17T11:43:51.000-05:00,"NullPointerException when saving an object with no ""id"" field or @Id annotation","According to the documentation:
+generate file not map file to property not map file to field
+see NullPointerException save object not have id field not have @Id annotated field not have object
+This was working in 1.6.0, but seems to have changed at least in 1.6.2 (did not test 1.6.1) and is still not working as I expect in newer versions","org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation"
+CLASS,derby-10.7.1.1,DERBY-4684,2010-06-01T10:46:19.000-05:00,Correct the implicit casting of other types to BOOLEAN,"support Standard rules
+cast non-BOOLEAN data type to BOOLEAN
+select isindex from sys.sysconglomerates where conglomeratename = 'foo'
+union
+values ( 1 )","org.apache.derby.iapi.types.SQLBoolean
+org.apache.derby.impl.sql.compile.BooleanTypeCompiler"
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,Handle nulls in DataType.compare,"use TOP contain null value generate following exception
+Caused by: java.lang.NullPointerException
+at org.apache.pig.data.DataType.compare(DataType.java:427)
+at org.apache.pig.builtin.TOP$TupleComparator.compare(TOP.java:97)
+at org.apache.pig.builtin.TOP$TupleComparator.compare(TOP.java:1)
+at java.util.PriorityQueue.siftUpUsingComparator(PriorityQueue.java:649)
+at java.util.PriorityQueue.siftUp(PriorityQueue.java:627)
+at java.util.PriorityQueue.offer(PriorityQueue.java:329)
+at java.util.PriorityQueue.add(PriorityQueue.java:306)
+at org.apache.pig.builtin.TOP.updateTop(TOP.java:141)
+at org.apache.pig.builtin.TOP.exec(TOP.java:116)
+code: (TOP.java, starts with line 91)
+Object field1 = o1.get(fieldNum);
+Object field2 = o2.get(fieldNum);
+if (! typeFound) { datatype = DataType.findType(field1);
+typeFound = true;
+} return DataType.compare(field1, field2, datatype, datatype);
+judge field1","src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,ZooKeeper Server fails if snapCount is set to 1,"set snapCount
+2013-10-02 18:09:07,600 [myid:1] - ERROR [SyncThread:1:SyncRequestProcessor@151] - Severe unrecoverable error, exiting java.lang.IllegalArgumentException: n must be positive
+at java.util.Random.nextInt(Random.java:300)
+at org.apache.zookeeper.server.SyncRequestProcessor.run(SyncRequestProcessor.java:93)
+suppose in source code
+{code:title=org.apache.zookeeper.server.SyncRequestProcessor.java|borderStyle=solid}
+91             // we do this in an attempt to ensure that not all ofthe servers
+92             // in the ensemble take a snapshot at the same time
+93             int randRoll = r.nextInt(snapCount/2);
+{code}
+I think this supposition is not bad because snapCount = 1 is not realistic setting...
+But, it may be better to mention this restriction in documentation or add a validation in the source code.",src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,argouml-0.22,1671,2003-02-26T02:12:06.000-06:00,extra <searchpath> added every time project is saved,"Testcase:
+start argouml 0.13.2
+create class
+create newattr by doubleclicking doubleclick in attr compartment
+create oper by doubleclicking doubleclick in attr compartment
+save test.zargo
+make copy of test.zargo
+make new project
+open test.zargo
+make changes
+These differences should be fixed, because
+they will affect the files iteratively at every save/load cycle.
+(The test case is very simple.
+Ideally, the analysis should be done
+with a project that has all diagram types and all cases in it.)
+1 test.argo
+2 test.todo
+OK, identical
+3 test.xmi
+OK, identical
+4 test_ClassDiagram1.
+pgml
+5 test_UsecaseDiagram1.
+pgml
+OK, identical (of course, it was empty)","org.argouml.kernel.Project
+org.argouml.kernel.TestProject"
+CLASS,argouml-0.22,3100,2005-02-22T00:28:44.000-06:00,new package or class shown with funny name in explorer,"add new package show package in explorer show package after adding
+My guess it stands for ""anonymous 
+package"" or ""anonymous class"", however this came to me after many hours or 
+thinking.
+I wonder why this cryptic description whas chosen?
+write whole string","org.argouml.uml.ui.UMLListCellRenderer2
+org.argouml.ui.DisplayTextTree"
+CLASS,argouml-0.22,3774,2005-12-03T06:33:15.000-06:00,Do not set namespace of Model when adding to diagram,"drag created defaultmodel into class diagram
+[echo] --- Executing ArgoUML ---
+[argouml] log4j:WARN No appenders could be found for logger
+(org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel).
+[argouml] log4j:WARN Please initialize the log4j system properly.
+[argouml] javax.jmi.reflect.CompositionCycleException
+[argouml]     at org.netbeans.mdr.storagemodel.StorableObject.setComposite
+(StorableObject.java:275)
+[argouml]     at org.netbeans.mdr.storagemodel.AssocEndIndexSet.add
+(AssocEndIndexSet.java:150)
+[argouml]     at org.netbeans.mdr.storagemodel.StorableAssociation.addLink
+(StorableAssociation.java:370)
+[argouml]     at org.netbeans.mdr.handlers.AssociationHandler.
+_handleLocalAdd
+(AssociationHandler.java:161)
+[argouml]     at org.netbeans.mdr.handlers.AssociationHandler.
+_handleAdd
+(AssociationHandler.java:150)
+[argouml]     at org.omg.uml.foundation.core.ANamespaceOwnedElement$Impl.add
+(Unknown Source)
+[argouml]     at org.omg.uml.foundation.core.ANamespaceOwnedElement$Impl.
+_add
+(Unknown Source)
+[argouml]     at org.netbeans.mdr.handlers.InstanceHandler.
+_handleSetR
+(InstanceHandler.java:149)
+[argouml]     at org.omg.uml.modelmanagement.Model$Impl.setNamespace(Unknown
+Source)
+[argouml]     at org.argouml.model.mdr.CoreHelperMDRImpl.addOwnedElement
+(CoreHelperMDRImpl.java:1972)
+[argouml]     at
+org.argouml.model.AbstractCoreHelperDecorator.addOwnedElement
+(AbstractCoreHelperDecorator.java:620)
+[argouml]     at
+org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel.addNode
+(ClassDiagramGraphModel.java:355)
+[argouml]     at org.tigris.gef.base.ModePlace.mouseReleasedModePlace.java:18
+9
+[argouml]     at org.argouml.uml.diagram.ui.AddExistingNodeCommand.execute
+(AddExistingNodeCommand.java:151)
+[argouml]     at org.argouml.uml.diagram.ui.DnDJGraph.drop
+(DnDJGraph.java:176)
+[argouml]     at java.awt.dnd.DropTarget.drop(DropTarget.java:398)
+[argouml]     at sun.awt.dnd.SunDropTargetContextPeer.processDropMessage
+(SunDropTargetContextPeer.java:542)
+[argouml]     at sun.awt.dnd.SunDropTargetContextPeer.access$800
+(SunDropTargetContextPeer.java:52)
+[argouml]     at
+sun.awt.dnd.SunDropTargetContextPeer$EventDispatcher.dispatchDropEvent
+(SunDropTargetContextPeer.java:805)
+[argouml]     at
+sun.awt.dnd.SunDropTargetContextPeer$EventDispatcher.dispatchEvent
+(SunDropTargetContextPeer.java:743)
+[argouml]     at sun.awt.dnd.SunDropTargetEvent.dispatch
+(SunDropTargetEvent.java:29)
+[argouml]     at java.awt.Component.dispatchEventImpl(Component.java:3494)
+[argouml]     at java.awt.Container.dispatchEventImpl(Container.java:1627)
+[argouml]     at java.awt.Component.dispatchEvent(Component.java:3477)
+[argouml]     at java.awt.LightweightDispatcher.retargetMouseEvent
+(Container.java:3483)
+[argouml]     at java.awt.LightweightDispatcher.processDropTargetEvent
+(Container.java:3269)
+[argouml]     at java.awt.LightweightDispatcher.dispatchEvent
+(Container.java:3123)
+[argouml]     at java.awt.Container.dispatchEventImpl(Container.java:1613)
+[argouml]     at java.awt.Window.dispatchEventImpl(Window.java:1606)
+[argouml]     at java.awt.Component.dispatchEvent(Component.java:3477)
+[argouml]     at java.awt.EventQueue.dispatchEvent(EventQueue.java:456)
+[argouml]     at java.awt.EventDispatchThread.pumpOneEventForHierarchy
+(EventDispatchThread.java:201)
+[argouml]     at java.awt.EventDispatchThread.pumpEventsForHierarchy
+(EventDispatchThread.java:151)
+[argouml]     at java.awt.EventDispatchThread.pumpEvents
+(EventDispatchThread.java:145)
+[argouml]     at java.awt.EventDispatchThread.pumpEvents
+(EventDispatchThread.java:137)
+[argouml]     at java.awt.EventDispatchThread.run
+(EventDispatchThread.java:100)",org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+CLASS,argouml-0.22,4324,2006-07-08T02:30:22.000-05:00,Wrong default extension while saving,"Steps to reproduce:
+create new project add component save with foo save with extension save with name
+do changes resave project
+get foo.uml.zargo file
+That's not good.
+save chosen extension deduce from file name
+But I fear it's a FileChooserDialog issue...","org.argouml.persistence.PersistenceManager
+org.argouml.ui.ProjectBrowser
+org.argouml.persistence.TestPersistenceManager"
+CLASS,jedit-4.3,1536064,2006-08-07T15:14:23.000-05:00,focus in filesystembrowser NOT in filenamefield,"I just updated to 4.3pre6:
+\[message\] Log: java.version=1.5.0\_07
+\[message\] Log: java.vm.version=1.5.0\_07-b03
+\[message\] Log: java.runtime.version=1.5.0\_07-b03
+\[message\] Log: java.vendor=Sun Microsystems Inc.
+\[message\] Log: java.compiler=null
+\[message\] Log: os.name=Windows XP
+\[message\] Log: os.version=5.1
+\[message\] Log: os.arch=x86
+...
+\[notice\] jEdit: jEdit version 4.3pre6
+open file \ be on Commands menu
+AFAICT this is because the GUIUtilities.requestFocus\(\)
+method does not do its job.
+There was a patch to this method, see rev.5386:
+http://svn.sourceforge.net/viewvc/jedit/jEdit/trunk/ org/gjt/sp/jedit/GUIUtilities.java? r1=5372&r2=5386 prompted by a bug-report 1275607 http://sourceforge.net/tracker/ index.php?func=detail&aid=1275607&group\_id=588&atid=300588
+The bug was triggered by something else \(find dialog\), and the final messages of the bug report indicate that this particular patch was not needed for the bug resolution anyway.
+So my problem might possibly resolved by simply reverting this patch.
+\(unfortunately, I do not have time to try that here\)
+I don't have an idea about the reason for this bug.
+Can someone confirm this?
+cheers, stefan",org.gjt.sp.jedit.GUIUtilities
+CLASS,jedit-4.3,1538743,2006-08-11T14:34:44.000-05:00,"While editing ToolBar, the category should be remembered","add actions to toolbar
+Sorry if this is a dupe, but I have many bugs to post 
+and am too lazy to check them all for dupes 
+currently.
+:-\)
+OS: Windows XP
+Java Version: Sun Java 1.5.0\_06-b05
+jEdit Version: SVN Revision 6684",org.gjt.sp.jedit.options.ToolBarEditDialog
+CLASS,jedit-4.3,1942313,2008-04-14T18:08:29.000-05:00,Expanding a fold twice moves caret unexpectedly,"I'm using 4.3pre13 on Debian Testing \(with Java 1.6.0\_04\) and on Ubuntu Feisty \(with Java 1.5.0\_11\).
+I get the same results on both machines.
+create following file save as test.cpp
+int a = 1;
+void bcd\(\) \{
+//
+\}
+void efg\(\) \{
+//
+\}
+void hij\(\) \{
+//
+\}
+move caret to \ hij line
+It works.
+expand fold
+It works.
+enter second time
+do nothing print error message",org.gjt.sp.jedit.textarea.DisplayManager
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,Unnecesarry fold expantion when folded lines are edited,"While testing the patch \#1999448, a problem was found.
+But the patch was applied in r13404 to avoid more
+serious black hole bugs.
+This problem has now became a
+bug.
+fold with buffer
+\{\{\{ hello
+something
+\}\}\}
+remove l
+not expand folds","org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,jedit-4.3,950961,2004-05-09T21:37:09.000-05:00,Folding: handling newlines at the start of closed folds,"use explicit folding
+place caret after last brace press caret after last brace get following result enter other text by placing enter other text by pressing
+display contents of fold close fold display expected text
+This error appears to exist with any folding plugin, not 
+just explicit folding.
+place caret between braces make up start of fold folded make up braces of fold folded press return cause fold with explict folding
+There are three ways to get the fold back.
+1\) Delete the new line and whitespace entered.
+This returns the fold in a closed position
+2\) Add new braces to complete the fold marker.
+This adds the fold in an open position but without the 
+origenal text displayed.
+Closing and reopening the fold 
+corrects this, the same as the first bug.
+3\) Reopen the file
+KeeperOfTheSoul &lt;ex@dynafus.com&gt;","org.gjt.sp.jedit.buffer.JEditBuffer
+org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.buffer.BufferChangeListener.Adapter
+org.gjt.sp.jedit.buffer.BufferAdapter
+org.gjt.sp.jedit.textarea.RangeMap"
+CLASS,jabref-2.6,1709449,2007-04-29T00:03:55.000-05:00,Clicking a DOI from context menu fails,"Hi there\!
+I have a document with an DOI and an hyperlink.
+JabRef \(2.2\) shows in the document list the hyperlink icon and offers on a right click to this icon the hyperlink icon and the DOI icon in a context menu \(very nice\!
+\).
+\--- cut ---
+The requested URL could not be retrieved
+While trying to retrieve the URL: http://10.1109/49.622908
+\--- cut ---
+cheers
+Bernd
+p.s.
+use 3rd icon in document list show to user
+Otherwise I have to remember/guess that I saved an DOI and an hyperlink for this document.","tests.net.sf.jabref.UtilTest
+net.sf.jabref.Util"
+CLASS,jabref-2.6,1711135,2007-05-02T10:16:51.000-05:00,BibTeX export error; missing space before line breaks,"This is no problem, but causes a slight bug when referencing BibTeX strings.
+In my case, I use strings for author names and when my author field for an entry becomes too long.
+type in JabRef type in author field
+\#JaneDoe\# and \#JohnDoe\# and \#JPMorgan\# and \#FooBar\#
+author = JaneDoe \# \{ and \} \# JohnDoe \# \{ and \} \# JPMorgan \# \{ and\}
+\# FooBar,
+result in concatonation
+I hope this is somewhat understandable.","net.sf.jabref.gui.FileListTableModel
+net.sf.jabref.gui.ImportInspectionDialog.LinkLocalFile
+net.sf.jabref.imports.FieldContentParser
+net.sf.jabref.imports.RisImporter
+net.sf.jabref.external.AutoSetExternalFileForEntries
+net.sf.jabref.gui.FileListEditor
+net.sf.jabref.external.SynchronizeFileField
+net.sf.jabref.imports.EndnoteImporter
+net.sf.jabref.external.SynchronizeFileField.OptionsDialog
+net.sf.jabref.gui.ImportInspectionDialog.AutoSetLinks
+net.sf.jabref.BasePanel
+net.sf.jabref.JabRefFrame"
+CLASS,jabref-2.6,2207462,2008-10-29T14:31:16.000-05:00,Web search results hidden behind JabRef window,"search ACM digital library search for string
+stay in background \
+One needs to move the JabRef window to find the results.
+move to results window
+Version info: JabRef 2.4.1 and also SVN trunk \(on Windows\)","net.sf.jabref.imports.ACMPortalFetcher
+net.sf.jabref.imports.ImportInspectionCommandLine
+net.sf.jabref.gui.ImportInspectionDialog"
+CLASS,jabref-2.6,2904968,2009-11-27T13:26:49.000-06:00,Entry Editor does not open,"open entry editor
+do same thing for typing
+not work \ in JabRef 6.2Beta2 \
+I have not been able to create an example leading consistently to this behavior yet.
+Exception in thread ""AWT-EventQueue-0"" java.lang.ClassCastException: javax.swing.JTextArea cannot be cast to net.sf.jabref.FieldEditor
+at net.sf.jabref.EntryEditor.storeCurrentEdit\(EntryEditor.java:672\)
+at net.sf.jabref.EntryEditor.switchTo\(EntryEditor.java:723\)
+at net.sf.jabref.BasePanel.getEntryEditor\(BasePanel.java:2065\)
+at net.sf.jabref.gui.MainTableSelectionListener.editSignalled\(MainTableSelectionListener.java:202\)
+at net.sf.jabref.gui.MainTableSelectionListener.mouseClicked\(MainTableSelectionListener.java:257\)
+at java.awt.AWTEventMulticaster.mouseClicked\(AWTEventMulticaster.java:253\)
+at java.awt.Component.processMouseEvent\(Component.java:6266\)
+at javax.swing.JComponent.processMouseEvent\(JComponent.java:3267\)
+at java.awt.Component.processEvent\(Component.java:6028\)
+at java.awt.Container.processEvent\(Container.java:2041\)
+at java.awt.Component.dispatchEventImpl\(Component.java:4630\)
+at java.awt.Container.dispatchEventImpl\(Container.java:2099\)
+at java.awt.Component.dispatchEvent\(Component.java:4460\)
+at java.awt.LightweightDispatcher.retargetMouseEvent\(Container.java:4574\)
+at java.awt.LightweightDispatcher.processMouseEvent\(Container.java:4247\)
+at java.awt.LightweightDispatcher.dispatchEvent\(Container.java:4168\)
+at java.awt.Container.dispatchEventImpl\(Container.java:2085\)
+at java.awt.Window.dispatchEventImpl\(Window.java:2475\)
+at java.awt.Component.dispatchEvent\(Component.java:4460\)
+at java.awt.EventQueue.dispatchEvent\(EventQueue.java:599\)
+at java.awt.EventDispatchThread.pumpOneEventForFilters\(EventDispatchThread.java:269\)
+at java.awt.EventDispatchThread.pumpEventsForFilter\(EventDispatchThread.java:184\)
+at java.awt.EventDispatchThread.pumpEventsForHierarchy\(EventDispatchThread.java:174\)
+at java.awt.EventDispatchThread.pumpEvents\(EventDispatchThread.java:169\)
+at java.awt.EventDispatchThread.pumpEvents\(EventDispatchThread.java:161\)
+at java.awt.EventDispatchThread.run\(EventDispatchThread.java:122\)",net.sf.jabref.EntryEditor
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,MetaDataRepository.preload() ignores class loader returned by PersistenceUnitInfo.getClassLoader(),"We are using openjpa inside an OSGi container together with
+openjpa.MetaDataRepository"" value=""Preload=true""
+pass appliation class loeader as part pass appliation class loeader by returning return from PersistenceUnitInfo.getClassLoader()
+use context class loader from PersistenceUnitInfo leade PersistenceUnitInfo to ClassNotFoundExpcetions mention at end
+A fix might be quite easily establihed by appending the return value of PersistenceUnitInfo.getClassLoader() to the list of claas loaders participating in the MultiClassLoader set up in
+  
+  MetaDataRepository.java:310ff
+In the meanwhile, we are additionally setting our classloader as context loader during the creation of the EntityManagerFactory by PersistenceProvider.createContainerEntityManagerFactory(), but a fix in MetaDatRepository.preload() is highly appreciated.
+TIA for fixing this,
+Wolfgang
+Stack trace:
+org.osgi.service.blueprint.container.ComponentDefinitionException: Error when instantiating bean entityManagerFactory of class null
+at org.apache.aries.blueprint.container.BeanRecipe.getInstance(BeanRecipe.java:233)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BeanRecipe.internalCreate(BeanRecipe.java:726)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.di.AbstractRecipe.create(AbstractRecipe.java:64)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BlueprintRepository.createInstances(BlueprintRepository.java:219)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BlueprintRepository.createAll(BlueprintRepository.java:147)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BlueprintContainerImpl.instantiateEagerComponents(BlueprintContainerImpl.java:624)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BlueprintContainerImpl.doRun(BlueprintContainerImpl.java:315)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BlueprintContainerImpl.run(BlueprintContainerImpl.java:213)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)[:1.6.0_20]
+at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)[:1.6.0_20]
+at java.util.concurrent.FutureTask.run(FutureTask.java:166)[:1.6.0_20]
+at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:165)[:1.6.0_20]
+at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:266)[:1.6.0_20]
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)[:1.6.0_20]
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)[:1.6.0_20]
+at java.lang.Thread.run(Thread.java:636)[:1.6.0_20]
+Caused by: <openjpa-2.0.1-r422266:989424 fatal user error> org.apache.openjpa.persistence.ArgumentException: Unexpected error during early loading of entity metadata during initialization. See nested stacktrace for details.
+at org.apache.openjpa.meta.MetaDataRepository.preload(MetaDataRepository.java:331)
+at org.apache.openjpa.persistence.PersistenceProviderImpl.preloadMetaDataRepository(PersistenceProviderImpl.java:280)
+at org.apache.openjpa.persistence.PersistenceProviderImpl.createContainerEntityManagerFactory(PersistenceProviderImpl.java:211)
+at org.apache.openjpa.persistence.PersistenceProviderImpl.createContainerEntityManagerFactory(PersistenceProviderImpl.java:65)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)[:1.6.0_20]
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)[:1.6.0_20]
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)[:1.6.0_20]
+at java.lang.reflect.Method.invoke(Method.java:616)[:1.6.0_20]
+at org.apache.aries.blueprint.container.AbstractServiceReferenceRecipe$JdkProxyFactory$1.invoke(AbstractServiceReferenceRecipe.java:632)
+at $Proxy67.createContainerEntityManagerFactory(Unknown Source)
+at org.clazzes.util.jpa.provider.EntityManagerFactoryFactory.newEntityManagerFactory(EntityManagerFactoryFactory.java:108)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)[:1.6.0_20]
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)[:1.6.0_20]
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)[:1.6.0_20]
+at java.lang.reflect.Method.invoke(Method.java:616)[:1.6.0_20]
+at org.apache.aries.blueprint.utils.ReflectionUtils.invoke(ReflectionUtils.java:221)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BeanRecipe.invoke(BeanRecipe.java:844)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+at org.apache.aries.blueprint.container.BeanRecipe.getInstance(BeanRecipe.java:231)[7:org.apache.aries.blueprint:0.3.0.incubating-SNAPSHOT]
+... 15 more
+Caused by: java.security.PrivilegedActionException: java.lang.ClassNotFoundException: org.clazzes.fancymail.server.entities.EMail
+at java.security.AccessController.doPrivileged(Native Method)[:1.6.0_20]
+at org.apache.openjpa.meta.MetaDataRepository.preload(MetaDataRepository.java:326)
+... 32 more
+Caused by: java.lang.ClassNotFoundException: org.clazzes.fancymail.server.entities.EMail
+at org.apache.openjpa.lib.util.MultiClassLoader.findClass(MultiClassLoader.java:216)
+at java.lang.ClassLoader.loadClass(ClassLoader.java:321)[:1.6.0_20]
+at java.lang.ClassLoader.loadClass(ClassLoader.java:266)[:1.6.0_20]
+at java.lang.Class.forName0(Native Method)[:1.6.0_20]
+at java.lang.Class.forName(Class.java:264)[:1.6.0_20]
+at org.apache.openjpa.lib.util.J2DoPrivHelper$4.run(J2DoPrivHelper.java:233)
+at org.apache.openjpa.lib.util.J2DoPrivHelper$4.run(J2DoPrivHelper.java:231)
+... 34 more","org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-2007,2011-05-25T14:51:51.000-05:00,"Setting query hint ""openjpa.FetchPlan.Isolation"" results in misleading warning","set query hint openjpa.FetchPlan.Isolation in misleading warning set query hint openjpa.FetchPlan.Isolation on query results print in log
+WARN   [main] openjpa.Runtime - ""openjpa.FetchPlan.Isolation"" is not a supported query hint.
+May be you meant ""openjpa.FetchPlan.LRSSize""?
+add openjpa.FetchPlan.Isolation","org.apache.openjpa.persistence.jdbc.JDBCPersistenceProductDerivation
+org.apache.openjpa.conf.TestQueryHints"
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,"StringEscapeUtils.escapeJavaScript() method did not escape '/' into '\/', it will make IE render page uncorrectly","include /', IE will parse the scripts uncorrectly, actually '/
+make IE render page uncorrect
+value = '<script>alert(\'aaa\');<\/script>';
+Btw, Spring's JavascriptEscape behavor is correct.
+find difference run below codes","org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+FILE,SWARM,SWARM-863,2016-11-30T14:54:40.000-06:00,Version 2016.11.0 doesn't stop properly (with custom main class),"use custom main class react custom main class on single argument
+feed argument through Procrun
+hold field inside main class
+private static org.wildfly.swarm.Swarm container
+handle as following follow during startup
+container = new Swarm(); // fractions being added here also
+container.start();
+container.deploy(...);
+container.stop();
+With version 2016.10.0 everything works fine.
+An example project can be found at https://github.com/seelenvirtuose/de.mwa.testing.wfs.
+But I also have attached it as a zip.
+de.mwa.testing.wfs-master.zip
+Procrun can be downloaded at http://mirror.serversupportforum.de/apache//commons/daemon/binaries/windows/commons-daemon-1.0.15-bin-windows.zip
+Steps to reproduce:
+clone github project clone mvn package start github project start mvn package produce uber-jar locate uber-jar in swarm sub-module
+executable into test directory
+rename file prunsrv.exe to testing-wfs.exe rename file prunsrv.exe to testing-wfsw.exe rename file prunmgr.exe to testing-wfs.exe rename file prunmgr.exe to testing-wfsw.exe
+run command testing-wfs.exe //IS
+run testing-wfsw.exe configure service
+Tab Logging
+Log path: <path-to-the-service-directory>\logs
+Redirect Stdout: auto
+Redirect Stderror: auto
+Tab Java
+Java Virtual Machine: Path to the ""jvm.dll"" of a JRE 8 (usually <path-to-jdk>\jre\bin\server\jvm.dll).Java Classpath: Full path to the uber-jar.Java Options: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7777 (to enable remote debugging).
+Tab Startup
+Class: org.wildfly.swarm.bootstrap.Main
+Method: main
+Arguments: start
+Mode: jvm
+Tab Shutdown
+Class: org.wildfly.swarm.bootstrap.Main
+Method: main
+Arguments: stop
+Mode:jvm
+start service
+result //localhost:8080/hello "" in hello world response
+stop service
+Note, that I have other services, which show only two non-deamon threads after a shutdown attempt.
+9) Killing the task ""testing-wfs.exe"" is the only way to stop the process completely.
+Switching the Wildfly Swarm version to 2016.10.0 (in the POM of ""swarm"" module) makes it work great.
+Starting and stopping run both smoothly.",org.wildfly.swarm.container.runtime.ServerBootstrapImpl
+METHOD,derby-10.9.1.0,DERBY-6009,2012-12-07T04:15:23.000-06:00,Need stricter checking of ORDER BY clause in VALUES expressions,"We only support column numbers in ORDER BY clauses in VALUES expression, as seen by this error message:
+ij> values 1,2 order by 1+2;
+ERROR 42878: The ORDER BY clause of a SELECT UNION statement only supports unqualified column references and column position numbers.
+Other expressions are not currently supported.
+(errorCode = 30000)
+ij> values 1 order by 1+2;
+1          |2
+-----------------------
+1          |3
+1 row selected
+raise same exception as first query
+have column
+raise syntax error instead_of nullpointerexception
+ij> values 1 order by int(1);
+ERROR XJ001: Java exception: ': java.lang.NullPointerException'.
+(errorCode = 0)",org.apache.derby.impl.sql.compile.OrderByList:getResultSetNumber()
+METHOD,jedit-4.2,2542,2006-05-27T22:49:10.000-05:00,Pasting Text Should End Current Undoable Edit,"paste text
+type characters undo characters paste text undo typed characters in 4.2final undo typed characters in 4.3pre4 undo pasted text in 4.2final undo pasted text in 4.3pre4
+This is unusual to me in general and under Mac 
+OS X.","org.gjt.sp.jedit.Registers:paste(JEditTextArea, char, boolean)"
+METHOD,jedit-4.2,2571,2006-07-17T18:34:33.000-05:00,Line number not highlighted when the line is selected,"Using 4.3pre5, jvm 1.6 beta:
+not highlight number in gutter not highlight number of line
+make sense split accross
+guess line on single line",org.gjt.sp.jedit.search.SearchAndReplace:replace(View)
+FILE,eclipse-3.1,100799,2005-06-20T08:40:00.000-05:00,[ErrorHandling] 'Unable to create view' error page should link to error log view,"I20050617-1618
+compile with view compile against JRE
+run plugin with VM run plugin in run-time eclipse pass without error message
+open view get view with embedded error show a.
+This stacktrace was not really helpful in this context, since it made me think the problem is a messed up classpath.
+show relevant error contain link to Error log
+Error 2005-06-20 14:17:58.20 Unable to create view ID org.eclipse.jdt.jeview.views.JavaElementView: Plug-in org.eclipse.jdt.jeview was unable to load class org.eclipse.jdt.jeview.views.JavaElementView.java.lang.ClassNotFoundException: org.eclipse.jdt.jeview.views.JavaElementView at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:403)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:350)
+at
+org.eclipse.osgi.framework.adaptor.core.AbstractClassLoader.loadClass(AbstractClassLoader.java:78)
+at java.lang.ClassLoader.loadClass(ClassLoader.java:560)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.loadClass(BundleLoader.java:275)
+at
+org.eclipse.osgi.framework.internal.core.BundleHost.loadClass(BundleHost.java:227)
+at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.loadClass(AbstractBundle.java:1259)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:152)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:142)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:129)
+at
+org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:48)
+at org.eclipse.ui.internal.WorkbenchPlugin$1.run(WorkbenchPlugin.java:240)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+at org.eclipse.ui.internal.WorkbenchPlugin.createExtension(WorkbenchPlugin.java:236)
+at
+org.eclipse.ui.internal.registry.ViewDescriptor.createView(ViewDescriptor.java:99)
+at org.eclipse.ui.internal.ViewReference.createPartHelper(ViewReference.java:267)
+at org.eclipse.ui.internal.ViewReference.createPart(ViewReference.java:180)
+at
+org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:552)
+at org.eclipse.ui.internal.Perspective.showView(Perspective.java:1655)
+at org.eclipse.ui.internal.WorkbenchPage.busyShowView(WorkbenchPage.java:930)
+at org.eclipse.ui.internal.WorkbenchPage.access$12(WorkbenchPage.java:913)
+at org.eclipse.ui.internal.WorkbenchPage$13.run(WorkbenchPage.java:3144)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+at org.eclipse.ui.internal.WorkbenchPage.showView(WorkbenchPage.java:3141)
+at org.eclipse.ui.internal.WorkbenchPage.showView(WorkbenchPage.java:3119)
+at org.eclipse.ui.internal.registry.ShowViewHandler.execute(ShowViewHandler.java:58)
+at org.eclipse.core.commands.Command.execute(Command.java:311)
+at
+org.eclipse.core.commands.ParameterizedCommand.execute(ParameterizedCommand.java:396)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(WorkbenchKeyboard.java:459)
+at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboard.java:781)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(WorkbenchKeyboard.java:828)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindings(WorkbenchKeyboard.java:550)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$3(WorkbenchKeyboard.java:493)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard$KeyDownFilter.handleEvent(WorkbenchKeyboard.java:117)
+at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:66)
+at org.eclipse.swt.widgets.Display.filterEvent(Display.java:910)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:843)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:868)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:853)
+at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:881)
+at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:877)
+at org.eclipse.swt.widgets.Widget.wmChar(Widget.java:1189)
+at org.eclipse.swt.widgets.Control.WM_CHAR(Control.java:3134)
+at org.eclipse.swt.widgets.Tree.WM_CHAR(Tree.java:2431)
+at org.eclipse.swt.widgets.Control.windowProc(Control.java:3037)
+at org.eclipse.swt.widgets.Tree.windowProc(Tree.java:2391)
+at org.eclipse.swt.widgets.Display.windowProc(Display.java:3694)
+at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:1656)
+at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2701)
+at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1699)
+at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1663)
+at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:367)
+at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:143)
+at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:103)
+at
+org.eclipse.core.internal.runtime.PlatformActivator$1.run(PlatformActivator.java:226)
+at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:376)
+at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:163)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)
+at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)
+at java.lang.reflect.Method.invoke(Method.java:391)
+at org.eclipse.core.launcher.Main.invokeFramework(Main.java:334)
+at org.eclipse.core.launcher.Main.basicRun(Main.java:278)
+at org.eclipse.core.launcher.Main.run(Main.java:973)
+at org.eclipse.core.launcher.Main.main(Main.java:948)
+==============================================================================
+Error 2005-06-20 14:17:57.510 An error occurred while automatically activating bundle org.eclipse.jdt.jeview (40).
+org.osgi.framework.BundleException: The activator org.eclipse.jdt.jeview.JEViewPlugin for bundle org.eclipse.jdt.jeview is invalid at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.loadBundleActivator(AbstractBundle.java:151)
+at
+org.eclipse.osgi.framework.internal.core.BundleContextImpl.start(BundleContextImpl.java:965)
+at
+org.eclipse.osgi.framework.internal.core.BundleHost.startWorker(BundleHost.java:321)
+at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.start(AbstractBundle.java:266)
+at
+org.eclipse.core.runtime.adaptor.EclipseClassLoader.findLocalClass(EclipseClassLoader.java:116)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findLocalClass(BundleLoader.java:337)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:389)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:350)
+at
+org.eclipse.osgi.framework.adaptor.core.AbstractClassLoader.loadClass(AbstractClassLoader.java:78)
+at java.lang.ClassLoader.loadClass(ClassLoader.java:560)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.loadClass(BundleLoader.java:275)
+at
+org.eclipse.osgi.framework.internal.core.BundleHost.loadClass(BundleHost.java:227)
+at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.loadClass(AbstractBundle.java:1259)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:152)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:142)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:129)
+at
+org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:48)
+at org.eclipse.ui.internal.WorkbenchPlugin$1.run(WorkbenchPlugin.java:240)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+at org.eclipse.ui.internal.WorkbenchPlugin.createExtension(WorkbenchPlugin.java:236)
+at
+org.eclipse.ui.internal.registry.ViewDescriptor.createView(ViewDescriptor.java:99)
+at org.eclipse.ui.internal.ViewReference.createPartHelper(ViewReference.java:267)
+at org.eclipse.ui.internal.ViewReference.createPart(ViewReference.java:180)
+at
+org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:552)
+at org.eclipse.ui.internal.Perspective.showView(Perspective.java:1655)
+at org.eclipse.ui.internal.WorkbenchPage.busyShowView(WorkbenchPage.java:930)
+at org.eclipse.ui.internal.WorkbenchPage.access$12(WorkbenchPage.java:913)
+at org.eclipse.ui.internal.WorkbenchPage$13.run(WorkbenchPage.java:3144)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+at org.eclipse.ui.internal.WorkbenchPage.showView(WorkbenchPage.java:3141)
+at org.eclipse.ui.internal.WorkbenchPage.showView(WorkbenchPage.java:3119)
+at org.eclipse.ui.internal.registry.ShowViewHandler.execute(ShowViewHandler.java:58)
+at org.eclipse.core.commands.Command.execute(Command.java:311)
+at
+org.eclipse.core.commands.ParameterizedCommand.execute(ParameterizedCommand.java:396)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(WorkbenchKeyboard.java:459)
+at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboard.java:781)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(WorkbenchKeyboard.java:828)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindings(WorkbenchKeyboard.java:550)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$3(WorkbenchKeyboard.java:493)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard$KeyDownFilter.handleEvent(WorkbenchKeyboard.java:117)
+at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:66)
+at org.eclipse.swt.widgets.Display.filterEvent(Display.java:910)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:843)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:868)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:853)
+at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:881)
+at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:877)
+at org.eclipse.swt.widgets.Widget.wmChar(Widget.java:1189)
+at org.eclipse.swt.widgets.Control.WM_CHAR(Control.java:3134)
+at org.eclipse.swt.widgets.Tree.WM_CHAR(Tree.java:2431)
+at org.eclipse.swt.widgets.Control.windowProc(Control.java:3037)
+at org.eclipse.swt.widgets.Tree.windowProc(Tree.java:2391)
+at org.eclipse.swt.widgets.Display.windowProc(Display.java:3694)
+at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:1656)
+at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2701)
+at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1699)
+at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1663)
+at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:367)
+at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:143)
+at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:103)
+at
+org.eclipse.core.internal.runtime.PlatformActivator$1.run(PlatformActivator.java:226)
+at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:376)
+at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:163)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)
+at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)
+at java.lang.reflect.Method.invoke(Method.java:391)
+at org.eclipse.core.launcher.Main.invokeFramework(Main.java:334)
+at org.eclipse.core.launcher.Main.basicRun(Main.java:278)
+at org.eclipse.core.launcher.Main.run(Main.java:973)
+at org.eclipse.core.launcher.Main.main(Main.java:948)
+Caused by: java.lang.UnsupportedClassVersionError:
+(org/eclipse/jdt/jeview/JEViewPlugin) bad major version at offset=6
+at java.lang.ClassLoader.defineClassImpl(Native Method)
+at java.lang.ClassLoader.defineClass(ClassLoader.java:211)
+at
+org.eclipse.osgi.framework.adaptor.core.DefaultClassLoader.defineClass(DefaultClassLoader.java:370)
+at
+org.eclipse.core.runtime.adaptor.EclipseClassLoader.defineClass(EclipseClassLoader.java:227)
+at
+org.eclipse.osgi.framework.adaptor.core.DefaultClassLoader.findClassImpl(DefaultClassLoader.java:343)
+at
+org.eclipse.osgi.framework.adaptor.core.DefaultClassLoader.findClass(DefaultClassLoader.java:235)
+at
+org.eclipse.osgi.framework.adaptor.core.AbstractClassLoader.findLocalClass(AbstractClassLoader.java:183)
+at
+org.eclipse.core.runtime.adaptor.EclipseClassLoader.basicFindLocalClass(EclipseClassLoader.java:141)
+at
+org.eclipse.core.runtime.adaptor.EclipseClassLoader.findLocalClass(EclipseClassLoader.java:82)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findLocalClass(BundleLoader.java:337)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:389)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:350)
+at
+org.eclipse.osgi.framework.adaptor.core.AbstractClassLoader.loadClass(AbstractClassLoader.java:78)
+at java.lang.ClassLoader.loadClass(ClassLoader.java:560)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.loadClass(BundleLoader.java:275)
+at
+org.eclipse.osgi.framework.internal.core.BundleHost.loadClass(BundleHost.java:227)
+at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.loadBundleActivator(AbstractBundle.java:144)
+at
+org.eclipse.osgi.framework.internal.core.BundleContextImpl.start(BundleContextImpl.java:965)
+at
+org.eclipse.osgi.framework.internal.core.BundleHost.startWorker(BundleHost.java:321)
+at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.start(AbstractBundle.java:266)
+at
+org.eclipse.core.runtime.adaptor.EclipseClassLoader.findLocalClass(EclipseClassLoader.java:116)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findLocalClass(BundleLoader.java:337)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:389)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.findClass(BundleLoader.java:350)
+at
+org.eclipse.osgi.framework.adaptor.core.AbstractClassLoader.loadClass(AbstractClassLoader.java:78)
+at java.lang.ClassLoader.loadClass(ClassLoader.java:560)
+at
+org.eclipse.osgi.framework.internal.core.BundleLoader.loadClass(BundleLoader.java:275)
+at
+org.eclipse.osgi.framework.internal.core.BundleHost.loadClass(BundleHost.java:227)
+at
+org.eclipse.osgi.framework.internal.core.AbstractBundle.loadClass(AbstractBundle.java:1259)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:152)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:142)
+at
+org.eclipse.core.internal.registry.ConfigurationElement.createExecutableExtension(ConfigurationElement.java:129)
+at
+org.eclipse.core.internal.registry.ConfigurationElementHandle.createExecutableExtension(ConfigurationElementHandle.java:48)
+at org.eclipse.ui.internal.WorkbenchPlugin$1.run(WorkbenchPlugin.java:240)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+at org.eclipse.ui.internal.WorkbenchPlugin.createExtension(WorkbenchPlugin.java:236)
+at
+org.eclipse.ui.internal.registry.ViewDescriptor.createView(ViewDescriptor.java:99)
+at org.eclipse.ui.internal.ViewReference.createPartHelper(ViewReference.java:267)
+at org.eclipse.ui.internal.ViewReference.createPart(ViewReference.java:180)
+at
+org.eclipse.ui.internal.WorkbenchPartReference.getPart(WorkbenchPartReference.java:552)
+at org.eclipse.ui.internal.Perspective.showView(Perspective.java:1655)
+at org.eclipse.ui.internal.WorkbenchPage.busyShowView(WorkbenchPage.java:930)
+at org.eclipse.ui.internal.WorkbenchPage.access$12(WorkbenchPage.java:913)
+at org.eclipse.ui.internal.WorkbenchPage$13.run(WorkbenchPage.java:3144)
+at org.eclipse.swt.custom.BusyIndicator.showWhile(BusyIndicator.java:69)
+at org.eclipse.ui.internal.WorkbenchPage.showView(WorkbenchPage.java:3141)
+at org.eclipse.ui.internal.WorkbenchPage.showView(WorkbenchPage.java:3119)
+at org.eclipse.ui.internal.registry.ShowViewHandler.execute(ShowViewHandler.java:58)
+at org.eclipse.core.commands.Command.execute(Command.java:311)
+at
+org.eclipse.core.commands.ParameterizedCommand.execute(ParameterizedCommand.java:396)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.executeCommand(WorkbenchKeyboard.java:459)
+at org.eclipse.ui.internal.keys.WorkbenchKeyboard.press(WorkbenchKeyboard.java:781)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.processKeyEvent(WorkbenchKeyboard.java:828)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.filterKeySequenceBindings(WorkbenchKeyboard.java:550)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard.access$3(WorkbenchKeyboard.java:493)
+at
+org.eclipse.ui.internal.keys.WorkbenchKeyboard$KeyDownFilter.handleEvent(WorkbenchKeyboard.java:117)
+at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:66)
+at org.eclipse.swt.widgets.Display.filterEvent(Display.java:910)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:843)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:868)
+at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:853)
+at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:881)
+at org.eclipse.swt.widgets.Widget.sendKeyEvent(Widget.java:877)
+at org.eclipse.swt.widgets.Widget.wmChar(Widget.java:1189)
+at org.eclipse.swt.widgets.Control.WM_CHAR(Control.java:3134)
+at org.eclipse.swt.widgets.Tree.WM_CHAR(Tree.java:2431)
+at org.eclipse.swt.widgets.Control.windowProc(Control.java:3037)
+at org.eclipse.swt.widgets.Tree.windowProc(Tree.java:2391)
+at org.eclipse.swt.widgets.Display.windowProc(Display.java:3694)
+at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:1656)
+at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:2701)
+at org.eclipse.ui.internal.Workbench.runEventLoop(Workbench.java:1699)
+at org.eclipse.ui.internal.Workbench.runUI(Workbench.java:1663)
+at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:367)
+at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:143)
+at org.eclipse.ui.internal.ide.IDEApplication.run(IDEApplication.java:103)
+at
+org.eclipse.core.internal.runtime.PlatformActivator$1.run(PlatformActivator.java:226)
+at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:376)
+at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:163)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:85)
+at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:58)
+at
+sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:60)
+at java.lang.reflect.Method.invoke(Method.java:391)
+at org.eclipse.core.launcher.Main.invokeFramework(Main.java:334)
+at org.eclipse.core.launcher.Main.basicRun(Main.java:278)
+at org.eclipse.core.launcher.Main.run(Main.java:973)
+at org.eclipse.core.launcher.Main.main(Main.java:948)","org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.part.StatusPart"
+FILE,eclipse-3.1,101434,2005-06-23T09:08:00.000-05:00,[Contexts] performance: Slow cursor navigation in Text fields,"N20050623-0010-gtk
+Not sure whether this is my particular install or a new problem.
+Steps:
+open Find dialog ( alternatively open
+enter text in text field
+press ARROW_LEFT hold ARROW_LEFT
+see caret move through entered text
+Notes:
+- keyboard repeat rate is at the default
+- the same works fine (+/- at least nowhere near the slowness of Text fields) in text editors
+- other applications do not show this behavior
+This is quite bad as the caret cannot be placed reliably this way.
+Will try to reproduce with an SWT-only example.","org.eclipse.ui.internal.handlers.HandlerService
+org.eclipse.ui.internal.contexts.ContextService
+org.eclipse.ui.internal.contexts.ContextAuthority
+org.eclipse.ui.internal.handlers.HandlerAuthority"
+FILE,eclipse-3.1,114565,2005-11-01T11:56:00.000-06:00,[Markers] Quick fix computation done in UI thread with no progress,"Build: I20051101-0010
+show several warnings of same type
+select problems
+select quick fix click in problems view
+avoid freezing move into modal context thread
+""main"" (TID:0x00119700, sys_thread_t:0x00235A6C, state:CW, native
+ID:0x00000720) prio=6
+at java/io/FileInputStream.open(Native Method)
+at java/io/FileInputStream.<init>(FileInputStream.java:129)
+at
+org/eclipse/core/internal/filesystem/local/LocalFile.openInputStream(LocalFile.java:307)
+at
+org/eclipse/core/internal/resources/ContentDescriptionManager$LazyFileInputStream.ensureOpened(ContentDescriptionManager.java:154)
+at
+org/eclipse/core/internal/resources/ContentDescriptionManager$LazyFileInputStream.read(ContentDescriptionManager.java:166)
+at java/io/InputStream.read(InputStream.java:109)
+at
+org/eclipse/core/internal/content/LazyInputStream.loadBlock(LazyInputStream.java:99)
+at
+org/eclipse/core/internal/content/LazyInputStream.ensureAvailable(LazyInputStream.java:64)
+at
+org/eclipse/core/internal/content/LazyInputStream.read(LazyInputStream.java:120)
+at
+org/eclipse/core/internal/content/TextContentDescriber.getByteOrderMark(TextContentDescriber.java:65)
+at
+org/eclipse/core/internal/content/TextContentDescriber.describe(TextContentDescriber.java:47)
+at
+org/eclipse/core/internal/content/ContentType.describe(ContentType.java:161)
+at
+org/eclipse/core/internal/content/ContentType.internalGetDescriptionFor(ContentType.java:458)
+at
+org/eclipse/core/internal/content/ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:315)
+at
+org/eclipse/core/internal/content/ContentTypeCatalog.getDescriptionFor(ContentTypeCatalog.java:319)
+at
+org/eclipse/core/internal/content/ContentTypeMatcher.getDescriptionFor(ContentTypeMatcher.java:87)
+at
+org/eclipse/core/internal/resources/ContentDescriptionManager.readDescription(ContentDescriptionManager.java:400)
+at
+org/eclipse/core/internal/resources/ContentDescriptionManager.getDescriptionFor(ContentDescriptionManager.java:339)
+at
+org/eclipse/core/internal/resources/File.internalGetCharset(File.java:252)
+at org/eclipse/core/internal/resources/File.getCharset(File.java:213)
+at org/eclipse/core/internal/resources/File.getCharset(File.java:200)
+at
+org/eclipse/jdt/internal/core/util/Util.getResourceContentsAsCharArray(Util.java:1020)
+at
+org/eclipse/jdt/internal/core/CompilationUnit.openBuffer(CompilationUnit.java:1003)
+at
+org/eclipse/jdt/internal/core/CompilationUnit.buildStructure(CompilationUnit.java:104)
+at org/eclipse/jdt/internal/core/Openable.generateInfos(Openable.java:232)
+at
+org/eclipse/jdt/internal/core/SourceRefElement.generateInfos(SourceRefElement.java:114)
+at
+org/eclipse/jdt/internal/core/JavaElement.openWhenClosed(JavaElement.java:489)
+at
+org/eclipse/jdt/internal/core/JavaElement.getElementInfo(JavaElement.java:233)
+at
+org/eclipse/jdt/internal/core/JavaElement.getElementInfo(JavaElement.java:219)
+at
+org/eclipse/jdt/internal/core/SearchableEnvironment.find(SearchableEnvironment.java:120)
+at
+org/eclipse/jdt/internal/core/SearchableEnvironment.findType(SearchableEnvironment.java:188)
+at
+org/eclipse/jdt/internal/core/CancelableNameEnvironment.findType(CancelableNameEnvironment.java:45)
+at
+org/eclipse/jdt/internal/compiler/lookup/LookupEnvironment.askForType(LookupEnvironment.java:119)
+at
+org/eclipse/jdt/internal/compiler/lookup/PackageBinding.getType(PackageBinding.java:126)
+at
+org/eclipse/jdt/internal/compiler/lookup/Scope.findType(Scope.java:1385)
+at
+org/eclipse/jdt/internal/compiler/lookup/Scope.getTypeOrPackage(Scope.java:2489)
+at org/eclipse/jdt/internal/compiler/lookup/Scope.getType(Scope.java:2211)
+at
+org/eclipse/jdt/internal/compiler/ast/SingleTypeReference.getTypeBinding(SingleTypeReference.java:41)
+at
+org/eclipse/jdt/internal/compiler/ast/TypeReference.resolveType(TypeReference.java:126)
+at
+org/eclipse/jdt/internal/compiler/ast/LocalDeclaration.resolve(LocalDeclaration.java:148)
+at org/eclipse/jdt/internal/compiler/ast/Block.resolve(Block.java:101)
+at
+org/eclipse/jdt/internal/compiler/ast/IfStatement.resolve(IfStatement.java:227)
+at org/eclipse/jdt/internal/compiler/ast/Block.resolve(Block.java:101)
+at
+org/eclipse/jdt/internal/compiler/ast/IfStatement.resolve(IfStatement.java:225)
+at org/eclipse/jdt/internal/compiler/ast/Block.resolve(Block.java:101)
+at
+org/eclipse/jdt/internal/compiler/ast/IfStatement.resolve(IfStatement.java:225)
+at
+org/eclipse/jdt/internal/compiler/ast/AbstractMethodDeclaration.resolveStatements(AbstractMethodDeclaration.java:419)
+at
+org/eclipse/jdt/internal/compiler/ast/MethodDeclaration.resolveStatements(MethodDeclaration.java:178)
+at
+org/eclipse/jdt/internal/compiler/ast/AbstractMethodDeclaration.resolve(AbstractMethodDeclaration.java:397)
+at
+org/eclipse/jdt/internal/compiler/ast/TypeDeclaration.resolve(TypeDeclaration.java:1082)
+at
+org/eclipse/jdt/internal/compiler/ast/TypeDeclaration.resolve(TypeDeclaration.java:1131)
+at
+org/eclipse/jdt/internal/compiler/ast/CompilationUnitDeclaration.resolve(CompilationUnitDeclaration.java:349)
+at
+org/eclipse/jdt/core/dom/CompilationUnitResolver.resolve(CompilationUnitResolver.java:856)
+at
+org/eclipse/jdt/core/dom/CompilationUnitResolver.resolve(CompilationUnitResolver.java:498)
+at
+org/eclipse/jdt/core/dom/ASTParser.internalCreateAST(ASTParser.java:789)
+at org/eclipse/jdt/core/dom/ASTParser.createAST(ASTParser.java:588)
+at
+org/eclipse/jdt/internal/ui/javaeditor/ASTProvider$1.run(ASTProvider.java:566)
+at
+org/eclipse/core/internal/runtime/InternalPlatform.run(InternalPlatform.java:1044)
+at org/eclipse/core/runtime/Platform.run(Platform.java:783)
+at
+org/eclipse/jdt/internal/ui/javaeditor/ASTProvider.createAST(ASTProvider.java:563)
+at
+org/eclipse/jdt/internal/ui/javaeditor/ASTProvider.getAST(ASTProvider.java:493)
+at
+org/eclipse/jdt/internal/ui/text/correction/AssistContext.getASTRoot(AssistContext.java:72)
+at
+org/eclipse/jdt/internal/ui/text/correction/LocalCorrectionsSubProcessor.addUnnecessaryCastProposal(LocalCorrectionsSubProcessor.java:541)
+at
+org/eclipse/jdt/internal/ui/text/correction/QuickFixProcessor.process(QuickFixProcessor.java:402)
+at
+org/eclipse/jdt/internal/ui/text/correction/QuickFixProcessor.getCorrections(QuickFixProcessor.java:215)
+at
+org/eclipse/jdt/internal/ui/text/correction/JavaCorrectionProcessor$SafeCorrectionCollector.safeRun(JavaCorrectionProcessor.java:310)
+at
+org/eclipse/jdt/internal/ui/text/correction/JavaCorrectionProcessor$SafeCorrectionProcessorAccess.run(JavaCorrectionProcessor.java:275)
+at
+org/eclipse/core/internal/runtime/InternalPlatform.run(InternalPlatform.java:1044)
+at org/eclipse/core/runtime/Platform.run(Platform.java:783)
+at
+org/eclipse/jdt/internal/ui/text/correction/JavaCorrectionProcessor$SafeCorrectionProcessorAccess.process(JavaCorrectionProcessor.java:265)
+at
+org/eclipse/jdt/internal/ui/text/correction/JavaCorrectionProcessor.collectCorrections(JavaCorrectionProcessor.java:392)
+at
+org/eclipse/jdt/internal/ui/text/correction/CorrectionMarkerResolutionGenerator.getResolutions(CorrectionMarkerResolutionGenerator.java:157)
+at
+org/eclipse/ui/internal/ide/registry/MarkerHelpRegistry.getResolutions(MarkerHelpRegistry.java:200)
+at
+org/eclipse/ui/views/markers/internal/MarkerResolutionWizard.determinePages(MarkerResolutionWizard.java:211)
+at
+org/eclipse/ui/views/markers/internal/ActionResolveMarker$1.runInUIThread(ActionResolveMarker.java:67)
+at org/eclipse/ui/progress/UIJob$1.run(UIJob.java:93)
+at org/eclipse/swt/widgets/RunnableLock.run(RunnableLock.java:35)
+at
+org/eclipse/swt/widgets/Synchronizer.runAsyncMessages(Synchronizer.java:118)
+at org/eclipse/swt/widgets/Display.runAsyncMessages(Display.java:3213)
+at org/eclipse/swt/widgets/Display.readAndDispatch(Display.java:2859)",org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,126938,2006-02-08T12:20:00.000-06:00,Cannot import Installed JREs from preference file,"change location of JRE install in directory
+------------------------------
+#Wed Jan 04 09:20:23 PST 2006 file_export_version=3.0
+@org.
+eclipse.jdt.launching=3.1.0
+#Java > Installed JREs
+/instance/org.
+eclipse.jdt.launching/org.eclipse.jdt.launching.PREF_VM_XML=<?xml version\=""1.0"" encoding\=""UTF-8""?>\r\n<vmSettings defaultVM\=""57,org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType13,1136396225475"">\r\n<vmType id\=""org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType"">\r\n<vm id\=""1136396225475"" javadocURL\=""http\://java.sun.com/j2se/1.5.0/docs/api/"" name\=""jdk1.5.0_04"" path\=""C\:\\ngp_tools\\jdk1.5.0_04"" vmargs\=""-ea""/>\r\n</vmType>\r\n</vmSettings>\r\n
+\!
+/instance=
+---------------------------
+To reproduce:
+create new workspace
+open preference window open view
+Expected:
+configure with default argument",org.eclipse.jdt.internal.launching.JREPreferenceModifyListener
+FILE,eclipse-3.1,129834,2006-02-28T14:22:00.000-06:00,Glitches in feature import wizard,"push Reload button next_to table viewer
+It would become the first button in that table viewer composite.
+feature from new location
+enter location in combo box check top checkbox lose location","org.eclipse.pde.internal.ui.wizards.imports.FeatureImportWizard
+org.eclipse.pde.internal.ui.PDEUIMessages"
+FILE,eclipse-3.1,142881,2006-05-20T00:02:00.000-05:00,DEL works on non-editable editor,"Build: 3.2 RC5
+A plug-in editor will open.
+select item in Execution environments table select item on Overview page
+Press the DEL key.
+This should not happen.
+do nothing on non-editable model","org.eclipse.pde.internal.ui.editor.plugin.ImportPackageSection
+org.eclipse.pde.internal.ui.editor.plugin.RequiresSection
+org.eclipse.pde.internal.ui.editor.plugin.ExtensionPointsSection
+org.eclipse.pde.internal.ui.editor.plugin.ExportPackageSection"
+FILE,eclipse-3.1,149604,2006-07-04T18:17:00.000-05:00,Amnesia when opening manifest of a JARd plug-in,"go to plug-ins view
+represent by blue icon
+good.
+turn than first tab turn to tab other
+close editor
+open on tab",org.eclipse.pde.internal.ui.editor.PDEFormEditor
+FILE,eclipse-3.1,157944,2006-09-20T01:11:00.000-05:00,JavaAttributeWizard shouldn't open with errors when passed an empty string,"3.3 m2 test candidate
+make on overview page
+click Activator link
+This is a UI faux-pas.
+I suspect this is a regression due to fix for bug 101644",org.eclipse.pde.internal.ui.editor.plugin.JavaAttributeWizardPage
+FILE,eclipse-3.1,80058,2004-12-02T15:32:00.000-06:00,[Wizards] Create folder blocked should avoid locking workspace,"Version 3.1.
+M3.
+do team/CVS update in Resource perspective do team/CVS update on large Java project send to background
+create new directory from Navigation pane go into different project try into different project
+create new folder at same time
+Thanks,
+Gary",org.eclipse.ui.dialogs.WizardNewFolderMainPage
+FILE,eclipse-3.1,84546,2005-02-07T04:31:00.000-06:00,Escape on empty commit-comment is yes instead of no,"commit something with empty commit comment get following dialog
+Empty commit comment
+The commit comment is Empty.
+Are you sure .......
+an empty comment?
+go back to commit dialog
+press ESC expect dialog",org.eclipse.team.internal.ccvs.ui.CommitCommentArea
+FILE,eclipse-3.1,84881,2005-02-10T07:19:00.000-06:00,[WorkbenchLauncher] Splash screen receives focus after task switch (instead of workspace launcher dialog),"use ALT + tab receive focus switch to task switch back to task stay in front
+As a result, you are unable to select a workspace and continue when you do not
+have a mouse (for selecting the dialog box).
+not find workaround","org.eclipse.ui.internal.ide.IDEApplication
+org.eclipse.ui.internal.ide.ChooseWorkspaceDialog
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,[1.5][enum] erroneous strictfp keyword on enum type produces error on constructor_,"I20050215-2300 (M5 test pass)
+have code
+strictfp enum Natural {
+ONE, TWO;
+}
+not allow strictfp on enum actual
+have code
+strictfp enum Natural {
+ONE, TWO;
+private Natural() {
+}
+}
+report wrong modifier with type name show error for constructor _","org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,85519,2005-02-16T14:10:00.000-06:00,[implementation] saveAs existing file fails - content replaced with original content,"I20050215-2300 (m5 test pass)
+have pkg/Test1.java open
+have pkg/Test2.java open
+save Test1.java as Test2.java
+lose data replace with data","org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider
+org.eclipse.ui.editors.text.TextFileDocumentProvider"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,"I have only verified this with JPEG output.
+test as JPEG
+produce proper JPG images expected
+The attached Zip file contains
+ only those files that did not save correctly to JPEG.
+package com.ibm.test.image;
+import org.eclipse.swt.
+*;
+import org.eclipse.swt.graphics.
+*;
+public class ImageLoaderTest {
+		
+	public static void main(String[] args) {
+		ImageLoader loader;
+		String dir=""c:\\image-problems\\"";
+		String files[]={
+				""s34i3p04"",
+				""s34n3p04"",
+				""s35i3p04"",
+				""s35n3p04"",
+				""s36i3p04"",
+				""s36n3p04"",
+				""s37i3p04"",
+				""s37n3p04"",
+				""s38i3p04"",
+				""s38n3p04"",
+				""s39i3p04"",
+				""s39n3p04""
+		};
+		
+		try {
+			for (int i=0; i<files.length; i++) {
+			String filein  = dir+files[i]+"".
+png"";
+			String fileout = dir+files[i]+"".
+jpg"";
+			
+			loader = new ImageLoader();
+			loader.load(filein);
+			loader.save(fileout,SWT.IMAGE_JPEG);
+			}
+		} catch (SWTException e) {
+		  e.printStackTrace();
+		}
+	}
+}","org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,87683,2005-03-10T13:36:00.000-06:00,[Preferences] Preferences hover should show unshortened text,"enable text hovers
+See screenshots...",org.eclipse.jface.dialogs.DialogMessageArea
+FILE,eclipse-3.1,94852,2005-05-11T17:17:00.000-05:00,[ViewMgmt] (regression) Typing space should activate view menu button,"Build id: I20050510-0010
+give focus to view menu button
+give + tab in Package explorer view
+have focus
+When this button (or any button) has focus, screen readers will give a hint to 
+their users that they can activate this button by pressing space.
+drop down view menu
+drop down menu type space do nothing do button use keyboard space key not need for accessibility
+do expected thing allow space key for consistency use with screen reader",org.eclipse.ui.internal.presentations.defaultpresentation.DefaultTabFolder
+FILE,eclipse-3.1,94879,2005-05-11T22:13:00.000-05:00,[PropertiesDialog] [Preferences] Esc does not dismiss properties or preferences dialog,"build I20050509-2010
+select file in Navigator select file in choose properties
+dismiss dialog look at properties
+dismiss dialog clear filter field
+Same problem in the preferences dialog.
+This is unexpected behaviour.
+clear field
+not intercept esc allow esc clear field",org.eclipse.ui.internal.dialogs.FilteredComboTree
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,[5.0][content assist] Content assist popup disappears while completing the statically imported method name,"I20050513-0010
+Steps to reproduce:
+import static java.lang.Math.
+constrain proposals to members","org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,[Presentations] (regression) Standalone view without title has no border,"build N20050523
+change BrowserPerspectiveFactory have following instead_of regular addView layout.addStandaloneView ( BrowserApp.BROWSER_VIEW_ID
+IPageLayout.RIGHT, .25f, IPageLayout.ID_EDITOR_AREA);
+show history view
+This is a regression from 3.0.2.
+have border","org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,97018,2005-05-27T11:47:00.000-05:00,PDE generates to strict access restrictions,"I20050527-0010
+use update manager
+observe install plug-in have manifest file have install plug-in contain line contain manifest file
+Manifest-Version: 1.0
+contain plugin.xml file export following entries export plugin.xml file
+<runtime>
+<library name=""runtime/ecore.jar"">
+<export name=""*""/>
+<packages prefixes=""org.eclipse.emf.ecore""/>
+</library>
+</runtime>
+==> **/* forbidden reference
+honor access restrictions from plugin.xml file honor access restrictions since having generate ALL forbidden rule","org.eclipse.pde.internal.core.MinimalState
+org.eclipse.pde.internal.core.ClasspathUtilCore"
+FILE,eclipse-3.1,97085,2005-05-27T17:10:00.000-05:00,(3.1M7) Static import code assist shouldn't propose <package>.*;,"type following into new Java file
+import static java.
+propose plain subpackages
+*;"").",org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,97363,2005-05-30T17:14:00.000-05:00,Export deployable plug-ins always JARs,"build I20050527-0900
+load from CVS
+pick dest dir
+export as ed plugin directories",org.eclipse.pde.internal.core.util.CoreUtility
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,Container attempts to refresh children on project that is not open,"take existing simple project on disk import project into workspace import project by performing create with code
+String folder = ""/temp"";//$NON-NLS-1$
+String projName = ""project"";//$NON-NLS-1$
+IProjectDescription description = ResourcesPlugin.getWorkspace
+().
+loadProjectDescription(projPath);
+IProject project = ResourcesPlugin.getWorkspace().
+getRoot().
+getProject
+(description.getName());
+project.create(description, new NullProgressMonitor());
+not open project with project.open() API
+This is the key to the issue.
+create project by API create project by UI
+I believe the offending code is in the class org.eclipse.core.internal.resources.Container.
+because the projects members are not known.
+If you override this method in Project and do not refresh for closed projects, the problem goes away.
+load existing Java projects by performing load existing Java projects on disk perform create
+get refresh infinite loops on next UI gesture
+We want the projects in the workspace, so we create them but do not open them, as open is very expensive.
+use open project UI
+This worked fine in Eclipse 3.0.","org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,99235,2005-06-09T14:51:00.000-05:00,Fully qualified paths in antfile attribute do not open file,"<project name=""internalProject"" default=""entry"">
+<target name=""entry"" depends=""default"">
+<echo>entry</echo>
+</target>
+<target name=""default"">
+<echo>default</echo>
+<ant antfile=""C:\apache-ant-1.6.5\bin\antBuildfile.xml""></ant>
+</target>
+</project>
+open external antBuildfile.xml","org.eclipse.ant.internal.ui.model.AntAntNode
+org.eclipse.ant.internal.ui.editor.AntEditor"
+CLASS,openjpa-2.2.0,OPENJPA-2163,2012-03-27T15:56:55.000-05:00,Lifecycle event callback occurs more often than expect,"uncover in scenario create scenario from same EntityManagerFactory initialize instance with new instance
+final EntityManager em = factory.createEntityManager();
+final EntityManager em2 = factory.createEntityManager();
+...
+MyLifecycleListener l1 = new MyLifecycleListener();
+MyLifecycleListener l2 = new MyLifecycleListener();
+...
+((OpenJPAEntityManagerSPI)em).
+addLifecycleListener(l1, null);
+((OpenJPAEntityManagerSPI)em2).
+addLifecycleListener(l2, null);
+register expected behavior in em","openjpa-kernel.src.main.java.org.apache.openjpa.conf.OpenJPAConfigurationImpl
+openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.validation.TestValidationMode"
+METHOD,atunes-1.10.0,213,2008-09-14T08:05:44.000-05:00,Not supported formats are not skipped under Xine,"Only for not supported file formats.
+How to reproduce:
+copy few files into repository copy few files into rename have supported extension (
+set Xine as engine play fake files
+skip to next song","net.sourceforge.atunes.kernel.modules.player.xine.XineHandler:startPlayback(AudioObject, AudioObject)"
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,Creating a collection with implicit router adds shard ranges to each shard,"use Example a from SolrCloud wiki
+http://localhost:8983/solr/admin/collections?action=CREATE&name=myimplicitcollection3&numShards=2&maxShardsPerNode=5&router.name=implicit&shards=s1,s2&replicationFactor=2
+{quote}
+""myimplicitcollection3"":{
+""shards"":{
+""s1"":{
+""range"":""80000000-ffffffff"",
+""state"":""active"",
+""replicas"":{
+""core_node1"":{
+""state"":""active"",
+""base_url"":""http://192.168.1.5:8983/solr"",
+""core"":""myimplicitcollection3_s1_replica2"",
+""node_name"":""192.168.1.5:8983_solr""},
+""core_node3"":{
+""state"":""active"",
+""base_url"":""http://192.168.1.5:7574/solr"",
+""core"":""myimplicitcollection3_s1_replica1"",
+""node_name"":""192.168.1.5:7574_solr"",
+""leader"":""true""}}},
+""s2"":{
+""range"":""0-7fffffff"",
+""state"":""active"",
+""replicas"":{
+""core_node2"":{
+""state"":""active"",
+""base_url"":""http://192.168.1.5:8983/solr"",
+""core"":""myimplicitcollection3_s2_replica2"",
+""node_name"":""192.168.1.5:8983_solr""},
+""core_node4"":{
+""state"":""active"",
+""base_url"":""http://192.168.1.5:7574/solr"",
+""core"":""myimplicitcollection3_s2_replica1"",
+""node_name"":""192.168.1.5:7574_solr"",
+""leader"":""true""}}}},
+""maxShardsPerNode"":""5"",
+""router"":{""name"":""implicit""},
+""replicationFactor"":""2""}
+{quote}
+not shard ranges",solr.core.src.java.org.apache.solr.cloud.Overseer
+METHOD,mahout-0.4,MAHOUT-625,2011-03-11T09:24:20.000-06:00,Some of generated patterns have support higher than in reality,"It turnes out that some of generated patterns have incorrect support.
+I attached the test, which proves that FPGrowth has a bug.
+use data return pattern with support occur http://fimi.ua.ac.be/data/ in transactions
+Please note that mentioned pattern is not the only one with incorrect support - the test only point out one example to hace something to focus on.
+There is plenty more patterns with support higher than the real one.
+The biggest difference I noticed was support 8 higher than the real one for one of patterns.
+fail unit test contain test data contain maven project","org.apache.mahout.fpm.pfpgrowth.fpgrowth.FPGrowth:pruneFPTree(MutableLong, FPTree)"
+FILE,AMQP,AMQP-290,2013-01-04T02:26:52.000-06:00,"Rabbit namespace little bug, when using reference to queueArgumentsMap","use queues
+<rabbit:queue name=""${queue.name.routage.lot.reception}"" durable=""true"" queue-arguments=""defaultQueueArguments""/>
+<rabbit:queue name=""${queue.name.routage.lot.mail.notification}"" durable=""true"" queue-arguments=""defaultQueueArguments""/>
+<rabbit:queue name=""${queue.name.routage.lot.mobile.notification}"" durable=""true"" queue-arguments=""defaultQueueArguments""/>
+<util:map id=""defaultQueueArgumentsMap"">
+<entry key=""x-dead-letter-exchange"" value=""${exchange.name.dead.letters}""/>
+</util:map>
+<rabbit:queue-arguments id=""defaultQueueArguments"" ref=""defaultQueueArgumentsMap""/>
+With a little google search I found:
+http://forum.springsource.org/showthread.php?125014-Dead-Lettering
+<rabbit:queue-arguments id=""defaultQueueArguments"">
+<entry key=""x-dead-letter-exchange"" value=""${exchange.name.dead.letters}"" />
+</rabbit:queue-arguments>
+pass to broker","org.springframework.amqp.rabbit.config.AbstractExchangeParser
+org.springframework.amqp.rabbit.config.QueueParser
+org.springframework.amqp.rabbit.config.ExchangeParserTests
+org.springframework.amqp.rabbit.config.QueueParserTests"
+FILE,AMQP,AMQP-516,2015-08-06T01:25:34.000-05:00,"Setting autoDelete or exclusive to anything, including ""true"" in @Queue without a queue name results in them being disabled","result in queue declare with exclusive set
+@RabbitListener(bindings = @QueueBinding(
+value = @Queue(autoDelete = ""true"", exclusive = ""true""),
+exchange = @Exchange(value = ""myFanout"", type = ExchangeTypes.FANOUT, durable = ""true"")
+))
+due to the following code in RabbitListenerAnnotationBeanProcessor:
+if (!
+StringUtils.hasText(queueName)) {
+queueName = UUID.randomUUID().
+toString();
+if (!
+StringUtils.hasText(bindingQueue.exclusive())) {
+exclusive = true;
+}
+if (!
+StringUtils.hasText(bindingQueue.autoDelete())) {
+autoDelete = true;
+}
+}
+else {
+exclusive = resolveExpressionAsBoolean(bindingQueue.exclusive());
+autoDelete = resolveExpressionAsBoolean(bindingQueue.autoDelete());
+}
+use random name seem like good idea change to something
+String e = bindingQueue.exclusive();
+if (!
+StringUtils.hasText(e) || resolveExpressionAsBoolean(e)) {
+exclusive = true
+}","org.springframework.amqp.rabbit.annotation.EnableRabbitIntegrationTests
+org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor"
+FILE,DATACMNS,DATACMNS-114,2011-12-19T03:21:41.000-06:00,Wrong custom implementation automatically detected,"have repositories with similar name suffix
+have custom interface have implementation end with similar name suffix
+scan repositories scan custom implementation wire wrong custom implementation to repository bean
+Caused by: java.lang.IllegalArgumentException: No property find found for type class com.myproject.Contract
+at org.springframework.data.repository.query.parser.Property.<init>(Property.java:76)
+at org.springframework.data.repository.query.parser.Property.<init>(Property.java:97)
+at org.springframework.data.repository.query.parser.Property.create(Property.java:312)
+at org.springframework.data.repository.query.parser.Property.create(Property.java:326)
+at org.springframework.data.repository.query.parser.Property.create(Property.java:326)
+at org.springframework.data.repository.query.parser.Property.create(Property.java:326)
+at org.springframework.data.repository.query.parser.Property.create(Property.java:292)
+at org.springframework.data.repository.query.parser.Property.from(Property.java:251)
+at org.springframework.data.repository.query.parser.Property.from(Property.java:232)
+at org.springframework.data.repository.query.parser.Part.<init>(Part.java:48)
+at org.springframework.data.repository.query.parser.PartTree$OrPart.<init>(PartTree.java:242)
+at org.springframework.data.repository.query.parser.PartTree.buildTree(PartTree.java:101)
+at org.springframework.data.repository.query.parser.PartTree.<init>(PartTree.java:77)
+at org.springframework.data.jpa.repository.query.PartTreeJpaQuery.<init>(PartTreeJpaQuery.java:56)
+at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:92)
+at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$CreateIfNotFoundQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:159)
+at org.springframework.data.jpa.repository.query.JpaQueryLookupStrategy$AbstractQueryLookupStrategy.resolveQuery(JpaQueryLookupStrategy.java:71)
+at org.springframework.data.repository.core.support.RepositoryFactorySupport$QueryExecutorMethodInterceptor.<init>(RepositoryFactorySupport.java:303)
+at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:157)
+at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.getObject(RepositoryFactoryBeanSupport.java:120)
+at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.getObject(RepositoryFactoryBeanSupport.java:39)
+at org.springframework.beans.factory.support.FactoryBeanRegistrySupport.doGetObjectFromFactoryBean(FactoryBeanRegistrySupport.java:142)
+... 67 more
+have named ContractRepository with custom interface ContractRepositoryCustom have named ContractRepository with implementation ContractRepositoryImpl define inside same package
+have repository in package have repository for entity type name AnotherContractRepository with custom interface AnotherContractRepositoryCustom name AnotherContractRepository with implementation AnotherContractRepositoryImpl
+start application context link contractRepository bean to contractRepositoryImpl link contractRepository bean to anotherContractRepositoryImpl
+This behavior seems to be operating system dependent, as it only occurs on our Linux CI server.
+The cause of our problem can be found at AbstractRepositoryConfigDefinitionParser.detectCustomImplementation(...).
+apply wildcard prefix scan before applying scan on getImplementationClassName()",org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,DomainClassConverter should gracefully return null for null sources or empty strings,"I've noticed an important issue related to automatic web binding of String id to Domain class.
+imagine use case have Order domain class have ManyToOne reference to customer have Order domain class to customer
+post new Order
+Failed to convert property value of type java.lang.String to required type org.mycomp.domain.Customer for property customer; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type java.lang.String to type @javax.
+validation.constraints.NotNull @javax.
+persistence.ManyToOne org.mycomp.domain.Customer for value '; nested exception is org.springframework.dao.InvalidDataAccessApiUsageException: The given id must not be null!
+; nested exception is java.lang.IllegalArgumentException: The given id must not be null!
+convert to Domain class empty to Domain class
+And note that for optional references this even might even cause a complete blocker?
+<form:select path=""customer"">
+<form:option value="""" label=""Select"" />
+<form:options items=""${customers}"" itemValue=""id""></form:options>
+</form:select>","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-3024,2007-08-23T05:24:31.000-05:00,Validation of shared plans hurts scalability,"prevent scaling on multi-CPU machine write multi-threaded test execute VALUES execute multi-threaded test use PreparedStatement run test on machine expect throughput have small increase from clients add more clients not increase throughput spend lot of time enter synchronization blocks in GenericPreparedStatement.upToDate() enter synchronization blocks in BaseActivation.checkStatementValidity() look at test
+change test append comment with unique thread id
+That means the threads still did the same work, but each thread got its own plan (GenericPreparedStatement object) since the statement cache didn't regard the SQL text strings as identical.
+find way make scalability share same plan","java.engine.org.apache.derby.impl.store.access.heap.HeapConglomerateFactory
+java.engine.org.apache.derby.impl.store.raw.data.FileContainer
+java.engine.org.apache.derby.impl.store.raw.data.RAFContainer
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.DBInJarTest
+java.engine.org.apache.derby.impl.store.raw.data.TempRAFContainer
+java.engine.org.apache.derby.impl.store.raw.data.InputStreamContainer
+java.engine.org.apache.derby.impl.store.access.btree.index.B2IFactory"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,Client should use a prepared statement rather than regular statement for Connection.setTransactionIsolation,"o.a.d.client.am.Connection setTransactionIsolation() uses a Statement which  it builds up each time for setTransactionIsolation()  is called.
+private Statement setTransactionIsolationStmt = null;
+...
+setTransactionIsolationStmt =
+                    createStatementX(java.sql.ResultSet.TYPE_FORWARD_ONLY,
+                            java.sql.ResultSet.CONCUR_READ_ONLY,
+                            holdability());
+....
+private void setTransactionIsolationX(int level)
+...
+            setTransactionIsolationStmt.executeUpdate(
+                ""SET CURRENT ISOLATION = "" + levelString);
+avoid possible garbage collection issues have single prepared statement with parameter marker
+show repeated calls to setTransactionIsolation
+import java.sql.
+*;
+import java.net.
+*;
+import java.io.
+*;
+import org.apache.derby.drda.NetworkServerControl;
+/**
+* Client template starts its own NetworkServer and runs some SQL against it.
+* The SQL or JDBC API calls can be modified to reproduce issues
+*
+*/public class SetTransactionIsolation {
+public static Statement s;
+public static void main(String[] args) throws Exception {
+try {
+// Load the driver.
+Not needed for network server.
+Class.forName(""org.apache.derby.jdbc.ClientDriver"");
+// Start Network Server
+startNetworkServer();
+// If connecting to a customer database.
+Change the URL
+Connection conn = DriverManager
+.
+getConnection(""jdbc:derby://localhost:1527/wombat;create=true"");
+// clean up from a previous run
+s = conn.createStatement();
+try {
+s.executeUpdate(""DROP TABLE T"");
+} catch (SQLException se) {
+if (!
+se.getSQLState().
+equals(""42Y55""))
+throw se;
+}
+for (int i = 0; i < 50000; i++) {
+		conn.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+		conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+}
+// rs.close();
+// ps.close();
+runtimeInfo();
+conn.close();
+// Shutdown the server
+shutdownServer();
+} catch (SQLException se) {
+while (se !
+= null) {
+System.out.println(""SQLState="" + se.getSQLState()
++ se.getMessage());
+se.printStackTrace();
+se = se.getNextException();
+}
+}
+}
+/**
+* starts the Network server
+*
+*/
+public static void startNetworkServer() throws SQLException {
+Exception failException = null;
+try {
+NetworkServerControl networkServer = new NetworkServerControl(
+InetAddress.getByName(""localhost""), 1527);
+networkServer.start(new PrintWriter(System.out));
+// Wait for the network server to start
+boolean started = false;
+int retries = 10; // Max retries = max seconds to wait
+while (!
+started && retries > 0) {
+try {
+// Sleep 1 second and then ping the network server
+Thread.sleep(1000);
+networkServer.ping();
+// If ping does not throw an exception the server has
+// started
+started = true;
+} catch (Exception e) {
+retries--;
+failException = e;
+}
+}
+// Check if we got a reply on ping
+if (!
+started) {
+throw failException;
+}
+} catch (Exception e) {
+SQLException se = new SQLException(""Error starting network  server"");
+se.initCause(failException);
+throw se;
+}
+}
+public static void shutdownServer() throws Exception {
+NetworkServerControl networkServer = new NetworkServerControl(
+InetAddress.getByName(""localhost""), 1527);
+networkServer.shutdown();
+}
+public static void runtimeInfo() throws Exception {
+NetworkServerControl networkServer = new NetworkServerControl(
+InetAddress.getByName(""localhost""), 1527);
+System.out.println(networkServer.getRuntimeInfo());
+}
+}",java.client.org.apache.derby.client.am.Connection
+METHOD,time,28,2013-05-31T00:52:24.000-05:00,Questionable behaviour of GJChronology when dates pass 1BC,"expect following test
+```
+Chronology chronology = GJChronology.getInstance();
+LocalDate start = new LocalDate(2013, 5, 31, chronology);
+LocalDate expectedEnd = new LocalDate(-1, 5, 31, chronology); // 1 BC
+assertThat(start.minusYears(2013), is(equalTo(expectedEnd)));
+assertThat(start.plus(Period.years(-2013)), is(equalTo(expectedEnd)));
+```
+```
+org.joda.time.IllegalFieldValueException: Value 0 for year is not supported
+```
+However, I never provided ""0"" for the year myself.
+skip over non-existent year 0 return BC","org.joda.time.chrono.GJChronology:getInstance(DateTimeZone, ReadableInstant, int)
+org.joda.time.chrono.GJChronology:add(long, long)
+org.joda.time.chrono.GJChronology:add(long, int)"
+METHOD,time,88,2013-11-25T19:15:46.000-06:00,Constructing invalid Partials,"Partials can be constructed by invoking a constructor `Partial(DateTimeFieldType[], int[])` or by merging together a set of partials using `with`, each constructed by calling `Partial(DateTimeFieldType, int)`, e.g.:
+``` java
+Partial a = new Partial(new DateTimeFieldType[] { year(), hourOfDay() }, new int[] { 1, 1});
+Partial b = new Partial(year(), 1).
+with(hourOfDay(), 1);
+assert(a == b);
+```
+not work in cases
+with(hourOfDay(), 1); // #<Partial [clockhourOfDay=1, hourOfDay=1]>
+```
+construct in case
+Is that right?
+There's also a related issue (probably stems from the fact that the Partial is invalid):
+``` java
+new Partial(clockhourOfDay(), 1).
+with(hourOfDay(), 1).
+isEqual(new Partial(hourOfDay() ,1).","org.joda.time.Partial:with(DateTimeFieldType, int)"
+FILE,COMPRESS,COMPRESS-273,2014-04-11T04:13:32.000-05:00,NullPointerException when creation fields/entries from scratch,"The API has public default constructors for many data types.
+This also applies to some 1-argument constructors where two references should be set before get... is used later.
+set for instance
+In the latter case, there must be public set methods for the missing data.
+contain number of similar test cases show same issue in couple show same issue of similar test cases show number in couple show number of similar test cases
+org.apache.commons.compress.archivers.zip.UnicodeCommentExtraField var0 = new org.apache.commons.compress.archivers.zip.UnicodeCommentExtraField();
+org.apache.commons.compress.archivers.zip.ZipShort var1 = var0.getLocalFileDataLength();","org.apache.commons.compress.archivers.zip.AbstractUnicodeExtraField
+org.apache.commons.compress.archivers.cpio.CpioArchiveEntry
+org.apache.commons.compress.archivers.zip.ExtraFieldUtils
+org.apache.commons.compress.archivers.zip.UnrecognizedExtraField"
+FILE,ENTESB,ENTESB-3099,2015-04-27T11:35:23.000-05:00,Quickstarts should build without warnings; most should work without fabric,"The first quickstart that beginners are directed to is camel-log.
+Would it be better if 1st quickstart was one without fabric?
+run camel-log following instructions in README fail wilth following error
+[INFO] No tests to run.
+[INFO]
+[INFO]  maven-bundle-plugin:2.3.7:bundle (default-bundle) @ beginner-camel-lo
+g
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Instructions in Export-Package that are never used: io\.
+fabric8\.
+.
+*|io\
+.
+fabric8
+Classpath: Jar:.
+,Jar:camel-blueprint,Jar:camel-core,Jar:slf4j-api,Jar:camel-core
+-xml,Jar:camel-core-osgi,Jar:jaxb-core,Jar:jaxb-impl
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : No translation found for macro: body
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : No translation found for macro: sys.runtime.id
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Superfluous export-package instructions: [io.fabric8.
+*]
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for io.fabric8.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.apache.camel.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.apache.commons.logging.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.apache.felix.gogo.commands.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.apache.felix.service.command.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.osgi.service.component.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.springframework.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for org.springframework.osgi.
+*
+[WARNING] Bundle org.jboss.quickstarts.fuse:beginner-camel-log:bundle:6.2.0.
+redh at-109 : Did not find matching referal for scala*
+[INFO]
+[INFO]  maven-source-plugin:2.2.1:jar-no-fork (attach-sources) @ beginner-cam el-log
+[INFO]
+[INFO]  maven-install-plugin:2.4:install (default-install) @ beginner-camel-l og
+[INFO] Installing C:\Fuse\jboss-fuse-6.2.0.
+redhat-109\quickstarts\beginner\camel
+-log\target\shared.jar to C:\Users\aileenc\.
+m2\repository\org\jboss\quickstarts\ fuse\beginner-camel-log\6.2.0.redhat-109\beginner-camel-log-6.2.0.
+redhat-109.jar
+[INFO] Installing C:\Fuse\jboss-fuse-6.2.0.
+redhat-109\quickstarts\beginner\camel
+-log\pom.xml to C:\Users\aileenc\.
+m2\repository\org\jboss\quickstarts\fuse\begin ner-camel-log\6.2.0.redhat-109\beginner-camel-log-6.2.0.
+redhat-109.
+pom
+[INFO] Installing C:\Fuse\jboss-fuse-6.2.0.
+redhat-109\quickstarts\beginner\camel
+-log\target\shared-sources.jar to C:\Users\aileenc\.
+m2\repository\org\jboss\quic kstarts\fuse\beginner-camel-log\6.2.0.redhat-109\beginner-camel-log-6.2.0.
+redhat
+-109-sources.jar
+[INFO]
+[INFO]  maven-bundle-plugin:2.3.7:install (default-install) @ beginner-camel- log
+[INFO] Local OBR update disabled (enable with -DobrRepository)
+[INFO]
+[INFO] <<< fabric8-maven-plugin:1.2.0.
+redhat-109:deploy (default-cli) @ beginner
+-camel-log <<<
+[INFO]
+[INFO]  fabric8-maven-plugin:1.2.0.
+redhat-109:deploy (default-cli) @ beginner
+-camel-log
+[INFO] Uploading file C:\Fuse\jboss-fuse-6.2.0.
+redhat-109\quickstarts\beginner\c amel-log\pom.xml
+Uploading: http://samsung_rv511:8181/maven/upload/org/jboss/quickstarts/fuse/beg inner-camel-log/6.2.0.
+redhat-109/beginner-camel-log-6.2.0.
+redhat-109.
+pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6.201s
+[INFO] Finished at: Mon Apr 27 12:37:36 BST 2015
+[INFO] Final Memory: 32M/351M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal io.fabric8:fabric8-maven-plugin:1.2.0.
+redhat-109:
+deploy (default-cli) on project beginner-camel-log: Failed to deploy artifacts:
+Could not transfer artifact org.jboss.quickstarts.fuse:beginner-camel-log:pom:6.
+2.0.redhat-109 from/to fabric8.upload.repo (http://samsung_rv511:8181/maven/uplo ad/): Failed to transfer file: http://samsung_rv511:8181/maven/upload/org/jboss/ quickstarts/fuse/beginner-camel-log/6.2.0.redhat-109/beginner-camel-log-6.2.0.
+re dhat-109.
+pom.
+Return code is: 401, ReasonPhrase: Unauthorized.
+-> [Help 1]
+[ERROR]
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e swit ch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR]
+[ERROR] For more information about the errors and possible solutions, please rea d the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionE xception
+C:\Fuse\jboss-fuse-6.2.0.
+redhat-109\quickstarts\beginner\camel-log>",org.jboss.quickstarts.fuse.processor.BodyInAggregatingStrategy
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,[Patch] Table cursor separated from table selection when clicking on grid lines or empty space,"SWT-win32, v3138 (3.1-final)
+Expected behaviour:
+click on part of table follow table selection change selection as result
+snippet with added table.setLinesVisible(true)",org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,104545,2005-07-20T14:21:00.000-05:00,Make default size of empty composites smaller,"change following constants in Widget.java change following constants to something smaller
+/* Default widths for widgets */ static final int DEFAULT_WIDTH	= 64;
+static final int DEFAULT_HEIGHT	= 64;
+I have run our tests (JFace, UI, RCP) and they run fine when the constants are 0.
+write RCP app enable cool bar pixel in size
+See also Bug 70049, where the same problem occurs in an RCP application that starts off with no open perspective and thus no cool bar items.",org.eclipse.swt.widgets.CoolBar
+FILE,swt-3.1,83262,2005-01-19T17:41:00.000-06:00,rxvt pastes null terminator,"use middle mouse button into rxvt window use middle mouse button from StyledText contain null terminator at end
+This problem exists on both Motif and
+GTK+.
+have string length field terminate strings","org.eclipse.swt.dnd.RTFTransfer
+org.eclipse.swt.dnd.TextTransfer"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,"I have only verified this with JPEG output.
+test as JPEG
+produce proper JPG images expected
+The attached Zip file contains
+ only those files that did not save correctly to JPEG.
+package com.ibm.test.image;
+import org.eclipse.swt.
+*;
+import org.eclipse.swt.graphics.
+*;
+public class ImageLoaderTest {
+		
+	public static void main(String[] args) {
+		ImageLoader loader;
+		String dir=""c:\\image-problems\\"";
+		String files[]={
+				""s34i3p04"",
+				""s34n3p04"",
+				""s35i3p04"",
+				""s35n3p04"",
+				""s36i3p04"",
+				""s36n3p04"",
+				""s37i3p04"",
+				""s37n3p04"",
+				""s38i3p04"",
+				""s38n3p04"",
+				""s39i3p04"",
+				""s39n3p04""
+		};
+		
+		try {
+			for (int i=0; i<files.length; i++) {
+			String filein  = dir+files[i]+"".
+png"";
+			String fileout = dir+files[i]+"".
+jpg"";
+			
+			loader = new ImageLoader();
+			loader.load(filein);
+			loader.save(fileout,SWT.IMAGE_JPEG);
+			}
+		} catch (SWTException e) {
+		  e.printStackTrace();
+		}
+	}
+}",org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,87460,2005-03-08T21:22:00.000-06:00,StyledText: Caret location not updated when line style is used,"SWT-win32, v3124
+change width of rendered text set bold font style in line style listener
+expect on-screen caret location adjust to change
+For an italic style, it does not look right either.
+Might be a bug?
+---
+import org.eclipse.swt.
+*;
+import org.eclipse.swt.custom.
+*;
+import org.eclipse.swt.graphics.
+*;
+import org.eclipse.swt.layout.
+*;
+import org.eclipse.swt.widgets.
+*;
+public class LineStyleCaretTest { public static void main(String[] args) {
+Display display = new Display();
+Shell shell = new Shell(display);
+shell.setLayout(new FillLayout());
+Font font = new Font(display, ""Arial"", 12, SWT.NORMAL);
+final StyledText text = new StyledText(shell, SWT.MULTI);
+text.setFont(font);
+text.setText(""Standard Widget Toolkit"");
+text.setCaretOffset(text.getText().
+length());
+text.addLineStyleListener(new LineStyleListener() { public void lineGetStyle(LineStyleEvent event) {
+StyleRange[] styles = new StyleRange[1];
+styles[0] = new StyleRange();
+styles[0].
+start  = 0;
+styles[0].
+length = text.getText().
+length();
+styles[0].
+fontStyle = SWT.BOLD;
+event.styles = styles;
+}
+});
+shell.setSize(300, 100);
+shell.open();
+while (! shell.isDisposed()) { if (! display.readAndDispatch()) { display.sleep();
+}
+} font.dispose();
+display.dispose();
+}
+}",org.eclipse.swt.custom.StyledText
+FILE,swt-3.1,88717,2005-03-22T04:34:00.000-06:00,[DND] Tree is scrolling very slow when dragging an Item to the Bottom,"create Tree with items implement DND support
+http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet91.java?rev=HEAD&content-type=text/vnd.viewcvs-markup
+expand items
+draggin item to bottom
+enable automatic scrolling drag Item to bottom drag case to bottom think in case
+To see how its working, open Bookmark Manager in Firefox, expand items until the
+Scrollbars are showing and drag a Bookmark to the Bottom.
+The Tree is scrolling.
+Ben","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.dnd.TableDragUnderEffect"
+FILE,swt-3.1,94598,2005-05-11T00:01:00.000-05:00,DBCS3.1:Eclipse hangs when activate IIMF input in search scope of Help,"OS:	      <RHEL 4.0> 
+Language:     <Traditional Chinese>
+Build level:  <Eclipse SDK 3.1 M6 - I20050506-1600>
+JDK version:  <IBM JDK 1.4.2 SP1a>
+Test case #:  <5.3 Search scope with NLS name(Help)>
+Steps to recreate problem:
+search topics dialog up pop
+try by CTRL + SPACE key try to input try to active IIMF input method
+work for inputing/key","org.eclipse.swt.browser.Browser
+org.eclipse.swt.widgets.Composite"
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,tree insert mark cheese,"3.1RC1
+run snippet
+be under root item
+collapse root item
+belong not to child item belong not to root item
+press button to right do Tree.redraw() note Tree.redraw()
+public static void main(String[] args) { final Display display = new Display();
+final Shell shell = new Shell(display);
+shell.setBounds(10, 10, 300, 300);
+final Tree tree = new Tree(shell, SWT.NONE);
+tree.setBounds(10, 10, 200, 200);
+new TreeItem(tree, SWT.NONE).
+setText(""pre-root"");
+TreeItem root1 = new TreeItem(tree, SWT.NONE);
+root1.setText(""root"");
+TreeItem child = new TreeItem(root1, SWT.NONE);
+child.setText(""child"");
+Button button = new Button(shell, SWT.PUSH);
+button.setBounds(230,10,30,30);
+button.addSelectionListener(new SelectionAdapter() { public void widgetSelected(SelectionEvent e) { tree.redraw();
+}
+});
+root1.setExpanded(true);
+tree.setInsertMark(root1, false);
+shell.open();
+while (! shell.isDisposed()) { if (! display.readAndDispatch()) display.sleep();
+} display.dispose();
+}","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,New logical plan: Should not push up filter in front of Bincond,"produce wrong result
+{code}
+data = LOAD 'data.txt' using PigStorage() as (referrer:chararray, canonical_url:chararray, ip:chararray);
+best_url = FOREACH data GENERATE ((canonical_url !
+= '' and canonical_url is not null) ?
+canonical_url : referrer) AS url, ip;
+filtered = FILTER best_url BY url == 'badsite.com';
+dump filtered;
+{code}
+data.txt:
+badsite.com             127.0.0.1
+goodsite.com/1?foo=true goodsite.com    127.0.0.1
+Thanks Corbin Hoenes for reporting.","test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,Using materialized blobs with Postgresql causes error,"have entity with byte [ ] property annotated have entity as @Lob lazy fetch type read OID value instead_of bytes read OID value under given oid be of type oid read column in application
+It's behavior like to read / write bytea.
+use oids deal in PostgreSQL","org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,ORderBy with @ElementJoinColumn and EmbeddedId uses wrong columns in SQL,"Typical bank example, Account with Transactions.
+It is a legacy db so Transaction has compound key - represented by TransactionId class.
+be for columns map in transaction entity NOT
+have following fragment ....
+@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@ElementJoinColumn(name=""maccno"", referencedColumnName=""maccno"")
+	@OrderBy(value = ""_id.
+_processDate ASC, _id.
+_tranSequenceNumber ASC"")
+	private LinkedList<Transaction> _transactions;
+_processDate and _tranSequenceNumber are defined in the TransactionId class.
+Transaction has the following fragment....
+@EmbeddedId
+	private TransactionId _id;
+	
+	@Column(name = ""mtrancde"")
+	private int _transactionCode;
+	
+	@Column(name = ""mamount"")
+	private BigDecimal _amount;
+	
+	@Column(name = ""mdesc"")
+	private String _description;
+@Column(name = ""mactdate"")
+	private Date _actualDate;
+	
+	@Column(name = ""mbranch"")
+	private int _branch;
+And TransactionId defines the primary key columns....
+@Embeddable
+public class TransactionId {
+	
+	@Column(name = ""maccno"")
+	private String _accountNumber;
+	
+	@Column(name = ""mprocdate"")
+	private Date _processDate;
+	
+	@Column(name = ""mtranseqno"")
+	private int _tranSequenceNumber;
+executing prepstmnt 23188098 SELECT t0.maccno, t0.mprocdate, t0.mtranseqno, t0.mactdate, t0.mamount, t0.mbranch, t0.mchqcash, t0.mdesc,
+ t0.mtmnlno, t0.mtrancde, t0.mtrnfeed 
+FROM transaction t0 
+WHERE t0.maccno = ?
+ORDER BY t0.mamount ASC, t0.mbranch ASC [params=(String) 000734123]
+ORDER BY t0.mprocdate ASC, t0.mtranseqno ASC [params=(String) 000734123]
+Thanks
+Michael","org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+FILE,CONFIGURATION,CONFIGURATION-481,2012-02-26T20:27:46.000-06:00,Variable interpolation across files broken in 1.7 & 1.8,"declare variable in properties file reference in XML file use } syntax
+global.properties:
+myvar=abc
+test.xml:
+<products>
+<product name=""abc"">
+<desc>${myvar}-product</desc>
+</product>
+</products>
+config.xml:
+<properties fileName=""global.properties""/>
+<xml fileName=""test.xml"" config-name=""test"">
+<expressionEngine config-class=""org.apache.commons.configuration.tree.xpath.XPathExpressionEngine""/>
+</xml>
+retrieve value
+combinedConfig.getConfiguration(""test"").
+configurationAt(""products/product[@name='abc']"", true).
+getString(""desc"")
+get myvar } instead_of abc-product
+This was working in Commons Configuration 1.6, but seems to be broken in 1.7 and 1.8.","org.apache.commons.configuration.DefaultConfigurationBuilder
+org.apache.commons.configuration.interpol.ConfigurationInterpolator
+org.apache.commons.configuration.TestDefaultConfigurationBuilder"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,HypergeometricDistribution.sample suffers from integer overflow,"Hi, I have an application which broke when ported from commons math 2.2 to 3.2.
+return sample use with large integer values
+{code}
+import org.apache.commons.math3.distribution.HypergeometricDistribution;
+public class Foo {
+  public static void main(String[] args) {
+    HypergeometricDistribution a = new HypergeometricDistribution(
+        43130568, 42976365, 50);
+    System.out.printf(""%d %d%n"", a.getSupportLowerBound(), a.getSupportUpperBound()); // Prints ""0 50""
+    System.out.printf(""%d%n"",a.sample());                                             // Prints ""-50""
+  }
+}
+{code}
+In the debugger, I traced it as far as an integer overflow in HypergeometricDistribution.getNumericalMean() -- instead of doing
+{code}
+return (double) (getSampleSize() * getNumberOfSuccesses()) / (double) getPopulationSize();
+{code}
+it could do:
+{code}
+return getSampleSize() * ((double) getNumberOfSuccesses() / (double) getPopulationSize());
+{code}
+This seemed to fix it, based on a quick test.",org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-274,2009-06-04T19:24:12.000-05:00,testing for symmetric positive definite matrix in CholeskyDecomposition,"use matrix
+double[][] cv = {
+{0.40434286, 0.09376327, 0.30328980, 0.04909388},
+{0.09376327, 0.10400408, 0.07137959, 0.04762857},
+{0.30328980, 0.07137959, 0.30458776, 0.04882449},
+{0.04909388, 0.04762857, 0.04882449, 0.07543265}
+};
+try matrix
+double[][] cv = {
+{0.40434286, -0.09376327, 0.30328980, 0.04909388},
+{-0.09376327, 0.10400408, 0.07137959, 0.04762857},
+{0.30328980, 0.07137959, 0.30458776, 0.04882449},
+{0.04909388, 0.04762857, 0.04882449, 0.07543265}
+};
+throw exception
+I tested the matrix in R and R's cholesky decomposition method returns that the matrix is not symmetric positive definite.
+Obviously your code is not catching this appropriately.
+By the way (in my opinion) the use of exceptions to check these conditions is not the best design or use for exceptions.
+force use try exceptions catch exceptions test conditions prior_to possibility","org.apache.commons.math.linear.CholeskyDecompositionImpl:CholeskyDecompositionImpl(RealMatrix, double, double)"
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,ODE integrator goes past specified end of integration range,"End of integration range in ODE solving is handled as an event.
+In some cases, numerical accuracy in events detection leads to error in events location.
+cover 60s cover integration range in fact
+{code}
+public void testMissedEvent() throws IntegratorException, DerivativeException {
+final double t0 = 1878250320.0000029;
+final double t =  1878250379.9999986;
+FirstOrderDifferentialEquations ode = new FirstOrderDifferentialEquations() {
+public int getDimension() {
+return 1;
+}
+public void computeDerivatives(double t, double[] y, double[] yDot)
+throws DerivativeException {
+yDot[0] = y[0] * 1.0e-6;
+}
+};
+DormandPrince853Integrator integrator = new DormandPrince853Integrator(0.0, 100.0,
+1 0e-10, 1.0e-10);
+double[] y = { 1.0 };
+        integrator.setInitialStepSize(60.0);
+        double finalT = integrator.integrate(ode, t0, y, t, y);
+        Assert.assertEquals(t, finalT, 1.0e-6);
+    }
+{code}","org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+FILE,WFCORE,WFCORE-229,2014-11-07T15:20:11.000-06:00,"server-config operations ""leaks"" to server's resources","start regular domain
+execute server-config operations reject because actual resources
+[domain@localhost:9990 /] /host=master/server=server-one/subsystem=undertow:start
+{
+""outcome"" => ""failed"",
+""failure-description"" => ""WFLYCTL0158: Operation handler failed: java.util.NoSuchElementException: No child 'undertow' exists"",
+""rolled-back"" => true
+}
+=>
+[Host Controller] 16:15:30,231 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 15) WFLYCTL0013: Operation (""restart"") failed - address: ([
+[Host Controller]     (""host"" => ""master""),
+[Host Controller]     (""server"" => ""server-one""),
+[Host Controller]     (""subsystem"" => ""undertow"")
+[Host Controller] ]) - failure description: ""WFLYHC0047: Cannot restart server undertow as it is not currently started; it is STOPPED""
+[Host Controller] 16:18:43,764 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 18) WFLYCTL0013: Operation (""start"") failed - address: ([
+[Host Controller]     (""host"" => ""master""),
+[Host Controller]     (""server"" => ""server-one""),
+[Host Controller]     (""subsystem"" => ""undertow"")
+[Host Controller] ]): java.util.NoSuchElementException: No child 'undertow' exists
+[Host Controller]       at org.jboss.dmr.ModelValue.requireChild(ModelValue.java:369)
+[Host Controller]       at org.jboss.dmr.ObjectModelValue.requireChild(ObjectModelValue.java:299)
+[Host Controller]       at org.jboss.dmr.ModelNode.require(ModelNode.java:870)
+[Host Controller]       at org.jboss.as.host.controller.ManagedServerBootCmdFactory.<init>(ManagedServerBootCmdFactory.java:93)
+[Host Controller]       at org.jboss.as.host.controller.ServerInventoryImpl.createBootFactory(ServerInventoryImpl.java:629)
+[Host Controller]       at org.jboss.as.host.controller.ServerInventoryImpl.startServer(ServerInventoryImpl.java:200)
+[Host Controller]       at org.jboss.as.host.controller.operations.ServerStartHandler$1.execute(ServerStartHandler.java:110)
+[Host Controller]       at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:728)
+[Host Controller]       at org.jboss.as.controller.AbstractOperationContext.doCompleteStep(AbstractOperationContext.java:563)
+[Host Controller]       at org.jboss.as.controller.AbstractOperationContext.completeStepInternal(AbstractOperationContext.java:336)
+[Host Controller]       at org.jboss.as.controller.AbstractOperationContext.executeOperation(AbstractOperationContext.java:312)
+[Host Controller]       at org.jboss.as.controller.OperationContextImpl.executeOperation(OperationContextImpl.java:1160)
+[Host Controller]       at org.jboss.as.controller.ModelControllerImpl.internalExecute(ModelControllerImpl.java:356)
+[Host Controller]       at org.jboss.as.controller.ModelControllerImpl.execute(ModelControllerImpl.java:215)
+[Host Controller]       at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler.doExecute(ModelControllerClientOperationHandler.java:220)
+[Host Controller]       at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler.access$300(ModelControllerClientOperationHandler.java:147)
+[Host Controller]       at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler$1$1.run(ModelControllerClientOperationHandler.java:169)
+[Host Controller]       at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler$1$1.run(ModelControllerClientOperationHandler.java:165)
+[Host Controller]       at java.security.AccessController.doPrivileged(Native Method)
+[Host Controller]       at javax.security.auth.Subject.doAs(Subject.java:422)
+[Host Controller]       at org.jboss.as.controller.AccessAuditContext.doAs(AccessAuditContext.java:94)
+[Host Controller]       at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler$1.execute(ModelControllerClientOperationHandler.java:165)
+[Host Controller]       at org.jboss.as.protocol.mgmt.AbstractMessageHandler$2$1.doExecute(AbstractMessageHandler.java:298)
+[Host Controller]       at org.jboss.as.protocol.mgmt.AbstractMessageHandler$AsyncTaskRunner.run(AbstractMessageHandler.java:518)
+[Host Controller]       at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[Host Controller]       at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[Host Controller]       at java.lang.Thread.run(Thread.java:745)
+[Host Controller]       at org.jboss.threads.JBossThread.run(JBossThread.java:320)
+[domain@localhost:9990 /] /host=master/server=server-one/subsystem=undertow:stop
+{
+""outcome"" => ""success"",
+""result"" => ""STOPPED""
+}
+[domain@localhost:9990 /] /host=master/server=server-one/subsystem=undertow:kill
+{""outcome"" => ""success""}","org.jboss.as.domain.controller.operations.AbstractOperationTestCase
+org.jboss.as.controller.registry.ConcreteResourceRegistration
+org.jboss.as.controller.registry.DelegatingManagementResourceRegistration
+org.jboss.as.controller.registry.AbstractResourceRegistration
+org.jboss.as.controller.registry.DelegatingImmutableManagementResourceRegistration
+org.jboss.as.controller.registry.ProxyControllerRegistration
+org.jboss.as.controller.registry.ImmutableManagementResourceRegistration
+org.jboss.as.subsystem.test.SubsystemTestDelegate
+org.jboss.as.controller.registry.AliasResourceRegistration
+org.jboss.as.controller.extension.ExtensionRegistry
+org.jboss.as.controller.registry.NodeSubregistry"
+FILE,WFCORE,WFCORE-763,2015-06-16T14:59:39.000-05:00,"Persisting an empty list [] gets read as a list with empty string [""""] resulting in IllegalArgumentException","In short, the default AttributeParser/AttributeMarshaller for list attributes do not handle empty lists in a symmetric fashion.
+persist empty list to xml use default parser/marshaller get back empty list
+Affects at least infinispan aliases and modcluster proxies...
+(20:09:22) rhusar: pferraro: https://gist.github.com/rhusar/5eef22d7a6479f042a5d#file-gistfile1-txt-L23
+(20:09:34) rhusar: pferraro: if i write an empy list, read it back -> empty list
+(20:09:57) rhusar: pferraro: if i use the default writeAttribute, reload, read it back and i have a list of size 1 containing empty String.
+.
+(20:23:23) rhusar: pferraro: alright, this is also ""broken"" in the infiinispan subsystem aliases
+(20:23:24) rhusar: pferraro: 20:22:55,775 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool  40) WFLYCTL0013: Operation (""add"") failed - address: ([
+(20:23:24) rhusar:     (""subsystem"" => ""infinispan""),
+(20:23:24) rhusar:     (""cache-container"" => ""hibernate"")
+(20:23:24) rhusar: ]): java.lang.IllegalArgumentException: Empty name segment is not allowed for infinispan
+(20:23:24) rhusar: 	at org.jboss.msc.service.ServiceName.of(ServiceName.java:90)
+(20:23:24) rhusar: 	at org.jboss.msc.service.ServiceName.append(ServiceName.java:117)
+(20:23:24) rhusar: 	at org.wildfly.clustering.infinispan.spi.service.CacheContainerServiceName$1.getServiceName(CacheContainerServiceName.java:35)
+(20:23:24) rhusar: 	at org.jboss.as.clustering.infinispan.subsystem.CacheContainerBuilder.build(CacheContainerBuilder.java:79)
+(20:23:24) rhusar: 	at org.jboss.as.clustering.infinispan.subsystem.CacheContainerAddHandler.installRuntimeServices(CacheContainerAddHandler.java:165)
+(20:23:24) rhusar: 	at org.jboss.as.clustering.infinispan.subsystem.CacheContainerAddHandler.performRuntime(CacheContainerAddHandler.java:82)
+(20:23:24) rhusar: 	at org.jboss.as.controller.AbstractAddStepHandler.performRuntime(AbstractAddStepHandler.java:309)
+(20:23:24) rhusar: 	at org.jboss.as.controller.AbstractAddStepHandler$1.execute(AbstractAddStepHandler.java:130)
+(20:23:24) rhusar: 	at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:822)
+(20:23:24) rhusar: 	at org.jboss.as.controller.AbstractOperationContext.doCompleteStep(AbstractOperationContext.java:620)
+(20:23:24) rhusar: 	at org.jboss.as.controller.AbstractOperationContext.completeStepInternal(AbstractOperationContext.java:373)
+(20:23:24) rhusar: 	at org.jboss.as.controller.AbstractOperationContext.executeOperation(AbstractOperationContext.java:349)
+(20:23:24) rhusar: 	at org.jboss.as.controller.ParallelBootOperationStepHandler$ParallelBootTask.run(ParallelBootOperationStepHandler.java:359)
+(20:23:24) rhusar: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+(20:23:24) rhusar: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+(20:23:24) rhusar: 	at java.lang.Thread.run(Thread.java:745)
+(20:23:24) rhusar: 	at org.jboss.threads.JBossThread.run(JBossThread.java:320)","org.jboss.as.controller.AttributeParser
+org.jboss.as.controller.SimpleListAttributeDefinitionUnitTestCase"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,Warnings about missing notification descriptions when an operation removes an extension,"use migration operation fill console log with warning messages
+WARN  [org.jboss.as.controller] (management-handler-thread - 1) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [(""subsystem"" => ""jacorb"")]
+This is the same either for jacorb or web or messaging subsystem.
+do sequence of operation
+[standalone@localhost:9999 /] /subsystem=jacorb:migrate()
+{
+""outcome"" => ""success"",
+""result"" => {""migration-warnings"" => []}
+}
+[standalone@localhost:9999 /] /subsystem=messaging:migrate()
+{
+""outcome"" => ""success"",
+""result"" => {""migration-warnings"" => []}
+}
+[standalone@localhost:9999 /] /subsystem=we
+web  webservices  weld
+[standalone@localhost:9999 /] /subsystem=web
+web  webservices
+[standalone@localhost:9999 /] /subsystem=web:migrate()
+{
+""outcome"" => ""success"",
+""result"" => {""migration-warnings"" => []}
+}
+2015-09-24 08:41:09,729 WARN  [org.jboss.as.controller] (management-handler-thread - 1) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [(""subsystem"" => ""jacorb"")]
+2015-09-24 08:43:13,229 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""jms-queue"" => ""DLQ"")
+]
+2015-09-24 08:43:13,230 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""jms-queue"" => ""ExpiryQueue"")
+]
+2015-09-24 08:43:13,230 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""pooled-connection-factory"" => ""hornetq-ra"")
+]
+2015-09-24 08:43:13,230 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""connection-factory"" => ""RemoteConnectionFactory"")
+]
+2015-09-24 08:43:13,231 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""connection-factory"" => ""InVmConnectionFactory"")
+]
+2015-09-24 08:43:13,231 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""address-setting"" => ""#"")
+]
+2015-09-24 08:43:13,231 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""security-setting"" => ""#""),
+(""role"" => ""guest"")
+]
+2015-09-24 08:43:13,232 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""security-setting"" => ""#"")
+]
+2015-09-24 08:43:13,232 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""in-vm-acceptor"" => ""in-vm"")
+]
+2015-09-24 08:43:13,232 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-acceptor"" => ""netty-throughput""),
+(""param"" => ""direct-deliver"")
+]
+2015-09-24 08:43:13,233 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-acceptor"" => ""netty-throughput""),
+(""param"" => ""batch-delay"")
+]
+2015-09-24 08:43:13,233 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-acceptor"" => ""netty-throughput"")
+]
+2015-09-24 08:43:13,233 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-acceptor"" => ""netty"")
+]
+2015-09-24 08:43:13,234 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""in-vm-connector"" => ""in-vm"")
+]
+2015-09-24 08:43:13,234 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-connector"" => ""netty-throughput""),
+(""param"" => ""batch-delay"")
+]
+2015-09-24 08:43:13,234 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-connector"" => ""netty-throughput"")
+]
+2015-09-24 08:43:13,235 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default""),
+(""remote-connector"" => ""netty"")
+]
+2015-09-24 08:43:13,235 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""messaging""),
+(""hornetq-server"" => ""default"")
+]
+2015-09-24 08:43:13,235 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [(""subsystem"" => ""messaging"")]
+2015-09-24 08:43:20,957 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""web""),
+(""configuration"" => ""jsp-configuration"")
+]
+2015-09-24 08:43:20,957 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""web""),
+(""configuration"" => ""static-resources"")
+]
+2015-09-24 08:43:20,958 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""web""),
+(""configuration"" => ""container"")
+]
+2015-09-24 08:43:20,958 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""web""),
+(""virtual-server"" => ""default-host"")
+]
+2015-09-24 08:43:20,958 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [
+(""subsystem"" => ""web""),
+(""connector"" => ""http"")
+]
+2015-09-24 08:43:20,959 WARN  [org.jboss.as.controller] (management-handler-thread - 7) WFLYCTL0357: Notification of type resource-removed is not described for the resource at the address [(""subsystem"" => ""web"")]
+not show warnings","org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,Inconsistent read-resource results with host scoped roles,"set up host scop roles follow https://gist.github.com/heiko-braun/0dc810ed04db8739defd
+[domain@localhost:9990 /] /host=*:read-resource{roles=master-monitor}
+{
+""outcome"" => ""success"",
+""result"" => [
+{
+""address"" => [(""host"" => ""master"")],
+""outcome"" => ""success"",
+""result"" => {
+""directory-grouping"" => ""by-server"",
+""domain-controller"" => {""local"" => {}},
+""management-major-version"" => 4,
+""management-micro-version"" => 0,
+""management-minor-version"" => 0,
+""master"" => true,
+""name"" => ""master"",
+""namespaces"" => [],
+""organization"" => undefined,
+""product-name"" => ""WildFly Core"",
+""product-version"" => ""2.0.0.CR6-SNAPSHOT"",
+""release-codename"" => ""Kenny"",
+""release-version"" => ""2.0.0.CR6-SNAPSHOT"",
+""schema-locations"" => [],
+""core-service"" => {
+""host-environment"" => undefined,
+""platform-mbean"" => undefined,
+""management"" => undefined,
+""discovery-options"" => undefined,
+""ignored-resources"" => undefined,
+""patching"" => undefined,
+""module-loading"" => undefined
+},
+""extension"" => {""org.jboss.as.jmx"" => undefined},
+""interface"" => {
+""management"" => undefined,
+""public"" => undefined,
+""unsecure"" => undefined
+},
+""jvm"" => {""default"" => undefined},
+""path"" => undefined,
+""server"" => {
+""server-one"" => undefined,
+""server-two"" => undefined,
+""server-three"" => undefined
+},
+""server-config"" => {
+""server-one"" => undefined,
+""server-two"" => undefined,
+""server-three"" => undefined
+},
+""socket-binding-group"" => undefined,
+""subsystem"" => {""jmx"" => undefined},
+""system-property"" => undefined
+}
+},
+{
+""address"" => [(""host"" => ""localhost"")],
+""outcome"" => ""success"",
+""result"" => undefined
+}
+]
+}
+[domain@localhost:9990 /] /host=*:read-resource{roles=slave-maintainer}
+{
+""outcome"" => ""success"",
+""result"" => [{
+""address"" => [(""host"" => ""localhost"")],
+""outcome"" => ""success"",
+""result"" => undefined
+}],
+""response-headers"" => {""access-control"" => [{
+""absolute-address"" => [],
+""relative-address"" => [],
+""filtered-children-types"" => [""host""]
+}]}
+The same output on master with WFCORE-994 applied:
+[domain@localhost:9990 /] /host=*:read-resource{roles=slave-maintainer}
+{
+""outcome"" => ""success"",
+""result"" => [{
+""address"" => [(""host"" => ""slave"")],
+""outcome"" => ""success"",
+""result"" => {
+""directory-grouping"" => ""by-server"",
+""domain-controller"" => {""remote"" => {
+""protocol"" => undefined,
+""port"" => undefined,
+""host"" => undefined,
+""username"" => undefined,
+""ignore-unused-configuration"" => undefined,
+""admin-only-policy"" => undefined,
+""security-realm"" => ""ManagementRealm""
+}},
+""management-major-version"" => 4,
+""management-micro-version"" => 0,
+""management-minor-version"" => 0,
+""master"" => false,
+""name"" => ""slave"",
+""namespaces"" => [],
+""organization"" => undefined,
+""product-name"" => undefined,
+""product-version"" => undefined,
+""release-codename"" => ""Kenny"",
+""release-version"" => ""2.0.0.CR6-SNAPSHOT"",
+""schema-locations"" => [],
+""core-service"" => {
+""host-environment"" => undefined,
+""platform-mbean"" => undefined,
+""management"" => undefined,
+""discovery-options"" => undefined,
+""ignored-resources"" => undefined,
+""patching"" => undefined,
+""module-loading"" => undefined
+},
+""extension"" => {""org.jboss.as.jmx"" => undefined},
+""interface"" => {
+""management"" => undefined,
+""public"" => undefined,
+""unsecure"" => undefined
+},
+""jvm"" => {""default"" => undefined},
+""path"" => undefined,
+""server"" => {
+""server-one"" => undefined,
+""server-two"" => undefined
+},
+""server-config"" => {
+""server-one"" => undefined,
+""server-two"" => undefined
+},
+""socket-binding-group"" => undefined,
+""subsystem"" => {""jmx"" => undefined},
+""system-property"" => undefined
+}
+}],
+""response-headers"" => {""access-control"" => [{
+""absolute-address"" => [],
+""relative-address"" => [],
+""filtered-children-types"" => [""host""]
+}]}
+}
+behave as slave-maintainer","org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1062,2015-10-20T09:33:46.000-05:00,Deployments from the domain/data/content folder goes missing after few minutes if the Host controller is started with --backup option.,"Version-Release number of selected component (if applicable): 6.4.
+x
+How reproducible:
+Steps to Reproduce:
+deploy application use cli admin console
+.
+/jboss-cli.sh --connect --controller=x.x.x.x:9999 --command='deploy /PathToApp/App.
+war --server-groups=main-server-group'
+wait for minutes
+++++++++++++++
+[Host Controller] 14:20:40,439 INFO  [org.jboss.as.repository] (Host Controller Service Threads - 4) JBAS014903: Content /NotBackedUp/JAR-Folder/EAPs/EAP6/jboss-eap-6.4.3-Patched/domain/data/content/47/1108a27fa1b82e6a92fb56ee25bc76f2625249 is obsolete and will be removed
+[Host Controller] 14:20:40,440 INFO  [org.jboss.as.repository] (Host Controller Service Threads - 4) JBAS014901: Content removed from location /NotBackedUp/JAR-Folder/EAPs/EAP6/jboss-eap-6.4.3-Patched/domain/data/content/47/1108a27fa1b82e6a92fb56ee25bc76f2625249/content
+++++++++++++++
+restart Host controller restore deployment after restarting see cached deployment under domain/data/content folder
+never remove cached deplpyments folder from domain/data/content folder
+Additional info: This does not affect the availability of the application since the applications are also availbale with the assigned server's under their data/content folder.","org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.controller.persistence.FilePersistenceUtils
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.server.deployment.ContentCleanerService"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,Saved rollout-plan 'name' or 'id' attribute discrepancy,"use rollout plans for EAP deployment scenarios create own named rollout-plan for ease
+apply rollout command refer with name
+There is minor discrepancy in the way I create and use such rollout plan though.
+use command
+rollout-plan add --name=my-rollout-plan --content={rollout main-server-group(rolling-to-servers=false,max-failed-servers=1),other-server-group(rolling-to-servers=true,max-failure-percentage=20) rollback-across-groups=true}
+use following command
+deploy /path/to/test-application.
+war --all-server-groups --headers={rollout id=my-rollout-plan}
+use in aforementioned commands
+Note: examples are used from our documentation.
+Note: I do not know whether I am missing something but I was not able to retrieve more info how to use rollout header operation in deploy command directly in CLI.","org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,Better check of names of existing resources when adding '{local|remote-destination-outbound-socket-binding',"have with particular name
+use same name as_of existing socket-binding resource parse configuration
+See:
+create own socket-binding resource perform own socket-binding resource
+/socket-binding-group=standard-sockets/socket-binding=myBinding:add()
+/socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding=myBinding:add(host=localhost,port=8765)
+or
+/socket-binding-group=standard-sockets/local-destination-outbound-socket-binding=myBinding:add(socket-binding-ref=http)
+reload
+17:31:40,447 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-7) WFLYJCA0019: Stopped Driver service with driver-name = h2
+17:31:40,453 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0008: Undertow HTTP listener default suspending
+17:31:40,454 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-8) WFLYUT0007: Undertow HTTP listener default stopped, was bound to 127.0.0.1:8080
+17:31:40,454 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0004: Undertow 1.3.21.Final-redhat-1 stopping
+17:31:40,458 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-7) WFLYMAIL0002: Unbound mail session [java:jboss/mail/Default]
+17:31:40,461 INFO  [org.jboss.as] (MSC service thread 1-5) WFLYSRV0050: JBoss EAP 7.0.0.
+GA (WildFly Core 2.1.2.Final-redhat-1) stopped in 22ms
+17:31:40,461 INFO  [org.jboss.as] (MSC service thread 1-5) WFLYSRV0049: JBoss EAP 7.0.0.
+GA (WildFly Core 2.1.2.Final-redhat-1) starting
+17:31:40,489 ERROR [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0055: Caught exception during boot: org.jboss.as.controller.persistence.ConfigurationPersistenceException: WFLYCTL0085: Failed to parse configuration
+at org.jboss.as.controller.persistence.XmlConfigurationPersister.load(XmlConfigurationPersister.java:131)
+at org.jboss.as.server.ServerService.boot(ServerService.java:356)
+at org.jboss.as.controller.AbstractControllerService$1.run(AbstractControllerService.java:299)
+at java.lang.Thread.run(Thread.java:745)
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[410,9]
+Message: WFLYCTL0042: A socket-binding or a outbound-socket-binding myBinding already declared has already been declared in socket-binding-group standard-sockets
+at org.jboss.as.server.parsing.StandaloneXml_4.
+parseSocketBindingGroup(StandaloneXml_4.java:518)
+at org.jboss.as.server.parsing.StandaloneXml_4.
+readServerElement(StandaloneXml_4.java:254)
+at org.jboss.as.server.parsing.StandaloneXml_4.
+readElement(StandaloneXml_4.java:141)
+at org.jboss.as.server.parsing.StandaloneXml.readElement(StandaloneXml.java:103)
+at org.jboss.as.server.parsing.StandaloneXml.readElement(StandaloneXml.java:49)
+at org.jboss.staxmapper.XMLMapperImpl.processNested(XMLMapperImpl.java:110)
+at org.jboss.staxmapper.XMLMapperImpl.parseDocument(XMLMapperImpl.java:69)
+at org.jboss.as.controller.persistence.XmlConfigurationPersister.load(XmlConfigurationPersister.java:123)
+... 3 more
+17:31:40,490 FATAL [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0056: Server boot has failed in an unrecoverable manner; exiting.
+See previous messages for details.
+17:31:40,491 INFO  [org.jboss.as.server] (Thread-2) WFLYSRV0220: Server shutdown has been requested.
+17:31:40,496 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0050: JBoss EAP 7.0.0.
+GA (WildFly Core 2.1.2.Final-redhat-1) stopped in 3ms
+After this occurs, one needs to fix .
+/standalone/configuration/standalone.xml manually by removing duplicate resources.
+have same names check names during add operation regard in socket-binding { remote | local } regard to resources
+Note: not sure whether CLI component is appropriate, please change if there is better component for this.","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,Whitespaces are not removed from dependencies in module add command,"run module add for running result in following dependencies
+{{
+...
+<dependencies>
+<module name=""org.a""/>
+<module name="" org.b ""/>
+</dependencies>
+...
+}}
+lead whitespaces trail whitespaces strip module name in dependencies strip module name of leading strip module name of trailing","org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,Tab completion suggest writing attribute which has access type metric and is not writable,"/subsystem=messaging-activemq/server=default/jms-queue=DLQ:write-attribute(name=<TAB>
+consumer-count  delivering-count  entries  legacy-entries  message-count  messages-added  scheduled-count
+From executing :read-resource-description we can see, attributes consumer-count, delivering-count, message-count, messages-added, scheduled-count are of type metric.
+write metric attribute for example message-count print non writable error on attempt
+[standalone@localhost:9990 jms-queue=q] :write-attribute(name=message-count, value=5)
+{
+""outcome"" => ""failed"",
+""failure-description"" => ""WFLYCTL0048: Attribute message-count is not writable"",
+""rolled-back"" => true
+}
+write attributes","org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+METHOD,eclipse-2.0,19686,2002-06-07T16:42:00.000-05:00,hover help stops working after mousing over end of file,"From Stable F2 Build
+In a java file in Java Editor.
+move mouse to whitespace
+.
+like the lower-right-most region of the java file.
+expect hover help mouse over text
+I tried 
+toggling the hover help button on/off/on, switching to other editors then back, 
+none of those methods seem to bring the hoverhelp back on.
+I need to close and 
+reopen the file to get hover help back.",org.eclipse.jface.text.TextViewerHoverManager:computeInformation()
+METHOD,eclipse-2.0,19976,2002-06-11T22:25:00.000-05:00,Dav: Choosing not to add a bad site should let user modify site properties,"add new site with bogus url add new site in Site explorer
+inform at present hitting inform of error
+This could be argued as being a feature if, for example, you weren't connected 
+to the internet at that time.
+We should do as we do with CVS and offer to keep 
+or not.",org.eclipse.team.internal.webdav.ui.WebDavConfigurationWizard:performFinish()
+METHOD,eclipse-2.0,23140,2002-09-04T01:34:00.000-05:00,"[CVS EXTSSH] vulnerable to man in the middle attacks (dns poisoning, etc_","Tested on Linux gtk2 and Mac OS X and 10.2 Carbon - Iall other versions are vulnerable 
+as they use shared codebase and is implementation.
+Description of the problem:
+Eclipse ships with a pure java based ssh1 client for use with cvs.
+This
+is enabled by selecting extssh as the method of authentication to a cvs
+repository.
+The client supplied is an SSH1 client and only supports
+password authentication - users can use standard ext method for public
+key authentication with a suitable ssh-agent (pagent, openssh, etc).
+This enables an attacker who can poison the name resolution of
+the eclipse client to potentially steal passwords through a modified ssh
+daemon on a server under there control.
+Steps to Reproduce:
+access to external cvs repository
+point to ssh server
+open eclipse choose eclipse browse repository from cvs
+sshd[1234]: Failed none for illegal user notme from xxx.xxx.xxx.xxx
+port xxxx
+sshd[1234]: Failed password for illegal user notme from xxx.xxx.xxx.xxx
+port xxxx
+In  your log (/var/log/auth.
+log in the case of Mandrake)
+get prompt saying key
+A malicious user could gain access to valuable accounts
+Workaround:
+Use an ssh2 client with public keys with the ext method.","org.eclipse.team.internal.ccvs.ssh.Client:connect(IProgressMonitor)
+org.eclipse.team.internal.ccvs.ssh.Client:send_SSH_CMSG_SESSION_KEY(byte[], byte[], byte[], byte[], byte[], byte[])
+org.eclipse.team.internal.ccvs.ssh.Client:receive_SSH_SMSG_PUBLIC_KEY(ServerPacket)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,[resources] UnifiedTree should ensure file/folder exists,"Build: I20030211 using natives (Linux/Windows)
+execute refresh operations appear to user
+find file at first moment find file in file system assume file at first moment assume file in file system create corresponding resource in workspace
+not find folder corresponding at second refresh not find folder corresponding in file system not find folder corresponding to resource remove from workspace
+Bugs that revealed this problem: bug 21217 and bug 13463.","org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"

@@ -1,0 +1,185 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+FILE,DATAMONGO,DATAMONGO-987,2014-07-14T12:01:52.000-05:00,,template dbref mongo mongotemplate problem bug data lazy loading entity parent string child parent child document mongo mongotemplate situation load setters attribute simple accident database getchild getid criteria findone dbref,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.DbRefMappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,,bug catalog spring list product abstractproduct data wrapper code indexes mongo type productwrapper dbbug mongodb declaration agustisanchez github springdatamongodbbug book books list samples attribute books https aware wrapped defining infer,"org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1406,2016-04-04T18:59:49.000-05:00,,bug query getmappedobject object collection string field mapped list callback note java mongotemplate getters mongo entityclass setters status entity preparer objectcallback dbobjectcallback resolution dbobject cursorpreparer cursor dofind disp object preparer,"org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,,bug bug query datamongo jira embeddedobject collection foo findbyembeddedin property list repository method project test spring https object demonstrating attached relate browse embedded find embedded,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,,bug link geonear nearquery geo query method object myobject documents type georesults nearquery distance match max nearquery geo maxdistance point document distance findbytypeandlocationnear type dbobject todbobject mongotemplate location mongo template,org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,,bug string item items assertequals types gettotalelements ids type item repository itemrepository list swords test sword mongo testing findbytypein allids collection pageable elements itemrepository findbyidin type tostring content classrunner runner,"org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,,bug score query answer question questionid desc order object question method approach sort score findbyquestionidorderbyscoredesc database field list string field annotated called attempts find created,org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,,bug point upgrade dbobject work writeinternal type runtime definition comment complex info custom domain converter converttomongotype mapping mappingmongoconverter model mongo recursively call object classes type internal instantiable addcustomtypeifnecessary inferred persisted,"org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+CLASS,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,,nullpointerexception pointer kmeans exception reducer kmeans streamingkmeansreducer streaming set bug streaming reduce null getcentroid reducer option centroid rskm method input clone time fails reduce,core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,,snapcount count zoo server bug keeper snap set zookeeper fails code source snapshot rand error restriction documentation time nextint start validation roll randroll supposed mention add,src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,,Bug test patch avoid black hole bugs apply patch Quoted Matthieu comment patch explicit fold buffer remove expand folds fold level changed Bug set key action chunk event indent update focus,"org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,,bug metadatarepository persistenceunitinfo data meta persistence repository loader getclassloader info manager classloader osgi container context openjpa entities classnotfoundexpcetions appliation loader entitymanagerfactory factory fancymail java persistenceprovider clazzes email unit createcontainerentitymanagerfactory stacktrace,"org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-1928,2011-01-20T17:43:52.000-06:00,,bug valueof string java invocation conversion method status status order orderstatus externalizer getname status persistent factory column rules defect getstatus applying apply optional ordinal selected expected,org.apache.openjpa.meta.FieldMetaData
+METHOD,lang,LANG-552,2009-11-09T12:40:57.000-06:00,,bug org string utils list assertequals junit replaceeach replacement code test stringutils searchlist replacementlist string test values methods pass search stuff documentation pointer expectations outline commons exception apache stringutilstest result,"org.apache.commons.lang3.StringUtils:replaceEach(String, String[], String[], boolean, int)"
+METHOD,lang,LANG-788,2012-02-11T12:36:48.000-06:00,,bug loader org exception forname objectstreamclass desc noformat serialization primitivetype stream resolveclass classnotfoundexception input ioexception utils object java objectinputstream string resolve clone type bug primclasses getname serializationutils sun version http,"org.apache.commons.lang3.SerializationUtils:ClassLoaderAwareObjectInputStream(InputStream, ClassLoader)
+org.apache.commons.lang3.SerializationUtils:resolveClass(ObjectStreamClass)"
+FILE,SWARM,SWARM-863,2016-11-30T14:54:40.000-06:00,,bug testing wfs procrun prunsrv uber windows project swarm version jar https startup field prunmgr github binaries windows commons start bin service module threads exe mvn task clone download wfsw,org.wildfly.swarm.container.runtime.ServerBootstrapImpl
+FILE,eclipse-3.1,78315,2004-11-10T12:53:00.000-06:00,,bug startup tests adapter java plug method platform adapter diffnode getadaptermanager register node registeradapters diff adapters ins editor uiplugin compareuiplugin manager factory loaded open compare compare ensure search registered write,org.eclipse.team.internal.ui.TeamUIPlugin
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,,bug string jpeg files test dir loader majority eclipse org imageloader loader filein image fileout swtexception ibm stack images printstacktrace swt files image trace imageloadertest png test jpg image graphics,"org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,89621,2005-03-30T12:41:00.000-06:00,,bug frame window listener windowadapter awt java proposal list addwindow adapter assist foo code addwindowlistener method behavior event bar select add extend weird occur expect,"org.eclipse.jdt.ui.text.java.CompletionProposalCollector
+org.eclipse.jdt.internal.ui.text.java.ExperimentalResultCollector
+org.eclipse.jdt.internal.ui.text.java.GenericJavaTypeProposal"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,,bug standalone view browserapp app browser browser addstandaloneview view max min change view browser border history layout addview ipage title buttons area ipagelayout layout factory browserperspectivefactory title editor showtitle perspective,"org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,,bug project projects members java description project resources resourcesplugin getworkspace plugin constants container org eclipse iproject workspace icoreconstants manager temp isset progress disk info user gesture description icore eclipse work,"org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,99282,2005-06-09T19:46:00.000-05:00,,bug test runners system println testenumswitch enum enum table thread initializer program times string place thread initialization bea print testenum method args foo length synthetic start initialize main err runnable,"org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding
+org.eclipse.jdt.internal.compiler.codegen.CodeStream"
+CLASS,openjpa-2.2.0,OPENJPA-2163,2012-03-27T15:56:55.000-05:00,,bug manager listener entity lifecycle createentitymanager entitymanager instance cycle behavior scenario spi life listener factory lifecyclelistener factory mylifecyclelistener addlifecyclelistener openjpaentitymanagerspi entitymanagerfactory jpaentity problem open events instances multiple expected registered created,"openjpa-kernel.src.main.java.org.apache.openjpa.conf.OpenJPAConfigurationImpl
+openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.validation.TestValidationMode"
+CLASS,pig-0.11.1,PIG-2767,2012-06-25T09:11:20.000-05:00,,bug field schema pigstorage storage projection pig dereferenced describe script invalid nested exist tuple fails,"src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+test.org.apache.pig.test.TestPigServer"
+CLASS,pig-0.11.1,PIG-3310,2013-05-03T02:59:57.000-05:00,,bug losplit reproduction move outputs issue uids shopid work push lofilter filter tuple uid pushupfilter unit losplitoutput operation optimization input output getschema place losplitoutputs member inp column data shop schema,src.org.apache.pig.newplan.logical.relational.LOSplitOutput
+FILE,DATACMNS,DATACMNS-114,2011-12-19T03:21:41.000-06:00,,bug repository contract custom implementation detectcustomimplementation bean impl suffix abstractrepositoryconfigdefinitionparser repositories contract type context prefix custom implementation contractrepository parser getimplementationclassname config definition contractrepositoryimpl contractrepositorycustom contractrepositoryimpl anothercontractrepositoryimpl contractrepository linux anothercontractrepository entity,org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,,domain strings sources domainclassconverter converter bug empty gracefully class customer manytoone domain javax converter customer order mycomp blocker references issue org notice lang type validation persistence notnull property binding reference,"org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-3024,2007-08-23T05:24:31.000-05:00,,bug machine check base clients test prepared genericpreparedstatement plan baseactivation throughput scalability checkstatementvalidity threads increase activation blocks uptodate statement values validity cpu preparedstatement thread sql layer object time profiler comment,"java.engine.org.apache.derby.impl.store.access.heap.HeapConglomerateFactory
+java.engine.org.apache.derby.impl.store.raw.data.FileContainer
+java.engine.org.apache.derby.impl.store.raw.data.RAFContainer
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.DBInJarTest
+java.engine.org.apache.derby.impl.store.raw.data.TempRAFContainer
+java.engine.org.apache.derby.impl.store.raw.data.InputStreamContainer
+java.engine.org.apache.derby.impl.store.access.btree.index.B2IFactory"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,,statement isolation transaction client set connection bug settransactionisolation prepared regular server network exception network statement networkserver sqlexception system server start ping retries read control reply info sql java customer derby,java.client.org.apache.derby.client.am.Connection
+METHOD,time,88,2013-11-25T19:15:46.000-06:00,,bug hour hourofday datetimefieldtype clockhourofday field work objects day isequal cases year constructor types construct time type equal field array clockhour doesn partials java partials constructed suppose partial merging duplicate,"org.joda.time.Partial:with(DateTimeFieldType, int)"
+FILE,COMPRESS,COMPRESS-273,2014-04-11T04:13:32.000-05:00,,bug org archivers apache instance data couple cases types documentation constructors attachment test data local file zipshort unicodecommentextrafield getlocalfiledatalength extra zip field length unicode argument fields classes number commons comment,"org.apache.commons.compress.archivers.zip.AbstractUnicodeExtraField
+org.apache.commons.compress.archivers.cpio.CpioArchiveEntry
+org.apache.commons.compress.archivers.zip.ExtraFieldUtils
+org.apache.commons.compress.archivers.zip.UnrecognizedExtraField"
+FILE,swt-3.1,104545,2005-07-20T14:21:00.000-05:00,,Bug size empty composites smaller WIDTH HEIGHT constants Widget java changed smaller equal work tests tests Background write RCP app enable cool bar cool bar initially empty pixels size bug cool bar items occur bug RCP application start RCP application open perspective Bug size empty composites smaller set selection create item layout data image child,org.eclipse.swt.widgets.CoolBar
+FILE,swt-3.1,81264,2004-12-15T13:17:00.000-06:00,,bug table settopindex table shell display call top sleep bar set isdisposed swt readanddispatch testcase tableitem bounds problem dispatch gettopindex system item item track loads process scroll settext viewer position,"org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.List
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,,bug string jpeg files test dir loader majority eclipse org imageloader loader filein image fileout swtexception ibm stack images printstacktrace swt files image trace imageloadertest png test jpg image graphics,org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,87460,2005-03-08T21:22:00.000-06:00,,bug text font shell style styles style display caret eclipse org swt screen change layout range styledtext event standard swt isdisposed font normal gettext widget readanddispatch listener length settext string,org.eclipse.swt.custom.StyledText
+FILE,CONFIGURATION,CONFIGURATION-214,2006-05-26T21:35:46.000-05:00,,bug foo bsh apache getlong exception property org configuration conversionexception target number beanshell object conversion commons propertiesconfiguration invocation map propertyconverter properties converter tolong uncaught shell error configuration set setproperty bean,"org.apache.commons.configuration.TestPropertyConverter
+org.apache.commons.configuration.PropertyConverter
+org.apache.commons.configuration.TestBaseConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-481,2012-02-26T20:27:46.000-06:00,,bug abc configuration product configurationat config string configuration properties getconfiguration products desc test commons syntax work variable getstring xml reference file combinedconfig myvar declare combined retrieve,"org.apache.commons.configuration.DefaultConfigurationBuilder
+org.apache.commons.configuration.interpol.ConfigurationInterpolator
+org.apache.commons.configuration.TestDefaultConfigurationBuilder"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,,Bug Lob entity property annotated Lob lazy fetch type table createad created column type oid column read application Hibernate reads OID bytes oid write bytea proper behavior dealing PostgreSQL behavior Hibernate oids Bug set table build property column cascade component foreign,"org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,,bug transactionid transaction number transaction column tran transacionid sql maccno mbranch element transacion fragment order transequencenumber processdate sequence process idea compound mprocdate entity key mtrancde cascade description mtranseqno join fetchtype,"org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+CLASS,pig-0.8.0,PIG-1785,2011-01-04T17:20:28.000-06:00,,Bug code dump code script produce wrong result code load foreach generate flatten txt Expected result Bug input func output eekable ata stream length handle,"src.org.apache.pig.newplan.logical.rules.ImplicitSplitInserter
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+src.org.apache.pig.newplan.optimizer.PlanOptimizer
+src.org.apache.pig.newplan.optimizer.Rule"
+CLASS,pig-0.8.0,PIG-1893,2011-03-10T20:43:13.000-06:00,,Bug code dump code script multiinputcounters WebUI record txt count inputs txt Bug input func output eekable ata stream length handle,"src.org.apache.pig.tools.pigstats.JobStats
+test.org.apache.pig.test.TestPigRunner"
+CLASS,pig-0.8.0,PIG-1912,2011-03-16T16:11:46.000-05:00,,bug comment data shell script file pig output issue caanlkti klyssz hearing csv stni testmany copy reports daw user archives load place message email calc vgjev times directory store ztkvgjevklysszsh,"src.org.apache.pig.backend.hadoop.executionengine.HExecutionEngine
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.relational.LOLoad"
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,,filter front bug plan push bincond logical code storage pigstorage dump referrer badsite hoene url reporting pig script result wrong produce filtered expected,"test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+CLASS,pig-0.8.0,PIG-730,2009-03-24T14:36:45.000-05:00,,schema problem union bag bug load expressions nested combining work storage bin care outlinks syntax target binstorage works turns flatten generate don expect,"src.org.apache.pig.impl.logicalLayer.schema.Schema
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+CLASS,pig-0.8.0,PIG-767,2009-04-15T23:43:29.000-05:00,,bug url contents chararray technicality sound group work udf data urlcontentsf urlcontents urlcontentsg instance storage bin dump bag describe bags binstorage schema script tuple actual observed expected correct assume,"test.org.apache.pig.test.TestNewPlanLogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+test.org.apache.pig.test.TestLogicalPlanMigrationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+test.org.apache.pig.test.TestSchema
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+METHOD,math,MATH-221,2008-08-29T13:31:56.000-05:00,,bug complex comp code println math string org apache java bug prog complex system testprog args commons program test complexformat format res output format numbers method relate multiply equals main,org.apache.commons.math.complex.Complex:equals(Object)
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,,bug integrator test integrator exception derivative derivativeexception ydot derivatives code integratorexception fact size computederivatives finalt getdimension firstorderdifferentialequations dimension order dormandprince dot cases assertequals event lead prince range integration equations setinitialstepsize,"org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+METHOD,math,MATH-280,2009-07-06T21:26:57.000-05:00,,bug distribution factory probability inversecumulativeprobability abstractcontinuousdistribution createnormaldistribution distributionfactory impl works errors normaldistributionimpl getdistributionfactory factory code normaldistribution app normal continuous inverse cumulative normal result fine create extend approx,"org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtils:bracket(UnivariateRealFunction, double, double, double, int)"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,,bug hypergeometricdistribution hypergeometric distribution getpopulationsize prints getnumberofsuccesses sample getsamplesize number commons code math population distribution sample application printf string system returns values getsupportupperbound org successes port getsupportlowerbound integer upper method,org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+FILE,WFCORE,WFCORE-604,2015-03-18T09:19:35.000-05:00,,Bug standalone domaine standalone domaine standalone domaine standalone domaine standalone domaine reproduce steps Fail deploy application jboss cli Find deployment info JBOSS standalone domaine data content standalone xml deployments tag deployment success deploy Find deployment info JBOSS standalone domaine data content deployment info change application remain info deployment created deploy failed removed deploy failed Bug pool bean requires queue attribute service operation thread,"org.jboss.as.host.controller.mgmt.MasterDomainControllerOperationHandlerImpl
+org.jboss.as.server.controller.resources.ServerRootResourceDefinition
+org.jboss.as.host.controller.ManagedServerOperationsFactory
+org.jboss.as.host.controller.DomainModelControllerService
+org.jboss.as.host.controller.RemoteDomainConnectionService
+org.jboss.as.test.shared.ModelParserUtils
+org.jboss.as.server.deployment.DeploymentAddHandler
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentAddHandler
+org.jboss.as.server.logging.ServerLogger
+org.jboss.as.server.deployment.DeploymentRemoveHandler
+org.jboss.as.domain.controller.resources.ServerGroupResourceDefinition
+org.jboss.as.repository.LocalDeploymentFileRepository
+org.jboss.as.domain.controller.operations.ApplyRemoteMasterDomainModelHandler
+org.jboss.as.server.deployment.DeploymentReplaceHandler
+org.jboss.as.domain.controller.resources.DomainRootDefinition
+org.jboss.as.server.deploymentoverlay.DeploymentOverlayContentDefinition
+org.jboss.as.repository.logging.DeploymentRepositoryLogger
+org.jboss.as.domain.controller.operations.deployment.DeploymentFullReplaceHandler
+org.jboss.as.core.model.test.LegacyKernelServicesImpl
+org.jboss.as.subsystem.test.TestModelControllerService
+org.jboss.as.host.controller.HostControllerService
+org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.core.model.test.TestModelControllerService
+org.jboss.as.server.mgmt.domain.RemoteFileRepositoryService
+org.jboss.as.server.deploymentoverlay.DeploymentOverlayContentAdd
+org.jboss.as.server.ApplicationServerService
+org.jboss.as.repository.LocalFileRepository
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentRemoveHandler
+org.jboss.as.management.client.content.ManagedDMRContentTypeAddHandler
+org.jboss.as.server.test.InterfaceManagementUnitTestCase
+org.jboss.as.host.controller.model.host.HostResourceDefinition
+org.jboss.as.server.deployment.DeploymentAddHandlerTestCase
+org.jboss.as.repository.DeploymentFileRepository
+org.jboss.as.domain.controller.operations.deployment.ServerGroupDeploymentReplaceHandler
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.domain.controller.operations.deployment.DeploymentRemoveHandler
+org.jboss.as.management.client.content.ManagedDMRContentTypeResource
+org.jboss.as.host.controller.mgmt.ServerToHostProtocolHandler
+org.jboss.as.server.deployment.DeploymentFullReplaceHandler"
+FILE,WFCORE,WFCORE-815,2015-07-13T07:57:45.000-05:00,,Bug add includes mail add includes mail outcome failed failure description domain failure description WFLYCTL Profile mail defines subsystem mail defined ancestor profile mail Overriding subsystems supported add includes mail add includes mail add hierarchical composition profiles add hierarchical composition fresh EAP errors define wflyctl mail support support overriding subsystems add subsystem profile Bug bean thread requires attribute write service operation set,"org.jboss.as.domain.controller.operations.ProfileIncludesHandlerTestCase
+org.jboss.as.domain.controller.operations.SocketBindingGroupIncludesHandlerTestCase
+org.jboss.as.host.controller.logging.HostControllerLogger"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,,Bug migrate outcome success result migration warnings migrate outcome success result migration warnings migrate outcome success result migration warnings migration operation console log filled warning messages type describe notification type resource removed describe notification resource sequence operation describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource describe notification type resource removed describe notification resource migration operation warnings Bug bean thread requires attribute write service operation set,"org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,,Bug roles master monitor directory grouping server domain controller local org jboss jmx undefined management undefined undefined unsecure undefined undefined jmx undefined roles slave maintainer roles slave maintainer org jboss jmx undefined management undefined undefined unsecure undefined undefined jmx undefined Setting host scoped roles https gist github heiko braun defd inconsistent filtering result address result master address result address result address result slave master monitor behave slave maintainer Bug bean thread requires attribute write service operation set,"org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,,Bug group rolling servers max failed servers group rolling servers max failure percentage rollout rollout plan rollout plans EAP deployment scenarios create named rollout plan ease apply rollout command referring rollout plan create rollout plan create rollout plan create rollout plan command refer command minor issue attributes aforementioned commands unified preferably user confused examples documentation retrieve info rollout header operation CLI rollout header operation deploy command Bug pool bean requires thread write attribute address service,"org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,,Bug remote local add add host localhost port add socket binding http remote local socket binding group standard sockets socket binding create socket binding group standard sockets remote destination outbound socket binding socket binding group standard sockets local destination outbound socket binding existing socket binding resource add operation successful perform server reload crashes parse configuration Start EAP log CLI create socket binding resource remote local destination outbound socket binding resource names perform reload bind INFO org wildfly extension undertow wflyut declare message socket binding group standard sockets fail unrecoverable manner exiting previous messages details remove duplicate resources manually removing problem resources names names checked add operation resources socket binding remote local destination outbound socket binding change Bug pool bean requires thread write attribute address service,"org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,,Bug attribute message count outcome failed failure description WFLYCTL Attribute message count writable rolled execute read resource description type metric executing attempt write metric attribute message count writable error printed CLI writing attributes writable Bug pool bean requires thread write attribute address service,"org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1936,2016-11-04T10:57:06.000-05:00,,Bug description recursive fixed port attribute socket binding fixed source port attributes destination outbound socket binding define description reload restart change attributes informed reload define attributes restart required services Bug pool bean requires thread write attribute address service,"org.jboss.as.server.services.net.OutboundSocketBindingResourceDefinition
+org.jboss.as.controller.resource.AbstractSocketBindingResourceDefinition"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,,folder file resources unified tree unifiedtree bug ensure exists resource system operations getstat user workspace problem stat natives moment bugs refresh removed created assumed appears executing reveal,"org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"

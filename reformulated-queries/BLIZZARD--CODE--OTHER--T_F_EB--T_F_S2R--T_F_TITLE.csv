@@ -1,0 +1,90 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,,click bug grid lines space empty table set selection getlinesvisible behaviour change lines swt snippet setlinesvisible visible follow result expected win,org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,,jpeg bug images produce invalid string test dir loader fileout eclipse org loader imageloader files zip print image swtexception file printstacktrace swt trace image image filein imageloadertest test jpg graphics,org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,,cheese mark bug tree tree shell root display button swt isdisposed string bounds child dispatch note readanddispatch selectionadapter adapter item mark listener widget event addselectionlistener press collapse selection snippet item,"org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,,Bug materialized blobs Postgresql error Lob entity property annotated entity Lob lazy fetch type read OID bytes read OID oid type oid read column application behavior read write bytea oids deal PostgreSQL Bug materialized blobs Postgresql error set test blob factory dialect proxy primitive major,"org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,,bug strings sources empty org javax lang java exception order customer notnull persistence string customers validation domain options references springframework domain select exception type mycomp path data manytoone itemvalue conversionfailedexception,"org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,,isolation transaction connection set statement settransactionisolation bug prepared regular server network sqlexception statement server network ping exception system networkserver control derby java read start apache info executeupdate sql jdbc trace,java.client.org.apache.derby.client.am.Connection
+METHOD,time,28,2013-05-31T00:52:24.000-05:00,,pass gjchronology behaviour bug questionable chronology assertthat getinstance instance local expectedend localdate period illegal illegalfieldvalueexception exception equalto chronology minusyears years field time years year start test existent expected equal joda,"org.joda.time.chrono.GJChronology:getInstance(DateTimeZone, ReadableInstant, int)
+org.joda.time.chrono.GJChronology:add(long, long)
+org.joda.time.chrono.GJChronology:add(long, int)"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,,columns sql bug wrong transaction transactionid column mtranseqno string mprocdate transaction mactdate asc mdesc account number tran processdate mtrancde process mamount maccno big bigdecimal linkedlist mbranch code embeddedid accountnumber cascade,"org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,,Random nextInt SyncRequestProcessor Processor Request run Sync IllegalArgumentException Bug     set snapCount,src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,,Bug fold expantion testing patch problem patch applied avoid black hole bugs problem bug fold buffer remove expand folds Bug fold expantion fold handler content error buffer update registers changed,"org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,,shard router bug collection ranges implicit create add max leader shards replica wiki admin range ffffffff fffffff node http core myimplicitcollection quote url base solr node cloud maxshardspernode solr numshards,solr.core.src.java.org.apache.solr.cloud.Overseer
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,,front bincond push bug filter url code dump badsite hoenes txt storage data referrer goodsite foo pigstorage pig chararray load corbin filter result foreach canonical wrong filtered produce reporting generate,"test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,,Bug ensure resources getStat Build natives Linux Windows execute refresh operations user find file moment find file file system assume file moment assume file file system create resource workspace find folder refresh find folder file system find folder resource remove workspace Bugs revealed problem bug bug Bug ensure resources remote set folder java resource feature log window,"org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,,DataType PriorityQueue compare TOP TupleComparator siftUpUsingComparator updateTop siftUp Data Type TOP Comparator NullPointerException Bug     null in DataType compare,"src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,,work collection bug values dbref property property entity findbypropertyin entityrepository instances scenario findbyproperty repository elements unwrap find convert,"org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,,types bug involve catalog product abstractproduct wrapper code productwrapper spring list declaration type content dbbug attribute array agustisanchez book data list isbn mongo springdatamongodbbug samples github arraylist books holding https,"org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,,property bug collection remove findbyembeddedin list query foo collection test jira bug demo datamongo project embeddedobject spring object embedded https embedded browse find demonstrate attach,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,,documents max matching bug elements query nearquery mongo method object returns distance georesults geo geonear mongotemplate myobject findbytypeandlocationnear myobjecttype distance nearquery geo maxdistance todbobject log link dbobject entities info type,org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,,query pageable bug keyword findbyinid find string item assertequals gettotalelements type ids itemrepository item list types sword repository test findbytypein items mongo elements gettotalpages allids collection testpageableidin type document items,"org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,,field bug field annotation ignore alias question question questionid method desc query annotate order sort object approach list call answer score findbyquestionidorderbyscoredesc score string create find,org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,,type bug objects object write update contradiction complex writeinternal domain info converttomongotype custom mapping model converter mappingmongoconverter recursively mongo point order type classes dbobject method runtime internal instantiable upgrade addcustomtypeifnecessary,"org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,,bug escape render escape org string utils system spring codes difference script java script btw javascriptescape test behavor aaa javascript str apache println apache util lang web parse springframework document,"org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,,integration range bug derivativeexception integrator derivative exception integrator finalt accuracy cases ydot derivatives error location event assertequals computederivatives size event integratorexception firstorderdifferentialequations order dormandprince dimension prince dot getdimension code events,"org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,,integer overflow bug suffer distribution hypergeometric prints hypergeometricdistribution sample commons getsamplesize math size sample upper printf support getnumericalmean getsupportupperbound getnumberofsuccesses system string population successes getpopulationsize getsupportlowerbound values debugger number code,org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,,extension bug remove warn wflyctl org handler jboss subsystem resource management thread controller notification address warnings jacorb connection web hornetq netty server operation connector factory type outcome migration messaging queue,"org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,,roles bug scop release https binding locations subsystem resources maintainer options output path children protocol types jmx headers host kenny property realm heiko management core wild group managementrealm localhost jvm,"org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,,Bug save attribute discrepancy group rolling servers max failed servers group rolling servers max failure percentage rollout rollout plan rollout plans EAP deployment scenarios create named rollout plan ease apply rollout command refer minor discrepancy create rollout plan command rollout plan add rollout plan content rollout main server group rolling servers max failed servers server group rolling servers max failure percentage rollback groups command deploy path test application war server groups headers rollout rollout plan aforementioned commands Note examples documentation Note missing retrieve info rollout header operation deploy command CLI Bug save attribute discrepancy management test bean attribute thread service deployment description,"org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,,XmlConfigurationPersister readElement AbstractControllerService 1 parseDocument processNested StandaloneXml ServerService XMLMapperImpl run Xml load XMLStreamException ConfigurationPersistenceException ParseError Bug     add local   remote destination outbound socket binding,"org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,,Bug add command remove whitespaces dependencies dependencies module org module org dependencies module add running result dependencies dependencies module org module org dependencies lead whitespaces trail whitespaces strip module dependencies strip module leading strip module trailing Bug add command remove whitespaces dependencies list variable group separator prop concurrent sign recognize,"org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,,Bug write attribute access type metric attribute attribute message count outcome failed failure description WFLYCTL Attribute message count writable rolled subsystem messaging activemq server jms queue DLQ write attribute TAB consumer count delivering count entries legacy entries message count messages scheduled count executing read resource description attributes consumer count delivering count message count messages scheduled count type metric write metric attribute message count print writable error attempt standalone localhost jms queue write attribute message count outcome failed failure description WFLYCTL Attribute message count writable rolled write attributes Bug write attribute access type metric attribute attribute resource operation handler queue thread set type,"org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,,Bug produce error constructor enum Natural enum Natural Natural test pass code enum Natural enum actual code enum Natural Natural report wrong modifier type error constructor Bug produce error constructor set compute scroll width handle bar size text,"org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,,jpeg bug images produce invalid string test dir loader fileout eclipse org loader imageloader files zip print image swtexception file printstacktrace swt trace image image filein imageloadertest test jpg graphics,"org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,,Bug assist popup complete imported method java lang Math Steps reproduce java lang Math constrain proposals members Bug assist popup complete imported method accept range content type display annotation java change,"org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,,bug border layout app regression view ipagelayout editor standalone addstandaloneview view browser browserapp layout ipage area addview change browserperspectivefactory factory perspective view history browser regular add build,"org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,,project bug children refresh project description load projects description resourcesplugin members iproject code workspace resources getworkspace temp api folder loadprojectdescription proj iprojectdescription nls plugin constants isset manager info icoreconstants getroot,"org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,,BeanRecipe BlueprintContainerImpl getInstance instantiateEagerComponents internalCreate BlueprintRepository Executors RunnableAdapter createInstances create AbstractRecipe Recipe ComponentDefinitionException PrivilegedActionException Error ArgumentException ClassNotFoundException Bug     ignore class loader,"org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"

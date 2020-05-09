@@ -1,0 +1,1569 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+CLASS,pig-0.11.1,PIG-3310,2013-05-03T02:59:57.000-05:00,"ImplicitSplitInserter does not generate new uids for nested schema fields, leading to miscomputations","{code}
+     
+    
+        
+        
+    
+           as shop;
+
+EXPLAIN K;
+DUMP K;
+{code}
+
+ 
+ {code}
+ 
+ {code}
+
+ 
+ {code}
+ 
+ {code}
+ 
+        
+      
+  
+ {code}
+                  
+              
+              
+              
+              
+              
+ {code}
+
+ 
+ {code}
+                   
+  
+  
+ {code}
+
+     
+ LOSplitOutput.getSchema()
+consider following example
+inp AS
+j by shopId
+provide minimal reproduction case
+This will give a wrongful output like .
+.
+{code}
+(1 1001,1001)
+(1 1002,1002)
+(1 1002,1002)
+(1 1002,1002)
+{code}
+The second column should be a member id so (1,2,3,4,5).
+move LOFilter operation before join be in initial case fail at place fail because_of PushUpFilter optimization work on tuple
+create LOSplitOutputs reset schema regenerate uids for fields
+get new uid
+have same uid have join looks
+get separate uids
+recurse on nested schema fields
+have light understanding
+reproduce issue
+run unit tests with fix
+like wrong way fix issue",src.org.apache.pig.newplan.logical.relational.LOSplitOutput
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,DomainClassConverter should gracefully return null for null sources or empty strings,"@javax.validation.constraints.NotNull  @javax.persistence.ManyToOne
+notice important issue relate to automatic web binding
+imagine use case have Order domain class have ManyToOne reference to customer have Order domain class to customer
+When posting a new Order where Order.customer == """" then a converter exception is thrown:
+convert property value of type java.lang.String convert property value to required type org.mycomp.domain.Customer convert from type java.lang.String convert to type @javax
+I think it should not try to convert to Domain class if id is null or empty.
+cause complete blocker for optional references","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,Client should use a prepared statement rather than regular statement for Connection.setTransactionIsolation,"client.am.Connection setTransactionIsolation()   setTransactionIsolation()   
+ private Statement setTransactionIsolationStmt = null;
+ 
+  
+ createStatementX(java.sql.ResultSet.TYPE_FORWARD_ONLY,
+                            java.sql.ResultSet.CONCUR_READ_ONLY,
+                            holdability());
+ 
+ private void setTransactionIsolationX(int level)
+ 
+ setTransactionIsolationStmt.executeUpdate(
+                ""SET CURRENT ISOLATION = "" + levelString);
+
+
+ 
+   
+
+import java.sql.*;
+import java.net.*;
+import java.io.*;
+import org.apache.derby.drda.NetworkServerControl;
+
+/**
+ * Client template starts its own NetworkServer and runs some SQL against it.
+ * The SQL or JDBC API calls can be modified to reproduce issues
+ * 
+ */public class SetTransactionIsolation {
+    public static Statement s;
+    
+    public static void main(String[] args) throws Exception {
+        try {
+            // Load the driver. Not needed for network server.
+            
+            Class.forName(""org.apache.derby.jdbc.ClientDriver"");
+            // Start Network Server
+            startNetworkServer();
+            // If connecting to a customer database. Change the URL
+            Connection conn = DriverManager
+                    .getConnection(""jdbc:derby://localhost:1527/wombat;create=true"");
+            // clean up from a previous run
+            s = conn.createStatement();
+            try {
+                s.executeUpdate(""DROP TABLE T"");
+            } catch (SQLException se) {
+                if (!se.getSQLState().equals(""42Y55""))
+                    throw se;
+            }
+
+            for (int i = 0; i < 50000; i++) {
+		conn.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+		conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+
+	    }
+            
+            // rs.close();
+            // ps.close();
+            runtimeInfo();
+            conn.close();
+            // Shutdown the server
+            shutdownServer();
+        } catch (SQLException se) {
+            while (se != null) {
+                System.out.println(""SQLState="" + se.getSQLState()
+                        + se.getMessage());
+                se.printStackTrace();
+                se = se.getNextException();
+            }
+        }
+    }
+    
+    /**
+     * starts the Network server
+     * 
+     */
+    public static void startNetworkServer() throws SQLException {
+        Exception failException = null;
+        try {
+            
+            NetworkServerControl networkServer = new NetworkServerControl(
+                    InetAddress.getByName(""localhost""), 1527);
+            
+            networkServer.start(new PrintWriter(System.out));
+            
+            // Wait for the network server to start
+            boolean started = false;
+            int retries = 10; // Max retries = max seconds to wait
+            
+            while (!started && retries > 0) {
+                try {
+                    // Sleep 1 second and then ping the network server
+                    Thread.sleep(1000);
+                    networkServer.ping();
+                    
+                    // If ping does not throw an exception the server has
+                    // started
+                    started = true;
+                } catch (Exception e) {
+                    retries--;
+                    failException = e;
+                }
+                
+            }
+            
+            // Check if we got a reply on ping
+            if (!started) {
+                throw failException;
+            }
+        } catch (Exception e) {
+            SQLException se = new SQLException(""Error starting network  server"");
+            se.initCause(failException);
+            throw se;
+        }
+    }
+    
+    public static void shutdownServer() throws Exception {
+        NetworkServerControl networkServer = new NetworkServerControl(
+                InetAddress.getByName(""localhost""), 1527);
+        networkServer.shutdown();
+    }
+    
+    public static void runtimeInfo() throws Exception {
+        NetworkServerControl networkServer = new NetworkServerControl(
+                InetAddress.getByName(""localhost""), 1527);
+        System.out.println(networkServer.getRuntimeInfo());
+    }
+    
+}
+build up time for setTransactionIsolation() build up Statement for setTransactionIsolation()
+It would be better for performance and also for avoid possible garbage collection issues, to have a single prepared statement with a parameter marker.
+show repeated calls to setTransactionIsolation
+import java.sql.
+start own NetworkServer run SQL
+reproduce issues
+throw Exception {
+try {
+start Network server
+connect to customer database
+clean up from previous run
+try {
+start Network server
+throw SQLException {
+try {
+start retries
+try {
+sleep second ping network server
+not throw exception
+start = true
+get reply on ping
+throw failexception
+throw Exception {
+throw Exception {",java.client.org.apache.derby.client.am.Connection
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,ORderBy with @ElementJoinColumn and EmbeddedId uses wrong columns in SQL,"@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@ElementJoinColumn(name=""maccno"", referencedColumnName=""maccno"")
+	@OrderBy(value = ""_id._processDate ASC, _id._tranSequenceNumber ASC"")
+	private LinkedList<Transaction> _transactions;
+
+
+
+      
+ @EmbeddedId
+	private TransactionId _id;
+	
+	 @Column(name = ""mtrancde"")
+	private int _transactionCode;
+	
+	 @Column(name = ""mamount"")
+	private BigDecimal _amount;
+	
+	 @Column(name = ""mdesc"")
+	private String _description;
+	
+
+
+	 @Column(name = ""mactdate"")
+	private Date _actualDate;
+	
+	 @Column(name = ""mbranch"")
+	private int _branch;
+
+
+
+   
+ @Embeddable
+public class TransactionId  
+ @Column(name = ""maccno"")
+	private String _accountNumber;
+	
+	 @Column(name = ""mprocdate"")
+	private Date _processDate;
+	
+	 @Column(name = ""mtranseqno"")
+	private int _tranSequenceNumber;
+have compound key
+The problem is that the order by in the generated SQL is for columns mapped in the transaction entity NOT the TransacionId as expected.
+have following fragment ....
+define _ processDate in TransactionId class define _ tranSequenceNumber in TransactionId class
+have following fragment ....
+define primary key columns ....
+However the generated SQL is doing order by on columns mapped in Transaction:
+execute prepstmnt SELECT t0.maccno
+(no idea why it chose mamount, mbranch)
+The last line should be:","org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+CLASS,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,StreamingKMeansReducer throws NullPointerException when REDUCE_STREAMING_KMEANS is set to true,"return input.getCentroid();  
+ input.getCentroid()  clone();
+when REDUCE_STREAMING_KMEANS option is set to true (-rskm) the reducer fails with NullPointerException.
+reduce method on line
+it should be input.getCentroid().
+clone();
+full stack trace:
+happen time set REDUCE_STREAMING_KMEANS to true set time to true",core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,ZooKeeper Server fails if snapCount is set to 1,"int randRoll = r.nextInt(snapCount/2);
+{code}
+If snapCount is set to 1, ZooKeeper Server can start but it fails with the below error:
+In source code,  it maybe be supposed that snapCount must be 2 or more:
+take snapshot at same time
+mention restriction in documentation add validation in source code",src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,Unnecesarry fold expantion when folded lines are edited,"{\{\{ hello
+
+something
+
+\}
+test patch
+avoid serious black hole bugs apply patch
+fold with buffer
+all folds are folded.
+remove l
+I
+think it should not expand folds since the fold level
+is not changed.","org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,"package com.ibm.test.image;
+
+import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.*;
+
+public class ImageLoaderTest {
+		
+	public static void main(String[] args) {
+		ImageLoader loader;
+		String dir=""c:\\image-problems\\"";
+		String files[]={
+				""s34i3p04"",
+				""s34n3p04"",
+				""s35i3p04"",
+				""s35n3p04"",
+				""s36i3p04"",
+				""s36n3p04"",
+				""s37i3p04"",
+				""s37n3p04"",
+				""s38i3p04"",
+				""s38n3p04"",
+				""s39i3p04"",
+				""s39n3p04""
+		};
+		
+		try {
+			for (int i=0; i<files.length; i++) {
+			String filein  = dir+files[i]+"".png"";
+			String fileout = dir+files[i]+"".jpg"";
+			
+			loader = new ImageLoader();
+			loader.load(filein);
+			loader.save(fileout,SWT.IMAGE_JPEG);
+			}
+		} catch (SWTException e) {
+		  e.printStackTrace();
+		}
+	}
+}
+The ImageLoader Save function appears to be producing bad JPG images.
+test as JPEG
+Many files were tested and the majority 
+ did produced the proper JPG images as expected.
+contain files not save files to JPEG
+package com.ibm.test.image;
+import org.eclipse.swt.
+try { for { string filein = dir + files [ i ] +",org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,Updating an object does not write type information for objects to be updated,"MappingMongoConverter.writeInternal(...)   addCustomTypeIfNecessary(...)     convertToMongoType(...)   removeTypeInfoRecursively(...)
+use complex domain model consist complex domain model of instantiable domain classes
+I used 1.0.0.
+M5 version, and the type information (under _class key) was stored with object when it was necessary to be able to read it from database later.
+work till upgrade work to 1.0.0
+RELEASE version that broke my application as it saves the objects without type information and later it is impossible to read it back to java model.
+What I found is that MappingMongoConverter.writeInternal(...) method that in turn calls addCustomTypeIfNecessary(...) (line 330) which puts type information into DBObject.
+During execution of convertToMongoType(...) (at line 851) removeTypeInfoRecursively(...) is called which clears type data saved earlier under _class key.
+comment out call
+save type information to DBObject
+The second point is that there should be a way to persist the type information inferred from runtime along the persisted object and not just the class definition.","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,"Using ""OrderBy"" in ""query by method name"" ignores the @Field annotation for field alias.","@Field(""sr"")
+ 
+ List<Answer> findByQuestionIdOrderByScoreDesc(String questionId)
+create method use query approach
+have field inside Answer object call score annotate score
+int score
+When the query is run, the database attempts to sort the results by ""score"" rather than my ""sr"" field name.",org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-987,2014-07-14T12:01:52.000-05:00,get data use MongoTemplate problem with lazy loading,"@Document 
+ @Document
+
+
+
+
+class Parent {
+
+
+
+
+     @Id
+
+
+
+
+     private String id;
+
+
+
+
+     private String name;
+
+
+
+
+     @DBref(lazy=true)
+
+
+
+
+     private Child child;
+
+
+
+
+
+
+
+
+
+    // getters and setters ommited
+
+
+
+
+}
+
+
+
+
+
+
+ 
+ @Document
+
+
+
+
+class Child {
+
+
+
+
+      @Id
+
+
+
+
+       private String id;
+
+
+
+
+       private String name;
+
+
+
+
+      //getters and setters ommited
+
+
+
+
+}
+
+
+
+
+
+
+ 
+ Parent parent = new Parent();
+
+
+
+
+parent.setName(""Daddy"");
+
+
+
+
+mongoTemplate.save(parent); //ok, it is persisted like we expected.
+
+
+
+
+// Than we try to load this same entity from the database
+
+
+
+
+Criteria criteria = Criteria.where(""_id"").is(parent.getId());
+
+
+
+
+Parent persisted = mongoTemplate.findOne(new Query(criteria), Parent.class);
+
+
+
+
+// The child attribute should be null, right?
+
+
+
+
+assertNull(persisted.getChild()); // it fails
+call Parent call child reference on entity class
+and Child class
+The following situation should never happen:
+mongoTemplate.save(parent); //ok, it is persisted like we expected.
+load same entity from database
+// The child attribute should be null, right?
+assertNull(persisted.getChild()); // it fails
+bring lot of problems persist same entity by accident
+I attached a project with the JUnit test which reproduces the problem for you.","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.DbRefMappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,"@Query $in does not remove ""_class"" property on collection of embedded objects","@Query(value = ""{ embedded : { $in : ?0} }"")
+
+
+
+
+	List<Foo> findByEmbeddedIn2(Collection<EmbeddedObject> c)
+generates incorrect query.
+Query should be without _class property e.g.:
+attach test project demonstrate bug
+relate bug to https://jira.spring.io/browse/DATAMONGO-893","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,"geoNear, does not return all matching elements, it returns only a max of 100 documents","public GeoResults<MyObject> findByTypeAndLocationNear(MyObjectType type, Point p, Distance distance) {
+
+
+
+
+   final NearQuery nearQuery = NearQuery.near(p).maxDistance(distance);
+
+
+
+
+   log.info(""{}"",nearQuery.toDBObject());
+
+
+
+
+   return mongoTemplate.geoNear(nearQuery, MyObject.class);
+
+
+
+
+}
+
+
+
+
+
+
+   
+ {@link GeoResults}   {@link NearQuery}
+have following query
+document geoNear method
+return { @link georesults } for matching match given { @link nearquery }
+I expect 1000 ""matching"" documents But i only get 100.
+There is some default being set, that restricts the result to 100.
+state in method
+have pageable",org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,keyword query findByInId with pageable,"getTotalElements()   getTotalPages()  
+ @Document
+
+
+
+
+public class Item {
+
+
+
+
+
+
+
+
+
+    @Id
+
+
+
+
+    private String id;
+
+
+
+
+    private String type;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ public interface ItemRepository extends MongoRepository<Item, String> {
+
+
+
+
+
+
+
+
+
+    Page<Item> findByIdIn(Collection ids, Pageable pageable);
+
+
+
+
+    Page<Item> findByTypeIn(Collection types, Pageable pageable);
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ @RunWith(SpringJUnit4ClassRunner.class)
+
+
+
+
+@ContextConfiguration(classes = {MongoDbConfig.class})
+
+
+
+
+@TransactionConfiguration(defaultRollback = false)
+
+
+
+
+public class TestPageableIdIn {
+
+
+
+
+
+
+
+
+
+    @Autowired
+
+
+
+
+    private ItemRepository itemRepository;
+
+
+
+
+    
+
+
+
+
+    private List<String> allIds = new LinkedList<>();
+
+
+
+
+
+
+
+
+
+    @Before
+
+
+
+
+    public void setUp() {
+
+
+
+
+        itemRepository.deleteAll();
+
+
+
+
+        String[] types = {""SWORD"", ""SHIELD"", ""ARMOUR""};
+
+
+
+
+
+
+
+
+
+        // 10 items per type
+
+
+
+
+        for (String type : types) {
+
+
+
+
+            for (int i = 0; i < 10; i++) {
+
+
+
+
+                String id = UUID.randomUUID().toString();
+
+
+
+
+                allIds.add(id);
+
+
+
+
+                itemRepository.save(new Item(id, type));
+
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    @Test
+
+
+
+
+    public void testPageableIdIn() {
+
+
+
+
+        
+
+
+
+
+        Pageable pageable = new PageRequest(0, 5);
+
+
+
+
+        
+
+
+
+
+        // expect 5 Items returned, total of 10 Items(SWORDS) in 2 Pages
+
+
+
+
+        Page<Item> results = itemRepository.findByTypeIn(Arrays.asList(""SWORD""), pageable);
+
+
+
+
+        Assert.assertEquals(5, results.getContent().size());
+
+
+
+
+        Assert.assertEquals(10, results.getTotalElements());
+
+
+
+
+        Assert.assertEquals(2, results.getTotalPages());
+
+
+
+
+        
+
+
+
+
+        // expect 5 Items returned, total of 30 Items in 6 Pages
+
+
+
+
+        results = itemRepository.findByIdIn(allIds, pageable);
+
+
+
+
+        Assert.assertEquals(5, results.getContent().size());
+
+
+
+
+        Assert.assertEquals(30, results.getTotalElements()); // this is returning 0
+
+
+
+
+        Assert.assertEquals(6, results.getTotalPages());     // this is returning 0
+
+
+
+
+    }
+
+
+
+
+}
+use with identifiers make query pageable
+The query returns results but getTotalElements() and getTotalPages() always returns 0.
+Also when you try to get any other page than 0, no results return.
+use with member
+use for testing
+create types in total create types per types create items in total create items per types
+// expect 5 Items returned, total of 10 Items(SWORDS) in 2 Pages
+// expect 5 Items returned, total of 30 Items in 6 Pages
+Assert.assertEquals(30, results.getTotalElements()); // this is returning 0
+Assert.assertEquals(6, results.getTotalPages());     // this is returning 0","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,involve generic types,"class Book  
+ class AbstractProduct  
+ class ProductWrapper    
+ class Catalog
+When an association between documents involves generic types, the type information is not correctly inferred at startup time resulting in missing indexes.
+see https://github.com/agustisanchez/SpringDataMongoDBBug for code samples
+attribute super class AbstractProduct with index
+define class Catalog with list
+The index ""name"" inherited from AbstractProduct is created (book2.content.name) inside ""catalog"" , but the index defined on the Book class itself (isbn) is not created as Spring Data Mongo is only inferring type infromation from the ProductWrapper class definition (ProductWrapper <T extends AbstractProduct>).
+Spring Data MongoDB should be able to infer type information from the list declaration ( List<ProductWrapper<Book>> ), becoming aware that Catalog contains a list of Books, hence indexes defined on Book should be created.
+If the wrapper class is defined as ProductWrapper<T>, then no indexes are created at all on Catalog.books2.content.","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1406,2016-04-04T18:59:49.000-05:00,Query mapper does not use @Field field name when querying nested fields in combination with nested keywords,";
+
+
+
+
+
+
+@Document(collection = ""Computer"")
+
+
+
+
+public class Computer
+
+
+
+
+{
+
+
+
+
+   @Id
+
+
+
+
+   private String _id;
+
+
+
+
+
+
+
+
+
+   private String batchId;
+
+
+
+
+
+
+
+
+
+  @Field(""stat"")
+
+
+
+
+   private String status;
+
+
+
+
+
+
+
+
+
+   @Field(""disp"")
+
+
+
+
+   private List<Monitor> displays;
+
+
+
+
+
+
+
+
+
+   //setters and getters
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+public class Monitor {
+
+
+
+
+   @Field(""res"")
+
+
+
+
+   private String resolution;
+
+
+
+
+
+
+
+
+
+  // setters/getters
+
+
+
+
+}
+
+
+
+
+
+
+   
+ protected <S, T> List<T> doFind(String collectionName, DBObject query, DBObject fields, Class<S> entityClass,
+
+
+
+
+			CursorPreparer preparer, DbObjectCallback<T> objectCallback)
+
+
+
+
+
+
+
+
+
+ DBObject mappedQuery = queryMapper.getMappedObject(query, entity);
+
+
+
+
+
+
+  @Field   
+  
+  
+ 
+  
+  @Field
+have document class
+call in MongoTemplate.java
+protect <s, t> List<T>
+resolves the fields to the input query to the ones in the @Field annotations, except for these in embedded arrays.
+So, in the example above, resolution fields in DBObject remains resolution.
+While, the status field resolves to stat.
+note queries in inner list
+submit to mongo
+Which doesn't get any data, because there is no field called resolution (the field in mongo is res).
+note query input to getMappedObject
+Notice the status and displays fields correctly get converted to the value in the @Field annotation.
+The correct query from getMappedObject should be:
+This basically means that any queries that operate on fields (with a name different from the peristed name) in the inner list will fail.","org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+CLASS,pig-0.8.0,PIG-730,2009-03-24T14:36:45.000-05:00,"problem combining schema from a union of several LOAD expressions, with a nested bag inside the schema.","flatten(outlinks.target);
+  flatten(outlinks.target);
+use BinStorage as } ) generate flatten(outlinks.target)
+---> Would expect both C and D to work, but only C works.
+D gives the error shown below.
+---> Turns out using outlinks.t.target (instead of outlinks.target) works for D but not for C.
+---> I don't care which one, but the same syntax should work for both!","src.org.apache.pig.impl.logicalLayer.schema.Schema
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,use materialized blobs with Postgresql cause error,"@Lob
+I have entity with byte[] property annotated as @Lob and lazy fetch type, when table is createad the created column is of type oid, but when the column is read in application, the Hibernate reads the OID value instead of bytes under given oid.
+write bytea
+If i remember well, auto-creating table with Hibernate creates oid column.
+The proper behavior for dealing in PostgreSQL (and this behavior is in Hibernate 3.4) is to use oids.","org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,MetaDataRepository.preload() ignores class loader returned by PersistenceUnitInfo.getClassLoader(),"PersistenceUnitInfo.getClassLoader() 
+ MetaDataRepository.preload()      
+ PersistenceUnitInfo.getClassLoader()    
+  
+   PersistenceProvider.createContainerEntityManagerFactory()  MetaDatRepository.preload()
+use openjpa inside osgi container
+pass appliation class loeader as part pass appliation class loeader by returning return from PersistenceUnitInfo.getClassLoader()
+However, the code in MetaDataRepository.preload() only uses the context class loader and not the class loader from PersistenceUnitInfo, which leades to ClassNotFoundExpcetions like mentioned at the end of this report.
+append return value of PersistenceUnitInfo.getClassLoader() append return value to list establihe fix participate in MultiClassLoader set up in MetaDataRepository.java:310ff
+set classloader as context loader set classloader in meanwhile set classloader by PersistenceProvider.createContainerEntityManagerFactory() set classloader during creation
+instantiate bean entityManagerFactory of class null
+see nested stacktrace for details
+cause by org.clazzes.fancymail.server.entities.EMail","org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,HypergeometricDistribution.sample suffers from integer overflow,"HypergeometricDistribution.sample()  
+ {code}
+ import org.apache.commons.math3.distribution.HypergeometricDistribution;
+
+public class Foo {
+  public static void main(String[] args) {
+    HypergeometricDistribution a = new HypergeometricDistribution(
+        43130568, 42976365, 50);
+    System.out.printf(""%d %d%n"", a.getSupportLowerBound(), a.getSupportUpperBound()); // Prints ""0 50""
+    System.out.printf(""%d%n"",a.sample());                                             // Prints ""-50""
+  }
+}
+ {code}
+
+  HypergeometricDistribution.getNumericalMean()  
+ {code}
+ return (double) (getSampleSize() * getNumberOfSuccesses()) / (double) getPopulationSize();
+{code}
+ 
+ {code}
+ return getSampleSize() * ((double) getNumberOfSuccesses() / (double) getPopulationSize());
+{code}
+have application port from commons math
+It looks like the HypergeometricDistribution.sample() method doesn't work as well as it used to with large integer values -- the example code below should return a sample between 0 and 50, but usually returns -50.
+import org.apache.commons.math3.distribution.HypergeometricDistribution;
+trace in debugger do { code } return / (double) getPopulationSize(); {code} it could do: {code} return getSampleSize() * ((double) getNumberOfSuccesses() / getPopulationSize() )",org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-221,2008-08-29T13:31:56.000-05:00,multiply for complex numbers equal for complex numbers,"class Complex  
+ {code}
+ import org.apache.commons.math.complex.*;
+public class TestProg {
+        public static void main(String[] args) {
+
+                ComplexFormat f = new ComplexFormat();
+                Complex c1 = new Complex(0,1);
+                Complex c2 = new Complex(-1,0);
+
+                Complex res = c1.multiply(c2);
+                Complex comp = new Complex(0,-1);
+
+                System.out.println(""res:  ""+f.format(res));
+                System.out.println(""comp: ""+f.format(comp));
+
+                System.out.println(""res=comp: ""+res.equals(comp));
+        }
+}
+ {code}
+relate on complex numbers
+show bug show java program + output
+import org.apache.commons.math.complex.
+void main(String[] args) {
+res:  -0 - 1i
+comp: 0 - 1i
+res=comp: false
+I think the ""equals"" should return ""true"".
+think thats give multiply method",org.apache.commons.math.complex.Complex:equals(Object)
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,ODE integrator goes past specified end of integration range,"{code}
+   public void testMissedEvent() throws IntegratorException, DerivativeException {
+          final double t0 = 1878250320.0000029;
+          final double t =  1878250379.9999986;
+          FirstOrderDifferentialEquations ode = new FirstOrderDifferentialEquations() {
+            
+            public int getDimension() {
+                return 1;
+            }
+            
+            public void computeDerivatives(double t, double[] y, double[] yDot)
+                throws DerivativeException {
+                yDot[0] = y[0] * 1.0e-6;
+            }
+        };
+
+        DormandPrince853Integrator integrator = new DormandPrince853Integrator(0.0, 100.0,
+                                                                               1.0e-10, 1.0e-10);
+
+        double[] y = { 1.0 };
+        integrator.setInitialStepSize(60.0);
+        double finalT = integrator.integrate(ode, t0, y, t, y);
+        Assert.assertEquals(t, finalT, 1.0e-6);
+    }
+
+ {code}
+handle end as event handle end of integration range
+lead in cases lead to error
+The following test case shows the end event is not handled properly and an integration that should cover a 60s range in fact covers a 160s range, more than twice the specified range.
+throw IntegratorException {","org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+FILE,WFCORE,WFCORE-815,2015-07-13T07:57:45.000-05:00,One profile can have more ancestors with same submodules,"add(name=includes, value=mail-01)
+  add(name=includes, value=mail-02)
+
+ 
+ {
+
+
+
+
+    ""outcome"" => ""failed"",
+
+
+
+
+    ""failure-description"" => {""domain-failure-description"" => ""WFLYCTL0401: Profile 'mail-01' defines subsystem 'mail' which is also defined in its ancestor profile 'mail-02'. Overriding subsystems is not supported""} 
+ add(name=includes, value=mail-01)
+  add(name=includes, value=mail-02)
+One profile can have more ancestors with same submodules.
+It leads to WFLYCTL0212: Duplicate resource [(""subsystem"" => ""subsystem_name"")] .
+add hierarchical composition of profiles add hierarchical composition to AS
+get fresh EAP
+No errors.
+define wflyctl0401 in mail-02
+not support } not support overriding subsystems
+add subsystem to default-new profile","org.jboss.as.domain.controller.operations.ProfileIncludesHandlerTestCase
+org.jboss.as.domain.controller.operations.SocketBindingGroupIncludesHandlerTestCase
+org.jboss.as.host.controller.logging.HostControllerLogger"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,Warnings about missing notification descriptions when an operation removes an extension,"migrate()
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""success"",
+
+
+
+
+    ""result"" => {""migration-warnings"" => []}
+
+
+
+
+ 
+ migrate()
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""success"",
+
+
+
+
+    ""result"" => {""migration-warnings"" => []}
+
+
+
+
+ 
+ migrate()
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""success"",
+
+
+
+
+    ""result"" => {""migration-warnings"" => []}
+When I use migration operation the console log is filled with warning messages of type
+not describe notification of type resource-removed not describe notification for resource
+do sequence of operation
+then I the log looks like
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+I think that the migration operation should not show those warnings.","org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,scop roles,"{roles=master-monitor}
+
+
+
+
+ 
+ {
+
+
+
+
+                ""directory-grouping"" => ""by-server"",
+
+
+
+
+                ""domain-controller"" => {""local"" => {} 
+  
+ {""org.jboss.as.jmx"" => undefined} 
+ {
+
+
+
+
+                    ""management"" => undefined,
+
+
+
+
+                    ""public"" => undefined,
+
+
+
+
+                    ""unsecure"" => undefined
+
+
+
+
+                } 
+ {""default"" => undefined} 
+ {""jmx"" => undefined} 
+ {roles=slave-maintainer}
+
+
+
+
+ 
+ {roles=slave-maintainer}
+
+
+
+
+ 
+  
+ {""org.jboss.as.jmx"" => undefined} 
+ {
+
+
+
+
+                ""management"" => undefined,
+
+
+
+
+                ""public"" => undefined,
+
+
+
+
+                ""unsecure"" => undefined
+
+
+
+
+            } 
+ {""default"" => undefined} 
+ {""jmx"" => undefined}
+set up host scop roles follow https://gist.github.com/heiko-braun/0dc810ed04db8739defd
+When using a role which only selects the master there is no access-control response header showing the filtered resources, and the slave wrongly appears in the results:
+result =
+address = > [ ]
+result =
+name = > master
+interface =
+address = > [ ]
+When using a role that only selects the slave we get a proper access-control header
+result = >
+address = > [ ]
+result = >
+address = > [ ]
+result =
+name = > slave
+interface =
+master-monitor should behave the same as slave-maintainer.","org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,save name id attribute discrepancy,"group(rolling-to-servers=false,max-failed-servers=1)  group(rolling-to-servers=true,max-failure-percentage=20)  
+ {rollout id=my-rollout-plan}
+When using rollout plans for EAP deployment scenarios I can create my own named rollout-plan for ease of use.
+apply rollout command refer with name
+create such rollout plan create way use such rollout plan use way
+use command
+see --name attribute given to name my rollout plan
+use following command
+see id attribute given to rollout header operation
+Yes, this is really minor issue, but I think that these two attributes used in aforementioned commands should be unified (preferably to name instead of id) as user might be confused when using it.
+use examples from documentation
+miss something retrieve more info use rollout header operation in CLI use rollout header operation in deploy command","org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,add local | remote-destination-outbound-socket-binding,"{remote|local} 
+   add()
+
+
+
+
+    add(host=localhost,port=8765)
+
+
+
+
+ 
+   add(socket-binding-ref=http)
+
+
+
+
+ 
+  
+  
+     
+  
+ 
+  
+ {remote|local}
+have with particular name
+Then when I create some /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding or /socket-binding-group=standard-sockets/local-destination-outbound-socket-binding using same name as of already existing socket-binding resource, add operation is successful but when I perform server reload, it crashes as it is not able to parse configuration.
+create own socket-binding resource perform own socket-binding resource
+server crashes with following stacktrace in console log:
+bind INFO [ org.wildfly.extension.undertow] wflyut0007 to 127.0.0.1:8080
+declare message in socket-binding-group standard-sockets
+fail in unrecoverable manner exiting
+see previous messages for details
+remove duplicate resources manually by removing
+If there is a problem for those resources to have same names I would welcome that names are checked during the add operation already regarding to all resources in socket-binding and {remote|local}-destination-outbound-socket-binding.
+please change","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,Tab completion suggest writing attribute which has access type metric and is not writable,"attribute(name=message-count, value=5)
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""failed"",
+
+
+
+
+    ""failure-description"" => ""WFLYCTL0048: Attribute message-count is not writable"",
+
+
+
+
+    ""rolled-back"" => true
+
+
+
+
+}
+CLI tab completion suggests attributes that are not writable and their access-type is metric
+execute read-resource-description be of type metric be from executing
+On attempt to write metric attribute, for example message-count, non writable error is printed
+CLI should not suggest writing attributes that are not writable.","org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1936,2016-11-04T10:57:06.000-05:00,not match reality for socket-binding not match reality for *,"description(recursive=true)
+fixed-port attribute of socket-binding and fixed-source-port attributes of *-destination-outbound-socket-binding define in its description that there is not necessary to do reload or restart for any of them.
+If you tries to change such attributes you are informed that reload is necessary.
+define attributes as restart-required = > no-services","org.jboss.as.server.services.net.OutboundSocketBindingResourceDefinition
+org.jboss.as.controller.resource.AbstractSocketBindingResourceDefinition"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,"package com.ibm.test.image;
+
+import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.*;
+
+public class ImageLoaderTest {
+		
+	public static void main(String[] args) {
+		ImageLoader loader;
+		String dir=""c:\\image-problems\\"";
+		String files[]={
+				""s34i3p04"",
+				""s34n3p04"",
+				""s35i3p04"",
+				""s35n3p04"",
+				""s36i3p04"",
+				""s36n3p04"",
+				""s37i3p04"",
+				""s37n3p04"",
+				""s38i3p04"",
+				""s38n3p04"",
+				""s39i3p04"",
+				""s39n3p04""
+		};
+		
+		try {
+			for (int i=0; i<files.length; i++) {
+			String filein  = dir+files[i]+"".png"";
+			String fileout = dir+files[i]+"".jpg"";
+			
+			loader = new ImageLoader();
+			loader.load(filein);
+			loader.save(fileout,SWT.IMAGE_JPEG);
+			}
+		} catch (SWTException e) {
+		  e.printStackTrace();
+		}
+	}
+}
+The ImageLoader Save function appears to be producing bad JPG images.
+test as JPEG
+Many files were tested and the majority 
+ did produced the proper JPG images as expected.
+contain files not save files to JPEG
+package com.ibm.test.image;
+import org.eclipse.swt.
+try { for { string filein = dir + files [ i ] +","org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,[Presentations] (regression) Standalone view without title has no border,"layout.addStandaloneView(BrowserApp.BROWSER_VIEW_ID, false,
+IPageLayout.RIGHT, .25f, IPageLayout.ID_EDITOR_AREA);
+build n20050523
+change BrowserPerspectiveFactory have following instead_of regular addView layout.addStandaloneView ( BrowserApp.BROWSER_VIEW_ID
+show history view
+- the history view (a regular view) has a border, but the standalone view does not
+Standalone views should still have their border, just not the title or min/max buttons if showTitle==false.","org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,Container attempts to refresh children on project that is not open,"String folder = ""/temp"";//$NON-NLS-1$
+String projName = ""project"";//$NON-NLS-1$ 
+IProjectDescription description = ResourcesPlugin.getWorkspace
+().loadProjectDescription(projPath);
+IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject
+(description.getName());
+project.create(description, new NullProgressMonitor());
+
+  project.open()  
+ The members()  
+ if (info.isSet(ICoreConstants.M_CHILDREN_UNKNOWN))
+			workspace.refreshManager.refresh(this);
+take existing simple project on disk import project into workspace import project by performing create with code
+not open project with project.open() API
+create project by API create project by UI
+A background refresh job has now been started for the closed project, but it never finishes and is stuck in an infinite loop.
+be in class org.eclipse.core.internal.resources.Container.
+The members() method is excuting if (info.isSet(ICoreConstants.M_CHILDREN_UNKNOWN))
+workspace.refreshManager.refresh(this);
+not know members because projects
+Both the AliasManager and the Java
+Perspective are calling members on the IProject.
+override method in Project not refresh for closed projects
+load existing Java projects by performing load existing Java projects on disk perform create
+On the next UI gesture, we get refresh infinite loops, one for each closed project.
+want projects in workspace
+The end user will open them by using the open project UI when needed.
+work in Eclipse","org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,[resources] UnifiedTree should ensure file/folder exists,"getStat()
+use natives
+When the UnifiedTree finds a new file from the file system, it assumes that if the file is not an existing file, then it is a folder.
+This is not always true, because for different reasons a file returned by java.io.File.list/listFiles may not actually exist (our CoreFileSystemLibrary#getStat() returns 0).
+execute refresh operations appear to user
+At the first moment, the file is found in the file system and assumed to be a folder, and a corresponding resource is created in the workspace.
+At the second refresh, the folder corresponding to that resource is not found in the file system, and then it is removed from the workspace.
+And so on.
+reveal bugs","org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"

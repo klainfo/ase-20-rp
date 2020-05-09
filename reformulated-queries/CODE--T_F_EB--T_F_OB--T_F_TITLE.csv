@@ -1,0 +1,1800 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+FILE,DATAMONGO,DATAMONGO-423,2012-03-29T06:03:26.000-05:00,use java.util.Pattern instead_of $regex,"c.find( new BasicDBObject( ""x"" ,
+
+
+
+
+                new BasicDBObject(""$not"", new BasicDBObject(""$regex"", ""b"") ) ) );
+
+
+
+
+
+
+  
+  
+ c.find( new BasicDBObject( ""x"" ,
+
+
+
+
+                new BasicDBObject(""$not"", Pattern.compile( ""b"" , Pattern.CASE_INSENSITIVE ) ) ) );
+throw exception","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.query.QueryTests
+org.springframework.data.mongodb.core.query.Criteria"
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,not work for collection values,"class Entity {
+
+
+
+
+
+
+
+
+
+  Long id;
+
+
+
+
+  @DBRef
+
+
+
+
+  Property property;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+ class Property {
+
+
+
+
+  Long id;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+ interface EntityRepository extends Repository<Entity, Long> {
+
+
+
+
+
+
+
+
+
+  Entity findByPropertyIn(Property... property);
+
+
+
+
+}
+
+
+
+
+
+
+  findByProperty()
+not translate given array into collection
+treat value create DBRef
+unwrap elements convert into DBRef instances","org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-663,2013-04-24T03:21:19.000-05:00,need equals method,"class Field   equals()  
+  
+ boolean fieldsEqual = this.fieldSpec == null ? that.fieldSpec == null : this.fieldSpec.equals(that.fieldSpec);
+not have equals() method
+have equals method use equals method of Field class use equals method of Field class",org.springframework.data.mongodb.core.query.Field
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,update object not write type information for objects,"MappingMongoConverter.writeInternal(...)   addCustomTypeIfNecessary(...)     convertToMongoType(...)   removeTypeInfoRecursively(...)
+use 1.0.0
+read from database store m5 version with object store type information with object
+break application break RELEASE version save objects without type information read back to java model
+call addCustomTypeIfNecessary(...) in turn call MappingMongoConverter.writeInternal(...) method in turn put type information into DBObject put addCustomTypeIfNecessary(...) into DBObject
+call removeTypeInfoRecursively(...) during execution save under _ class key
+infer from runtime","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,ignore @Field annotation for field alias,"@Field(""sr"")
+ 
+ List<Answer> findByQuestionIdOrderByScoreDesc(String questionId)
+sort results by score sort results by sr field name",org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-420,2012-03-22T10:09:35.000-05:00,add to @Query values add to fields,"@Query 
+ @Query 
+ { ?0 }
+ 
+ { ?1 }
+ 
+ someMethod( String values, String fields ) 
+ String values = ""value : 'things'"";
+   
+ { ""value : 'things'"" }
+   
+ String values = ""field : 0"";
+   
+ { ""field : 0"" }
+   
+ String values = ""field\"" : \""0"";
+add quotes to values pass into @Query annotations
+pass into values pass into fields insert into query wrap in quotes send to MongoDB
+turn into string render as true","org.springframework.data.mongodb.repository.query.StringBasedMongoQuery
+org.springframework.data.mongodb.repository.query.StringBasedMongoQueryUnitTests"
+FILE,DATAMONGO,DATAMONGO-1078,2014-10-28T02:23:26.000-05:00,map complex id structure,"@Query(""{'_id': {$in: ?0}}"")
+
+
+
+
+List<User> findByUserIds(Collection<MyUserId> userIds) 
+ {$in: [ {_class:""com.sampleuser.MyUserId"", userId:""...."", sampleId:""....""}
+convert complex object
+convert id properties check for presence","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,not remove _ class property on collection,"@Query(value = ""{ embedded : { $in : ?0} }"")
+
+
+
+
+	List<Foo> findByEmbeddedIn2(Collection<EmbeddedObject> c)
+generate incorrect query
+be without _ class property","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,not return matching elements return max of documents,"public GeoResults<MyObject> findByTypeAndLocationNear(MyObjectType type, Point p, Distance distance) {
+
+
+
+
+   final NearQuery nearQuery = NearQuery.near(p).maxDistance(distance);
+
+
+
+
+   log.info(""{}"",nearQuery.toDBObject());
+
+
+
+
+   return mongoTemplate.geoNear(nearQuery, MyObject.class);
+
+
+
+
+}
+
+
+
+
+
+
+   
+ {@link GeoResults}   {@link NearQuery}
+expect matching documents
+restrict result",org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,keyword query findByInId with pageable,"getTotalElements()   getTotalPages()  
+ @Document
+
+
+
+
+public class Item {
+
+
+
+
+
+
+
+
+
+    @Id
+
+
+
+
+    private String id;
+
+
+
+
+    private String type;
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ public interface ItemRepository extends MongoRepository<Item, String> {
+
+
+
+
+
+
+
+
+
+    Page<Item> findByIdIn(Collection ids, Pageable pageable);
+
+
+
+
+    Page<Item> findByTypeIn(Collection types, Pageable pageable);
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ @RunWith(SpringJUnit4ClassRunner.class)
+
+
+
+
+@ContextConfiguration(classes = {MongoDbConfig.class})
+
+
+
+
+@TransactionConfiguration(defaultRollback = false)
+
+
+
+
+public class TestPageableIdIn {
+
+
+
+
+
+
+
+
+
+    @Autowired
+
+
+
+
+    private ItemRepository itemRepository;
+
+
+
+
+    
+
+
+
+
+    private List<String> allIds = new LinkedList<>();
+
+
+
+
+
+
+
+
+
+    @Before
+
+
+
+
+    public void setUp() {
+
+
+
+
+        itemRepository.deleteAll();
+
+
+
+
+        String[] types = {""SWORD"", ""SHIELD"", ""ARMOUR""};
+
+
+
+
+
+
+
+
+
+        // 10 items per type
+
+
+
+
+        for (String type : types) {
+
+
+
+
+            for (int i = 0; i < 10; i++) {
+
+
+
+
+                String id = UUID.randomUUID().toString();
+
+
+
+
+                allIds.add(id);
+
+
+
+
+                itemRepository.save(new Item(id, type));
+
+
+
+
+            }
+
+
+
+
+        }
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+    @Test
+
+
+
+
+    public void testPageableIdIn() {
+
+
+
+
+        
+
+
+
+
+        Pageable pageable = new PageRequest(0, 5);
+
+
+
+
+        
+
+
+
+
+        // expect 5 Items returned, total of 10 Items(SWORDS) in 2 Pages
+
+
+
+
+        Page<Item> results = itemRepository.findByTypeIn(Arrays.asList(""SWORD""), pageable);
+
+
+
+
+        Assert.assertEquals(5, results.getContent().size());
+
+
+
+
+        Assert.assertEquals(10, results.getTotalElements());
+
+
+
+
+        Assert.assertEquals(2, results.getTotalPages());
+
+
+
+
+        
+
+
+
+
+        // expect 5 Items returned, total of 30 Items in 6 Pages
+
+
+
+
+        results = itemRepository.findByIdIn(allIds, pageable);
+
+
+
+
+        Assert.assertEquals(5, results.getContent().size());
+
+
+
+
+        Assert.assertEquals(30, results.getTotalElements()); // this is returning 0
+
+
+
+
+        Assert.assertEquals(6, results.getTotalPages());     // this is returning 0
+
+
+
+
+    }
+
+
+
+
+}
+get other page
+expect items
+expect items
+return //
+return //","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1133,2015-01-07T00:20:51.000-06:00,not honor field aliasing in Aggregation operations,"@Field
+use property name of class use name of class designate in @Field","org.springframework.data.mongodb.core.aggregation.TypeBasedAggregationOperationContextUnitTests
+org.springframework.data.mongodb.core.aggregation.AggregationTests"
+FILE,DATAMONGO,DATAMONGO-1307,2015-10-20T12:33:45.000-05:00,convert user-defined runtime exceptions to npes,"throw exceptionTranslator.translateExceptionIfPossible(ex);
+  
+ 
+ 
+ 
+ return null;
+have code
+return exception
+encounter unknown exception do unknown exception
+have exception result exception from user code
+return null
+throw null-pointer exception
+throw original exception get back null from exception translator",org.springframework.data.mongodb.core.MongoTemplate
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,involve generic types,"class Book  
+ class AbstractProduct  
+ class ProductWrapper    
+ class Catalog
+involve generic types not infer type information at startup time result in missing indexes
+infer type infromation from ProductWrapper class definition inherit from AbstractProduct create index name inside catalog define on Book class not create Book class as Spring data Mongo
+infer type information from list declaration define on Book
+define wrapper class as ProductWrapper<T> create indexes on Catalog.books2.content.","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+CLASS,derby-10.7.1.1,DERBY-4654,2010-05-12T05:27:40.000-05:00,not escape special characters,"org.apache.derby.vti.Restriction.toSQL()  
+ Restriction.doubleQuote()   IdUtil.normalToDelimited()
+add double quotes around column names not escape special characters in column names
+use IdUtil.normalToDelimited() get proper quoting of names","org.apache.derbyTesting.functionTests.tests.lang.RestrictedVTITest
+org.apache.derby.vti.Restriction"
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,null in DataType.compare,"Object field1 = o1.get(fieldNum);
+                Object field2 = o2.get(fieldNum);
+                if (!typeFound) {
+                    datatype = DataType.findType(field1);
+                    typeFound = true;
+                }
+                return DataType.compare(field1, field2, datatype, datatype);
+use TOP contain null value generate following exception
+judge field1","src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1619,2013-01-11T09:57:16.000-06:00,allow spaces in URL,"{code}
+ 
+ {code}
+
+ 
+ {code}
+ 
+ {code}
+not allow spaces in url
+add trim parsing",src.java.main.org.apache.zookeeper.client.ConnectStringParser
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,set snapCount,"int randRoll = r.nextInt(snapCount/2);
+{code}
+set snapCount
+suppose in source code",src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+METHOD,apache-nutch-1.8,NUTCH-1262,2012-01-31T03:15:33.000-06:00,duplicate content-types to single type,"{code}
+   
+ {code}
+use single filter
+enable content-type mapping via moreIndexingFilter.mapMimeTypes.","org.apache.nutch.indexer.more.MoreIndexingFilter:getConf()
+org.apache.nutch.indexer.more.MoreIndexingFilter:setConf(Configuration)
+org.apache.nutch.indexer.more.MoreIndexingFilter:filter(NutchDocument, Parse, Text, CrawlDatum, Inlinks)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,ensure [ resources,"getStat()
+find new file from file system
+not exist for different reasons
+find file at first moment find file in file system assume file at first moment assume file in file system create corresponding resource in workspace
+not find folder corresponding at second refresh not find folder corresponding in file system not find folder corresponding to resource remove from workspace","org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"
+CLASS,openjpa-2.0.1,OPENJPA-1752,2010-07-29T23:33:45.000-05:00,produce inconsistent behavior with various backends,"testFindAfterQueryWithPessimisticLocks()
+  testFindAfterQueryOrderByWithPessimisticLocks()
+  testQueryAfterFindWithPessimisticLocks()
+  testQueryOrderByAfterFindWithPessimisticLocks()
+
+
+ 
+ testFindAfterQueryWithPessimisticLocks() 
+  No exception;
+pass assertions for Derby backend see failures on db2
+report exceptions report PessimisticLockException with Derby
+contain variations
+cause process for oracle hang ie
+never run to completion",org.apache.openjpa.persistence.lockmgr.TestPessimisticLocks
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,ignore class loader,"PersistenceUnitInfo.getClassLoader() 
+ MetaDataRepository.preload()      
+ PersistenceUnitInfo.getClassLoader()    
+  
+   PersistenceProvider.createContainerEntityManagerFactory()  MetaDatRepository.preload()
+use context class loader from PersistenceUnitInfo leade PersistenceUnitInfo to ClassNotFoundExpcetions mention at end","org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-1975,2011-04-07T15:57:51.000-05:00,obtain default schema name,"DB2Dictionary.connectedConfiguration()
+issue SQL obtain default schema name in DB2Dictionary.connectedConfiguration()
+have impact in environments use value
+reduce load on DB","org.apache.openjpa.jdbc.sql.DBDictionary
+org.apache.openjpa.jdbc.sql.DB2Dictionary"
+METHOD,lang,LANG-346,2007-07-06T20:06:55.000-05:00,behave for minutes behave for seconds,"public void testRound()
+{
+    Calendar testCalendar = Calendar.getInstance(TimeZone.getTimeZone(""GMT""));
+    testCalendar.set(2007, 6, 2, 8, 9, 50);
+    Date date = testCalendar.getTime();
+    System.out.println(""Before round() "" + date);
+    System.out.println(""After round()  "" + DateUtils.round(date, Calendar.MINUTE));
+}
+
+ 
+ Before round()  
+ After round()   
+ Before round()  
+ After round()
+be after round() mon jul
+appear after round() mon jul","org.apache.commons.lang.time.DateUtils:modify(Calendar, int, boolean)"
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,not escape /' into '\/ make IE render page,"document.getElementById(""test"")   document.getElementById(""test"") 
+  
+ String s = ""<script>alert('aaa');</script>"";
+  String str = org.springframework.web.util.JavaScriptUtils.javaScriptEscape(s);
+  System.out.println(""Spring JS Escape : ""+str);
+  str = org.apache.commons.lang.StringEscapeUtils.escapeJavaScript(s);
+  System.out.println(""Apache Common Lang JS Escape : ""+ str);
+include /', IE will parse the scripts uncorrectly, actually '/
+make IE render page uncorrect","org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+METHOD,lang,LANG-746,2011-08-23T12:32:12.000-05:00,not handle upper-case hex,"NumberUtils.createNumber()   
+ Integer.decode()
+generate NumberFormatException
+handle lower case hex",org.apache.commons.lang3.math.NumberUtils:createNumber(String)
+METHOD,lang,LANG-788,2012-02-11T12:36:48.000-06:00,throw ClassNotFoundException clone primitive classes,"{noformat}
+ import org.apache.commons.lang3.SerializationUtils;
+import org.junit.Test;
+
+
+public class SerializationUtilsTest {
+
+	
+	@Test
+	public void primitiveTypeClassSerialization(){
+		Class<?> primitiveType = int.class;
+		
+		Class<?> clone = SerializationUtils.clone(primitiveType);
+		assertEquals(primitiveType, clone);
+	}
+}
+ {noformat} 
+
+  
+         
+    
+  
+ {noformat}
+         protected Class<?> resolveClass(ObjectStreamClass desc) throws IOException, ClassNotFoundException {
+            String name = desc.getName();
+            try {
+                return Class.forName(name, false, classLoader);
+            } catch (ClassNotFoundException ex) {
+            	try {
+            	     return Class.forName(name, false, Thread.currentThread().getContextClassLoader());
+            	} catch (Exception e) {
+		     return super.resolveClass(desc);
+		}
+            }
+        }
+ {noformat}
+
+   
+ {noformat}
+     protected Class<?> resolveClass(ObjectStreamClass desc)
+	throws IOException, ClassNotFoundException
+    {
+	String name = desc.getName();
+	try {
+	    return Class.forName(name, false, latestUserDefinedLoader());
+	} catch (ClassNotFoundException ex) {
+	    Class cl = (Class) primClasses.get(name);
+	    if (cl != null) {
+		return cl;
+	    } else {
+		throw ex;
+	    }
+	}
+    }
+ {noformat}
+contain reference to primitive class throw ClassNotFoundException clone object
+use ClassLoaderAwareObjectInputStream override resoleClass method without delegating override ClassLoaderAwareObjectInputStream without delegating delegate to super method
+understand intention of ClassLoaderAwareObjectInputStream implement fallback to original implementation","org.apache.commons.lang3.SerializationUtils:ClassLoaderAwareObjectInputStream(InputStream, ClassLoader)
+org.apache.commons.lang3.SerializationUtils:resolveClass(ObjectStreamClass)"
+METHOD,lang,LANG-832,2012-09-27T00:27:58.000-05:00,not handle unterminated quotes,"{IsNd}
+not handle unterminated quotes as SimpleDateFormat
+parse format parse date
+parse format",org.apache.commons.lang3.time.FastDateParser:init()
+METHOD,derby-10.9.1.0,DERBY-6150,2013-04-03T19:58:03.000-05:00,add automatic cleanup of connections open with openDefaultConnection(),"openDefaultConnection()   tearDown()
+hold locks affect other tests roll default connection in JDBCBaseTestCase close default connection in JDBCBaseTestCase open with openDefaultConnection()
+clean up connections in tearDown()","org.apache.derbyTesting.junit.BaseJDBCTestCase:openDefaultConnection()
+org.apache.derbyTesting.junit.BaseJDBCTestCase:openConnection(String)
+org.apache.derbyTesting.junit.BaseJDBCTestCase:openDefaultConnection(TestConfiguration)"
+FILE,eclipse-3.1,77249,2004-10-28T17:57:00.000-05:00,cancel public modifier,"@Jpf.Controller 
+public class Foo {...} 
+ @Jpf.Controller(
+    catches={
+       @Jpf.Catch(type=java.lang.Exception.class, method=""handleException""),
+       @Jpf.Catch(type=PageFlowException.class, 
+method=""handlePageFlowException"")
+    }
+)
+public class Foo {
+...
+}
+have public modifier
+have public modifier","org.eclipse.jdt.core.dom.ASTConverter
+org.eclipse.swt.graphics.GC"
+FILE,eclipse-3.1,79091,2004-11-19T13:00:00.000-06:00,report invalid type on name,"class X { Zork[] foo; }
+report error on zork [ ]","org.eclipse.jdt.internal.compiler.problem.ProblemReporter
+org.eclipse.jdt.internal.compiler.ast.ArrayTypeReference"
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,produce error on constructor _,"strictfp enum Natural {
+	ONE, TWO;
+}
+
+ 
+ strictfp enum Natural {
+	ONE, TWO;
+	
+	private Natural() {
+	}
+}
+not allow strictfp on enum actual
+report wrong modifier with type name show error for constructor _","org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,produce invalid JPEG images,"package com.ibm.test.image;
+
+import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.*;
+
+public class ImageLoaderTest {
+		
+	public static void main(String[] args) {
+		ImageLoader loader;
+		String dir=""c:\\image-problems\\"";
+		String files[]={
+				""s34i3p04"",
+				""s34n3p04"",
+				""s35i3p04"",
+				""s35n3p04"",
+				""s36i3p04"",
+				""s36n3p04"",
+				""s37i3p04"",
+				""s37n3p04"",
+				""s38i3p04"",
+				""s38n3p04"",
+				""s39i3p04"",
+				""s39n3p04""
+		};
+		
+		try {
+			for (int i=0; i<files.length; i++) {
+			String filein  = dir+files[i]+"".png"";
+			String fileout = dir+files[i]+"".jpg"";
+			
+			loader = new ImageLoader();
+			loader.load(filein);
+			loader.save(fileout,SWT.IMAGE_JPEG);
+			}
+		} catch (SWTException e) {
+		  e.printStackTrace();
+		}
+	}
+}
+produce bad JPG images
+produce proper JPG images expected","org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,88295,2005-03-17T03:34:00.000-06:00,assist ] many completion on enum case label,"public class Class3 {
+
+	enum Color {
+		BLUE, WHITE, RED;
+	}
+	
+	void select(Color c) {
+		
+		switch(c){
+			case BLUE :
+			case WHITE:
+			case R<|>
+		}
+	}
+}
+complete in r",org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,90600,2005-04-07T09:32:00.000-05:00,use project options for rewriter,"rewriter.rewriteAST(document, null)
+pass in current projects options","org.eclipse.jface.text.source.SourceViewer
+org.eclipse.jdt.internal.core.CreateElementInCUOperation
+org.eclipse.jface.text.source.OverviewRuler"
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,assist popup complete imported method name,"import static java.lang.Math
+constrain proposals to members","org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,have border,"layout.addStandaloneView(BrowserApp.BROWSER_VIEW_ID, false,
+IPageLayout.RIGHT, .25f, IPageLayout.ID_EDITOR_AREA);
+have border
+have border","org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,refresh children on project,"String folder = ""/temp"";//$NON-NLS-1$
+String projName = ""project"";//$NON-NLS-1$ 
+IProjectDescription description = ResourcesPlugin.getWorkspace
+().loadProjectDescription(projPath);
+IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject
+(description.getName());
+project.create(description, new NullProgressMonitor());
+
+  project.open()  
+ The members()  
+ if (info.isSet(ICoreConstants.M_CHILDREN_UNKNOWN))
+			workspace.refreshManager.refresh(this);
+start background refresh job for closed project stick in infinite loop
+call members on iproject
+get refresh infinite loops on next UI gesture
+use open project UI","org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+CLASS,openjpa-2.2.0,OPENJPA-2197,2012-05-16T17:10:22.000-05:00,compare parameters,"@PreUpdate
+    public void updateChangeLog(Object entity)  
+ private void updateChangeLog(BaseEntity he, ChangeLogEntry cle)
+
+ 
+   @PreUpdate
+contain MethodComparator compare class compare MethodComparator
+not detect @PreUpdate due_to bug",openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.callbacks.ListenerImpl
+CLASS,openjpa-2.2.0,OPENJPA-2255,2012-08-30T20:15:52.000-05:00,not load referencedColumn definition create JoinTable,"@Entity 
+public class Student  
+ @Id @Column(name=""id"", length=128, nullable=false) private String id; 
+   @Column(name=""sName"", length=255) private String sName; 
+   @ManyToMany 
+  @JoinTable( 
+    name=""student_course_map"", 
+    joinColumns={@JoinColumn(name=""student_id"", referencedColumnName=""id"", nullable=false)}, 
+    inverseJoinColumns={@JoinColumn(name=""course_id"", referencedColumnName=""id"", nullable=false)} 
+  ) 
+  public Collection getCourses() 
+
+   
+ @Entity 
+public class Courses{ 
+  @Id @Column(name=""id"", length=128, nullable=false) private String id; 
+  @Column(name=""cName"", length=255) private String cName; 
+
+  ... 
+}
+not have definition include length definition
+assign length to default value 255
+set JoinColumn to default value 255",openjpa-jdbc.src.main.java.org.apache.openjpa.jdbc.meta.MappingInfo
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,create collection with implicit router add shard ranges to shard,"{quote}
+ {quote}
+create collection with implicit router add shard ranges to shard
+not shard ranges
+do right thing",solr.core.src.java.org.apache.solr.cloud.Overseer
+FILE,AMQP,AMQP-340,2013-11-18T09:41:01.000-06:00,not consider wrong RabbitMQ credentials as fatal error,"start()  
+ SimpleMessageListenerContainer.run()
+connect AmqpInboundChannelAdapter to RabbitMQ not detect real reason continue real reason restart consumer in endless loop
+return as AmqpInboundChannelAdapter user return after pause
+have notification about wrong credentials","org.springframework.amqp.rabbit.listener.BlockingQueueConsumer
+org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests
+org.springframework.amqp.rabbit.support.RabbitExceptionTranslator"
+FILE,AMQP,AMQP-434,2014-10-21T05:21:17.000-05:00,throw MessageConversionException,"convertMessageIfNecessary()
+add exception to throws clause OR catch in convertMessageIfNecessary() wrap in convertMessageIfNecessary()",org.springframework.amqp.support.converter.MessageConversionException
+FILE,AMQP,AMQP-633,2016-08-18T15:48:45.000-05:00,non transactional RabbitTemplate uses Container transactional channel,"RabbitResourceHolder resourceHolder = (RabbitResourceHolder) TransactionSynchronizationManager
+
+
+
+
+		.getResource(connectionFactory);
+
+
+
+
+if (resourceHolder != null) {
+
+
+
+
+	Channel channel = resourceFactory.getChannel(resourceHolder);
+
+
+
+
+	if (channel != null) {
+
+
+
+
+		return resourceHolder;
+
+
+
+
+	}
+
+
+
+
+}
+
+
+
+
+
+
+    resourceFactory.isSynchedLocalTransactionAllowed()
+run RabbitTemplate on transactional container thread
+publish with template occur on new channel
+never return resourceHolder","org.springframework.amqp.rabbit.listener.LocallyTransactedTests
+org.springframework.amqp.rabbit.core.RabbitTemplate"
+METHOD,commons-math-3-3.0,MATH-905,2012-11-20T14:54:39.000-06:00,not support same range as Math counterparts not support same range of values,"Math.cosh(709.783)  
+ FastMath.cosh(709.783)  
+ Math.sinh(709.783)  
+ FastMath.sinh(709.783)  
+ StrictMath.log(Double.MAX_VALUE) 
+ double t = exp(x*0.5);
+return (0.5*t)*t;
+ 
+ double t = exp(-x*0.5);
+return (-0.5*t)*t;
+use for values end up with infinity
+return * t return * t",org.apache.commons.math3.util.FastMathTest:testHyperbolicInverses()
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,return null for null sources return null for empty strings,"@javax.validation.constraints.NotNull  @javax.persistence.ManyToOne
+post new Order
+convert to Domain class empty to Domain class","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+FILE,DATACMNS,DATACMNS-441,2014-02-18T04:41:56.000-06:00,lead to npes lead during QueryMethod processing,"@Query
+skip bridge methods consider for @Query annotation inspection not extract generic type parameter from bridge methods","org.springframework.data.repository.core.support.DefaultRepositoryInformationUnitTests
+org.springframework.data.repository.core.support.DefaultRepositoryInformation"
+CLASS,derby-10.9.1.0,DERBY-5251,2011-05-29T04:27:15.000-05:00,make ErrorCodeTest pass in non-english locale,"test_errorcode(org.apache.derbyTesting.functionTests.tests.lang.ErrorCodeTest
+)
+fail in Chinese locale",java.testing.org.apache.derbyTesting.functionTests.tests.lang.ErrorCodeTest
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,use prepared statement for Connection.setTransactionIsolation use regular statement for Connection.setTransactionIsolation,"client.am.Connection setTransactionIsolation()   setTransactionIsolation()   
+ private Statement setTransactionIsolationStmt = null;
+ 
+  
+ createStatementX(java.sql.ResultSet.TYPE_FORWARD_ONLY,
+                            java.sql.ResultSet.CONCUR_READ_ONLY,
+                            holdability());
+ 
+ private void setTransactionIsolationX(int level)
+ 
+ setTransactionIsolationStmt.executeUpdate(
+                ""SET CURRENT ISOLATION = "" + levelString);
+
+
+ 
+   
+
+import java.sql.*;
+import java.net.*;
+import java.io.*;
+import org.apache.derby.drda.NetworkServerControl;
+
+/**
+ * Client template starts its own NetworkServer and runs some SQL against it.
+ * The SQL or JDBC API calls can be modified to reproduce issues
+ * 
+ */public class SetTransactionIsolation {
+    public static Statement s;
+    
+    public static void main(String[] args) throws Exception {
+        try {
+            // Load the driver. Not needed for network server.
+            
+            Class.forName(""org.apache.derby.jdbc.ClientDriver"");
+            // Start Network Server
+            startNetworkServer();
+            // If connecting to a customer database. Change the URL
+            Connection conn = DriverManager
+                    .getConnection(""jdbc:derby://localhost:1527/wombat;create=true"");
+            // clean up from a previous run
+            s = conn.createStatement();
+            try {
+                s.executeUpdate(""DROP TABLE T"");
+            } catch (SQLException se) {
+                if (!se.getSQLState().equals(""42Y55""))
+                    throw se;
+            }
+
+            for (int i = 0; i < 50000; i++) {
+		conn.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+		conn.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+
+	    }
+            
+            // rs.close();
+            // ps.close();
+            runtimeInfo();
+            conn.close();
+            // Shutdown the server
+            shutdownServer();
+        } catch (SQLException se) {
+            while (se != null) {
+                System.out.println(""SQLState="" + se.getSQLState()
+                        + se.getMessage());
+                se.printStackTrace();
+                se = se.getNextException();
+            }
+        }
+    }
+    
+    /**
+     * starts the Network server
+     * 
+     */
+    public static void startNetworkServer() throws SQLException {
+        Exception failException = null;
+        try {
+            
+            NetworkServerControl networkServer = new NetworkServerControl(
+                    InetAddress.getByName(""localhost""), 1527);
+            
+            networkServer.start(new PrintWriter(System.out));
+            
+            // Wait for the network server to start
+            boolean started = false;
+            int retries = 10; // Max retries = max seconds to wait
+            
+            while (!started && retries > 0) {
+                try {
+                    // Sleep 1 second and then ping the network server
+                    Thread.sleep(1000);
+                    networkServer.ping();
+                    
+                    // If ping does not throw an exception the server has
+                    // started
+                    started = true;
+                } catch (Exception e) {
+                    retries--;
+                    failException = e;
+                }
+                
+            }
+            
+            // Check if we got a reply on ping
+            if (!started) {
+                throw failException;
+            }
+        } catch (Exception e) {
+            SQLException se = new SQLException(""Error starting network  server"");
+            se.initCause(failException);
+            throw se;
+        }
+    }
+    
+    public static void shutdownServer() throws Exception {
+        NetworkServerControl networkServer = new NetworkServerControl(
+                InetAddress.getByName(""localhost""), 1527);
+        networkServer.shutdown();
+    }
+    
+    public static void runtimeInfo() throws Exception {
+        NetworkServerControl networkServer = new NetworkServerControl(
+                InetAddress.getByName(""localhost""), 1527);
+        System.out.println(networkServer.getRuntimeInfo());
+    }
+    
+}
+avoid possible garbage collection issues have single prepared statement with parameter marker",java.client.org.apache.derby.client.am.Connection
+CLASS,derby-10.9.1.0,DERBY-6150,2013-04-03T19:58:03.000-05:00,add automatic cleanup of connections open with openDefaultConnection(),"openDefaultConnection()   tearDown()
+hold locks affect other tests roll default connection in JDBCBaseTestCase close default connection in JDBCBaseTestCase open with openDefaultConnection()
+clean up connections in tearDown()",java.testing.org.apache.derbyTesting.junit.BaseJDBCTestCase
+FILE,COMPRESS,COMPRESS-171,2012-01-20T17:54:09.000-06:00,file bytes as tar archives,"ArchiveStreamFactory()  createArchiveInputStream(inputstream)
+modify ArchiveStreamFactory()
+detect as tar archives
+apply on archives bytes",org.apache.commons.compress.archivers.ArchiveStreamFactory
+FILE,COMPRESS,COMPRESS-245,2013-12-05T11:01:39.000-06:00,tararchiveinputstream #getce null,"FileInputStream fin = new FileInputStream(""exampletar.tar.gz"");
+
+GZIPInputStream gin = new GZIPInputStream(fin);
+
+TarArchiveInputStream tin = new TarArchiveInputStream(gin);            TarArchiveEntry entry;
+
+              tin.getNextTarEntry()
+decompress with extracts part
+create file
+extract with same tool","org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+org.apache.commons.compress.archivers.tar.TarArchiveInputStreamTest"
+FILE,COMPRESS,COMPRESS-332,2016-01-26T14:12:44.000-06:00,invalid value at end,"FramedSnappyCompressorInputStream.read()
+reach end of stream
+return at end",org.apache.commons.compress.compressors.snappy.SnappyCompressorInputStream
+FILE,COMPRESS,COMPRESS-357,2016-05-25T17:50:50.000-05:00,affect output stream,"finished()  
+  
+ s.close();
+s = null;
+  finalize()  finish()  finish()  
+ finish()  
+ finalize() 
+ finalize()
+have unsynchronized finished() method have finalize method
+call various methods write various methods to output stream
+call finalize() at point call finish() call finalize()
+not call finish from finalize()",org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-371,2012-08-17T05:42:02.000-05:00,cause hedwig hub,"Channel topicSubscriberChannel = client.getSubscriber().getChannelForTopic(topicSubscriber);
+        HedwigClientImpl.getResponseHandlerFromChannel(topicSubscriberChannel).getSubscribeResponseHandler()
+        .messageConsumed(messageConsumeData.msg);
+
+  getPipeline()  getLast()   channel.close()   messageConsumed()
+connect hedwig client to remote region hub result in channel
+retrieve channel without checking
+return null value result in NPE
+retrieve channel call messageConsumed()","hedwig-client.src.main.java.org.apache.hedwig.client.netty.WriteCallback
+hedwig-client.src.main.java.org.apache.hedwig.client.handlers.SubscribeResponseHandler
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigPublisher
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigSubscriber
+hedwig-client.src.main.java.org.apache.hedwig.client.handlers.MessageConsumeCallback
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigClientImpl"
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-376,2012-08-22T13:32:57.000-05:00,consider node as special znode,"{noformat}
+     
+ {noformat}
+see while run RW tests","bookkeeper-server.src.main.java.org.apache.bookkeeper.meta.LedgerLayout
+bookkeeper-server.src.main.java.org.apache.bookkeeper.meta.AbstractZkLedgerManager"
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,click on empty space click on grid lines,"table.getLinesVisible()  
+ table.setLinesVisible(true)
+use table cursor have potential of table regions have kinds of table regions separate table cursor from table selection
+click on part of table follow table selection change selection as result",org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,78854,2004-11-17T12:17:00.000-06:00,leak in ClipboardProxy.getFunc(),"ClipboardProxy.getFunc()  OS.gtk_selection_data_set()  
+ OS.g_free()
+use OS.gtk_selection_data_set() function at end
+function copies data","org.eclipse.swt.dnd.Clipboard
+org.eclipse.swt.dnd.DragSource"
+FILE,swt-3.1,81264,2004-12-15T13:17:00.000-06:00,fail to setTopIndex add new items to table,"public static void main(String[] args) {
+		final Display display = new Display();
+		Shell shell = new Shell(display);
+		shell.setBounds(10,10,200,200);
+		final Table table = new Table(shell, SWT.NONE);
+		table.setBounds(10,10,100,100);
+		for (int i = 0; i < 99; i++) {
+			new TableItem(table, SWT.NONE).setText(""item "" + i);
+		}
+		
+		table.setTopIndex(20);
+
+		shell.open();
+
+		System.out.println(""top visible index: "" + table.getTopIndex());
+		
+		for (int i = 0; i < 5; i++) {
+			new TableItem(table, SWT.NONE).setText(""item "" + i);
+		}
+
+		table.setTopIndex(40);
+		System.out.println(""top visible index: "" + table.getTopIndex());
+		
+		while (!shell.isDisposed()) {
+			if (!display.readAndDispatch()) display.sleep();
+		}
+		display.dispose();
+	}
+
+  
+  
+ setTopTable(40)  
+  
+ setTopIndex(40)
+position to correct table item add new items to table
+position table at item
+add new table items to table have effect after adding
+move to top
+call getTopIndex","org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.List
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,produce invalid JPEG images,"package com.ibm.test.image;
+
+import org.eclipse.swt.*;
+import org.eclipse.swt.graphics.*;
+
+public class ImageLoaderTest {
+		
+	public static void main(String[] args) {
+		ImageLoader loader;
+		String dir=""c:\\image-problems\\"";
+		String files[]={
+				""s34i3p04"",
+				""s34n3p04"",
+				""s35i3p04"",
+				""s35n3p04"",
+				""s36i3p04"",
+				""s36n3p04"",
+				""s37i3p04"",
+				""s37n3p04"",
+				""s38i3p04"",
+				""s38n3p04"",
+				""s39i3p04"",
+				""s39n3p04""
+		};
+		
+		try {
+			for (int i=0; i<files.length; i++) {
+			String filein  = dir+files[i]+"".png"";
+			String fileout = dir+files[i]+"".jpg"";
+			
+			loader = new ImageLoader();
+			loader.load(filein);
+			loader.save(fileout,SWT.IMAGE_JPEG);
+			}
+		} catch (SWTException e) {
+		  e.printStackTrace();
+		}
+	}
+}
+produce bad JPG images
+produce proper JPG images expected",org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,88829,2005-03-22T20:41:00.000-06:00,not fire enough Move events,"Table.setColumnOrder(new int[] {4,1,2,3,0});
+swap positions fire SWT.Move events for columns
+fire >",org.eclipse.swt.widgets.Table
+FILE,swt-3.1,93724,2005-05-04T17:35:00.000-05:00,create signal names,"byte[] buffer = Converter.wcsToMbcs(null, ""drag_data_get"", true);
+OS.g_signal_connect(control.handle, buffer, DragGetData.getAddress(), 0);	
+buffer = Converter.wcsToMbcs(null, ""drag_end"", true);
+OS.g_signal_connect(control.handle, buffer, DragEnd.getAddress(), 0);
+buffer = Converter.wcsToMbcs(null, ""drag_data_delete"", true);
+OS.g_signal_connect(control.handle, buffer, DragDataDelete.getAddress(), 0);
+convert names for signals define signal names in OS.java","org.eclipse.swt.dnd.DropTarget
+org.eclipse.swt.dnd.DragSource"
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,mark cheese,"Tree.redraw() 
+ public static void main(String[] args) {
+	final Display display = new Display();
+	final Shell shell = new Shell(display);
+	shell.setBounds(10, 10, 300, 300);
+	final Tree tree = new Tree(shell, SWT.NONE);
+	tree.setBounds(10, 10, 200, 200);
+	new TreeItem(tree, SWT.NONE).setText(""pre-root"");
+	TreeItem root1 = new TreeItem(tree, SWT.NONE);
+	root1.setText(""root"");
+	TreeItem child = new TreeItem(root1, SWT.NONE);
+	child.setText(""child"");
+	Button button = new Button(shell, SWT.PUSH);
+	button.setBounds(230,10,30,30);
+	button.addSelectionListener(new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent e) {
+			tree.redraw();
+		}
+	});
+	root1.setExpanded(true);
+	tree.setInsertMark(root1, false);
+	shell.open();
+	while (!shell.isDisposed()) {
+		if (!display.readAndDispatch()) display.sleep();
+	}
+	display.dispose();
+}
+except for pointy ends
+belong not to child item belong not to root item
+press button to right do Tree.redraw() note Tree.redraw()
+expand root item copy insert mark to child item copy insert mark to initial location","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+CLASS,pig-0.8.0,PIG-1188,2010-01-14T13:32:46.000-06:00,null to input tuple,"{code}
+  as (a0, a1);
+dump a;
+{code}
+ 
+ {code}
+ 
+ {code}
+ 
+ {code}
+ 
+ {code}
+
+ 
+ {code}
+ 
+ {code}
+determine number of fields
+have schema generate input data null input data","test.org.apache.pig.test.TestMergeForEachOptimization
+src.org.apache.pig.newplan.logical.rules.TypeCastInserter
+test.org.apache.pig.test.TestNewPlanLogicalOptimizer
+test.org.apache.pig.test.TestNewPlanFilterRule
+test.org.apache.pig.test.TestNewPlanPushDownForeachFlatten
+test.org.apache.pig.test.TestEvalPipeline2
+test.org.apache.pig.test.TestMultiQueryCompiler
+test.org.apache.pig.test.TestPartitionFilterPushDown
+test.org.apache.pig.test.TestNewPlanFilterAboveForeach"
+CLASS,pig-0.8.0,PIG-1277,2010-03-05T13:02:03.000-06:00,give cogroup on tuple keys,"UDF:
+{code}
+public class MapGenerate extends EvalFunc<Map> {
+    @Override
+    public Map exec(Tuple input) throws IOException {
+        // TODO Auto-generated method stub
+        Map m = new HashMap();
+        m.put(""key"", new Integer(input.size()));
+        return m;
+    }
+    
+    @Override
+    public Schema outputSchema(Schema input) {
+        return new Schema(new Schema.FieldSchema(null, DataType.MAP));
+    }
+}
+{code}
+
+ 
+ {code}
+ 
+  
+ by (c0, c1);
+dump e;
+{code}
+
+ 
+ {code}
+ 
+ {code}
+
+ 
+ {code}
+ 
+ {code}
+
+ 
+ {code}
+  {(1,1)}  {(1,1)} 
+ {code}
+
+ 
+ {code}
+  {(1,1)}  {} 
+ {}  {(1,1)} 
+ {code}
+treat as different keys cogroup on tuple
+give error/warnings
+expect result
+give message not merge key mismatch due_to type","src.org.apache.pig.impl.io.NullableBytesWritable
+test.org.apache.pig.test.TestPackage
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigBytesRawComparator
+src.org.apache.pig.backend.hadoop.HDataType
+src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.relationalOperators.POMultiQueryPackage
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapReduce
+test.org.apache.pig.test.TestSecondarySort
+src.org.apache.pig.newplan.logical.relational.LOUnion"
+CLASS,pig-0.8.0,PIG-1893,2011-03-10T20:43:13.000-06:00,report input size for empty input file,"{code}
+ 
+ by b0;
+dump c;
+{code}
+read records read 1.txt
+count inputs 1.txt 0 in case","src.org.apache.pig.tools.pigstats.JobStats
+test.org.apache.pig.test.TestPigRunner"
+CLASS,pig-0.8.0,PIG-1910,2011-03-16T12:50:00.000-05:00,use project-star with other projections,"{code}
+ 
+ describe f;
+f: {a: bytearray,(null),b: bytearray}   
+ {code}
+return null schema","src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.expression.ExpToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+src.org.apache.pig.newplan.logical.expression.ProjectExpression
+test.org.apache.pig.test.TestPigServer
+test.org.apache.pig.test.Util"
+CLASS,pig-0.8.0,PIG-767,2009-04-15T23:43:29.000-05:00,report from DESCRIBE,"BinStorage()  
+ DESCRIBE urlContents;
+DUMP urlContents;
+
+     BY url;
+DESCRIBE urlContentsG;
+
+     urlContents.pg;
+
+DESCRIBE urlContentsF;
+DUMP urlContentsF;
+
+
+ 
+   {url: chararray,pg: chararray}
+   {group: chararray,urlContents: {url: chararray,pg: chararray}}
+   {group: chararray,pg: {pg: chararray}}
+
+      
+ 
+    
+   {group: chararray,urlContents: {t1:(url: chararray,pg: chararray)}}
+
+  {chararray}   {(chararray)}
+print for DESCRIBE commands
+be against section schemas be for Complex data types
+contain tuple inside inner bags observe from DUMP urlContentsG","test.org.apache.pig.test.TestNewPlanLogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+test.org.apache.pig.test.TestLogicalPlanMigrationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+test.org.apache.pig.test.TestSchema
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,use materialized blobs with Postgresql cause error,"@Lob
+have entity with byte [ ] property annotated have entity as @Lob lazy fetch type read OID value instead_of bytes read OID value under given oid be of type oid read column in application
+create oid column
+use oids deal in PostgreSQL","org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,use wrong columns in SQL,"@OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST})
+	@ElementJoinColumn(name=""maccno"", referencedColumnName=""maccno"")
+	@OrderBy(value = ""_id._processDate ASC, _id._tranSequenceNumber ASC"")
+	private LinkedList<Transaction> _transactions;
+
+
+
+      
+ @EmbeddedId
+	private TransactionId _id;
+	
+	 @Column(name = ""mtrancde"")
+	private int _transactionCode;
+	
+	 @Column(name = ""mamount"")
+	private BigDecimal _amount;
+	
+	 @Column(name = ""mdesc"")
+	private String _description;
+	
+
+
+	 @Column(name = ""mactdate"")
+	private Date _actualDate;
+	
+	 @Column(name = ""mbranch"")
+	private int _branch;
+
+
+
+   
+ @Embeddable
+public class TransactionId  
+ @Column(name = ""maccno"")
+	private String _accountNumber;
+	
+	 @Column(name = ""mprocdate"")
+	private Date _processDate;
+	
+	 @Column(name = ""mtranseqno"")
+	private int _tranSequenceNumber;
+be for columns map in transaction entity NOT
+do on columns map in transaction","org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+METHOD,openjpa-2.0.1,OPENJPA-1896,2010-11-23T10:32:43.000-06:00,not store pojos,"merge()  
+ merge()   persist()  
+      
+ merge()
+use java constructor update pre-existing record with matching identity
+encounter same files cause latest data from POJO store in pre-existing record
+execute merge() on constructed object execute persist() on constructed object trigger same error in database layer execute insert for pre-existing primary key violate unique constraint","org.apache.openjpa.kernel.VersionAttachStrategy:compareVersion(StateManagerImpl, PersistenceCapable)
+org.apache.openjpa.persistence.relations.BasicEntity:getId()"
+METHOD,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,ignore class loader,"PersistenceUnitInfo.getClassLoader() 
+ MetaDataRepository.preload()      
+ PersistenceUnitInfo.getClassLoader()    
+  
+   PersistenceProvider.createContainerEntityManagerFactory()  MetaDatRepository.preload()
+use context class loader from PersistenceUnitInfo leade PersistenceUnitInfo to ClassNotFoundExpcetions mention at end","org.apache.openjpa.meta.FieldMetaData:hashCode()
+org.apache.openjpa.meta.FieldMetaData:compareTo(Object)"
+FILE,CONFIGURATION,CONFIGURATION-214,2006-05-26T21:35:46.000-05:00,add integer cause exception,"bsh % p = new org.apache.commons.configuration.PropertiesConfiguration();
+bsh % p.setProperty(""foo"", 6);
+bsh % p.getLong(""foo"");
+// Error: // Uncaught Exception: Method Invocation p.getLong : at Line: 3 : in file: <unknown file> : p .getLong ( ""foo"" )
+   
+  PropertyConverter.toLong()
+treat as string
+convert to Number try to Number","org.apache.commons.configuration.TestPropertyConverter
+org.apache.commons.configuration.PropertyConverter
+org.apache.commons.configuration.TestBaseConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-275,2007-05-25T17:12:43.000-05:00,not merge list properties,"ConfigurationUtils.append()
+append list object instead_of list elements append list object to target list
+append list to list [ a",org.apache.commons.configuration.AbstractConfiguration
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,suffer from integer overflow,"HypergeometricDistribution.sample()  
+ {code}
+ import org.apache.commons.math3.distribution.HypergeometricDistribution;
+
+public class Foo {
+  public static void main(String[] args) {
+    HypergeometricDistribution a = new HypergeometricDistribution(
+        43130568, 42976365, 50);
+    System.out.printf(""%d %d%n"", a.getSupportLowerBound(), a.getSupportUpperBound()); // Prints ""0 50""
+    System.out.printf(""%d%n"",a.sample());                                             // Prints ""-50""
+  }
+}
+ {code}
+
+  HypergeometricDistribution.getNumericalMean()  
+ {code}
+ return (double) (getSampleSize() * getNumberOfSuccesses()) / (double) getPopulationSize();
+{code}
+ 
+ {code}
+ return getSampleSize() * ((double) getNumberOfSuccesses() / (double) getPopulationSize());
+{code}
+return sample use with large integer values",org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-326,2009-12-29T00:09:20.000-06:00,use wrong formula in ArrayRealVector use wrong formula in OpenMapRealVector,"{code}
+     public double getLInfNorm() {
+        double max = 0;
+        for (double a : data) {
+            max += Math.max(max, Math.abs(a));
+        }
+        return max;
+    }
+ {code}
+
+ 
+  
+ {code}   
+     public double getLInfNorm() {
+        double max = 0;
+        Iterator iter = entries.iterator();
+        while (iter.hasNext()) {
+            iter.advance();
+            max += iter.value();
+        }
+        return max;
+    }
+ {code}
+
+    sparseIterator() 
+ {code}
+   public double getLInfNorm() {
+    double norm = 0;
+    Iterator<Entry> it = sparseIterator();
+    Entry e;
+    while(it.hasNext() && (e = it.next()) != null) {
+      norm = Math.max(norm, Math.abs(e.getValue()));
+    }
+    return norm;
+  }
+ {code}
+have typo
+use sparseIterator() move up method to AbstractRealVector superclass implement method to AbstractRealVector superclass","org.apache.commons.math.linear.ArrayRealVector:getLInfNorm()
+org.apache.commons.math.linear.OpenMapRealVector:getLInfNorm()"
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,go past specified end of integration range,"{code}
+   public void testMissedEvent() throws IntegratorException, DerivativeException {
+          final double t0 = 1878250320.0000029;
+          final double t =  1878250379.9999986;
+          FirstOrderDifferentialEquations ode = new FirstOrderDifferentialEquations() {
+            
+            public int getDimension() {
+                return 1;
+            }
+            
+            public void computeDerivatives(double t, double[] y, double[] yDot)
+                throws DerivativeException {
+                yDot[0] = y[0] * 1.0e-6;
+            }
+        };
+
+        DormandPrince853Integrator integrator = new DormandPrince853Integrator(0.0, 100.0,
+                                                                               1.0e-10, 1.0e-10);
+
+        double[] y = { 1.0 };
+        integrator.setInitialStepSize(60.0);
+        double finalT = integrator.integrate(ode, t0, y, t, y);
+        Assert.assertEquals(t, finalT, 1.0e-6);
+    }
+
+ {code}
+cover 60s cover integration range in fact","org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,remove extension,"migrate()
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""success"",
+
+
+
+
+    ""result"" => {""migration-warnings"" => []}
+
+
+
+
+ 
+ migrate()
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""success"",
+
+
+
+
+    ""result"" => {""migration-warnings"" => []}
+
+
+
+
+ 
+ migrate()
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""success"",
+
+
+
+
+    ""result"" => {""migration-warnings"" => []}
+use migration operation fill console log with warning messages
+not show warnings","org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,scop roles,"{roles=master-monitor}
+
+
+
+
+ 
+ {
+
+
+
+
+                ""directory-grouping"" => ""by-server"",
+
+
+
+
+                ""domain-controller"" => {""local"" => {} 
+  
+ {""org.jboss.as.jmx"" => undefined} 
+ {
+
+
+
+
+                    ""management"" => undefined,
+
+
+
+
+                    ""public"" => undefined,
+
+
+
+
+                    ""unsecure"" => undefined
+
+
+
+
+                } 
+ {""default"" => undefined} 
+ {""jmx"" => undefined} 
+ {roles=slave-maintainer}
+
+
+
+
+ 
+ {roles=slave-maintainer}
+
+
+
+
+ 
+  
+ {""org.jboss.as.jmx"" => undefined} 
+ {
+
+
+
+
+                ""management"" => undefined,
+
+
+
+
+                ""public"" => undefined,
+
+
+
+
+                ""unsecure"" => undefined
+
+
+
+
+            } 
+ {""default"" => undefined} 
+ {""jmx"" => undefined}
+use role select master select role show filtered resources appear in results
+use role select slave select role get proper access-control header
+behave as slave-maintainer","org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1354,2016-02-03T00:19:08.000-06:00,not clone profile with remoting subsystem,"clone(to-profile=test)
+add requirement for worker capability have special logic
+break down in case add by cloning process
+trigger unmet requirement for io worker
+describe placeholder resource","org.jboss.as.remoting.RemotingExtension
+org.jboss.as.subsystem.test.AbstractSubsystemBaseTest"
+FILE,WFCORE,WFCORE-1572,2016-05-27T16:20:10.000-05:00,contain whitespace,"{rollout id=foo}
+hit tab after whitespace generate suggestions","org.jboss.as.cli.parsing.DefaultStateWithEndCharacter
+org.jboss.as.cli.parsing.ParserUtil
+org.jboss.as.cli.parsing.test.CommandTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,save name id attribute discrepancy,"group(rolling-to-servers=false,max-failed-servers=1)  group(rolling-to-servers=true,max-failure-percentage=20)  
+ {rollout id=my-rollout-plan}
+use rollout plans for EAP deployment scenarios create own named rollout-plan for ease
+see name attribute name rollout plan
+see id attribute
+use in aforementioned commands","org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,add local | remote-destination-outbound-socket-binding,"{remote|local} 
+   add()
+
+
+
+
+    add(host=localhost,port=8765)
+
+
+
+
+ 
+   add(socket-binding-ref=http)
+
+
+
+
+ 
+  
+  
+     
+  
+ 
+  
+ {remote|local}
+use same name as_of existing socket-binding resource parse configuration
+crash with following stacktrace
+have same names check names during add operation regard in socket-binding { remote | local } regard to resources","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1607,2016-06-17T12:23:38.000-05:00,finish with {,"{""outcome"" => ""success""}
+finish for removing
+finish with failure",org.jboss.as.domain.management.security.SecurityRealmChildRemoveHandler
+FILE,WFCORE,WFCORE-1715,2016-08-15T19:04:54.000-05:00,not reset restartMode,"The doReload()     ServerInventoryService.stop()
+set restartMode never restore to default value
+use value
+go into shutdownservers logic
+restore default value of restartMode",org.jboss.as.host.controller.operations.StartServersHandler
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,add command not remove whitespaces from dependencies,"{{
+...
+    <dependencies>
+        <module name=""org.a""/>
+        <module name="" org.b ""/>
+    </dependencies>
+...
+}}
+run module add for running result in following dependencies
+lead whitespaces trail whitespaces strip module name in dependencies strip module name of leading strip module name of trailing","org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,write attribute have access type metric have attribute,"attribute(name=message-count, value=5)
+
+
+
+
+ {
+
+
+
+
+    ""outcome"" => ""failed"",
+
+
+
+
+    ""failure-description"" => ""WFLYCTL0048: Attribute message-count is not writable"",
+
+
+
+
+    ""rolled-back"" => true
+
+
+
+
+}
+suggest attributes
+write metric attribute for example message-count print non writable error on attempt
+write attributes","org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,fold expantion,"{\{\{ hello
+
+something
+
+\}
+not expand folds","org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"

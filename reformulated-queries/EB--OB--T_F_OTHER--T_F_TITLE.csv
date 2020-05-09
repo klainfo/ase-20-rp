@@ -1,0 +1,1032 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+CLASS,tika-1.3,TIKA-1047,2012-12-19T12:55:52.000-06:00,provide JAX-RS detect mediatype,"use JAX-RS server detect mediatype use meta endpoint
+The problem I have with this is that I need to send the entire document to get all metadata.
+To detect the mediatype, only a few bytes are often necessary and so I'd like to only send, say 8K or so, to the server and let it tell me the mediatype.
+modify / meta endpoint address individual fields
+think query parameter turn path into query parameter
+return with BAD_REQUEST
+be of interest be to TIKA",tika-server.src.main.java.org.apache.tika.server.TikaResource
+FILE,DATAMONGO,DATAMONGO-423,2012-03-29T06:03:26.000-05:00,Criteria.regex should use java.util.Pattern instead of $regex,"complain about $regex
+throws this exception:
+not use $not with $regex use BSON regex type","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.query.QueryTests
+org.springframework.data.mongodb.core.query.Criteria"
+FILE,DATAMONGO,DATAMONGO-663,2013-04-24T03:21:19.000-05:00,org.springframework.data.mongodb.core.query.Field needs an equals method,"The above class Field does not has an equals() method.
+But org.springframework.data.mongodb.core.query.Query has an equals method which is using the equals method of the Field class.
+implement equals on Field method
+need equals method for unit testing",org.springframework.data.mongodb.core.query.Field
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,Updating an object does not write type information for objects to be updated,"I used 1.0.0.
+M5 version, and the type information (under _class key) was stored with object when it was necessary to be able to read it from database later.
+work till upgrade work to 1.0.0
+RELEASE version that broke my application as it saves the objects without type information and later it is impossible to read it back to java model.
+What I found is that MappingMongoConverter.writeInternal(...) method that in turn calls addCustomTypeIfNecessary(...) (line 330) which puts type information into DBObject.
+During execution of convertToMongoType(...) (at line 851) removeTypeInfoRecursively(...) is called which clears type data saved earlier under _class key.
+comment out call
+save type information to DBObject
+The second point is that there should be a way to persist the type information inferred from runtime along the persisted object and not just the class definition.","org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,"Using ""OrderBy"" in ""query by method name"" ignores the @Field annotation for field alias.","int score
+When the query is run, the database attempts to sort the results by ""score"" rather than my ""sr"" field name.",org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-987,2014-07-14T12:01:52.000-05:00,get data use MongoTemplate problem with lazy loading,"and Child class
+The following situation should never happen:
+mongoTemplate.save(parent); //ok, it is persisted like we expected.
+// The child attribute should be null, right?
+assertNull(persisted.getChild()); // it fails
+bring lot of problems persist same entity by accident
+I attached a project with the JUnit test which reproduces the problem for you.","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.DbRefMappingMongoConverterUnitTests"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,"@Query $in does not remove ""_class"" property on collection of embedded objects","generates incorrect query.
+Query should be without _class property e.g.:
+relate bug to https://jira.spring.io/browse/DATAMONGO-893","org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,"geoNear, does not return all matching elements, it returns only a max of 100 documents","document geoNear method
+return { @link georesults } for matching match given { @link nearquery }
+I expect 1000 ""matching"" documents But i only get 100.
+There is some default being set, that restricts the result to 100.
+state in method
+have pageable",org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,keyword query findByInId with pageable,"The query returns results but getTotalElements() and getTotalPages() always returns 0.
+Also when you try to get any other page than 0, no results return.
+use with member
+// expect 5 Items returned, total of 10 Items(SWORDS) in 2 Pages
+// expect 5 Items returned, total of 30 Items in 6 Pages
+Assert.assertEquals(30, results.getTotalElements()); // this is returning 0
+Assert.assertEquals(6, results.getTotalPages());     // this is returning 0","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1307,2015-10-20T12:33:45.000-05:00,convert user-defined runtime exceptions to npes,"MongoTemplate has code like this in many places:
+throw exceptionTranslator.translateExceptionIfPossible(ex)
+MongoExceptionTranslator, however, often does NOT return an exception.
+If it encounters an unknown exception it does this:
+// If we get here, we have an exception that resulted from user code,
+// rather than the persistence provider, so we return null to indicate
+// that translation should not occur.
+return null;
+MongoTemplate then ""eats"" the original exception and throws a null-pointer exception instead.
+MongoTemplate should throw the original exception if it gets null back from the exception translator.",org.springframework.data.mongodb.core.MongoTemplate
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,involve generic types,"When an association between documents involves generic types, the type information is not correctly inferred at startup time resulting in missing indexes.
+see https://github.com/agustisanchez/SpringDataMongoDBBug for code samples
+attribute super class AbstractProduct with index
+The index ""name"" inherited from AbstractProduct is created (book2.content.name) inside ""catalog"" , but the index defined on the Book class itself (isbn) is not created as Spring Data Mongo is only inferring type infromation from the ProductWrapper class definition (ProductWrapper <T extends AbstractProduct>).
+Spring Data MongoDB should be able to infer type information from the list declaration ( List<ProductWrapper<Book>> ), becoming aware that Catalog contains a list of Books, hence indexes defined on Book should be created.
+If the wrapper class is defined as ProductWrapper<T>, then no indexes are created at all on Catalog.books2.content.","org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1289,2015-09-17T11:43:51.000-05:00,"NullPointerException when saving an object with no ""id"" field or @Id annotation","If no field or property specified above is present in the Java class then an implicit '_id' file will be generated by the driver but not mapped to a property or field of the Java class.
+Instead of this, I'm seeing a NullPointerException when attempting to save an object that doesn't have an ""id"" field or an @Id annotated field.
+work in 1.6.0 not work in 1.6.0 change in 1.6.2 expect in newer versions","org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation"
+FILE,DATAMONGO,DATAMONGO-1406,2016-04-04T18:59:49.000-05:00,Query mapper does not use @Field field name when querying nested fields in combination with nested keywords,"protect <s, t> List<T>
+resolves the fields to the input query to the ones in the @Field annotations, except for these in embedded arrays.
+So, in the example above, resolution fields in DBObject remains resolution.
+While, the status field resolves to stat.
+note queries in inner list
+Which doesn't get any data, because there is no field called resolution (the field in mongo is res).
+Notice the status and displays fields correctly get converted to the value in the @Field annotation.
+The correct query from getMappedObject should be:
+This basically means that any queries that operate on fields (with a name different from the peristed name) in the inner list will fail.","org.springframework.data.mongodb.core.convert.QueryMapper
+org.springframework.data.mongodb.core.convert.QueryMapperUnitTests"
+CLASS,derby-10.7.1.1,DERBY-4654,2010-05-12T05:27:40.000-05:00,Restriction.toSQL() doesn't escape special characters,"org.apache.derby.vti.Restriction.toSQL() adds double quotes around column names, but it does not escape the special characters (like double quotes) in the column names, so the returned string may not be valid SQL.
+cause problems use restriction generate query against external database
+Restriction.doubleQuote() should use IdUtil.normalToDelimited() to get proper quoting of the names.","org.apache.derbyTesting.functionTests.tests.lang.RestrictedVTITest
+org.apache.derby.vti.Restriction"
+CLASS,derby-10.7.1.1,DERBY-4684,2010-06-01T10:46:19.000-05:00,correct implicit casting of other types correct implicit casting to BOOLEAN,"Via a UNION query, it is possible to implicitly cast non-BOOLEAN types to BOOLEAN today.
+These implicit casts do not obey the SQL Standard rules defined in part 2, section 6.12 (<cast specification>).
+Derby should support the Standard rules.
+The following query shows how you can implicitly cast a non-BOOLEAN data type to BOOLEAN today:
+select isindex from sys.sysconglomerates","org.apache.derby.iapi.types.SQLBoolean
+org.apache.derby.impl.sql.compile.BooleanTypeCompiler"
+CLASS,derby-10.7.1.1,DERBY-4786,2010-08-31T13:58:13.000-05:00,Shutdown command without username and password should work with mixed client and network server releases.,"introduce optional parameters username to shutdown command introduce password to shutdown command
+But with this fix, the existing shutdown command which does not use username and password stopped working from client with DERBY-2109 changes against a network server without DERBY-2109 changes.
+The new shutdown command introduced by DERBY-2109 will work obviosuly only on client and server with DERBY-2109 changes.
+For client/server not with DERBY-2109 changes attempting to user use name and password will get an error.",org.apache.derby.impl.drda.NetworkServerControlImpl
+CLASS,pig-0.11.1,PIG-2767,2012-06-25T09:11:20.000-05:00,Pig creates wrong schema after dereferencing nested tuple fields,"The schema of ""dereferenced"" should be {f1: int, nested_tuple: (f2: int,
+f3: int)}.
+DESCRIBE thinks it is {f1: int, f2: int} instead.
+When dump is
+used, the data is actually in form of the correct schema however, ex.
+Because the schema is incorrect,
+the reference to ""nested_tuple"" in the ""uses_dereferenced"" statement is
+considered to be invalid, and the script fails to run.
+The error is:
+invalid field projection
+not exist in schema","src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+test.org.apache.pig.test.TestPigServer"
+CLASS,pig-0.11.1,PIG-3310,2013-05-03T02:59:57.000-05:00,"ImplicitSplitInserter does not generate new uids for nested schema fields, leading to miscomputations","inp AS
+j by shopId
+provide minimal reproduction case
+This will give a wrongful output like .
+.
+{code}
+(1 1001,1001)
+(1 1002,1002)
+(1 1002,1002)
+(1 1002,1002)
+{code}
+The second column should be a member id so (1,2,3,4,5).
+move LOFilter operation before join be in initial case fail at place fail because_of PushUpFilter optimization work on tuple
+create LOSplitOutputs reset schema regenerate uids for fields
+get new uid
+have same uid have join looks
+get separate uids
+recurse on nested schema fields
+have light understanding
+reproduce issue
+run unit tests with fix
+like wrong way fix issue",src.org.apache.pig.newplan.logical.relational.LOSplitOutput
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,ZooKeeper Server fails if snapCount is set to 1,"If snapCount is set to 1, ZooKeeper Server can start but it fails with the below error:
+In source code,  it maybe be supposed that snapCount must be 2 or more:
+take snapshot at same time
+mention restriction in documentation add validation in source code",src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1783,2013-10-07T13:01:56.000-05:00,Distinguish initial configuration from first established configuration,"distinguish initial config of running ensemble distinguish initial config of server distinguish initial config of running ensemble distinguish initial config of server
+Currently both have version 0.
+The version of a config increases with each reconfiguration, so the problem is just with the initial config.","src.java.main.org.apache.zookeeper.server.quorum.FastLeaderElection
+src.java.main.org.apache.zookeeper.server.quorum.QuorumPeer
+src.java.test.org.apache.zookeeper.server.quorum.Zab1_0Test
+src.java.main.org.apache.zookeeper.server.quorum.Leader"
+CLASS,jedit-4.3,1536064,2006-08-07T15:14:23.000-05:00,focus in filesystembrowser NOT in filenamefield,"When I try to open a file \(Ctrl-O\) the focus in the filesystembrowser is on the Commands menu instead of the filename field.
+be because GUIUtilities.requestFocus\(\)
+not do job
+see rev.5386 be to method
+prompt by bug-report http://sourceforge.net/tracker/ index.php?func=detail&aid=1275607&group\_id=588&atid=300588
+trigger bug indicate bug not need particular patch for bug resolution
+revert patch resolve by reverting
+not have idea about reason",org.gjt.sp.jedit.GUIUtilities
+CLASS,jedit-4.3,1541372,2006-08-16T15:32:58.000-05:00,move caret on collapsing a fold,"If the caret is in a fold that gets collapsed, the 
+caret should be placed at first line of that fold, i. 
+e. the remaining visible line, otherwise it reexpands 
+the fold on direction key press.
+have many bugs check for dupes","org.gjt.sp.jedit.textarea.Gutter.MouseHandler
+org.gjt.sp.jedit.textarea.JEditTextArea"
+CLASS,jedit-4.3,1942313,2008-04-14T18:08:29.000-05:00,Expanding a fold twice moves caret unexpectedly,"use 4.3pre13 on Debian testing \ use 4.3pre13 on Ubuntu feisty \
+get same results on machines
+void bcd \
+void efg \
+void hij \
+The caret moves unexpectedly to the \`bcd' line.
+I think this is a bug: I think the caret should stay where it is, and jEdit should either do nothing or print an error message.",org.gjt.sp.jedit.textarea.DisplayManager
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,Unnecesarry fold expantion when folded lines are edited,"test patch
+avoid serious black hole bugs apply patch
+all folds are folded.
+I
+think it should not expand folds since the fold level
+is not changed.","org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,argouml-0.22,2225,2003-09-10T09:24:09.000-05:00,Allow the user to create diagrams without selecting a classifier/operation,"This issue requests the following enhancement:
+Allow the user to create diagrams without selecting a classifier/operation
+first
+The UML standard says that a Collaboration diagram needs (can not 
+exist
+without) at least a ""Classifier"" or ""Operation"" - if I interpret the
+standard well.
+But a user should be able to start ArgoUML and draw some Collaboration
+diagrams, without first defining e.g. a class.
+Which would mean that, formally, the user is making a mistake here.
+handle user mistakes with varying degrees
+do by e.g. downlighting toolbuttons
+allow mistake warn user with critic give possibility correct error
+Hence the following proposal:
+1 Do not downlight the collaboration & statechart diagram creation
+functions any more - never.
+2 Create a critic to warn for a missing classifier/operation/modelelement
+for these diagrams.
+3 Allow the user to change the namespace & represented xxx of a
+collaboration & statemachine.","org.argouml.ui.explorer.rules.GoModelElementToContainedDiagrams
+org.argouml.uml.ui.behavior.collaborations.ActionSetRepresentedClassifierCollaboration
+org.argouml.uml.ui.ActionActivityDiagram
+org.argouml.uml.ui.ActionStateDiagram
+org.argouml.uml.diagram.activity.ui.UMLActivityDiagram
+org.argouml.uml.ui.ActionSequenceDiagram
+org.argouml.uml.ui.behavior.collaborations.ActionSetRepresentedOperationCollaboration
+org.argouml.uml.diagram.state.ui.UMLStateDiagram
+org.argouml.ui.explorer.rules.GoCollaborationToDiagram
+org.argouml.uml.ui.behavior.collaborations.TestUMLCollaborationRepresentedOperationComboBoxModel
+org.argouml.uml.ui.behavior.collaborations.UMLCollaborationRepresentedClassifierComboBoxModel
+org.argouml.uml.ui.behavior.collaborations.PropPanelCollaboration
+org.argouml.ui.explorer.rules.GoModelElementToContents
+org.argouml.ui.explorer.rules.GoNamespaceToOwnedElements
+org.argouml.uml.ui.behavior.collaborations.UMLCollaborationRepresentedOperationComboBoxModel
+org.argouml.uml.diagram.sequence.SequenceDiagramGraphModel
+org.argouml.uml.diagram.DiagramFactory
+org.argouml.uml.ui.ActionNewDiagram
+org.argouml.ui.explorer.PerspectiveManager
+org.argouml.ui.explorer.rules.GoModelElementToContainedLostElements
+org.argouml.uml.ui.ActionCollaborationDiagram
+org.argouml.uml.ui.behavior.collaborations.TestUMLCollaborationRepresentedClassifierComboBoxModel"
+CLASS,argouml-0.22,3100,2005-02-22T00:28:44.000-06:00,new package or class shown with funny name in explorer,"After adding a new package, the package is shown in the explorer with a funny 
+name: ""(anon Package)"" or ""(anon Class)"".
+stand for anonymous package stand for anonymous class come after many hours come after thinking
+Why not write the 
+whole string, there's plenty of room.","org.argouml.uml.ui.UMLListCellRenderer2
+org.argouml.ui.DisplayTextTree"
+CLASS,argouml-0.22,3774,2005-12-03T06:33:15.000-06:00,Do not set namespace of Model when adding to diagram,"Here is the backtrace:
+echo --- executing ArgoUML ---
+find [ argouml ] log4j:WARN for logger
+argouml ] log4j:WARN initialize log4j system
+argouml ] javax.jmi.reflect.CompositionCycleException",org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+CLASS,argouml-0.22,4162,2006-04-13T09:33:06.000-05:00,checklist uses <attribute> where it should use <class>,"in the checklist for a class attribute, there is this item:
+apply to instances
+it should read:
+apply to instances",org.argouml.ocl.CriticOclEvaluator
+METHOD,apache-nutch-1.8,NUTCH-1262,2012-01-31T03:15:33.000-06:00,Map `duplicating` content-types to a single type,"Similar or duplicating content-types can end-up differently in an index.
+With, for example, both application/xhtml+xml and text/html it is impossible to use a single filter to select `web pages`.
+Content-Type mapping is disabled by default and is enabled via moreIndexingFilter.mapMimeTypes.
+provide example mapping file in conf /","org.apache.nutch.indexer.more.MoreIndexingFilter:getConf()
+org.apache.nutch.indexer.more.MoreIndexingFilter:setConf(Configuration)
+org.apache.nutch.indexer.more.MoreIndexingFilter:filter(NutchDocument, Parse, Text, CrawlDatum, Inlinks)"
+METHOD,eclipse-2.0,19686,2002-06-07T16:42:00.000-05:00,mouse over end of file work after mousing,"build from Stable
+editor in java
+like lower-right-most region of java file
+Stay there for 
+about 3 secs or so, then mouse over some text in the java file where you would 
+expect hover help.
+The hover help no longer works for the file.
+help button on/off/on bring hoverhelp switch to other editors
+close file reopen file get hover help",org.eclipse.jface.text.TextViewerHoverManager:computeInformation()
+METHOD,eclipse-2.0,19976,2002-06-11T22:25:00.000-05:00,Dav: Choosing not to add a bad site should let user modify site properties,"If in Site Explorer you add a new site with a bogus url, the site shouldn't get 
+added.
+At present hitting <Finish> will inform you of the error but the site 
+will still get added.
+argue as feature not connect to internet
+do with CVS do with offer",org.eclipse.team.internal.webdav.ui.WebDavConfigurationWizard:performFinish()
+METHOD,eclipse-2.0,23140,2002-09-04T01:34:00.000-05:00,man in middle attacks poisoning,"use shared codebase test on Linux gtk2 test on mac OS x
+base ssh1 client with cvs base ssh1 client for use
+select extssh as method select extssh to cvs repository
+support password authentication use standard ext method with suitable ssh-agent use standard ext method for public key authentication
+However when using the Eclipse extssh component no history of host keys
+is kept.
+enable attacker poison name resolution of eclipse client poison attacker of eclipse client steal passwords through modified ssh daemon
+4 In your auth logs you should get messages like:
+log in case
+Expected results:  Should get a prompt saying key changed.
+gain access to valuable accounts
+use ssh2 client with public keys","org.eclipse.team.internal.ccvs.ssh.Client:connect(IProgressMonitor)
+org.eclipse.team.internal.ccvs.ssh.Client:send_SSH_CMSG_SESSION_KEY(byte[], byte[], byte[], byte[], byte[], byte[])
+org.eclipse.team.internal.ccvs.ssh.Client:receive_SSH_SMSG_PUBLIC_KEY(ServerPacket)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,[resources] UnifiedTree should ensure file/folder exists,"use natives
+When the UnifiedTree finds a new file from the file system, it assumes that if the file is not an existing file, then it is a folder.
+This is not always true, because for different reasons a file returned by java.io.File.list/listFiles may not actually exist (our CoreFileSystemLibrary#getStat() returns 0).
+At the first moment, the file is found in the file system and assumed to be a folder, and a corresponding resource is created in the workspace.
+At the second refresh, the folder corresponding to that resource is not found in the file system, and then it is removed from the workspace.
+And so on.
+reveal bugs","org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"
+CLASS,jabref-2.6,1709449,2007-04-29T00:03:55.000-05:00,Clicking a DOI from context menu fails,"have document with DOI have document with hyperlink
+show \ ( nice \ in document list show \ ( nice \ in offers
+Now: Clicking the DOI icon fails, since the default DOI server is not prepended, i.e. Firefox says
+retrieve URL
+A suggestion: You should use a 3rd icon in the document list if both, the hyperlink and the DOI, are available to show this to the user.
+save DOI for document save hyperlink for document","tests.net.sf.jabref.UtilTest
+net.sf.jabref.Util"
+CLASS,jabref-2.6,2207462,2008-10-29T14:31:16.000-05:00,Web search results hidden behind JabRef window,"\* A new window opens with progress bar where the results will later be shown \(yet empty\).
+\* The new window disappears \(behind the main JabRef window\) and a message box opens: ""444 entries found.
+To reduce server load, only 50 will be downloaded.""
+\* Hitting ok: Message box closes, but the result window stays in the background \(invisible\).
+move JabRef window find results
+I would expect that the focus moves to the results window again.","net.sf.jabref.imports.ACMPortalFetcher
+net.sf.jabref.imports.ImportInspectionCommandLine
+net.sf.jabref.gui.ImportInspectionDialog"
+CLASS,lucene-4.0,LUCENE-4629,2012-12-13T16:57:50.000-06:00,IndexWriter fails to delete documents if Iterator<IndexDocument> throws an exception,"In DWPT we iterator over a document block and roll back documents if one of the docs fails with a non-aborting exception.
+Yet, we miss to delete those document if the iterator itself throws an exception.
+Given the fact that we allow an Iterable on IW we should be prepared for RT exceptions since these documents might be created in a stream fashing rather than already build up.
+have large documents not materialize in memory not require IMO",org.apache.lucene.index.DocumentsWriterPerThread
+CLASS,lucene-4.0,LUCENE-4899,2013-04-03T03:54:00.000-05:00,FastVectorHighlihgter fails with SIOOB if single phrase or term is > fragCharSize,"report on ES mailing list https://groups.google.com/d/msg/elasticsearch/IdyMSPK5gao/nKZq8_NYWmgJ report on several occasions
+The reason is that the current code expects the fragCharSize > matchLength which is not necessarily true if you use phrases or if you have very long terms like URLs or so.
+have test reproduce issue reproduce fix reproduce test tell ( not have much experience with highlighter not have ( with highlighter","org.apache.lucene.search.vectorhighlight.SimpleFragListBuilderTest
+org.apache.lucene.search.vectorhighlight.FieldPhraseList
+org.apache.lucene.search.vectorhighlight.BaseFragListBuilder"
+CLASS,openjpa-2.0.1,OPENJPA-1752,2010-07-29T23:33:45.000-05:00,TestPessimisticLocks JUNIT test produced inconsistent behavior with various backends,"TestPessimisticLocks JUNIT tests pass all assertions for Derby backend, but failures are seen on DB2, MySQL, Oracle.
+occur on other backends
+handle pessimistic lock requests
+There is also inconsistency in reporting exceptions - lock timout or query timeout should be non-fatal; but with Derby the PessimisticLockException is reported  which is considered fatal.
+have test cases work for backend
+list problem test cases
+The failure symptoms are summarized below -   Each test contains 2 variations.
+expect exception in testFindAfterQueryWithPessimisticLocks() expect exception in testFindAfterQueryWithPessimisticLocks() expect first scenario in testFindAfterQueryWithPessimisticLocks() get results from database
+hang QueryTimeoutException
+NOTE: for Oracle, many test scenarios caused process to hang (test 3.1, 3.2, and 4.2) - ie.
+test never run to completion
+      for MySQL, Server shutdown (test 3.1 and 3.2)
+      here is the  stack trace:
+prepstmnt SELECT t1.id",org.apache.openjpa.persistence.lockmgr.TestPessimisticLocks
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,MetaDataRepository.preload() ignores class loader returned by PersistenceUnitInfo.getClassLoader(),"use openjpa inside osgi container
+However, the code in MetaDataRepository.preload() only uses the context class loader and not the class loader from PersistenceUnitInfo, which leades to ClassNotFoundExpcetions like mentioned at the end of this report.
+append return value of PersistenceUnitInfo.getClassLoader() append return value to list establihe fix participate in MultiClassLoader set up in MetaDataRepository.java:310ff
+set classloader as context loader set classloader in meanwhile set classloader by PersistenceProvider.createContainerEntityManagerFactory() set classloader during creation
+instantiate bean entityManagerFactory of class null
+see nested stacktrace for details
+cause by org.clazzes.fancymail.server.entities.EMail","org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-1928,2011-01-20T17:43:52.000-06:00,Resolving factory method does not allow method overriding,"If a get method is annotated with @Factory then the method cannot be overridden with a method which take different parameters.
+The system randomly selects one of the several methods with the same name which may or may not take the type which will be provided.
+Actual results:
+valueOf(String) may or may not be selected.
+Expected results:
+valueOf(String) should always be selected.
+fix defect by applying apply method invocation conversion rules from Java",org.apache.openjpa.meta.FieldMetaData
+CLASS,openjpa-2.0.1,OPENJPA-2007,2011-05-25T14:51:51.000-05:00,hint openjpa.FetchPlan.Isolation results in misleading warning hint openjpa.FetchPlan.Isolation results for setting,"Setting query hint ""openjpa.FetchPlan.Isolation"" on a query results in this misleading warning being printed in the log:
+mean openjpa.FetchPlan.LRSSize
+The supported hint map in JDBCPersistenceProductDerivation adds key openjpa.FetchPlan.TransactionIsolation, which is incorrect.
+It should be adding openjpa.FetchPlan.Isolation instead.
+Note: Even though a warning is issued, provided the database supports query-level isolation level switching, the hint handler does apply the isolation level to the query.","org.apache.openjpa.persistence.jdbc.JDBCPersistenceProductDerivation
+org.apache.openjpa.conf.TestQueryHints"
+METHOD,lang,LANG-346,2007-07-06T20:06:55.000-05:00,behave for minutes behave for seconds,"get unexpected output for rounding round by minutes round by seconds
+--2.1 produces
+Before round() Mon Jul 02 03:09:50 CDT 2007
+After round()  Mon Jul 02 03:10:00 CDT 2007 -- this is what I would expect
+--2.2 and 2.3 produces
+Before round() Mon Jul 02 03:09:50 CDT 2007
+After round()  Mon Jul 02 03:01:00 CDT 2007 -- this appears to be wrong","org.apache.commons.lang.time.DateUtils:modify(Calendar, int, boolean)"
+METHOD,lang,LANG-788,2012-02-11T12:36:48.000-06:00,SerializationUtils throws ClassNotFoundException when cloning primitive classes,"If a serializable object contains a reference to a primitive class, e.g. int.class or int[].class, the SerializationUtils throw a ClassNotFoundException when trying to clone that object.
+noformat } import org.apache.commons.lang3.SerializationUtils;
+import org.junit.Test;
+fix java bug http://bugs.sun.com/view_bug.do?bug_id=4171142 since java version fix ObjectInputStream since java version
+The SerializationUtils problem arises because the SerializationUtils internally use the ClassLoaderAwareObjectInputStream that overrides the ObjectInputStream's resoleClass method without delegating to the super method in case of a ClassNotFoundException.
+I understand the intention of the ClassLoaderAwareObjectInputStream, but this implementation should also implement a fallback to the original implementation.
+throw IOException {
+try { return Class.forName(name, false, classLoader)
+try { return Class.forName ( name
+catch { return super.resolveClass(desc)
+fix java bug in ObjectInputStream fix code in ObjectInputStream
+protect class <?> resolveClass(ObjectStreamClass desc)
+try { return Class.forName","org.apache.commons.lang3.SerializationUtils:ClassLoaderAwareObjectInputStream(InputStream, ClassLoader)
+org.apache.commons.lang3.SerializationUtils:resolveClass(ObjectStreamClass)"
+METHOD,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,WHERE condition getting pushed into sub-query with FETCH,"Derby pushes query conditions down into subqueries with FETCH limits, thus creating wrong results.
+fetch next rows
+The first query correctly returns the rows (Colombian,5), (Colombian_Decaf,20).
+The second query (which filters the result of the first one) returns (Colombian,5), (French_Roast,5).
+The row (French_Roast,5) should not be there since it is not a result of the first query.
+evaluate filter condition before fetch limit","org.apache.derby.impl.sql.compile.SelectNode:checkNoWindowFunctions(QueryTreeNode, String)"
+METHOD,derby-10.9.1.0,DERBY-6008,2012-12-05T17:54:44.000-06:00,Allow ORDER BY and FETCH/OFFSET in set operands,"Currently, Derby doesn't allow ORDER BY nested in a set operand, e.g. in the following construct:
+choose second alternative in production","org.apache.derby.impl.sql.compile.SelectNode:pushOrderByList(OrderByList)
+org.apache.derby.impl.sql.compile.SelectNode:genProjectRestrict(int)
+org.apache.derby.impl.sql.compile.SetOperatorNode:pushOrderByList(OrderByList)"
+METHOD,derby-10.9.1.0,DERBY-6009,2012-12-07T04:15:23.000-06:00,need stricter checking of ORDER BY clause,"support column numbers in ORDER BY clauses see by error message
+support unqualified column references support column position numbers
+However, the checks let some unsupported expressions through and produce strange results.
+It should probably have raised the same exception as the first query.
+And if not, the result should only have had one column.
+And the next example should probably have raised a syntax error too, instead of a NullPointerException:",org.apache.derby.impl.sql.compile.OrderByList:getResultSetNumber()
+FILE,eclipse-3.1,100799,2005-06-20T08:40:00.000-05:00,[ErrorHandling] 'Unable to create view' error page should link to error log view,"When I ran this plugin in a run-time eclipse with a 1.4 VM, startup passed without any error message.
+When I opened the view, I got a view with an embedded error dialog showing a
+ClassNotFoundException.
+But the real reason was in the previous log entry (an UnsupportedClassVersionError).
+Either the view should show the relevant error, or it should contain a link to the Error Log, such that users are aware that other log entries could be relevant for this problem.
+create view ID org.eclipse.jdt.jeview.views.JavaElementView load class org.eclipse.jdt.jeview.views.JavaElementView.java.lang.ClassNotFoundException
+activate bundle org.eclipse.jdt.jeview","org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.part.StatusPart"
+FILE,eclipse-3.1,126938,2006-02-08T12:20:00.000-06:00,Cannot import Installed JREs from preference file,"r \ n. r \ n</vmType>
+To see one JRE ""jdk1.5.0_04"" and that JRE is configured with the default argument of ""-ea"".",org.eclipse.jdt.internal.launching.JREPreferenceModifyListener
+FILE,eclipse-3.1,138404,2006-04-25T11:36:00.000-05:00,[Problems] quick fix wizard opened with no options,"see attachment https://bugs.eclipse.org/bugs/attachment.cgi?id=39419&action=edit
+- note that when openning the quick fix wizard it should not be empty.
+enable menu item in problems view",org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,142881,2006-05-20T00:02:00.000-05:00,work on non-editable editor,"press DEL key
+Observe how the selected item gets deleted.
+DEL key should do nothing on such a non-editable model.","org.eclipse.pde.internal.ui.editor.plugin.ImportPackageSection
+org.eclipse.pde.internal.ui.editor.plugin.RequiresSection
+org.eclipse.pde.internal.ui.editor.plugin.ExtensionPointsSection
+org.eclipse.pde.internal.ui.editor.plugin.ExportPackageSection"
+FILE,eclipse-3.1,157944,2006-09-20T01:11:00.000-05:00,JavaAttributeWizard shouldn't open with errors when passed an empty string,"test candidate
+The class wizard opens with an error.
+fix for bug",org.eclipse.pde.internal.ui.editor.plugin.JavaAttributeWizardPage
+FILE,eclipse-3.1,78123,2004-11-08T17:48:00.000-06:00,[JFace] Error dialog should be resizable and not print redundant messages,"The error dialog that appears on synchronization errors should be resizable (as every dialog with dynamic content).
+Furthermore, the 2-row message should be shortened.
+Where it currently reads:
+occur synchronizing /org.eclipse.jdt.astview
+the second ""Authentication error..."" is redundant and makes it hard to parse the only interesting information (the project names).","org.eclipse.jface.dialogs.ErrorDialog
+org.eclipse.ui.internal.progress.JobErrorDialog"
+FILE,eclipse-3.1,79638,2004-11-28T12:48:00.000-06:00,[EditorMgmt] history: NavigationHistory won't release references to IEditorParts,"Through profiling I have discovered that the reason my references are never released is because NavigationHistory is holding them.
+NavigationHistory gets references to every IEditorPart opened within a particular WorkbenchPage.
+From what I can tell through code examination it never releases any of them until the number held reaches an appearantly arbitrary 50.
+In any event, I need a way to get the NavigationHistory to empty itself.
+limit in number do number with plugin do number of work do number since none",org.eclipse.ui.IEditorInput
+FILE,eclipse-3.1,79754,2004-11-30T04:01:00.000-06:00,[Change Sets] should show activity affordance,"When updating a selection of change sets, only the children of the sets get the
+activity affordance (italic font and clock decoration), but not the toplevel
+entries.
+update number of sets","org.eclipse.team.internal.ui.synchronize.ChangeSetModelProvider
+org.eclipse.team.internal.ccvs.ui.subscriber.WorkspaceCommitAction
+org.eclipse.team.internal.ui.synchronize.AbstractSynchronizeModelProvider
+org.eclipse.team.internal.ccvs.ui.wizards.CommitWizard"
+FILE,eclipse-3.1,84141,2005-02-01T10:43:00.000-06:00,[Decorators]  DecoratorScheduler should not lock UI Thread,"Currently the DecoratorScheduler locks the UI Thread sometimes while decorations
+are running.
+remove lock use scheduling rule",org.eclipse.ui.internal.decorators.DecoratorManager
+FILE,eclipse-3.1,84881,2005-02-10T07:19:00.000-06:00,[WorkbenchLauncher] Splash screen receives focus after task switch (instead of workspace launcher dialog),"When starting Eclipse 3.1, the splash screen and the ""select a workspace"" dialog
+(workspace launcher) is shown.
+If you then switch to another task and switch
+back to eclipse using ALT+Tab (MS Windows), the Splash-Screen receives the focus
+while the ""Select a workspace"" dialog stays in front but is inactive.
+select workspace continue workspace not have mouse
+I've not found any workaround to
+this problem (closing the splash-screen via ALT+F4 removes the task from the
+task bar, while the dialog stays in front without focus).","org.eclipse.ui.internal.ide.IDEApplication
+org.eclipse.ui.internal.ide.ChooseWorkspaceDialog
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,"The ImageLoader Save function appears to be producing bad JPG images.
+Many files were tested and the majority 
+ did produced the proper JPG images as expected.
+contain files not save files to JPEG
+package com.ibm.test.image;
+import org.eclipse.swt.
+try { for { string filein = dir + files [ i ] +","org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,87198,2005-03-04T18:41:00.000-06:00,Unable to create a MessageDialog instance outside of SWT thread,"You used to be able to create an instance of a MessageDialog outside the UI
+thead so long as open was called from inside the UI thread.
+cause like change cause to longer work
+update code create dialog in UI thread",org.eclipse.jface.window.SameShellProvider
+FILE,eclipse-3.1,87683,2005-03-10T13:36:00.000-06:00,[Preferences] Preferences hover should show unshortened text,"Enable all the text hovers, an error message will display.
+The error message is
+truncated, no matter how big you enlarge the screen.
+see screenshots",org.eclipse.jface.dialogs.DialogMessageArea
+FILE,eclipse-3.1,92063,2005-04-20T09:30:00.000-05:00,Editor closed while replacing corresponding file with HEAD contents,"have Java editor with changes
+The editor got closed under me automatically when the replace occurred.
+Expectation: editor should have refreshed instead",org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,94007,2005-05-06T16:56:00.000-05:00,Views without view icon get red box by default,"remove feature
+If a few does not specify a icon it should not get one for free.",org.eclipse.ui.internal.registry.ViewDescriptor
+FILE,eclipse-3.1,94537,2005-05-10T17:23:00.000-05:00,[Workbench] ClassNotFoundException trying to eagerly start a plug-in while shutting down,"build n20050509
+Noticed the following in the console output for this build.
+not load plug-in not load org.eclipse.update.internal.scheduler.SchedulerStartup
+not load plug-in not load org.eclipse.update.internal.scheduler.SchedulerStartup
+The early startup code should check if the workbench is still running before starting each extension.","org.eclipse.ui.internal.dialogs.StartupPreferencePage
+org.eclipse.core.runtime.jobs.Job
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,94852,2005-05-11T17:17:00.000-05:00,[ViewMgmt] (regression) Typing space should activate view menu button,"The view menu (little 
+down-pointing triangle) button should have focus (it looks a bit raised).
+have focus give hint to users activate button by pressing press space
+Space does 
+nothing when pressed in this button.
+It should drop down the view menu.
+I realize that pressing Ctrl+F10 does drop down the menu, therefore typing 
+space is not technically needed for accessibility, however it is really 
+strange that here is a button (in a toolbar) that does nothing when ""pressed"" 
+using the keyboard space key.
+For consistency, and to do the expected thing 
+when used with a screen reader, we should allow space key to work here.
+(Note 
+that all of our other toolbar buttons do activate when they have focus and 
+space is pressed - including the very similar ""Open Perspective"" menu toolbar 
+button).",org.eclipse.ui.internal.presentations.defaultpresentation.DefaultTabFolder
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,[Presentations] (regression) Standalone view without title has no border,"build n20050523
+- the history view (a regular view) has a border, but the standalone view does not
+Standalone views should still have their border, just not the title or min/max buttons if showTitle==false.","org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,97018,2005-05-27T11:47:00.000-05:00,PDE generates to strict access restrictions,"This result in the following access restriction for clients using emf.core
+forbid reference
+As a result all usages to emf core classes even those in API package are flagged as an error.
+Since having a one liner manifest file seems to be a legal setup PDE should honor the access restrictions from the plugin.xml file and not generate a ALL forbidden rule only.","org.eclipse.pde.internal.core.MinimalState
+org.eclipse.pde.internal.core.ClasspathUtilCore"
+FILE,eclipse-3.1,97085,2005-05-27T17:10:00.000-05:00,(3.1M7) Static import code assist shouldn't propose <package>.*;,"import static java
+Code assist will propose all subpackages of java, each followed by "".
+*;"", which 
+results in a compile-time error if accepted.
+Instead, it should propose plain subpackages (""java.lang"" instead of ""java.lang.",org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,Container attempts to refresh children on project that is not open,"A background refresh job has now been started for the closed project, but it never finishes and is stuck in an infinite loop.
+be in class org.eclipse.core.internal.resources.Container.
+The members() method is excuting if (info.isSet(ICoreConstants.M_CHILDREN_UNKNOWN))
+workspace.refreshManager.refresh(this);
+not know members because projects
+Both the AliasManager and the Java
+Perspective are calling members on the IProject.
+override method in Project not refresh for closed projects
+On the next UI gesture, we get refresh infinite loops, one for each closed project.
+want projects in workspace
+The end user will open them by using the open project UI when needed.
+work in Eclipse","org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,99282,2005-06-09T19:46:00.000-05:00,not initialize switch method in thread safe way,"initialize enum/switch table initialize synthetic method place initialization in static initializer
+For example, the following program should print ""1999"" 40 times
+(once from each thread).
+But on my machine, it prints ""default"" 22 times & 1999
+18 times.
+package com.bea;","org.eclipse.jdt.internal.compiler.lookup.SourceTypeBinding
+org.eclipse.jdt.internal.compiler.codegen.CodeStream"
+CLASS,openjpa-2.2.0,OPENJPA-2197,2012-05-16T17:10:22.000-05:00,MethodComparator in AnnotationPersistenceMetaDataParser should also compare parameters,"AnnotationPersistenceMetaDataParser contains a MethodComparator which only compares the class + the method name.
+have methods with same name
+void updateChangeLog(Object entity) {
+Due to the bug in MethodComparator, my @PreUpdate sometimes didn't get detected.",openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.callbacks.ListenerImpl
+CLASS,openjpa-2.2.0,OPENJPA-2255,2012-08-30T20:15:52.000-05:00,Couldn't load the referencedColumn definition when create the JoinTable,"The JoinColumn couldn't have the referencedColumn's definition which includes the length definition.
+and it's length  should be assigned to the default value 255.
+define student id length
+The JoinColumn should be set to the default value 255.
+The warning message will occur like this",openjpa-jdbc.src.main.java.org.apache.openjpa.jdbc.meta.MappingInfo
+CLASS,solr-4.4.0,SOLR-4817,2013-05-13T13:25:19.000-05:00,Solr should not fall back to the back compat built in solr.xml in SolrCloud mode.,"A hard error is much more useful, and this built in solr.xml is not very good for solrcloud - with the old style solr.xml with cores in it, you won't have persistence and with the new style, it's not really ideal either.
+I think it makes it easier to debug solr.home to fail on this instead - but just in solrcloud mode for now due to back compat.
+pull whole internal solr.xml","solr.contrib.dataimporthandler.src.test.org.apache.solr.handler.dataimport.TestContentStreamDataSource
+solr.contrib.dataimporthandler.src.test.org.apache.solr.handler.dataimport.TestSolrEntityProcessorEndToEnd
+solr.core.src.test.org.apache.solr.cloud.ClusterStateUpdateTest
+solr.core.src.test.org.apache.solr.handler.TestReplicationHandler
+solr.solrj.src.test.org.apache.solr.client.solrj.TestLBHttpSolrServer
+solr.core.src.test.org.apache.solr.cloud.ZkControllerTest
+solr.core.src.test.org.apache.solr.servlet.CacheHeaderTest
+solr.core.src.test.org.apache.solr.core.TestSolrXmlPersistence
+solr.core.src.test.org.apache.solr.request.TestRemoteStreaming
+solr.core.src.test.org.apache.solr.TestSolrCoreProperties
+solr.test-framework.src.java.org.apache.solr.BaseDistributedSearchTestCase
+solr.core.src.test.org.apache.solr.schema.TestBinaryField
+solr.core.src.java.org.apache.solr.core.ConfigSolrXmlOld
+solr.test-framework.src.java.org.apache.solr.SolrTestCaseJ4
+solr.core.src.java.org.apache.solr.core.ConfigSolr
+solr.test-framework.src.java.org.apache.solr.SolrJettyTestBase
+solr.core.src.java.org.apache.solr.servlet.SolrDispatchFilter"
+CLASS,solr-4.4.0,SOLR-5246,2013-09-18T04:17:09.000-05:00,Shard splitting should support collections configured with a hash router and routeField.,"follow up with work
+Shard splitting doesn't support collections configured with a hash router and routeField.","solr.core.src.java.org.apache.solr.update.SolrIndexSplitter
+solr.core.src.java.org.apache.solr.update.SplitIndexCommand
+solr.core.src.test.org.apache.solr.cloud.ChaosMonkeyShardSplitTest
+solr.core.src.java.org.apache.solr.handler.admin.CoreAdminHandler
+solr.core.src.test.org.apache.solr.update.SolrIndexSplitterTest
+solr.core.src.java.org.apache.solr.cloud.OverseerCollectionProcessor"
+METHOD,mahout-0.4,MAHOUT-625,2011-03-11T09:24:20.000-06:00,Some of generated patterns have support higher than in reality,"have incorrect support
+The returned support is slightly higher than the true one.
+attach test have bug
+Test is using data (retail) found here: http://fimi.ua.ac.be/data/
+The pattern (36, 39, 41) occurs in the transactions 572 times (this is also calculated in test), but the FPGrowth returns pattern (36, 39, 41) with support 573.
+hace something","org.apache.mahout.fpm.pfpgrowth.fpgrowth.FPGrowth:pruneFPTree(MutableLong, FPTree)"
+FILE,AMQP,AMQP-122,2011-03-21T03:43:37.000-05:00,RabbitAdmin needs to handle starting up with no broker,"RabbitAdmin does not appear to handle starting up without the presence of a broker.
+Starting up with no broker can happen of course and so it would be reasonable to have a warning logged just once until the broker becomes available.
+The following stack trace is shows the current behaviour:
+start org.springframework.amqp.rabbit.core.RabbitAdmin#0","org.springframework.amqp.rabbit.connection.ConnectionFactory
+org.springframework.amqp.rabbit.test.BrokerRunning
+org.springframework.amqp.rabbit.connection.SingleConnectionFactory
+org.springframework.amqp.rabbit.core.RabbitAdmin
+org.springframework.amqp.rabbit.config.AdminParser
+org.springframework.amqp.rabbit.config.AdminParserTests
+org.springframework.amqp.rabbit.core.RabbitAdminTests"
+FILE,AMQP,AMQP-170,2011-05-25T05:23:19.000-05:00,Message header value has type com.rabbitmq.client.impl.LongStringHelper.ByteArrayLongString,"use spring-integration-amqp
+Trying to read a value from the header of a message I get that this value is of com.rabbitmq.client.impl.LongStringHelper.ByteArrayLongString type, when it was supposed to be String.",org.springframework.amqp.rabbit.connection.RabbitUtils
+FILE,AMQP,AMQP-633,2016-08-18T15:48:45.000-05:00,non transactional RabbitTemplate uses Container transactional channel,"When running a RabbitTemplate on a transactional container thread, the container channel is used, even if the RabbitTemplate is not marked transactional.
+consider case publish message reject inbound message
+If you publish with a template that is not transactional, the publish should occur on a new channel.
+We should never return the resourceHolder if the resourceFactory.isSynchedLocalTransactionAllowed() is false.","org.springframework.amqp.rabbit.listener.LocallyTransactedTests
+org.springframework.amqp.rabbit.core.RabbitTemplate"
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,DomainClassConverter should gracefully return null for null sources or empty strings,"notice important issue relate to automatic web binding
+When posting a new Order where Order.customer == """" then a converter exception is thrown:
+convert property value of type java.lang.String convert property value to required type org.mycomp.domain.Customer convert from type java.lang.String convert to type @javax
+I think it should not try to convert to Domain class if id is null or empty.
+cause complete blocker for optional references","org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+CLASS,derby-10.9.1.0,DERBY-5251,2011-05-29T04:27:15.000-05:00,make ErrorCodeTest pass in non-English locale,"lang.ErrorCodeTest will fail in Chinese Locale:
+delegatingmethodacce at sun.reflect.DelegatingMethodAccessorImpl.invoke",java.testing.org.apache.derbyTesting.functionTests.tests.lang.ErrorCodeTest
+CLASS,derby-10.9.1.0,DERBY-5911,2012-08-28T06:18:36.000-05:00,WHERE condition getting pushed into sub-query with FETCH,"Derby pushes query conditions down into subqueries with FETCH limits, thus creating wrong results.
+fetch next rows
+The first query correctly returns the rows (Colombian,5), (Colombian_Decaf,20).
+The second query (which filters the result of the first one) returns (Colombian,5), (French_Roast,5).
+The row (French_Roast,5) should not be there since it is not a result of the first query.
+It shows up because (supposedly) the filter condition has been evaluated before the fetch limit.","java.engine.org.apache.derby.impl.sql.compile.ProjectRestrictNode
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.OrderByAndOffsetFetchInSubqueries
+java.engine.org.apache.derby.impl.sql.compile.SelectNode"
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,Client should use a prepared statement rather than regular statement for Connection.setTransactionIsolation,"build up time for setTransactionIsolation() build up Statement for setTransactionIsolation()
+It would be better for performance and also for avoid possible garbage collection issues, to have a single prepared statement with a parameter marker.
+import java.sql.
+start own NetworkServer run SQL
+reproduce issues
+throw Exception {
+try {
+start Network server
+connect to customer database
+clean up from previous run
+try {
+start Network server
+throw SQLException {
+try {
+start retries
+try {
+sleep second ping network server
+not throw exception
+start = true
+get reply on ping
+throw failexception
+throw Exception {
+throw Exception {",java.client.org.apache.derby.client.am.Connection
+FILE,COMPRESS,COMPRESS-178,2012-02-21T15:27:31.000-06:00,TarArchiveInputStream throws IllegalArgumentException instead of IOException,"TarArchiveInputStream is throwing  IllegalArgumentException instead of IOException on corrupt files, in direct contradiction to the Javadoc.
+Here is a stack-trace:
+offset len
+Expected behavior: TarArchiveInputStream should wrap the IllegalArgumentException in an IOException.","org.apache.commons.compress.archivers.TarTestCase
+org.apache.commons.compress.archivers.tar.TarArchiveInputStream"
+FILE,COMPRESS,COMPRESS-245,2013-12-05T11:01:39.000-06:00,TarArchiveInputStream#getNextTarEntry returns null prematurely,"The attached archive decompressed with 1.6 only extracts part of the archive.
+not happen with version
+The file is created with
+tar cvzf
+in RHEL 6.5 and the contents look like this when extracted with the same tool:
+with commons-compress-1.6 it looks like this:","org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+org.apache.commons.compress.archivers.tar.TarArchiveInputStreamTest"
+FILE,COMPRESS,COMPRESS-357,2016-05-25T17:50:50.000-05:00,affect output stream,"BZip2CompressorOutputStream has an unsynchronized finished() method, and an unsynchronized finalize method.
+Finish checks to see if the output stream is null, and if it is not it calls various methods, some of which write to the output stream.
+consider something like sequence
+At some point the garbage collector call finalize(), which calls finish().
+be on different thread result GC thread in bad data
+happen % in part happen % of time
+1) synchronize finish() or
+2) don't call finish from finalize().
+derive class override finalize() method",org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream
+FILE,ENTESB,ENTESB-3099,2015-04-27T11:35:23.000-05:00,Quickstarts should build without warnings; most should work without fabric,"Running camel-log following instructions in README gives lots of warnings then fails wilth following error
+find for macro
+find for macro
+not find matching referal for io.fabric8.
+not find matching referal for org.apache.camel.
+not find matching referal for org.apache.commons.logging.
+not find matching referal for org.apache.felix.gogo.commands.
+not find matching referal for org.apache.felix.service.command.
+not find matching referal for org.osgi.service.component.
+not find matching referal for org.springframework.
+not find matching referal for org.springframework.osgi.
+find matching referal for scala *
+install @ beginner-camel-l og
+quickstart \ beginner \ camel
+log \ target \ shared.jar to c
+quickstart \ beginner \ camel
+log \ pom.xml to c
+quickstart \ beginner \ camel
+log \ target \ shared-sources.jar to c
+jboss \ quic kstarts \ fuse
+quickstart \ beginner \
+execute goal io.fabric8:fabric8-maven-plugin:1.2.0
+not transfer artifact org.jboss.quickstarts.fuse:beginner-camel-log:pom:6
+help ]
+see full stack trace of errors
+use x switch enable full debug logging
+help ] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionE xception",org.jboss.quickstarts.fuse.processor.BodyInAggregatingStrategy
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-371,2012-08-17T05:42:02.000-05:00,NPE in hedwig hub client causes hedwig hub to shut down.,"The hedwig client was connected to a remote region hub that restarted resulting in the channel getting disconnected.
+disconnect channel
+The channel was retrieved without checking if it was closed and then getPipeline().
+getLast() was called which returned a null value resulting in a NPE.
+Moreover, we need to check if the returned Response handler is not null because there is a race here if channel.close() is called after we retrieve the channel and before we call messageConsumed().
+guess same applies for other instances","hedwig-client.src.main.java.org.apache.hedwig.client.netty.WriteCallback
+hedwig-client.src.main.java.org.apache.hedwig.client.handlers.SubscribeResponseHandler
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigPublisher
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigSubscriber
+hedwig-client.src.main.java.org.apache.hedwig.client.handlers.MessageConsumeCallback
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigClientImpl"
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-376,2012-08-22T13:32:57.000-05:00,LedgerManagers should consider 'underreplication' node as a special Znode,"Saw this while running the RW tests:
+exception for underreplication exception during garbage collecting ledgers","bookkeeper-server.src.main.java.org.apache.bookkeeper.meta.LedgerLayout
+bookkeeper-server.src.main.java.org.apache.bookkeeper.meta.AbstractZkLedgerManager"
+FILE,swt-3.1,102794,2005-07-05T17:56:00.000-05:00,have change behaviour between 3.0.2,"run following problem on 3.0.2 run following problem on shows
+void main(String[] args) {
+do layout bits
+Basically on 3.0.2 the window that appears has a label of about 80 pixels wide and a textbox of 400 pixels wide.
+With 3.1 the label is about 400 pixels wide, with the text box being about 2000 pixels wide.
+span use of layout.makeColumnsEqualWidth span columns of layout.makeColumnsEqualWidth
+turn off makeColumnsEqualWidth
+comment out minimumWidth line
+The effect I'm trying to achieve is that labels are 1 column wide then text boxes are either 2 or 5 columns wide (so some rows get two labels and text boxes)  The scrolled composite is needed because in the real app the forms are actually within a TabItem, so I need the ability to scroll.",org.eclipse.swt.layout.GridLayout
+FILE,swt-3.1,81264,2004-12-15T13:17:00.000-06:00,Table fails to setTopIndex after new items are added to the table,"keep track into table dynamically keep track of loads content keep track of scroll bar keep table viewer into table dynamically keep table viewer of loads content keep table viewer of scroll bar work on table viewer scroll to end
+maintain position of table call setTopIndex at end
+create small testcase simulate process
+Table.setTopIndex fails to position to the correct table item if new items are added to the table after the shell is opened.
+The first call to setTopIndex succeeds.
+The table is correctly positioned at item 20.
+After adding new table items to the table, calling setTopTable(40) has no effect.
+Calling getTopIndex continues to return 20.
+Calling setTopIndex(40) should move table item #40 to the top of the table.
+Calling getTopIndex after should return 40.
+expect on windows","org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.List
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,82500,2005-01-10T14:34:00.000-06:00,TabFolder should not use PtCalcCanvas in getClientArea,"not use PtCalcCanvas due_to nature get widgets drawing area
+There is a limitation in photon where you cannot draw a surface outside of a widgets canvas.
+The tabs are control surfaces.
+Therefore if you use PtCalcCanvas to determine the drawing area, you will overwrite the tabs.
+attach patch",org.eclipse.swt.widgets.TabFolder
+FILE,swt-3.1,83262,2005-01-19T17:41:00.000-06:00,rxvt pastes null terminator,"When pasting using the middle mouse button from StyledText into an rxvt window,
+it contains a null terminator at the end.
+Pasting from other applications like
+gedit or mozilla into rxvt does not show this behaviour, and this is not
+reproducable when pasting into an xterm.
+exist on Motif GTK +
+Since the X clipboard protocol has a string length field, we do not need to be
+null terminating these strings.","org.eclipse.swt.dnd.RTFTransfer
+org.eclipse.swt.dnd.TextTransfer"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,"The ImageLoader Save function appears to be producing bad JPG images.
+Many files were tested and the majority 
+ did produced the proper JPG images as expected.
+contain files not save files to JPEG
+package com.ibm.test.image;
+import org.eclipse.swt.
+try { for { string filein = dir + files [ i ] +",org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,88717,2005-03-22T04:34:00.000-06:00,[DND] Tree is scrolling very slow when dragging an Item to the Bottom,"When draggin an item to the bottom, the Tree is not scrolling.
+It is currently not possible to Drag an Item to a position that is out of view.
+I would have thought that DND.FEEDBACK_SCROLL enables automatic scrolling, in case the user drags an Item to the bottom but it does'nt.
+expand items
+drag Bookmark to bottom","org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.dnd.TableDragUnderEffect"
+FILE,swt-3.1,96053,2005-05-19T22:06:00.000-05:00,Spinner: Pressing buttons should focus spinner and select text,"The standard behaviour for Windows spinner widgets is to set focus
+to the text control and select its text when the user clicks on the
+up or down button.
+Right now, this does not happen.
+implement suggestion in bug comment 3",org.eclipse.swt.widgets.Spinner
+CLASS,pig-0.8.0,PIG-1717,2010-11-11T09:41:37.000-06:00,pig needs to call setPartitionFilter if schema is null but getPartitionKeys is not,"write loader not know schema upfront use AS clause work loader with hive style add in script
+The problem is that this user defined schema is not available to the loader, so the loader cannot return any schema, the Loader does know what the partition keys are and pig needs in some way to know about these partition keys.
+Currently if the schema is null pig never calls the LoadMetaData:getPartitionKeys method or the setPartitionFilter method.","src.org.apache.pig.impl.util.Utils
+src.org.apache.pig.newplan.logical.relational.LOLoad
+src.org.apache.pig.impl.logicalLayer.LOLoad"
+CLASS,pig-0.8.0,PIG-1893,2011-03-10T20:43:13.000-06:00,Pig report input size -1 for empty input file,"If 1.txt is empty, Pig will report
+Successfully read -1 records from: ""1.txt""
+have multiinputcounters see in WebUI record from _0_2.txt
+In this case, we should count inputs ""1.txt"" 0 instead -1.","src.org.apache.pig.tools.pigstats.JobStats
+test.org.apache.pig.test.TestPigRunner"
+CLASS,pig-0.8.0,PIG-1932,2011-03-22T19:53:04.000-05:00,GFCross should allow the user to set the DEFAULT_PARALLELISM value,"spread records in cross
+It is currently hard wired to 96.
+reduce parallelism not relate value despite name
+duplicate many times before going duplicate record before going go through join
+set more key values set more times duplicate record in map phase
+We should leave the default value at 96 but allow a property to override this default and change the value.
+not use constructor argument have opportunity pass constructor argument not expose use of UDF not expose use to user",src.org.apache.pig.impl.builtin.GFCross
+CLASS,pig-0.8.0,PIG-730,2009-03-24T14:36:45.000-05:00,"problem combining schema from a union of several LOAD expressions, with a nested bag inside the schema.","use BinStorage as } ) generate flatten(outlinks.target)
+---> Would expect both C and D to work, but only C works.
+D gives the error shown below.
+---> Turns out using outlinks.t.target (instead of outlinks.target) works for D but not for C.
+---> I don't care which one, but the same syntax should work for both!","src.org.apache.pig.impl.logicalLayer.schema.Schema
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LogicalSchema
+test.org.apache.pig.test.TestSchema"
+CLASS,pig-0.8.0,PIG-767,2009-04-15T23:43:29.000-05:00,Schema reported from DESCRIBE and actual schema of inner bags are different.,"Prints for the DESCRIBE commands:
+The reported schemas for urlContentsG and urlContentsF are wrong.
+They are also against the section ""Schemas for Complex Data Types"" in http://wiki.apache.org/pig-data/attachments/FrontPage/attachments/plrm.htm#_Schemas.
+As expected, actual data observed from DUMP urlContentsG and DUMP urlContentsF do contain the tuple inside the inner bags.
+The correct schema for urlContentsG is:  {group: chararray,urlContents: {t1:(url: chararray,pg: chararray)}}
+sound like technicality
+assume inner bag of { chararray } assume UDF of { chararray } not work with { } not work for instance","test.org.apache.pig.test.TestNewPlanLogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+test.org.apache.pig.test.TestLogicalPlanMigrationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+test.org.apache.pig.test.TestSchema
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,use materialized blobs with Postgresql cause error,"I have entity with byte[] property annotated as @Lob and lazy fetch type, when table is createad the created column is of type oid, but when the column is read in application, the Hibernate reads the OID value instead of bytes under given oid.
+write bytea
+If i remember well, auto-creating table with Hibernate creates oid column.
+The proper behavior for dealing in PostgreSQL (and this behavior is in Hibernate 3.4) is to use oids.","org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,ORderBy with @ElementJoinColumn and EmbeddedId uses wrong columns in SQL,"have compound key
+The problem is that the order by in the generated SQL is for columns mapped in the transaction entity NOT the TransacionId as expected.
+define _ processDate in TransactionId class define _ tranSequenceNumber in TransactionId class
+have following fragment ....
+define primary key columns ....
+However the generated SQL is doing order by on columns mapped in Transaction:
+execute prepstmnt SELECT t0.maccno
+(no idea why it chose mamount, mbranch)
+The last line should be:","org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+METHOD,openjpa-2.0.1,OPENJPA-1762,2010-08-09T14:42:31.000-05:00,javax.persistence.lock.scope EXTENDED doesn't properly lock join tables,"have simple failing unit test exercise small portion of javax.persistence.lock.scope=Extended property exercise simple failing unit test of javax.persistence.lock.scope=Extended property
+Em1 - Find A, no lock
+Em1 - Refresh A, PESSIMISTIC_FORCE_INCREMENT and javax.persistence.lock.scope=PessimisticLockScope.EXTENDED -- this SHOULD lock the join table for A_B
+Em2 - Find, lock B. Remove B.  should block while trying to remove from Join table.
+post unit test demonstrate unit test","org.apache.openjpa.persistence.lockmgr.Employee:toString()
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:getId()
+org.apache.openjpa.persistence.lockmgr.Employee:readExternal(ObjectInput)
+org.apache.openjpa.persistence.lockmgr.Employee:setDepartment(Department)
+org.apache.openjpa.jdbc.kernel.PessimisticLockManager:getLockRows(DBDictionary, Object, ClassMapping, JDBCFetchConfiguration, SQLFactory)
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:appendSize(SQLBuffer, Select, Joins)
+org.apache.openjpa.jdbc.meta.strats.StoreCollectionFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:writeExternal(ObjectOutput)"
+METHOD,openjpa-2.0.1,OPENJPA-1896,2010-11-23T10:32:43.000-06:00,OpenJPA cannot store POJOs if a corresponding record already exists,"If a POJO is created using a java constructor, merge() cannot store the newly constructed object's data if this means updating a pre-existing record with a matching identity.
+have natural key have applications not use OpenJPA
+generate own data objects with file path
+store into database
+Previous crawls may have encountered the same files, and the merge operation should cause the latest data from the POJO to be stored in the pre-existing record.
+Instead, any attempt to execute either merge() or persist() on an independently constructed object with a matching record identity in the database triggers the same error in the database layer, since OpenJPA attempts to execute an insert for a pre-existing primary key, throwing...
+org.apache.openjpa.lib.jdbc.ReportingSQLException: ERROR: duplicate key value violates unique constraint ""file_pkey"" {prepstmnt 32879825 INSERT INTO file (locationString, location, version, folder) VALUES (?
+be from discussion
+exist in database not load from database
+attempt merge() set version field before attempting
+contain Ricks comments contain links","org.apache.openjpa.kernel.VersionAttachStrategy:compareVersion(StateManagerImpl, PersistenceCapable)
+org.apache.openjpa.persistence.relations.BasicEntity:getId()"
+METHOD,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,MetaDataRepository.preload() ignores class loader returned by PersistenceUnitInfo.getClassLoader(),"use openjpa inside osgi container
+pass appliation class loeader as part pass appliation class loeader by returning return from PersistenceUnitInfo.getClassLoader()
+However, the code in MetaDataRepository.preload() only uses the context class loader and not the class loader from PersistenceUnitInfo, which leades to ClassNotFoundExpcetions like mentioned at the end of this report.
+append return value of PersistenceUnitInfo.getClassLoader() append return value to list establihe fix participate in MultiClassLoader set up in MetaDataRepository.java:310ff
+set classloader as context loader set classloader in meanwhile set classloader by PersistenceProvider.createContainerEntityManagerFactory() set classloader during creation
+instantiate bean entityManagerFactory of class null
+see nested stacktrace for details
+cause by org.clazzes.fancymail.server.entities.EMail","org.apache.openjpa.meta.FieldMetaData:hashCode()
+org.apache.openjpa.meta.FieldMetaData:compareTo(Object)"
+FILE,CONFIGURATION,CONFIGURATION-214,2006-05-26T21:35:46.000-05:00,Adding an integer and getting it as a long causes an exception,"not map to Long object org.apache.commons.configuration.ConversionException not map to Long object not map target exception
+The problem is that when an object in a property is not a Long, the only attempt of PropertyConverter.toLong() is that of treating it as a string.
+It could try to convert it to a Number first and then try to convert it to a long.","org.apache.commons.configuration.TestPropertyConverter
+org.apache.commons.configuration.PropertyConverter
+org.apache.commons.configuration.TestBaseConfiguration"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,HypergeometricDistribution.sample suffers from integer overflow,"have application port from commons math
+It looks like the HypergeometricDistribution.sample() method doesn't work as well as it used to with large integer values -- the example code below should return a sample between 0 and 50, but usually returns -50.
+import org.apache.commons.math3.distribution.HypergeometricDistribution;
+trace in debugger do { code } return / (double) getPopulationSize(); {code} it could do: {code} return getSampleSize() * ((double) getNumberOfSuccesses() / getPopulationSize() )",org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-221,2008-08-29T13:31:56.000-05:00,multiply for complex numbers equal for complex numbers,"relate on complex numbers
+import org.apache.commons.math.complex.
+void main(String[] args) {
+res:  -0 - 1i
+comp: 0 - 1i
+res=comp: false
+I think the ""equals"" should return ""true"".
+think thats give multiply method",org.apache.commons.math.complex.Complex:equals(Object)
+METHOD,math,MATH-273,2009-06-03T05:11:34.000-05:00,Basic variable is not found correctly in simplex tableau,"cause automated test suite go down new code path uncover new code path run automated test suite at work
+SimplexTableau was assuming an entry in the tableau had to be nonzero to indicate a basic variable, which is incorrect - the entry should have a value equal to 1.","org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtils:bracket(UnivariateRealFunction, double, double, double, int)"
+METHOD,math,MATH-326,2009-12-29T00:09:20.000-06:00,getLInfNorm() uses wrong formula in both ArrayRealVector and OpenMapRealVector (in different ways),"The current implementation in ArrayRealVector has a typo:
+the += should just be an =.
+Worse, the implementation in OpenMapRealVector is not even positive semi-definite:
+I would suggest that this method be moved up to the AbstractRealVector superclass and implemented using the sparseIterator():
+check in future check for kind","org.apache.commons.math.linear.ArrayRealVector:getLInfNorm()
+org.apache.commons.math.linear.OpenMapRealVector:getLInfNorm()"
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,ODE integrator goes past specified end of integration range,"handle end as event handle end of integration range
+lead in cases lead to error
+The following test case shows the end event is not handled properly and an integration that should cover a 60s range in fact covers a 160s range, more than twice the specified range.
+throw IntegratorException {","org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+FILE,WFCORE,WFCORE-172,2014-10-15T08:27:13.000-05:00,use for Syslog logging,"The auditlog code uses ""WildFly Full"" value as an application name (APP-NAME header field) for syslog logging.
+It's not allowed to use space in the value, because the space is a header field separator in syslog messages.
+syslog message format look at syslog",org.jboss.as.controller.audit.SyslogAuditLogHandler
+FILE,WFCORE,WFCORE-763,2015-06-16T14:59:39.000-05:00,"Persisting an empty list [] gets read as a list with empty string [""""] resulting in IllegalArgumentException","not handle empty lists in symmetric fashion
+e.g. if I persist an empty list to xml, and read it back again, using the default parser/marshaller, I should get back an empty list.
+Instead I get back a list of size 1 containing an empty string.
+infinispan aliases infinispan modcluster proxies
+write empy list
+have list of size contain empty string
+not allow empty name segment for infinispan","org.jboss.as.controller.AttributeParser
+org.jboss.as.controller.SimpleListAttributeDefinitionUnitTestCase"
+FILE,WFCORE,WFCORE-754,2015-06-02T11:17:26.000-05:00,start with bmanagement start with specific IP settings,"EAP fails to start with -bmanagement= option.
+Host Controller starts to listening on IPv4:9999
+Server:server-one probably resolve IPv4 address to host name.
+Server-one tries to connect to this host name.
+Hostname is resolved by ping ($ ping dev98) to IPv6 address, where host controller is not listening.
+resolve hostname to ipv4 address resolve hostname on machine
+not occur on EAP 6.4.0
+ping dev98 [ 10.16.92.7 ] with bytes
+Actual results:
+start service jboss.server-boot-operations
+No errors",org.jboss.as.host.controller.ServerInventoryService
+FILE,WFCORE,WFCORE-815,2015-07-13T07:57:45.000-05:00,One profile can have more ancestors with same submodules,"One profile can have more ancestors with same submodules.
+It leads to WFLYCTL0212: Duplicate resource [(""subsystem"" => ""subsystem_name"")] .
+add hierarchical composition of profiles add hierarchical composition to AS
+No errors.
+define wflyctl0401 in mail-02
+not support } not support overriding subsystems
+add subsystem to default-new profile","org.jboss.as.domain.controller.operations.ProfileIncludesHandlerTestCase
+org.jboss.as.domain.controller.operations.SocketBindingGroupIncludesHandlerTestCase
+org.jboss.as.host.controller.logging.HostControllerLogger"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,Warnings about missing notification descriptions when an operation removes an extension,"When I use migration operation the console log is filled with warning messages of type
+not describe notification of type resource-removed not describe notification for resource
+then I the log looks like
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+not describe notification of type resource-removed not describe notification for resource
+I think that the migration operation should not show those warnings.","org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,scop roles,"When using a role which only selects the master there is no access-control response header showing the filtered resources, and the slave wrongly appears in the results:
+result =
+address = > [ ]
+result =
+name = > master
+interface =
+address = > [ ]
+When using a role that only selects the slave we get a proper access-control header
+result = >
+address = > [ ]
+result = >
+address = > [ ]
+result =
+name = > slave
+interface =
+master-monitor should behave the same as slave-maintainer.","org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1062,2015-10-20T09:33:46.000-05:00,Deployments from the domain/data/content folder goes missing after few minutes if the Host controller is started with --backup option.,"Host controller started with --backup option deletes the deployments from the domain/data/content folder after approximately 10 mins.
+The deployment is restored or recreated if the HostController is started.
+6. deployments are available under $JBOSS_HOME/domain/data/content
+8. Cached deployments are deleted on hostcontroller (domain/data/content is empty).
+Following is the logging seen on the console :
+remove from location /NotBackedUp/JAR-folder/EAPs/eap6/jboss-eap-6.4.3-Patched/domain/data/contenta27fa1b82e6a92fb56ee25bc76f2625249 / content
+9. After restarting the Host Controller, the deployment is restored and the cached deployment can now be seen under the Host Controller's domain/data/content folder.
+Actual results: Deployment folder form domain/data/content folder gets deleted after approx 10 mins and are restored if the Host Controller is restarted
+Expected results: The cached deplpyments folder should never be removed from the HostController's domain/data/content folder.
+not affect availability of application","org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.controller.persistence.FilePersistenceUtils
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.server.deployment.ContentCleanerService"
+FILE,WFCORE,WFCORE-1120,2015-11-10T12:21:50.000-06:00,"Launcher sets ""-Djava.net.preferIPv4Stack=true"" also with IPv6 profile","Domain tests ""-Djava.net.preferIPv4Stack=true"" also with IPv6 profile.
+set property in AbstractCommandBuilder
+And testsuite should use this option with IPv6 profile.
+start container
+EAP is not started with ""-Djava.net.preferIPv4Stack=true"" property with IPv6 profile","org.wildfly.core.launcher.CommandBuilderTest
+org.wildfly.core.launcher.Arguments"
+FILE,WFCORE,WFCORE-1354,2016-02-03T00:19:08.000-06:00,Cannot clone a profile with a remoting subsystem but no io subsystem,"The remoting subsystem added a requirement for the new io subsystem's worker capability, but it has special logic such that the requirement is only added if an endpoint resource is configured.
+not have resource
+This breaks down in the case of the profile 'clone' op, as a placeholder resource we add for the endpoint (to allow reads of the default endpoint config data) ends up getting 'described' and added by the cloning process.
+So that added resource triggers an unmet requirement for the io worker:
+provide capability provide known registration points be in context
+I'm not sure how to deal with this; some sort of marker is needed to disable 'describing' that placeholder resource.","org.jboss.as.remoting.RemotingExtension
+org.jboss.as.subsystem.test.AbstractSubsystemBaseTest"
+FILE,WFCORE,WFCORE-1028,2015-10-01T19:12:08.000-05:00,handle of invalid roles,"A CLI request with an invalid value in the ""roles"" header results in improper behavior:
+result = > [ ]
+The op should fail because the role doesn't exist, but there is no failure-description.
+The following is dumped in the HC log:
+address java.lang.IllegalArgumentException unknown slave-monitor","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.controller.access.rbac.RoleMapper
+org.jboss.as.test.integration.domain.ServerManagementTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,save name id attribute discrepancy,"When using rollout plans for EAP deployment scenarios I can create my own named rollout-plan for ease of use.
+create such rollout plan create way use such rollout plan use way
+see --name attribute given to name my rollout plan
+see id attribute given to rollout header operation
+Yes, this is really minor issue, but I think that these two attributes used in aforementioned commands should be unified (preferably to name instead of id) as user might be confused when using it.
+use examples from documentation
+miss something retrieve more info use rollout header operation in CLI use rollout header operation in deploy command","org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1595,2016-06-15T10:10:43.000-05:00,CLI doesn't autocomplete for unalias command,"Tab completion for CLI unalias commend doesn't seem to work.
+CLI will suggest available option, but doesn't autocomplete.
+actual
+expected
+unalia read_undertow",org.jboss.as.cli.operation.OperationRequestCompleter
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,add local | remote-destination-outbound-socket-binding,"Then when I create some /socket-binding-group=standard-sockets/remote-destination-outbound-socket-binding or /socket-binding-group=standard-sockets/local-destination-outbound-socket-binding using same name as of already existing socket-binding resource, add operation is successful but when I perform server reload, it crashes as it is not able to parse configuration.
+server crashes with following stacktrace in console log:
+bind INFO [ org.wildfly.extension.undertow] wflyut0007 to 127.0.0.1:8080
+declare message in socket-binding-group standard-sockets
+fail in unrecoverable manner exiting
+see previous messages for details
+remove duplicate resources manually by removing
+If there is a problem for those resources to have same names I would welcome that names are checked during the add operation already regarding to all resources in socket-binding and {remote|local}-destination-outbound-socket-binding.
+please change","org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1607,2016-06-17T12:23:38.000-05:00,"Removing children of security-realm always finishes with {""outcome"" => ""success""}","Removing children of security-realm (e.g. authentication) always finishes with
+{""outcome"" => ""success""}
+not exist in server configuration
+It should rather finish with failure to indicate that nothing was removed.",org.jboss.as.domain.management.security.SecurityRealmChildRemoveHandler
+FILE,WFCORE,WFCORE-1715,2016-08-15T19:04:54.000-05:00,HostProcessReloadHandler does not reset the HostRunningModeControl's restartMode,"The ReloadContext created by HostProcessReloadHandler sets the HostRunningModeControl's restartMode but then it never gets restored to the default value.
+The doReload() method of the ReloadContext should restore it.
+This ensures the ServerInventoryService.stop() only uses the value set by HostProcessReloadHandler once, for that one reload.
+A concern here is that ServerInventoryService only goes into its ""shutdownServers"" logic if the restartMode == RestartMode.SERVERS.
+follow HC reload due_to bug
+But if we restore the default value of restartMode, that is null, and null !
+= RestartMode.SERVERS.
+So the """"shutdownServers"" logic will no longer kick in.
+change default from null
+happen by default",org.jboss.as.host.controller.operations.StartServersHandler
+FILE,WFCORE,WFCORE-1657,2016-07-15T11:51:17.000-05:00,add module,"Using tab completion for adding a module dependencies with module add command could lead to invalid module.xml as CLI prompt user to use module name with ""system.layers.base"" prefix, which is not a part of module name.
+org sun
+this way something like following is generated in module.xml file
+however correct module name is org.jboss.as.controller",org.jboss.as.cli.handlers.module.ASModuleHandler
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,Tab completion suggest writing attribute which has access type metric and is not writable,"CLI tab completion suggests attributes that are not writable and their access-type is metric
+execute read-resource-description be of type metric be from executing
+On attempt to write metric attribute, for example message-count, non writable error is printed
+CLI should not suggest writing attributes that are not writable.","org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1552,2016-05-13T14:57:20.000-05:00,Slaves should report the master's version in the domain model,"Setting up the mixed domain tests for an EAP7 slave, I get the following error :
+jboss EAP
+product-name, product-version, release-codename and release-version on the slave should be the same as the master values.
+upgrade to Wildfly core 3.0.0
+push domain config as operations cause for pushing","org.jboss.as.domain.controller.operations.SyncModelOperationHandler
+org.jboss.as.domain.controller.operations.SyncModelServerStateTestCase"
+FILE,WFCORE,WFCORE-1936,2016-11-04T10:57:06.000-05:00,not match reality for socket-binding not match reality for *,"fixed-port attribute of socket-binding and fixed-source-port attributes of *-destination-outbound-socket-binding define in its description that there is not necessary to do reload or restart for any of them.
+If you tries to change such attributes you are informed that reload is necessary.
+define attributes as restart-required = > no-services","org.jboss.as.server.services.net.OutboundSocketBindingResourceDefinition
+org.jboss.as.controller.resource.AbstractSocketBindingResourceDefinition"
+METHOD,tika-1.3,TIKA-1109,2013-04-18T06:06:06.000-05:00,Metadata not extracted before the content in OOXML (pptx),"It seems that when processing OOXML documents, the metadata is only read after the text.
+use medata while processing process text
+I think it would be more useful to have the metadata populated first.
+outputs only as metadata:",org.apache.tika.parser.microsoft.ooxml.XSSFExcelExtractorDecorator:getMetadataExtractor()
+CLASS,mahout-0.8,MAHOUT-1314,2013-08-18T09:07:48.000-05:00,StreamingKMeansReducer throws NullPointerException when REDUCE_STREAMING_KMEANS is set to true,"when REDUCE_STREAMING_KMEANS option is set to true (-rskm) the reducer fails with NullPointerException.
+reduce method on line
+it should be input.getCentroid().
+clone();
+full stack trace:",core.src.main.java.org.apache.mahout.clustering.streaming.mapreduce.StreamingKMeansReducer

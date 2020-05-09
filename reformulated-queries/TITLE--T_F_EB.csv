@@ -1,0 +1,707 @@
+Dataset,System,Bug ID,Creation Date,Title,Description,Ground Truth
+CLASS,tika-1.3,TIKA-1014,2012-10-30T01:01:31.000-05:00,Allow custom MimeTypesReader,subclass Reader support custom behavior,"tika-core.src.main.java.org.apache.tika.mime.MimeTypesReader.ClauseRecord
+tika-core.src.test.java.org.apache.tika.TikaIT"
+CLASS,tika-1.3,TIKA-1047,2012-12-19T12:55:52.000-06:00,Provide a JAX-RS to detect only the mediatype,detect mediatype say 8K tell mediatype,tika-server.src.main.java.org.apache.tika.server.TikaResource
+CLASS,tika-1.3,TIKA-1074,2013-02-04T08:53:40.000-06:00,Extraction should continue if an exception is hit visiting an embedded document,log exception parse app,"tika-app.src.main.java.org.apache.tika.cli.TikaCLI
+tika-parsers.src.main.java.org.apache.tika.parser.microsoft.SummaryExtractor
+tika-parsers.src.main.java.org.apache.tika.parser.microsoft.AbstractPOIFSExtractor"
+FILE,DATAMONGO,DATAMONGO-321,2011-11-17T01:53:43.000-06:00,An ID field of type integer is always saved as zero if not set by the user before calling save.  Throw exception to indicate an int field will not be autopopulated.,,"org.springframework.data.mongodb.core.convert.AbstractMongoConverter
+org.springframework.data.mongodb.core.QueryMapper
+org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.convert.MappingMongoConverterUnitTests
+org.springframework.data.mongodb.core.query.QueryMapperUnitTests
+org.springframework.data.mongodb.core.convert.CustomConversions"
+FILE,DATAMONGO,DATAMONGO-423,2012-03-29T06:03:26.000-05:00,Criteria.regex should use java.util.Pattern instead of $regex,,"org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.query.QueryTests
+org.springframework.data.mongodb.core.query.Criteria"
+FILE,DATAMONGO,DATAMONGO-505,2012-08-14T03:07:56.000-05:00,Conversion of associations doesn't work for collection values,unwrap elements convert into DBRef instances,"org.springframework.data.mongodb.repository.query.ConvertingParameterAccessor
+org.springframework.data.mongodb.repository.query.ConvertingParameterAccessorUnitTests"
+FILE,DATAMONGO,DATAMONGO-663,2013-04-24T03:21:19.000-05:00,org.springframework.data.mongodb.core.query.Field needs an equals method,,org.springframework.data.mongodb.core.query.Field
+FILE,DATAMONGO,DATAMONGO-392,2012-02-07T04:28:15.000-06:00,Updating an object does not write type information for objects to be updated,infer from runtime,"org.springframework.data.mongodb.core.MongoTemplateTests
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-647,2013-04-09T17:29:02.000-05:00,"Using ""OrderBy"" in ""query by method name"" ignores the @Field annotation for field alias.",sort results by score sort results by sr field name,org.springframework.data.mongodb.core.convert.QueryMapperUnitTests
+FILE,DATAMONGO,DATAMONGO-420,2012-03-22T10:09:35.000-05:00,Extra quotes being added to @Query values and fields,turn into string render as true,"org.springframework.data.mongodb.repository.query.StringBasedMongoQuery
+org.springframework.data.mongodb.repository.query.StringBasedMongoQueryUnitTests"
+FILE,DATAMONGO,DATAMONGO-1078,2014-10-28T02:23:26.000-05:00,@Query annotated repository query fails to map complex Id structure.,convert id properties check for presence,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1088,2014-11-07T03:08:58.000-06:00,"@Query $in does not remove ""_class"" property on collection of embedded objects",be without _ class property,"org.springframework.data.mongodb.core.convert.MappingMongoConverter
+org.springframework.data.mongodb.core.MongoTemplate"
+FILE,DATAMONGO,DATAMONGO-1123,2014-12-17T09:39:36.000-06:00,"geoNear, does not return all matching elements, it returns only a max of 100 documents",expect matching documents,org.springframework.data.mongodb.core.MongoOperations
+FILE,DATAMONGO,DATAMONGO-1126,2014-12-21T06:03:21.000-06:00,Repository keyword query findByInId with pageable not returning correctly,"expect items
+expect items","org.springframework.data.mongodb.repository.Person
+org.springframework.data.mongodb.repository.query.AbstractMongoQueryUnitTests
+org.springframework.data.mongodb.core.MongoOperations
+org.springframework.data.mongodb.core.MongoTemplate
+org.springframework.data.mongodb.repository.query.AbstractMongoQuery"
+FILE,DATAMONGO,DATAMONGO-1133,2015-01-07T00:20:51.000-06:00,Field aliasing is not honored in Aggregation operations,use property name of class use name of class designate in @Field,"org.springframework.data.mongodb.core.aggregation.TypeBasedAggregationOperationContextUnitTests
+org.springframework.data.mongodb.core.aggregation.AggregationTests"
+FILE,DATAMONGO,DATAMONGO-1232,2015-06-03T10:27:23.000-05:00,IgnoreCase should escape queries,escape regex-special characters,"org.springframework.data.mongodb.repository.query.MongoQueryCreator
+org.springframework.data.mongodb.repository.query.MongoQueryCreatorUnitTests"
+FILE,DATAMONGO,DATAMONGO-1236,2015-06-08T11:17:11.000-05:00,MongoOperations findAndModify and updateFirst do not include the _class in Map values,not convert value to correct type leave as LinkedHashMap,"org.springframework.data.mongodb.core.convert.UpdateMapperUnitTests
+org.springframework.data.mongodb.core.convert.UpdateMapper"
+FILE,DATAMONGO,DATAMONGO-1307,2015-10-20T12:33:45.000-05:00,Stop converting user-defined runtime exceptions to NPEs,throw original exception get back null from exception translator,org.springframework.data.mongodb.core.MongoTemplate
+FILE,DATAMONGO,DATAMONGO-1263,2015-07-30T09:03:41.000-05:00,Missing indexes in associations involving generic types,infer type information from list declaration define on Book,"org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolver
+org.springframework.data.mongodb.core.index.MongoPersistentEntityIndexResolverUnitTests"
+FILE,DATAMONGO,DATAMONGO-1289,2015-09-17T11:43:51.000-05:00,"NullPointerException when saving an object with no ""id"" field or @Id annotation",generate file not map file to property not map file to field,"org.springframework.data.mongodb.repository.support.MongoRepositoryFactory
+org.springframework.data.mongodb.repository.support.MappingMongoEntityInformation"
+CLASS,derby-10.7.1.1,DERBY-4654,2010-05-12T05:27:40.000-05:00,Restriction.toSQL() doesn't escape special characters,use IdUtil.normalToDelimited() get proper quoting of names,"org.apache.derbyTesting.functionTests.tests.lang.RestrictedVTITest
+org.apache.derby.vti.Restriction"
+CLASS,derby-10.7.1.1,DERBY-4684,2010-06-01T10:46:19.000-05:00,Correct the implicit casting of other types to BOOLEAN,support Standard rules,"org.apache.derby.iapi.types.SQLBoolean
+org.apache.derby.impl.sql.compile.BooleanTypeCompiler"
+CLASS,derby-10.7.1.1,DERBY-4786,2010-08-31T13:58:13.000-05:00,Shutdown command without username and password should work with mixed client and network server releases.,"work with DERBY-2109 changes
+get error for attempting attempt to user use",org.apache.derby.impl.drda.NetworkServerControlImpl
+CLASS,pig-0.11.1,PIG-2828,2012-07-19T05:03:16.000-05:00,Handle nulls in DataType.compare,judge field1,"src.org.apache.pig.data.DataType
+src.org.apache.pig.builtin.TOP
+test.org.apache.pig.test.TestNull"
+CLASS,pig-0.11.1,PIG-3204,2013-02-21T16:09:40.000-06:00,Change script parsing to parse entire script instead of line by line,,"src.org.apache.pig.PigServer
+src.org.apache.pig.scripting.BoundScript
+src.org.apache.pig.tools.grunt.GruntParser
+test.org.apache.pig.test.TestPigServer
+test.org.apache.pig.test.TestGrunt"
+CLASS,pig-0.11.1,PIG-3424,2013-08-15T09:56:20.000-05:00,Package import list should consider class name as is first even if -Dudf.import.list is passed,,"test.org.apache.pig.test.TestPigContext
+src.org.apache.pig.impl.PigContext"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1619,2013-01-11T09:57:16.000-06:00,Allow spaces in URL,add trim parsing,src.java.main.org.apache.zookeeper.client.ConnectStringParser
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1691,2013-04-15T14:41:40.000-05:00,Add a flag to disable standalone mode,,"src.java.main.org.apache.zookeeper.server.quorum.FastLeaderElection
+src.java.main.org.apache.zookeeper.server.quorum.QuorumPeer
+src.java.main.org.apache.zookeeper.server.PrepRequestProcessor
+src.java.main.org.apache.zookeeper.server.quorum.FollowerZooKeeperServer
+src.java.main.org.apache.zookeeper.server.quorum.QuorumPeerConfig
+src.java.test.org.apache.zookeeper.server.quorum.QuorumPeerTestBase
+src.java.test.org.apache.zookeeper.test.StandaloneTest
+src.java.main.org.apache.zookeeper.server.quorum.LeaderZooKeeperServer"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1781,2013-10-03T20:19:27.000-05:00,ZooKeeper Server fails if snapCount is set to 1,suppose in source code,src.java.main.org.apache.zookeeper.server.ZooKeeperServer
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1783,2013-10-07T13:01:56.000-05:00,Distinguish initial configuration from first established configuration,,"src.java.main.org.apache.zookeeper.server.quorum.FastLeaderElection
+src.java.main.org.apache.zookeeper.server.quorum.QuorumPeer
+src.java.test.org.apache.zookeeper.server.quorum.Zab1_0Test
+src.java.main.org.apache.zookeeper.server.quorum.Leader"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-1815,2013-11-15T15:14:25.000-06:00,Tolerate incorrectly set system hostname in tests,,"src.java.test.org.apache.zookeeper.test.FLERestartTest
+src.java.test.org.apache.zookeeper.test.CnxManagerTest
+src.java.test.org.apache.zookeeper.test.FLELostMessageTest
+src.java.test.org.apache.zookeeper.test.FLETest
+src.java.test.org.apache.zookeeper.server.quorum.Zab1_0Test
+src.java.test.org.apache.zookeeper.test.FLEPredicateTest
+src.java.test.org.apache.zookeeper.test.FLENewEpochTest
+src.java.test.org.apache.zookeeper.test.JMXEnv
+src.java.test.org.apache.zookeeper.test.FLEBackwardElectionRoundTest
+src.java.test.org.apache.zookeeper.ClientReconnectTest"
+CLASS,zookeeper-3.4.5,ZOOKEEPER-876,2010-09-21T08:37:41.000-05:00,Unnecessary snapshot transfers between new leader and followers,do comparison of zxids,src.java.main.org.apache.zookeeper.server.quorum.QuorumPeer
+METHOD,bookkeeper-4.1.0,BOOKKEEPER-447,2012-10-29T20:30:46.000-05:00,Bookie can fail to recover if index pages flushed before ledger flush acknowledged,"track ledger flush progress
+not flush index pages track entries track index pages","org.apache.bookkeeper.bookie.Bookie.NoEntryException:getLedger()
+org.apache.bookkeeper.bookie.LedgerCacheTest:tearDown()
+org.apache.bookkeeper.bookie.EntryLogger:readEntry(long, long, long)
+org.apache.bookkeeper.bookie.LedgerCacheTest:testLedgerEviction()
+org.apache.bookkeeper.bookie.Bookie.NoEntryException:NoEntryException(long, long)
+org.apache.bookkeeper.bookie.LedgerCacheTest:testAddEntryException()
+org.apache.bookkeeper.bookie.LedgerCacheTest:testPageEviction()
+org.apache.bookkeeper.bookie.LedgerCacheTest:testDeleteLedger()"
+FILE,IO,IO-307,2012-03-13T17:40:22.000-05:00,"ReaderInputStream#read(byte[] b, int off, int len) should check for valid parameters","throw NPE
+overflow buffer throw IndexOutOfBoundsException with details",org.apache.commons.io.input.ReaderInputStream
+CLASS,argouml-0.22,1671,2003-02-26T02:12:06.000-06:00,extra <searchpath> added every time project is saved,make changes,"org.argouml.kernel.Project
+org.argouml.kernel.TestProject"
+CLASS,argouml-0.22,2225,2003-09-10T09:24:09.000-05:00,Allow the user to create diagrams without selecting a classifier/operation,"request following enhancement allow user create diagrams without selecting select classifier/operation
+need operation need classifier interpret standard
+start class start ArgoUML draw collaboration diagrams without first defining e.g.
+not downlight collaboration not downlight statechart diagram creation
+create critic warn for missing classifier/operation/modelelement
+allow user change namespace represented xxx of a.","org.argouml.ui.explorer.rules.GoModelElementToContainedDiagrams
+org.argouml.uml.ui.behavior.collaborations.ActionSetRepresentedClassifierCollaboration
+org.argouml.uml.ui.ActionActivityDiagram
+org.argouml.uml.ui.ActionStateDiagram
+org.argouml.uml.diagram.activity.ui.UMLActivityDiagram
+org.argouml.uml.ui.ActionSequenceDiagram
+org.argouml.uml.ui.behavior.collaborations.ActionSetRepresentedOperationCollaboration
+org.argouml.uml.diagram.state.ui.UMLStateDiagram
+org.argouml.ui.explorer.rules.GoCollaborationToDiagram
+org.argouml.uml.ui.behavior.collaborations.TestUMLCollaborationRepresentedOperationComboBoxModel
+org.argouml.uml.ui.behavior.collaborations.UMLCollaborationRepresentedClassifierComboBoxModel
+org.argouml.uml.ui.behavior.collaborations.PropPanelCollaboration
+org.argouml.ui.explorer.rules.GoModelElementToContents
+org.argouml.ui.explorer.rules.GoNamespaceToOwnedElements
+org.argouml.uml.ui.behavior.collaborations.UMLCollaborationRepresentedOperationComboBoxModel
+org.argouml.uml.diagram.sequence.SequenceDiagramGraphModel
+org.argouml.uml.diagram.DiagramFactory
+org.argouml.uml.ui.ActionNewDiagram
+org.argouml.ui.explorer.PerspectiveManager
+org.argouml.ui.explorer.rules.GoModelElementToContainedLostElements
+org.argouml.uml.ui.ActionCollaborationDiagram
+org.argouml.uml.ui.behavior.collaborations.TestUMLCollaborationRepresentedClassifierComboBoxModel"
+CLASS,argouml-0.22,2460,2004-01-03T01:11:55.000-06:00,[Java] Missing label on radiobuttons in Import Sources -> Java,model buttons,org.argouml.uml.reveng.FileImportSupport
+CLASS,argouml-0.22,2618,2004-05-21T11:07:40.000-05:00,"Editing association rolename adds +, ++, +++",strip off visibility characters,"org.argouml.uml.notation.uml.NotationUtilityUml
+org.argouml.uml.diagram.ui.FigAssociation
+org.argouml.uml.notation.uml.InitNotationUml
+org.argouml.uml.notation.AssociationRoleNotation
+org.argouml.uml.notation.uml.AssociationRoleNotationUml"
+CLASS,argouml-0.22,3100,2005-02-22T00:28:44.000-06:00,new package or class shown with funny name in explorer,write whole string,"org.argouml.uml.ui.UMLListCellRenderer2
+org.argouml.ui.DisplayTextTree"
+CLASS,argouml-0.22,3631,2005-11-02T00:40:56.000-06:00,Perspectives settings should be included in settings menu,include in general Settings dialog at minimum,org.argouml.ui.cmd.GenericArgoMenuBar
+CLASS,argouml-0.22,3774,2005-12-03T06:33:15.000-06:00,Do not set namespace of Model when adding to diagram,,org.argouml.uml.diagram.static_structure.ClassDiagramGraphModel
+CLASS,argouml-0.22,4031,2006-03-03T09:18:11.000-06:00,TagDefinition of type Enumeration problem - AndroMDA profile,look like internal xmi.id,"org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLReferenceValueListModel
+org.argouml.model.mdr.FacadeMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLTaggedValueTypeComboBoxModel
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTagDefinition
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLTagDefinitionOwnerComboBoxModel
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLTaggedValueModelElementComboBoxModel
+org.argouml.model.mdr.ExtensionMechanismsHelperMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.UMLDataValueListModel
+org.argouml.uml.ui.foundation.extension_mechanisms.UMLStereotypeTagDefinitionListModel
+org.argouml.model.AbstractExtensionMechanismsHelperDecorator
+org.argouml.model.mdr.DataTypesHelperMDRImpl
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue
+org.argouml.uml.reveng.java.Modeller
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.ActionSetTaggedValueType
+org.argouml.uml.ui.foundation.extension_mechanisms.PropPanelTaggedValue.ActionSetTaggedValueModelElement"
+CLASS,argouml-0.22,4162,2006-04-13T09:33:06.000-05:00,checklist uses <attribute> where it should use <class>,,org.argouml.ocl.CriticOclEvaluator
+CLASS,argouml-0.22,4281,2006-06-17T13:52:25.000-05:00,Deleting the context of a StateMachine should not delete the StateMachine,own StateMachine own namespace,"org.argouml.model.mdr.CoreFactoryMDRImpl
+org.argouml.kernel.TestProject
+org.argouml.uml.ui.ActionDeleteModelElements"
+CLASS,argouml-0.22,4324,2006-07-08T02:30:22.000-05:00,Wrong default extension while saving,save chosen extension deduce from file name,"org.argouml.persistence.PersistenceManager
+org.argouml.ui.ProjectBrowser
+org.argouml.persistence.TestPersistenceManager"
+METHOD,apache-nutch-1.8,NUTCH-1262,2012-01-31T03:15:33.000-06:00,Map `duplicating` content-types to a single type,,"org.apache.nutch.indexer.more.MoreIndexingFilter:getConf()
+org.apache.nutch.indexer.more.MoreIndexingFilter:setConf(Configuration)
+org.apache.nutch.indexer.more.MoreIndexingFilter:filter(NutchDocument, Parse, Text, CrawlDatum, Inlinks)"
+CLASS,lucene-4.0,LUCENE-4629,2012-12-13T16:57:50.000-06:00,IndexWriter fails to delete documents if Iterator<IndexDocument> throws an exception,allow Iterable on IW prepare for RT exceptions create documents in stream fashing,org.apache.lucene.index.DocumentsWriterPerThread
+CLASS,lucene-4.0,LUCENE-4660,2013-01-04T08:21:54.000-06:00,When ConcurrentMergeScheduler stalls incoming threads it has unexpected hysteresis,resume threads,org.apache.lucene.index.ConcurrentMergeScheduler.MergeThread
+CLASS,lucene-4.0,LUCENE-4671,2013-01-09T12:32:07.000-06:00,CharsRef.subSequence broken,be since CharsRef,org.apache.lucene.util.TestCharsRef
+CLASS,lucene-4.0,LUCENE-4899,2013-04-03T03:54:00.000-05:00,FastVectorHighlihgter fails with SIOOB if single phrase or term is > fragCharSize,expect fragCharSize > matchLength use phrases have long terms like urls,"org.apache.lucene.search.vectorhighlight.SimpleFragListBuilderTest
+org.apache.lucene.search.vectorhighlight.FieldPhraseList
+org.apache.lucene.search.vectorhighlight.BaseFragListBuilder"
+CLASS,jedit-4.3,1536064,2006-08-07T15:14:23.000-05:00,focus in filesystembrowser NOT in filenamefield,open file \ be on Commands menu,org.gjt.sp.jedit.GUIUtilities
+CLASS,jedit-4.3,1538743,2006-08-11T14:34:44.000-05:00,"While editing ToolBar, the category should be remembered",add actions to toolbar,org.gjt.sp.jedit.options.ToolBarEditDialog
+CLASS,jedit-4.3,1541372,2006-08-16T15:32:58.000-05:00,move caret on collapsing a fold,reexpand fold on direction key press be in fold place caret at first line,"org.gjt.sp.jedit.textarea.Gutter.MouseHandler
+org.gjt.sp.jedit.textarea.JEditTextArea"
+CLASS,jedit-4.3,1723506,2007-05-22T14:18:30.000-05:00,Context menu key not functional on Windows,have same effect as mouse right click have effect in jEdit,org.gjt.sp.jedit.textarea.JEditTextArea
+CLASS,jedit-4.3,1866836,2008-01-08T14:05:42.000-06:00,After completion column cursor should be kept,use completion popup type in column cursor,"org.gjt.sp.jedit.gui.CompleteWord.Words
+org.gjt.sp.jedit.gui.CompleteWord"
+CLASS,jedit-4.3,1942313,2008-04-14T18:08:29.000-05:00,Expanding a fold twice moves caret unexpectedly,do nothing print error message,org.gjt.sp.jedit.textarea.DisplayManager
+CLASS,jedit-4.3,1999448,2008-08-23T10:28:24.000-05:00,Unnecesarry fold expantion when folded lines are edited,not expand folds,"org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.textarea.DisplayManager
+org.gjt.sp.jedit.textarea.TextArea"
+CLASS,jedit-4.3,2218621,2008-11-03T10:05:46.000-06:00,FileBrowser: Directory of current buffer,"enter i type change path to current buffer append minus instead_of changing append minus to path
+search dialog empty dropdown replace dialog empty dropdown
+point to current directory",org.gjt.sp.jedit.MiscUtilities
+CLASS,jedit-4.3,950961,2004-05-09T21:37:09.000-05:00,Folding: handling newlines at the start of closed folds,display contents of fold close fold display expected text,"org.gjt.sp.jedit.buffer.JEditBuffer
+org.gjt.sp.jedit.textarea.BufferHandler
+org.gjt.sp.jedit.buffer.BufferChangeListener.Adapter
+org.gjt.sp.jedit.buffer.BufferAdapter
+org.gjt.sp.jedit.textarea.RangeMap"
+CLASS,jabref-2.6,1503956,2006-06-10T11:18:03.000-05:00,Help text instead of Help icon,contain text help instead_of usual help icon contain text help in Options,"net.sf.jabref.ExternalTab
+net.sf.jabref.PrefsDialog3
+net.sf.jabref.PrefsDialog2
+net.sf.jabref.PreviewPrefsTab"
+CLASS,jabref-2.6,1540646,2006-08-15T14:34:33.000-05:00,default sort order: bibtexkey,sort entries by default save entries in file,net.sf.jabref.TablePrefsTab
+CLASS,jabref-2.6,1548875,2006-08-29T20:40:57.000-05:00,download pdf produces unsupported filename,remove unsupported filename charaters before creating remove unsupported filename charaters before saving remove unsupported filename charaters in bibtex key translate unsupported filename charaters before creating translate unsupported filename charaters before saving translate unsupported filename charaters in bibtex key create filename save file,"net.sf.jabref.gui.FileListEditor
+net.sf.jabref.external.ExternalFilePanel"
+CLASS,jabref-2.6,1709449,2007-04-29T00:03:55.000-05:00,Clicking a DOI from context menu fails,use 3rd icon in document list show to user,"tests.net.sf.jabref.UtilTest
+net.sf.jabref.Util"
+CLASS,jabref-2.6,1711135,2007-05-02T10:16:51.000-05:00,BibTeX export error; missing space before line breaks,result in concatonation,"net.sf.jabref.gui.FileListTableModel
+net.sf.jabref.gui.ImportInspectionDialog.LinkLocalFile
+net.sf.jabref.imports.FieldContentParser
+net.sf.jabref.imports.RisImporter
+net.sf.jabref.external.AutoSetExternalFileForEntries
+net.sf.jabref.gui.FileListEditor
+net.sf.jabref.external.SynchronizeFileField
+net.sf.jabref.imports.EndnoteImporter
+net.sf.jabref.external.SynchronizeFileField.OptionsDialog
+net.sf.jabref.gui.ImportInspectionDialog.AutoSetLinks
+net.sf.jabref.BasePanel
+net.sf.jabref.JabRefFrame"
+CLASS,jabref-2.6,2207462,2008-10-29T14:31:16.000-05:00,Web search results hidden behind JabRef window,move to results window,"net.sf.jabref.imports.ACMPortalFetcher
+net.sf.jabref.imports.ImportInspectionCommandLine
+net.sf.jabref.gui.ImportInspectionDialog"
+CLASS,jabref-2.6,2904968,2009-11-27T13:26:49.000-06:00,Entry Editor does not open,"open entry editor
+do same thing for typing",net.sf.jabref.EntryEditor
+METHOD,apache-nutch-2.1,NUTCH-1393,2012-06-13T18:38:39.000-05:00,Display consistent usage of GeneratorJob with 1.X,"print traditional usage to stdout
+get usage params generate batch willy","org.apache.nutch.crawl.GeneratorJob:generate(long, long, boolean, boolean)
+org.apache.nutch.crawl.GeneratorJob:run(String[])"
+CLASS,openjpa-2.0.1,OPENJPA-1752,2010-07-29T23:33:45.000-05:00,TestPessimisticLocks JUNIT test produced inconsistent behavior with various backends,report exceptions report PessimisticLockException with Derby,org.apache.openjpa.persistence.lockmgr.TestPessimisticLocks
+CLASS,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,MetaDataRepository.preload() ignores class loader returned by PersistenceUnitInfo.getClassLoader(),use context class loader from PersistenceUnitInfo leade PersistenceUnitInfo to ClassNotFoundExpcetions mention at end,"org.apache.openjpa.meta.FieldMetaData
+org.apache.openjpa.meta.MetaDataRepository
+org.apache.openjpa.persistence.detach.NoVersionEntity"
+CLASS,openjpa-2.0.1,OPENJPA-1975,2011-04-07T15:57:51.000-05:00,Only obtain default schema name when needed (DB2),reduce load on DB,"org.apache.openjpa.jdbc.sql.DBDictionary
+org.apache.openjpa.jdbc.sql.DB2Dictionary"
+CLASS,openjpa-2.0.1,OPENJPA-2007,2011-05-25T14:51:51.000-05:00,"Setting query hint ""openjpa.FetchPlan.Isolation"" results in misleading warning",add openjpa.FetchPlan.Isolation,"org.apache.openjpa.persistence.jdbc.JDBCPersistenceProductDerivation
+org.apache.openjpa.conf.TestQueryHints"
+METHOD,lang,LANG-295,2006-10-31T22:16:13.000-06:00,StrBuilder contains usages of thisBuf.length when they should use size,reference thisBuf.length in StrBuilder reference other places in StrBuilder,"org.apache.commons.lang.text.StrBuilder:contains(char)
+org.apache.commons.lang.text.StrBuilder:indexOf(char, int)"
+METHOD,lang,LANG-315,2007-02-06T13:52:59.000-06:00,"StopWatch: suspend() acts as split(), if followed by stop()",not increase time counter,org.apache.commons.lang.time.StopWatch:stop()
+METHOD,lang,LANG-346,2007-07-06T20:06:55.000-05:00,Dates.round() behaves incorrectly for minutes and seconds,be after round() mon jul,"org.apache.commons.lang.time.DateUtils:modify(Calendar, int, boolean)"
+METHOD,lang,LANG-363,2007-10-23T07:12:48.000-05:00,"StringEscapeUtils.escapeJavaScript() method did not escape '/' into '\/', it will make IE render page uncorrectly","include /', IE will parse the scripts uncorrectly, actually '/
+make IE render page uncorrect","org.apache.commons.lang.StringEscapeUtils:escapeJavaStyleString(Writer, String, boolean)"
+METHOD,lang,LANG-393,2008-01-03T13:46:49.000-06:00,EqualsBuilder don't compare BigDecimals correctly,compare BigDecimal use equals,"org.apache.commons.lang.builder.EqualsBuilder:append(Object, Object)"
+METHOD,lang,LANG-746,2011-08-23T12:32:12.000-05:00,NumberUtils does not handle upper-case hex: 0X and -0X,generate NumberFormatException,org.apache.commons.lang3.math.NumberUtils:createNumber(String)
+METHOD,lang,LANG-788,2012-02-11T12:36:48.000-06:00,SerializationUtils throws ClassNotFoundException when cloning primitive classes,understand intention of ClassLoaderAwareObjectInputStream implement fallback to original implementation,"org.apache.commons.lang3.SerializationUtils:ClassLoaderAwareObjectInputStream(InputStream, ClassLoader)
+org.apache.commons.lang3.SerializationUtils:resolveClass(ObjectStreamClass)"
+METHOD,lang,LANG-832,2012-09-27T00:27:58.000-05:00,FastDateParser does not handle unterminated quotes correctly,parse format parse date,org.apache.commons.lang3.time.FastDateParser:init()
+FILE,SWARM,SWARM-863,2016-11-30T14:54:40.000-06:00,Version 2016.11.0 doesn't stop properly (with custom main class),"result //localhost:8080/hello "" in hello world response",org.wildfly.swarm.container.runtime.ServerBootstrapImpl
+METHOD,derby-10.9.1.0,DERBY-6008,2012-12-05T17:54:44.000-06:00,Allow ORDER BY and FETCH/OFFSET in set operands,,"org.apache.derby.impl.sql.compile.SelectNode:pushOrderByList(OrderByList)
+org.apache.derby.impl.sql.compile.SelectNode:genProjectRestrict(int)
+org.apache.derby.impl.sql.compile.SetOperatorNode:pushOrderByList(OrderByList)"
+METHOD,derby-10.9.1.0,DERBY-6009,2012-12-07T04:15:23.000-06:00,Need stricter checking of ORDER BY clause in VALUES expressions,"raise same exception as first query
+have column
+raise syntax error instead_of nullpointerexception",org.apache.derby.impl.sql.compile.OrderByList:getResultSetNumber()
+METHOD,derby-10.9.1.0,DERBY-6150,2013-04-03T19:58:03.000-05:00,Add automatic cleanup of connections opened with openDefaultConnection(),clean up connections in tearDown(),"org.apache.derbyTesting.junit.BaseJDBCTestCase:openDefaultConnection()
+org.apache.derbyTesting.junit.BaseJDBCTestCase:openConnection(String)
+org.apache.derbyTesting.junit.BaseJDBCTestCase:openDefaultConnection(TestConfiguration)"
+METHOD,jedit-4.2,2542,2006-05-27T22:49:10.000-05:00,Pasting Text Should End Current Undoable Edit,paste text,"org.gjt.sp.jedit.Registers:paste(JEditTextArea, char, boolean)"
+METHOD,jedit-4.2,2571,2006-07-17T18:34:33.000-05:00,Line number not highlighted when the line is selected,"make sense split accross
+guess line on single line",org.gjt.sp.jedit.search.SearchAndReplace:replace(View)
+METHOD,jedit-4.2,2720,2006-11-09T12:52:48.000-06:00,FSB delete action on directory not working,delete files delete folders delete file invoke on directory,"org.gjt.sp.jedit.io.FileVFS:_delete(Object, String, Component)"
+FILE,eclipse-3.1,100799,2005-06-20T08:40:00.000-05:00,[ErrorHandling] 'Unable to create view' error page should link to error log view,show relevant error contain link to Error log,"org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.part.StatusPart"
+FILE,eclipse-3.1,101434,2005-06-23T09:08:00.000-05:00,[Contexts] performance: Slow cursor navigation in Text fields,see caret move through entered text,"org.eclipse.ui.internal.handlers.HandlerService
+org.eclipse.ui.internal.contexts.ContextService
+org.eclipse.ui.internal.contexts.ContextAuthority
+org.eclipse.ui.internal.handlers.HandlerAuthority"
+FILE,eclipse-3.1,101644,2005-06-24T10:19:00.000-05:00,Browse in plugin editor should init with actual value,initialzy with actual value,"org.eclipse.pde.internal.ui.editor.plugin.PluginGeneralInfoSection
+org.eclipse.pde.internal.ui.editor.plugin.rows.ClassAttributeRow"
+FILE,eclipse-3.1,105468,2005-07-28T11:55:00.000-05:00,[osgi] PermissionAdmin must override any conditions,,org.eclipse.osgi.framework.internal.core.BundleCombinedPermissions
+FILE,eclipse-3.1,105665,2005-08-01T07:59:00.000-05:00,"[Dialogs] ""Open resource"" dialog doesnt remember it position and size",not forget position after closing not forget size after closing,org.eclipse.ui.dialogs.ResourceListSelectionDialog
+FILE,eclipse-3.1,108705,2005-09-02T11:48:00.000-05:00,[Contributions] errors: ObjectActionContributor should safeguard against misbehaving plugins,,org.eclipse.ui.internal.ObjectPluginAction
+FILE,eclipse-3.1,112576,2005-10-13T20:14:00.000-05:00,Not every hit is a class,indicate manifest headers with package icon,org.eclipse.pde.internal.ui.PDEPluginImages
+FILE,eclipse-3.1,114565,2005-11-01T11:56:00.000-06:00,[Markers] Quick fix computation done in UI thread with no progress,avoid freezing move into modal context thread,org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,126938,2006-02-08T12:20:00.000-06:00,Cannot import Installed JREs from preference file,configure with default argument,org.eclipse.jdt.internal.launching.JREPreferenceModifyListener
+FILE,eclipse-3.1,129834,2006-02-28T14:22:00.000-06:00,Glitches in feature import wizard,"push Reload button next_to table viewer
+feature from new location","org.eclipse.pde.internal.ui.wizards.imports.FeatureImportWizard
+org.eclipse.pde.internal.ui.PDEUIMessages"
+FILE,eclipse-3.1,130424,2006-03-04T00:53:00.000-06:00,New Registry view shows fragments,"do in past
+show with right icon",org.eclipse.pde.internal.runtime.registry.RegistryBrowserContentProvider
+FILE,eclipse-3.1,138404,2006-04-25T11:36:00.000-05:00,[Problems] quick fix wizard opened with no options,openn quick fix,org.eclipse.ui.views.markers.internal.ActionResolveMarker
+FILE,eclipse-3.1,142881,2006-05-20T00:02:00.000-05:00,DEL works on non-editable editor,do nothing on non-editable model,"org.eclipse.pde.internal.ui.editor.plugin.ImportPackageSection
+org.eclipse.pde.internal.ui.editor.plugin.RequiresSection
+org.eclipse.pde.internal.ui.editor.plugin.ExtensionPointsSection
+org.eclipse.pde.internal.ui.editor.plugin.ExportPackageSection"
+FILE,eclipse-3.1,149604,2006-07-04T18:17:00.000-05:00,Amnesia when opening manifest of a JARd plug-in,open on tab,org.eclipse.pde.internal.ui.editor.PDEFormEditor
+FILE,eclipse-3.1,157944,2006-09-20T01:11:00.000-05:00,JavaAttributeWizard shouldn't open with errors when passed an empty string,,org.eclipse.pde.internal.ui.editor.plugin.JavaAttributeWizardPage
+FILE,eclipse-3.1,63433,2004-05-21T11:31:00.000-05:00,[Progress] [Dialogs] Poor message during project deletion.,say something like deleting delete resources,org.eclipse.core.internal.localstore.FileSystemResourceManager
+FILE,eclipse-3.1,76837,2004-10-22T13:42:00.000-05:00,[KeyBindings] Ctrl-Shift-L popup should take focus-->easier to get pref page,,org.eclipse.ui.internal.keys.KeyAssistDialog
+FILE,eclipse-3.1,77249,2004-10-28T17:57:00.000-05:00,"Annotation on class cancels ""public"" modifier",have public modifier,"org.eclipse.jdt.core.dom.ASTConverter
+org.eclipse.swt.graphics.GC"
+FILE,eclipse-3.1,77703,2004-11-03T12:40:00.000-06:00,Deselecting Map$Entry/Show As>/Key And Value Deselects Map/Show As>/Map Entries,turn off logical structures of map$Entry view as array,"org.eclipse.debug.internal.ui.views.variables.SelectLogicalStructureAction
+org.eclipse.debug.internal.ui.views.variables.AvailableLogicalStructuresAction"
+FILE,eclipse-3.1,78123,2004-11-08T17:48:00.000-06:00,[JFace] Error dialog should be resizable and not print redundant messages,appear error dialog on synchronization errors,"org.eclipse.jface.dialogs.ErrorDialog
+org.eclipse.ui.internal.progress.JobErrorDialog"
+FILE,eclipse-3.1,79091,2004-11-19T13:00:00.000-06:00,[compiler] Should report invalid type only on the name,report error on zork [ ],"org.eclipse.jdt.internal.compiler.problem.ProblemReporter
+org.eclipse.jdt.internal.compiler.ast.ArrayTypeReference"
+FILE,eclipse-3.1,79638,2004-11-28T12:48:00.000-06:00,[EditorMgmt] history: NavigationHistory won't release references to IEditorParts,get NavigationHistory need in event,org.eclipse.ui.IEditorInput
+FILE,eclipse-3.1,79754,2004-11-30T04:01:00.000-06:00,[Change Sets] should show activity affordance,,"org.eclipse.team.internal.ui.synchronize.ChangeSetModelProvider
+org.eclipse.team.internal.ccvs.ui.subscriber.WorkspaceCommitAction
+org.eclipse.team.internal.ui.synchronize.AbstractSynchronizeModelProvider
+org.eclipse.team.internal.ccvs.ui.wizards.CommitWizard"
+FILE,eclipse-3.1,80058,2004-12-02T15:32:00.000-06:00,[Wizards] Create folder blocked should avoid locking workspace,create new folder at same time,org.eclipse.ui.dialogs.WizardNewFolderMainPage
+FILE,eclipse-3.1,81199,2004-12-15T11:09:00.000-06:00,Monitors should not be displayed for resumed threads,stale monitor information at point,org.eclipse.jdt.internal.debug.ui.monitors.DeferredJavaThread
+FILE,eclipse-3.1,83206,2005-01-19T11:34:00.000-06:00,ICodeAssist#codeSelect(..) on implicit methods should not return a java element,not return java element,org.eclipse.jdt.internal.codeassist.SelectionEngine
+FILE,eclipse-3.1,83541,2005-01-24T10:42:00.000-06:00,Cannot  find a way to change char value to special character,accept \ t in dialog accept \ n in dialog,org.eclipse.jdt.internal.debug.ui.actions.JavaPrimitiveValueEditor
+FILE,eclipse-3.1,84141,2005-02-01T10:43:00.000-06:00,[Decorators]  DecoratorScheduler should not lock UI Thread,,org.eclipse.ui.internal.decorators.DecoratorManager
+FILE,eclipse-3.1,84546,2005-02-07T04:31:00.000-06:00,Escape on empty commit-comment is yes instead of no,press ESC expect dialog,org.eclipse.team.internal.ccvs.ui.CommitCommentArea
+FILE,eclipse-3.1,84881,2005-02-10T07:19:00.000-06:00,[WorkbenchLauncher] Splash screen receives focus after task switch (instead of workspace launcher dialog),,"org.eclipse.ui.internal.ide.IDEApplication
+org.eclipse.ui.internal.ide.ChooseWorkspaceDialog
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,85275,2005-02-15T10:46:00.000-06:00,Team>Disconnect should make all resources writtable,disconnect project from CVS control,org.eclipse.team.internal.ccvs.core.resources.EclipseFolder
+FILE,eclipse-3.1,85277,2005-02-15T10:53:00.000-06:00,'Replace With > Latest from HEAD' does not restore deleted CUs in a package,restore deleted compilation unit from HEAD,org.eclipse.team.internal.ccvs.ui.operations.ReplaceOperation
+FILE,eclipse-3.1,85397,2005-02-16T08:20:00.000-06:00,[1.5][enum] erroneous strictfp keyword on enum type produces error on constructor_,"not allow strictfp on enum actual
+report wrong modifier with type name show error for constructor _","org.eclipse.jdt.internal.compiler.lookup.SyntheticMethodBinding
+org.eclipse.jdt.internal.ui.typehierarchy.TypeHierarchyViewPart
+org.eclipse.jdt.internal.compiler.lookup.MethodScope"
+FILE,eclipse-3.1,85452,2005-02-16T11:47:00.000-06:00,[IDE] (regression) Backdrop missing when all perspectives closed,have backdrop with text have backdrop with button open a.,"org.eclipse.jdt.internal.ui.dialogs.PackageSelectionDialog
+org.eclipse.jdt.internal.ui.JavaUIMessages
+org.eclipse.ui.internal.ide.IDEWorkbenchAdvisor
+org.eclipse.ui.internal.ide.IDEWorkbenchWindowAdvisor"
+FILE,eclipse-3.1,85519,2005-02-16T14:10:00.000-06:00,[implementation] saveAs existing file fails - content replaced with original content,lose data replace with data,"org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitDocumentProvider
+org.eclipse.ui.editors.text.TextFileDocumentProvider"
+FILE,eclipse-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,produce proper JPG images expected,"org.eclipse.ui.internal.WorkbenchIntroManager
+org.eclipse.swt.internal.image.JPEGFileFormat"
+FILE,eclipse-3.1,86268,2005-02-23T10:10:00.000-06:00,[About] About dialog plug-ins and features tables do not meet accessibility requirements,use table use other views use keyboard exist in other views achieve in other views read full cell contents in resulting properties dialog,"org.eclipse.ui.internal.dialogs.AboutPluginsDialog
+org.eclipse.ui.internal.WorkbenchMessages
+org.eclipse.ui.internal.dialogs.AboutFeaturesDialog"
+FILE,eclipse-3.1,86502,2005-02-24T12:32:00.000-06:00,field names in org.eclipse.core.commands.operations not consistent,not use f in code not use m _ in code not use c _ prefixes in code,"org.eclipse.core.commands.operations.AbstractOperation
+org.eclipse.core.commands.operations.ObjectUndoContext
+org.eclipse.core.commands.operations.OperationHistoryFactory
+org.eclipse.ui.operations.OperationHistoryActionHandler
+org.eclipse.core.commands.operations.DefaultOperationHistory"
+FILE,eclipse-3.1,87198,2005-03-04T18:41:00.000-06:00,Unable to create a MessageDialog instance outside of SWT thread,create instance outside UI create instance of MessageDialog,org.eclipse.jface.window.SameShellProvider
+FILE,eclipse-3.1,87676,2005-03-10T12:28:00.000-06:00,Double-click only works on a tree's column0,use log view bring up event,"org.eclipse.swt.widgets.Tree
+org.eclipse.jdt.internal.compiler.ast.CastExpression"
+FILE,eclipse-3.1,87683,2005-03-10T13:36:00.000-06:00,[Preferences] Preferences hover should show unshortened text,,org.eclipse.jface.dialogs.DialogMessageArea
+FILE,eclipse-3.1,88295,2005-03-17T03:34:00.000-06:00,[1.5][assist] too many completion on enum case label,complete in r,org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,89814,2005-03-31T07:29:00.000-06:00,Replace With > Another Branch or Version: tree allows multi-selection,be in single-selection mode,org.eclipse.team.internal.ccvs.ui.tags.TagSelectionArea
+FILE,eclipse-3.1,90281,2005-04-05T08:42:00.000-05:00,Replace With Uncommitted changes dialog problems,align upper block with Cancel button,"org.eclipse.team.internal.ui.dialogs.DetailsDialog
+org.eclipse.team.internal.ui.dialogs.ResourceMappingSelectionArea"
+FILE,eclipse-3.1,90549,2005-04-06T18:43:00.000-05:00,Mark Occurrences should work for one position past reference,,"org.eclipse.ant.internal.ui.editor.text.XMLTextHover
+org.eclipse.core.resources.IResourceDelta
+org.eclipse.core.resources.IResource
+org.eclipse.core.resources.team.ResourceRuleFactory
+org.eclipse.core.internal.resources.Rules
+org.eclipse.core.internal.resources.Resource
+org.eclipse.core.resources.IResourceRuleFactory"
+FILE,eclipse-3.1,90600,2005-04-07T09:32:00.000-05:00,[model] CreateElementInCUOperation.apply: should use project options for rewriter,pass in current projects options,"org.eclipse.jface.text.source.SourceViewer
+org.eclipse.jdt.internal.core.CreateElementInCUOperation
+org.eclipse.jface.text.source.OverviewRuler"
+FILE,eclipse-3.1,90714,2005-04-07T16:07:00.000-05:00,"When no features are found, the second install wizard is still shown",present simple message dialog to user,"org.eclipse.update.internal.ui.wizards.InstallWizardOperation
+org.eclipse.update.internal.ui.wizards.ReviewPage"
+FILE,eclipse-3.1,92013,2005-04-19T19:51:00.000-05:00,DCR - Need SWT.VERTICAL style for CoolBar,use coolbar/CoolItem for intro launch bar get OS-specific handle rendering position CoolBar trim areas,"org.eclipse.swt.widgets.CoolItem
+org.eclipse.swt.widgets.CoolBar
+org.eclipse.swt.widgets.Control"
+FILE,eclipse-3.1,93584,2005-05-03T15:23:00.000-05:00,Fetching Revisions from Revision Compare done in UI thread,do in modal context,org.eclipse.team.internal.ccvs.ui.CVSCompareRevisionsInput
+FILE,eclipse-3.1,94007,2005-05-06T16:56:00.000-05:00,Views without view icon get red box by default,not specify icon,org.eclipse.ui.internal.registry.ViewDescriptor
+FILE,eclipse-3.1,94516,2005-05-10T16:30:00.000-05:00,"[content type] when project settings enabled, global user settings still taken into account",provide settings take into account,"org.eclipse.core.internal.content.ContentTypeCatalog
+org.eclipse.core.internal.content.FileSpec
+org.eclipse.core.internal.content.ContentType"
+FILE,eclipse-3.1,94537,2005-05-10T17:23:00.000-05:00,[Workbench] ClassNotFoundException trying to eagerly start a plug-in while shutting down,start extension run before starting,"org.eclipse.ui.internal.dialogs.StartupPreferencePage
+org.eclipse.core.runtime.jobs.Job
+org.eclipse.ui.internal.Workbench"
+FILE,eclipse-3.1,94852,2005-05-11T17:17:00.000-05:00,[ViewMgmt] (regression) Typing space should activate view menu button,"have focus
+drop down view menu
+do expected thing allow space key for consistency use with screen reader",org.eclipse.ui.internal.presentations.defaultpresentation.DefaultTabFolder
+FILE,eclipse-3.1,94879,2005-05-11T22:13:00.000-05:00,[PropertiesDialog] [Preferences] Esc does not dismiss properties or preferences dialog,"dismiss dialog clear filter field
+clear field
+not intercept esc allow esc clear field",org.eclipse.ui.internal.dialogs.FilteredComboTree
+FILE,eclipse-3.1,95096,2005-05-13T06:16:00.000-05:00,[5.0][content assist] Content assist popup disappears while completing the statically imported method name,constrain proposals to members,"org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal
+org.eclipse.jdt.internal.ui.text.java.LazyJavaCompletionProposal"
+FILE,eclipse-3.1,95176,2005-05-13T13:19:00.000-05:00,Jobs still running after platform shutdown,schedule plugin during shutdown cancel jobs,org.eclipse.team.internal.core.subscribers.SubscriberChangeSetCollector
+FILE,eclipse-3.1,96489,2005-05-24T14:40:00.000-05:00,[Presentations] (regression) Standalone view without title has no border,have border,"org.eclipse.ui.presentations.WorkbenchPresentationFactory
+org.eclipse.ui.internal.presentations.defaultpresentation.EmptyTabFolder"
+FILE,eclipse-3.1,97018,2005-05-27T11:47:00.000-05:00,PDE generates to strict access restrictions,honor access restrictions from plugin.xml file honor access restrictions since having generate ALL forbidden rule,"org.eclipse.pde.internal.core.MinimalState
+org.eclipse.pde.internal.core.ClasspathUtilCore"
+FILE,eclipse-3.1,97085,2005-05-27T17:10:00.000-05:00,(3.1M7) Static import code assist shouldn't propose <package>.*;,propose plain subpackages,org.eclipse.jdt.internal.codeassist.CompletionEngine
+FILE,eclipse-3.1,97363,2005-05-30T17:14:00.000-05:00,Export deployable plug-ins always JARs,export as ed plugin directories,org.eclipse.pde.internal.core.util.CoreUtility
+FILE,eclipse-3.1,97726,2005-05-31T16:47:00.000-05:00,Carat location should be updated when user types in Console.,enter text in console,org.eclipse.ui.internal.console.IOConsoleViewer
+FILE,eclipse-3.1,98740,2005-06-07T13:25:00.000-05:00,Container attempts to refresh children on project that is not open,use open project UI,"org.eclipse.core.internal.resources.Container
+org.eclipse.core.internal.resources.Resource"
+FILE,eclipse-3.1,99059,2005-06-08T16:36:00.000-05:00,[Connection] Network connection problems being written to the Eclipse log,not write to log,org.eclipse.team.internal.ccvs.ui.CVSUIPlugin
+FILE,eclipse-3.1,99235,2005-06-09T14:51:00.000-05:00,Fully qualified paths in antfile attribute do not open file,open external antBuildfile.xml,"org.eclipse.ant.internal.ui.model.AntAntNode
+org.eclipse.ant.internal.ui.editor.AntEditor"
+FILE,eclipse-3.1,99631,2005-06-13T09:21:00.000-05:00,[assist][5.0] Unnecessary proposals on annotation completion,start with b,"org.eclipse.jdt.internal.corext.refactoring.reorg.JavaMoveProcessor
+org.eclipse.jdt.internal.codeassist.CompletionEngine"
+CLASS,openjpa-2.2.0,OPENJPA-2163,2012-03-27T15:56:55.000-05:00,Lifecycle event callback occurs more often than expect,register expected behavior in em,"openjpa-kernel.src.main.java.org.apache.openjpa.conf.OpenJPAConfigurationImpl
+openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.validation.TestValidationMode"
+CLASS,openjpa-2.2.0,OPENJPA-2197,2012-05-16T17:10:22.000-05:00,MethodComparator in AnnotationPersistenceMetaDataParser should also compare parameters,,openjpa-persistence-jdbc.src.test.java.org.apache.openjpa.persistence.callbacks.ListenerImpl
+CLASS,openjpa-2.2.0,OPENJPA-2255,2012-08-30T20:15:52.000-05:00,Couldn't load the referencedColumn definition when create the JoinTable,"assign length to default value 255
+set JoinColumn to default value 255",openjpa-jdbc.src.main.java.org.apache.openjpa.jdbc.meta.MappingInfo
+METHOD,atunes-1.10.0,213,2008-09-14T08:05:44.000-05:00,Not supported formats are not skipped under Xine,skip to next song,"net.sourceforge.atunes.kernel.modules.player.xine.XineHandler:startPlayback(AudioObject, AudioObject)"
+CLASS,solr-4.4.0,SOLR-4817,2013-05-13T13:25:19.000-05:00,Solr should not fall back to the back compat built in solr.xml in SolrCloud mode.,"not have persistence build in solr.xml
+debug solr.home back compat make in solrcloud mode make to debug","solr.contrib.dataimporthandler.src.test.org.apache.solr.handler.dataimport.TestContentStreamDataSource
+solr.contrib.dataimporthandler.src.test.org.apache.solr.handler.dataimport.TestSolrEntityProcessorEndToEnd
+solr.core.src.test.org.apache.solr.cloud.ClusterStateUpdateTest
+solr.core.src.test.org.apache.solr.handler.TestReplicationHandler
+solr.solrj.src.test.org.apache.solr.client.solrj.TestLBHttpSolrServer
+solr.core.src.test.org.apache.solr.cloud.ZkControllerTest
+solr.core.src.test.org.apache.solr.servlet.CacheHeaderTest
+solr.core.src.test.org.apache.solr.core.TestSolrXmlPersistence
+solr.core.src.test.org.apache.solr.request.TestRemoteStreaming
+solr.core.src.test.org.apache.solr.TestSolrCoreProperties
+solr.test-framework.src.java.org.apache.solr.BaseDistributedSearchTestCase
+solr.core.src.test.org.apache.solr.schema.TestBinaryField
+solr.core.src.java.org.apache.solr.core.ConfigSolrXmlOld
+solr.test-framework.src.java.org.apache.solr.SolrTestCaseJ4
+solr.core.src.java.org.apache.solr.core.ConfigSolr
+solr.test-framework.src.java.org.apache.solr.SolrJettyTestBase
+solr.core.src.java.org.apache.solr.servlet.SolrDispatchFilter"
+CLASS,solr-4.4.0,SOLR-5083,2013-07-27T18:13:14.000-05:00,Move JDK-1.0-style hidden classes into inner classes of SolrRequestParsers (to prevent uptodate javac bugs),be in separate java files,"solr.core.src.test.org.apache.solr.servlet.SolrRequestParserTest
+solr.core.src.java.org.apache.solr.servlet.SolrRequestParsers"
+CLASS,solr-4.4.0,SOLR-5150,2013-08-14T08:23:33.000-05:00,HdfsIndexInput may not fully read requested bytes.,seek on read,"solr.core.src.java.org.apache.solr.store.hdfs.HdfsDirectory.HdfsNormalIndexInput
+solr.core.src.java.org.apache.solr.store.hdfs.HdfsDirectory"
+CLASS,solr-4.4.0,SOLR-5227,2013-09-09T17:31:06.000-05:00,"attempting to configured a dynamicField as required, or using a default value, should fail.",not get behavior use sortMissingLast with dynamicField use docValues in Solr < require default value get hard error specify default value on dynamicField,"solr.core.src.test.org.apache.solr.schema.BadIndexSchemaTest
+solr.core.src.java.org.apache.solr.schema.IndexSchema"
+CLASS,solr-4.4.0,SOLR-5246,2013-09-18T04:17:09.000-05:00,Shard splitting should support collections configured with a hash router and routeField.,,"solr.core.src.java.org.apache.solr.update.SolrIndexSplitter
+solr.core.src.java.org.apache.solr.update.SplitIndexCommand
+solr.core.src.test.org.apache.solr.cloud.ChaosMonkeyShardSplitTest
+solr.core.src.java.org.apache.solr.handler.admin.CoreAdminHandler
+solr.core.src.test.org.apache.solr.update.SolrIndexSplitterTest
+solr.core.src.java.org.apache.solr.cloud.OverseerCollectionProcessor"
+CLASS,solr-4.4.0,SOLR-5296,2013-10-02T00:20:01.000-05:00,Creating a collection with implicit router adds shard ranges to each shard,not shard ranges,solr.core.src.java.org.apache.solr.cloud.Overseer
+METHOD,mahout-0.4,MAHOUT-625,2011-03-11T09:24:20.000-06:00,Some of generated patterns have support higher than in reality,use data return pattern with support occur http://fimi.ua.ac.be/data/ in transactions,"org.apache.mahout.fpm.pfpgrowth.fpgrowth.FPGrowth:pruneFPTree(MutableLong, FPTree)"
+FILE,AMQP,AMQP-122,2011-03-21T03:43:37.000-05:00,RabbitAdmin needs to handle starting up with no broker,have warning happen of course,"org.springframework.amqp.rabbit.connection.ConnectionFactory
+org.springframework.amqp.rabbit.test.BrokerRunning
+org.springframework.amqp.rabbit.connection.SingleConnectionFactory
+org.springframework.amqp.rabbit.core.RabbitAdmin
+org.springframework.amqp.rabbit.config.AdminParser
+org.springframework.amqp.rabbit.config.AdminParserTests
+org.springframework.amqp.rabbit.core.RabbitAdminTests"
+FILE,AMQP,AMQP-170,2011-05-25T05:23:19.000-05:00,Message header value has type com.rabbitmq.client.impl.LongStringHelper.ByteArrayLongString,read value from header be of com.rabbitmq.client.impl.LongStringHelper.ByteArrayLongString type,org.springframework.amqp.rabbit.connection.RabbitUtils
+FILE,AMQP,AMQP-290,2013-01-04T02:26:52.000-06:00,"Rabbit namespace little bug, when using reference to queueArgumentsMap",pass to broker,"org.springframework.amqp.rabbit.config.AbstractExchangeParser
+org.springframework.amqp.rabbit.config.QueueParser
+org.springframework.amqp.rabbit.config.ExchangeParserTests
+org.springframework.amqp.rabbit.config.QueueParserTests"
+FILE,AMQP,AMQP-340,2013-11-18T09:41:01.000-06:00,Wrong RabbitMQ credentials are not considered as fatal error by SimpleMessageListenerContainer,have notification about wrong credentials,"org.springframework.amqp.rabbit.listener.BlockingQueueConsumer
+org.springframework.amqp.rabbit.listener.MessageListenerContainerLifecycleIntegrationTests
+org.springframework.amqp.rabbit.support.RabbitExceptionTranslator"
+FILE,AMQP,AMQP-434,2014-10-21T05:21:17.000-05:00,convertAndSend() methods can throw MessageConversionException but that's not documented,add exception to throws clause OR catch in convertMessageIfNecessary() wrap in convertMessageIfNecessary(),org.springframework.amqp.support.converter.MessageConversionException
+FILE,AMQP,AMQP-516,2015-08-06T01:25:34.000-05:00,"Setting autoDelete or exclusive to anything, including ""true"" in @Queue without a queue name results in them being disabled",use random name seem like good idea change to something,"org.springframework.amqp.rabbit.annotation.EnableRabbitIntegrationTests
+org.springframework.amqp.rabbit.annotation.RabbitListenerAnnotationBeanPostProcessor"
+FILE,AMQP,AMQP-633,2016-08-18T15:48:45.000-05:00,Non Transactional RabbitTemplate Uses Container Transactional Channel,never return resourceHolder,"org.springframework.amqp.rabbit.listener.LocallyTransactedTests
+org.springframework.amqp.rabbit.core.RabbitTemplate"
+METHOD,commons-math-3-3.0,MATH-775,2012-04-02T12:09:14.000-05:00,"In the ListPopulation constructor, the check for a negative populationLimit should occur first.",occur before check occur in ListPopulation constructor,"org.apache.commons.math3.genetics.ListPopulation:setPopulationLimit(int)
+org.apache.commons.math3.genetics.ListPopulation:ListPopulation(List<Chromosome>, int)"
+METHOD,commons-math-3-3.0,MATH-779,2012-04-11T10:28:35.000-05:00,ListPopulation Iterator allows you to remove chromosomes from the population.,return iterator wrap before returning wrap in unmodifiable list,org.apache.commons.math3.genetics.ListPopulation:iterator()
+METHOD,commons-math-3-3.0,MATH-782,2012-04-23T07:36:24.000-05:00,BrentOptimizer: User-defined check block is badly placed,allow for user-defined stopping criterion,org.apache.commons.math3.optimization.univariate.BrentOptimizerTest:testBoundaries()
+METHOD,commons-math-3-3.0,MATH-905,2012-11-20T14:54:39.000-06:00,"FastMath.[cosh, sinh] do not support the same range of values as the Math counterparts",use for values end up with infinity,org.apache.commons.math3.util.FastMathTest:testHyperbolicInverses()
+FILE,DATACMNS,DATACMNS-114,2011-12-19T03:21:41.000-06:00,Wrong custom implementation automatically detected,"start application context link contractRepository bean to contractRepositoryImpl link contractRepository bean to anotherContractRepositoryImpl
+apply wildcard prefix scan before applying scan on getImplementationClassName()",org.springframework.data.repository.config.AbstractRepositoryConfigDefinitionParser
+FILE,DATACMNS,DATACMNS-228,2012-09-10T02:05:09.000-05:00,Mapping sub-system should exclude Groovy introduced properties from persistent properties,use Groovy classes with mapping metadata sub-system not consider persistent property like metaClass not consider fields like metaClass,"org.springframework.data.mapping.context.AbstractMappingContext
+org.springframework.data.mapping.context.AbstractMappingContextUnitTests"
+FILE,DATACMNS,DATACMNS-233,2012-09-14T07:38:12.000-05:00,DomainClassConverter should gracefully return null for null sources or empty strings,convert to Domain class empty to Domain class,"org.springframework.data.repository.support.DomainClassConverterUnitTests
+org.springframework.data.repository.support.DomainClassConverter"
+FILE,DATACMNS,DATACMNS-441,2014-02-18T04:41:56.000-06:00,Analyzing @Query annotated bridge methods lead to NPEs during QueryMethod processing in Java 8,skip bridge methods consider for @Query annotation inspection not extract generic type parameter from bridge methods,"org.springframework.data.repository.core.support.DefaultRepositoryInformationUnitTests
+org.springframework.data.repository.core.support.DefaultRepositoryInformation"
+CLASS,derby-10.9.1.0,DERBY-3024,2007-08-23T05:24:31.000-05:00,Validation of shared plans hurts scalability,"prevent scaling on multi-CPU machine write multi-threaded test execute VALUES execute multi-threaded test use PreparedStatement run test on machine expect throughput have small increase from clients add more clients not increase throughput spend lot of time enter synchronization blocks in GenericPreparedStatement.upToDate() enter synchronization blocks in BaseActivation.checkStatementValidity() look at test
+find way make scalability share same plan","java.engine.org.apache.derby.impl.store.access.heap.HeapConglomerateFactory
+java.engine.org.apache.derby.impl.store.raw.data.FileContainer
+java.engine.org.apache.derby.impl.store.raw.data.RAFContainer
+java.testing.org.apache.derbyTesting.functionTests.tests.lang.DBInJarTest
+java.engine.org.apache.derby.impl.store.raw.data.TempRAFContainer
+java.engine.org.apache.derby.impl.store.raw.data.InputStreamContainer
+java.engine.org.apache.derby.impl.store.access.btree.index.B2IFactory"
+CLASS,derby-10.9.1.0,DERBY-5251,2011-05-29T04:27:15.000-05:00,make ErrorCodeTest pass in non-English locale,,java.testing.org.apache.derbyTesting.functionTests.tests.lang.ErrorCodeTest
+CLASS,derby-10.9.1.0,DERBY-5252,2011-05-29T05:07:14.000-05:00,make GrantRevokeTest pass in non-English locale,,java.testing.org.apache.derbyTesting.functionTests.tests.lang.GrantRevokeTest
+CLASS,derby-10.9.1.0,DERBY-5851,2012-07-08T12:28:49.000-05:00,Inconsistent code coverage shown for LogicalPreparedStatement40,"run test with LogicalPreparedStatement40 statements
+go through LogicalPreparedStatement40 go to PreparedStatement40",java.testing.org.apache.derbyTesting.functionTests.tests.jdbc4.PreparedStatementTest
+CLASS,derby-10.9.1.0,DERBY-6053,2013-01-25T09:02:53.000-06:00,Client should use a prepared statement rather than regular statement for Connection.setTransactionIsolation,avoid possible garbage collection issues have single prepared statement with parameter marker,java.client.org.apache.derby.client.am.Connection
+CLASS,derby-10.9.1.0,DERBY-6150,2013-04-03T19:58:03.000-05:00,Add automatic cleanup of connections opened with openDefaultConnection(),clean up connections in tearDown(),java.testing.org.apache.derbyTesting.junit.BaseJDBCTestCase
+METHOD,time,28,2013-05-31T00:52:24.000-05:00,Questionable behaviour of GJChronology when dates pass 1BC,skip over non-existent year 0 return BC,"org.joda.time.chrono.GJChronology:getInstance(DateTimeZone, ReadableInstant, int)
+org.joda.time.chrono.GJChronology:add(long, long)
+org.joda.time.chrono.GJChronology:add(long, int)"
+METHOD,time,88,2013-11-25T19:15:46.000-06:00,Constructing invalid Partials,construct in case,"org.joda.time.Partial:with(DateTimeFieldType, int)"
+FILE,COMPRESS,COMPRESS-171,2012-01-20T17:54:09.000-06:00,createArchiveInputStream detects text files less than 100 bytes as tar archives,apply on archives bytes,org.apache.commons.compress.archivers.ArchiveStreamFactory
+FILE,COMPRESS,COMPRESS-178,2012-02-21T15:27:31.000-06:00,TarArchiveInputStream throws IllegalArgumentException instead of IOException,"throw IllegalArgumentException instead_of IOException throw IllegalArgumentException in direct contradiction
+wrap IllegalArgumentException in IOException","org.apache.commons.compress.archivers.TarTestCase
+org.apache.commons.compress.archivers.tar.TarArchiveInputStream"
+FILE,COMPRESS,COMPRESS-244,2013-11-25T12:36:51.000-06:00,7z reading of UINT64 data type is wrong for big values,indicate additional bytes shift integer shift brief description lead to overflow lead to incorrect value,org.apache.commons.compress.archivers.sevenz.SevenZFile
+FILE,COMPRESS,COMPRESS-245,2013-12-05T11:01:39.000-06:00,TarArchiveInputStream#getNextTarEntry returns null prematurely,"create file
+extract with same tool","org.apache.commons.compress.archivers.tar.TarArchiveInputStream
+org.apache.commons.compress.archivers.tar.TarArchiveInputStreamTest"
+FILE,COMPRESS,COMPRESS-273,2014-04-11T04:13:32.000-05:00,NullPointerException when creation fields/entries from scratch,set for instance,"org.apache.commons.compress.archivers.zip.AbstractUnicodeExtraField
+org.apache.commons.compress.archivers.cpio.CpioArchiveEntry
+org.apache.commons.compress.archivers.zip.ExtraFieldUtils
+org.apache.commons.compress.archivers.zip.UnrecognizedExtraField"
+FILE,COMPRESS,COMPRESS-332,2016-01-26T14:12:44.000-06:00,FramedSnappyCompressorInputStream.read returns invalid value at end of stream.,reach end of stream,org.apache.commons.compress.compressors.snappy.SnappyCompressorInputStream
+FILE,COMPRESS,COMPRESS-357,2016-05-25T17:50:50.000-05:00,BZip2CompressorOutputStream can affect output stream incorrectly,not call finish from finalize(),org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream
+FILE,ENTESB,ENTESB-3099,2015-04-27T11:35:23.000-05:00,Quickstarts should build without warnings; most should work without fabric,,org.jboss.quickstarts.fuse.processor.BodyInAggregatingStrategy
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-371,2012-08-17T05:42:02.000-05:00,NPE in hedwig hub client causes hedwig hub to shut down.,retrieve channel call messageConsumed(),"hedwig-client.src.main.java.org.apache.hedwig.client.netty.WriteCallback
+hedwig-client.src.main.java.org.apache.hedwig.client.handlers.SubscribeResponseHandler
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigPublisher
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigSubscriber
+hedwig-client.src.main.java.org.apache.hedwig.client.handlers.MessageConsumeCallback
+hedwig-client.src.main.java.org.apache.hedwig.client.netty.HedwigClientImpl"
+CLASS,bookkeeper-4.1.0,BOOKKEEPER-376,2012-08-22T13:32:57.000-05:00,LedgerManagers should consider 'underreplication' node as a special Znode,,"bookkeeper-server.src.main.java.org.apache.bookkeeper.meta.LedgerLayout
+bookkeeper-server.src.main.java.org.apache.bookkeeper.meta.AbstractZkLedgerManager"
+FILE,swt-3.1,102794,2005-07-05T17:56:00.000-05:00,GridLayout has change behaviour between 3.0.2 and 3.1,be in real app be within TabItem,org.eclipse.swt.layout.GridLayout
+FILE,swt-3.1,104150,2005-07-16T19:58:00.000-05:00,[Patch] Table cursor separated from table selection when clicking on grid lines or empty space,click on part of table follow table selection change selection as result,org.eclipse.swt.custom.TableCursor
+FILE,swt-3.1,104545,2005-07-20T14:21:00.000-05:00,Make default size of empty composites smaller,change following constants in Widget.java change following constants to something smaller,org.eclipse.swt.widgets.CoolBar
+FILE,swt-3.1,115947,2005-11-10T21:36:00.000-06:00,Accessibility : Cannot set tooltip Text for image in Table Column,have alt + text tooltip,org.eclipse.swt.widgets.Display
+FILE,swt-3.1,78854,2004-11-17T12:17:00.000-06:00,Memory leak in ClipboardProxy.getFunc(),function copies data,"org.eclipse.swt.dnd.Clipboard
+org.eclipse.swt.dnd.DragSource"
+FILE,swt-3.1,80120,2004-12-03T11:43:00.000-06:00,CTabFolder layout puts top right item one pixel to far to the right,see attachment have toolbar on top right cut pixel out_of top corner take border into account take border of CTabFolder,org.eclipse.swt.custom.CTabFolder
+FILE,swt-3.1,81264,2004-12-15T13:17:00.000-06:00,Table fails to setTopIndex after new items are added to the table,"move to top
+call getTopIndex","org.eclipse.swt.widgets.Tree
+org.eclipse.swt.widgets.List
+org.eclipse.swt.widgets.Table"
+FILE,swt-3.1,82500,2005-01-10T14:34:00.000-06:00,TabFolder should not use PtCalcCanvas in getClientArea,,org.eclipse.swt.widgets.TabFolder
+FILE,swt-3.1,83262,2005-01-19T17:41:00.000-06:00,rxvt pastes null terminator,have string length field terminate strings,"org.eclipse.swt.dnd.RTFTransfer
+org.eclipse.swt.dnd.TextTransfer"
+FILE,swt-3.1,86000,2005-02-21T14:47:00.000-06:00,ImageLoader Save - produces invalid JPEG images,produce proper JPG images expected,org.eclipse.swt.internal.image.JPEGFileFormat
+FILE,swt-3.1,87460,2005-03-08T21:22:00.000-06:00,StyledText: Caret location not updated when line style is used,expect on-screen caret location adjust to change,org.eclipse.swt.custom.StyledText
+FILE,swt-3.1,87676,2005-03-10T12:28:00.000-06:00,Double-click only works on a tree's column0,use log view bring up event,org.eclipse.swt.widgets.Tree
+FILE,swt-3.1,88717,2005-03-22T04:34:00.000-06:00,[DND] Tree is scrolling very slow when dragging an Item to the Bottom,enable automatic scrolling drag Item to bottom drag case to bottom think in case,"org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.dnd.TableDragUnderEffect"
+FILE,swt-3.1,88829,2005-03-22T20:41:00.000-06:00,Table.setColumnOrder() may not fire enough Move events,fire >,org.eclipse.swt.widgets.Table
+FILE,swt-3.1,93724,2005-05-04T17:35:00.000-05:00,Drag-and-drop creates signal names every time,convert names for signals define signal names in OS.java,"org.eclipse.swt.dnd.DropTarget
+org.eclipse.swt.dnd.DragSource"
+FILE,swt-3.1,94598,2005-05-11T00:01:00.000-05:00,DBCS3.1:Eclipse hangs when activate IIMF input in search scope of Help,work for inputing/key,"org.eclipse.swt.browser.Browser
+org.eclipse.swt.widgets.Composite"
+FILE,swt-3.1,96053,2005-05-19T22:06:00.000-05:00,Spinner: Pressing buttons should focus spinner and select text,set focus to text control select text click on button,org.eclipse.swt.widgets.Spinner
+FILE,swt-3.1,97651,2005-05-31T14:43:00.000-05:00,tree insert mark cheese,belong not to child item belong not to root item,"org.eclipse.swt.dnd.TreeDragUnderEffect
+org.eclipse.swt.widgets.Tree"
+FILE,swt-3.1,99145,2005-06-09T09:51:00.000-05:00,"Link widget only disables link, not text",,org.eclipse.swt.widgets.Link
+FILE,CONFIGURATION,CONFIGURATION-214,2006-05-26T21:35:46.000-05:00,Adding an integer and getting it as a long causes an exception,convert to Number try to Number,"org.apache.commons.configuration.TestPropertyConverter
+org.apache.commons.configuration.PropertyConverter
+org.apache.commons.configuration.TestBaseConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-242,2006-12-02T18:09:41.000-06:00,The configuration returned by HierarchicalConfiguration.subset() does not globally interpolate,take properties into account take properties of parent configuration,"org.apache.commons.configuration.TestSubnodeConfiguration
+org.apache.commons.configuration.HierarchicalConfiguration
+org.apache.commons.configuration.TestHierarchicalConfiguration"
+FILE,CONFIGURATION,CONFIGURATION-275,2007-05-25T17:12:43.000-05:00,ConfigurationUtils.append() doesn't merge list properties,"append list object instead_of list elements append list object to target list
+append list to list [ a",org.apache.commons.configuration.AbstractConfiguration
+FILE,CONFIGURATION,CONFIGURATION-481,2012-02-26T20:27:46.000-06:00,Variable interpolation across files broken in 1.7 & 1.8,get myvar } instead_of abc-product,"org.apache.commons.configuration.DefaultConfigurationBuilder
+org.apache.commons.configuration.interpol.ConfigurationInterpolator
+org.apache.commons.configuration.TestDefaultConfigurationBuilder"
+CLASS,hibernate-3.5.0b2,HHH-4583,2009-11-17T12:25:15.000-06:00,Incorrect handling of empty conjunction and disjunction,"say as spec
+return TRUE for conjunction","org.hibernate.ejb.criteria.CriteriaBuilderImpl
+org.hibernate.ejb.criteria.predicate.CompoundPredicate"
+CLASS,hibernate-3.5.0b2,HHH-4617,2009-11-28T11:42:08.000-06:00,Using materialized blobs with Postgresql causes error,use oids deal in PostgreSQL,"org.hibernate.type.CharacterArrayClobType
+org.hibernate.type.MaterializedClobType
+org.hibernate.type.PrimitiveCharacterArrayClobType
+org.hibernate.type.WrappedMaterializedBlobType
+org.hibernate.type.MaterializedBlobType
+org.hibernate.test.lob.MaterializedBlobTest
+org.hibernate.type.BlobType
+org.hibernate.type.ClobType
+org.hibernate.test.lob.ClobLocatorTest
+org.hibernate.dialect.Dialect
+org.hibernate.cfg.annotations.SimpleValueBinder
+org.hibernate.dialect.PostgreSQLDialect
+org.hibernate.Hibernate"
+METHOD,openjpa-2.0.1,OPENJPA-1627,2010-04-12T05:21:13.000-05:00,ORderBy with @ElementJoinColumn and EmbeddedId uses wrong columns in SQL,be for columns map in transaction entity NOT,"org.apache.openjpa.jdbc.meta.JDBCRelatedFieldOrder:order(Select, ClassMapping, Joins)"
+METHOD,openjpa-2.0.1,OPENJPA-1762,2010-08-09T14:42:31.000-05:00,javax.persistence.lock.scope EXTENDED doesn't properly lock join tables,find b. remove b. remove from Join table,"org.apache.openjpa.persistence.lockmgr.Employee:toString()
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:getId()
+org.apache.openjpa.persistence.lockmgr.Employee:readExternal(ObjectInput)
+org.apache.openjpa.persistence.lockmgr.Employee:setDepartment(Department)
+org.apache.openjpa.jdbc.kernel.PessimisticLockManager:getLockRows(DBDictionary, Object, ClassMapping, JDBCFetchConfiguration, SQLFactory)
+org.apache.openjpa.jdbc.meta.strats.ContainerFieldStrategy:appendSize(SQLBuffer, Select, Joins)
+org.apache.openjpa.jdbc.meta.strats.StoreCollectionFieldStrategy:getJoinForeignKey()
+org.apache.openjpa.persistence.lockmgr.Employee:writeExternal(ObjectOutput)"
+METHOD,openjpa-2.0.1,OPENJPA-1896,2010-11-23T10:32:43.000-06:00,OpenJPA cannot store POJOs if a corresponding record already exists,encounter same files cause latest data from POJO store in pre-existing record,"org.apache.openjpa.kernel.VersionAttachStrategy:compareVersion(StateManagerImpl, PersistenceCapable)
+org.apache.openjpa.persistence.relations.BasicEntity:getId()"
+METHOD,openjpa-2.0.1,OPENJPA-1918,2011-01-06T08:11:24.000-06:00,MetaDataRepository.preload() ignores class loader returned by PersistenceUnitInfo.getClassLoader(),use context class loader from PersistenceUnitInfo leade PersistenceUnitInfo to ClassNotFoundExpcetions mention at end,"org.apache.openjpa.meta.FieldMetaData:hashCode()
+org.apache.openjpa.meta.FieldMetaData:compareTo(Object)"
+CLASS,pig-0.8.0,PIG-1188,2010-01-14T13:32:46.000-06:00,Padding nulls to the input tuple according to input schema,have schema generate input data null input data,"test.org.apache.pig.test.TestMergeForEachOptimization
+src.org.apache.pig.newplan.logical.rules.TypeCastInserter
+test.org.apache.pig.test.TestNewPlanLogicalOptimizer
+test.org.apache.pig.test.TestNewPlanFilterRule
+test.org.apache.pig.test.TestNewPlanPushDownForeachFlatten
+test.org.apache.pig.test.TestEvalPipeline2
+test.org.apache.pig.test.TestMultiQueryCompiler
+test.org.apache.pig.test.TestPartitionFilterPushDown
+test.org.apache.pig.test.TestNewPlanFilterAboveForeach"
+CLASS,pig-0.8.0,PIG-1277,2010-03-05T13:02:03.000-06:00,Pig should give error message when cogroup on tuple keys of different inner type,"give error/warnings
+expect result
+give message not merge key mismatch due_to type","src.org.apache.pig.impl.io.NullableBytesWritable
+test.org.apache.pig.test.TestPackage
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigBytesRawComparator
+src.org.apache.pig.backend.hadoop.HDataType
+src.org.apache.pig.backend.hadoop.executionengine.physicalLayer.relationalOperators.POMultiQueryPackage
+src.org.apache.pig.backend.hadoop.executionengine.mapReduceLayer.PigMapReduce
+test.org.apache.pig.test.TestSecondarySort
+src.org.apache.pig.newplan.logical.relational.LOUnion"
+CLASS,pig-0.8.0,PIG-1717,2010-11-11T09:41:37.000-06:00,pig needs to call setPartitionFilter if schema is null but getPartitionKeys is not,,"src.org.apache.pig.impl.util.Utils
+src.org.apache.pig.newplan.logical.relational.LOLoad
+src.org.apache.pig.impl.logicalLayer.LOLoad"
+CLASS,pig-0.8.0,PIG-1893,2011-03-10T20:43:13.000-06:00,Pig report input size -1 for empty input file,count inputs 1.txt 0 in case,"src.org.apache.pig.tools.pigstats.JobStats
+test.org.apache.pig.test.TestPigRunner"
+CLASS,pig-0.8.0,PIG-1910,2011-03-16T12:50:00.000-05:00,incorrect schema shown when project-star is used with other projections,return null schema,"src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.expression.ExpToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+src.org.apache.pig.newplan.logical.expression.ProjectExpression
+test.org.apache.pig.test.TestPigServer
+test.org.apache.pig.test.Util"
+CLASS,pig-0.8.0,PIG-1912,2011-03-16T16:11:46.000-05:00,non-deterministic output when a file is loaded multiple times,use second column,"src.org.apache.pig.backend.hadoop.executionengine.HExecutionEngine
+test.org.apache.pig.test.TestEvalPipeline2
+src.org.apache.pig.newplan.logical.relational.LogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.relational.LOLoad"
+CLASS,pig-0.8.0,PIG-1932,2011-03-22T19:53:04.000-05:00,GFCross should allow the user to set the DEFAULT_PARALLELISM value,leave default value allow property override default change value,src.org.apache.pig.impl.builtin.GFCross
+CLASS,pig-0.8.0,PIG-1935,2011-03-24T20:33:38.000-05:00,New logical plan: Should not push up filter in front of Bincond,,"test.org.apache.pig.test.TestNewPlanFilterAboveForeach
+src.org.apache.pig.newplan.logical.expression.BinCondExpression"
+CLASS,pig-0.8.0,PIG-767,2009-04-15T23:43:29.000-05:00,Schema reported from DESCRIBE and actual schema of inner bags are different.,contain tuple inside inner bags observe from DUMP urlContentsG,"test.org.apache.pig.test.TestNewPlanLogToPhyTranslationVisitor
+src.org.apache.pig.newplan.logical.expression.DereferenceExpression
+src.org.apache.pig.newplan.logical.relational.LOInnerLoad
+src.org.apache.pig.newplan.logical.rules.DuplicateForEachColumnRewrite
+test.org.apache.pig.test.TestLogicalPlanMigrationVisitor
+src.org.apache.pig.newplan.logical.relational.LOCogroup
+test.org.apache.pig.test.TestSchema
+src.org.apache.pig.newplan.logical.relational.LOGenerate"
+METHOD,math,MATH-1021,2013-08-10T00:00:22.000-05:00,HypergeometricDistribution.sample suffers from integer overflow,return sample use with large integer values,org.apache.commons.math3.distribution.HypergeometricDistribution:getNumericalMean()
+METHOD,math,MATH-167,2007-06-28T14:50:05.000-05:00,ConvergenceException in normal CDF,evaluate in cases,org.apache.commons.math.distribution.NormalDistributionImpl:cumulativeProbability(double)
+METHOD,math,MATH-273,2009-06-03T05:11:34.000-05:00,Basic variable is not found correctly in simplex tableau,assume entry in tableau indicate basic variable,"org.apache.commons.math.analysis.solvers.UnivariateRealSolverUtils:bracket(UnivariateRealFunction, double, double, double, int)"
+METHOD,math,MATH-274,2009-06-04T19:24:12.000-05:00,testing for symmetric positive definite matrix in CholeskyDecomposition,"throw exception
+force use try exceptions catch exceptions test conditions prior_to possibility","org.apache.commons.math.linear.CholeskyDecompositionImpl:CholeskyDecompositionImpl(RealMatrix, double, double)"
+METHOD,math,MATH-326,2009-12-29T00:09:20.000-06:00,getLInfNorm() uses wrong formula in both ArrayRealVector and OpenMapRealVector (in different ways),use sparseIterator() move up method to AbstractRealVector superclass implement method to AbstractRealVector superclass,"org.apache.commons.math.linear.ArrayRealVector:getLInfNorm()
+org.apache.commons.math.linear.OpenMapRealVector:getLInfNorm()"
+METHOD,math,MATH-358,2010-03-24T17:25:37.000-05:00,ODE integrator goes past specified end of integration range,cover 60s cover integration range in fact,"org.apache.commons.math.ode.nonstiff.EmbeddedRungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])
+org.apache.commons.math.ode.nonstiff.RungeKuttaIntegrator:integrate(FirstOrderDifferentialEquations, double, double[], double, double[])"
+METHOD,math,MATH-482,2011-01-17T19:52:10.000-06:00,"FastMath.max(50.0f, -50.0f) => -50.0f; should be +50.0f",have bug not detect bug,"org.apache.commons.math.util.FastMath:max(float, float)"
+METHOD,math,MATH-935,2013-02-15T08:05:13.000-06:00,"DerivativeStructure.atan2(y,x) does not handle special cases properly",give same values as Math.atan2 give same values as FastMath.atan2.,"org.apache.commons.math3.analysis.differentiation.DSCompiler:atan2(double[], int, double[], int, double[], int)"
+FILE,WFCORE,WFCORE-229,2014-11-07T15:20:11.000-06:00,"server-config operations ""leaks"" to server's resources",execute server-config operations reject because actual resources,"org.jboss.as.domain.controller.operations.AbstractOperationTestCase
+org.jboss.as.controller.registry.ConcreteResourceRegistration
+org.jboss.as.controller.registry.DelegatingManagementResourceRegistration
+org.jboss.as.controller.registry.AbstractResourceRegistration
+org.jboss.as.controller.registry.DelegatingImmutableManagementResourceRegistration
+org.jboss.as.controller.registry.ProxyControllerRegistration
+org.jboss.as.controller.registry.ImmutableManagementResourceRegistration
+org.jboss.as.subsystem.test.SubsystemTestDelegate
+org.jboss.as.controller.registry.AliasResourceRegistration
+org.jboss.as.controller.extension.ExtensionRegistry
+org.jboss.as.controller.registry.NodeSubregistry"
+FILE,WFCORE,WFCORE-687,2015-05-11T12:39:25.000-05:00,patches with duplicate element patch-id values should be rejected,reject patches with duplicate element patch-id values,"org.jboss.as.patching.metadata.PatchXml
+org.jboss.as.patching.metadata.PatchBuilder
+org.jboss.as.patching.metadata.PatchXmlUnitTestCase
+org.jboss.as.patching.installation.LayerTestCase
+org.jboss.as.patching.logging.PatchLogger
+org.jboss.as.patching.metadata.PatchXmlUtils"
+FILE,WFCORE,WFCORE-172,2014-10-15T08:27:13.000-05:00,Wrong application name used for Syslog logging,use space in value,org.jboss.as.controller.audit.SyslogAuditLogHandler
+FILE,WFCORE,WFCORE-763,2015-06-16T14:59:39.000-05:00,"Persisting an empty list [] gets read as a list with empty string [""""] resulting in IllegalArgumentException",persist empty list to xml use default parser/marshaller get back empty list,"org.jboss.as.controller.AttributeParser
+org.jboss.as.controller.SimpleListAttributeDefinitionUnitTestCase"
+FILE,WFCORE,WFCORE-1007,2015-09-24T06:45:11.000-05:00,Warnings about missing notification descriptions when an operation removes an extension,not show warnings,"org.jboss.as.controller.AbstractOperationContext
+org.jboss.as.controller.logging.ControllerLogger"
+FILE,WFCORE,WFCORE-1027,2015-10-01T18:16:10.000-05:00,Inconsistent read-resource results with host scoped roles,behave as slave-maintainer,"org.jboss.as.test.integration.domain.rbac.RBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.AbstractHostScopedRolesTestCase
+org.jboss.as.controller.operations.global.GlobalOperationHandlers
+org.jboss.as.test.integration.domain.rbac.JmxRBACProviderHostScopedRolesTestCase
+org.jboss.as.test.integration.domain.rbac.ListRoleNamesTestCase
+org.jboss.as.test.integration.domain.rbac.WildcardReadsTestCase"
+FILE,WFCORE,WFCORE-1062,2015-10-20T09:33:46.000-05:00,Deployments from the domain/data/content folder goes missing after few minutes if the Host controller is started with --backup option.,never remove cached deplpyments folder from domain/data/content folder,"org.jboss.as.domain.controller.resources.DomainDeploymentResourceDefinition
+org.jboss.as.controller.persistence.FilePersistenceUtils
+org.jboss.as.repository.ContentRepository
+org.jboss.as.domain.controller.operations.deployment.DeploymentAddHandler
+org.jboss.as.server.deployment.ContentCleanerService"
+FILE,WFCORE,WFCORE-1120,2015-11-10T12:21:50.000-06:00,"Launcher sets ""-Djava.net.preferIPv4Stack=true"" also with IPv6 profile",use option with ipv6 profile,"org.wildfly.core.launcher.CommandBuilderTest
+org.wildfly.core.launcher.Arguments"
+FILE,WFCORE,WFCORE-1212,2015-12-11T18:04:50.000-06:00,TestModule does not clean up after itself properly,"do current work walk up filesystem tree get to file
+remove dir check for level",org.jboss.as.test.module.util.TestModule
+FILE,WFCORE,WFCORE-1210,2015-12-11T14:47:25.000-06:00,Transformations are not triggered for aliases,use same logic as AliasStepHandler map alias to real address map alias to transform,"org.jboss.as.controller.registry.AliasEntry
+org.jboss.as.controller.transform.CompositeOperationTransformer
+org.jboss.as.controller.transform.TransformersImpl"
+FILE,WFCORE,WFCORE-1354,2016-02-03T00:19:08.000-06:00,Cannot clone a profile with a remoting subsystem but no io subsystem,describe placeholder resource,"org.jboss.as.remoting.RemotingExtension
+org.jboss.as.subsystem.test.AbstractSubsystemBaseTest"
+FILE,WFCORE,WFCORE-1572,2016-05-27T16:20:10.000-05:00,Suggestion list for argument value is not generated if the value contains a whitespace,hit tab after whitespace generate suggestions,"org.jboss.as.cli.parsing.DefaultStateWithEndCharacter
+org.jboss.as.cli.parsing.ParserUtil
+org.jboss.as.cli.parsing.test.CommandTestCase"
+FILE,WFCORE,WFCORE-1570,2016-05-27T12:51:56.000-05:00,Saved rollout-plan 'name' or 'id' attribute discrepancy,use in aforementioned commands,"org.jboss.as.cli.parsing.operation.header.RolloutPlanState
+org.jboss.as.cli.parsing.operation.header.RolloutPlanHeaderCallbackHandler
+org.jboss.as.cli.operation.impl.RolloutPlanCompleter"
+FILE,WFCORE,WFCORE-1578,2016-06-07T05:13:13.000-05:00,Better check of names of existing resources when adding '{local|remote-destination-outbound-socket-binding',have same names check names during add operation regard in socket-binding { remote | local } regard to resources,"org.jboss.as.controller.logging.ControllerLogger
+org.jboss.as.server.services.net.LocalDestinationOutboundSocketBindingAddHandler
+org.jboss.as.server.services.net.SocketBindingAddHandler
+org.jboss.as.server.services.net.RemoteDestinationOutboundSocketBindingAddHandler"
+FILE,WFCORE,WFCORE-1607,2016-06-17T12:23:38.000-05:00,"Removing children of security-realm always finishes with {""outcome"" => ""success""}",finish with failure,org.jboss.as.domain.management.security.SecurityRealmChildRemoveHandler
+FILE,WFCORE,WFCORE-1481,2016-04-18T14:48:59.000-05:00,list-add operation doesn't work on login-modules attribute,append new module replace instead_of appending,"org.jboss.as.controller.AbstractWriteAttributeHandler
+org.jboss.as.controller.operation.global.CollectionOperationsTestCase
+org.jboss.as.controller.operations.global.AbstractCollectionHandler
+org.jboss.as.controller.operations.global.ReadAttributeHandler
+org.jboss.as.controller.operations.global.WriteAttributeHandler
+org.jboss.as.controller.operation.global.EnhancedSyntaxTestCase"
+FILE,WFCORE,WFCORE-1715,2016-08-15T19:04:54.000-05:00,HostProcessReloadHandler does not reset the HostRunningModeControl's restartMode,"use value
+restore default value of restartMode",org.jboss.as.host.controller.operations.StartServersHandler
+FILE,WFCORE,WFCORE-1756,2016-08-31T14:23:41.000-05:00,Adding content to an exploded deployment with overwrite to false should fail if file already exists,add file set overwrite to false,"org.jboss.as.repository.ContentRepositoryTest
+org.jboss.as.repository.ContentRepositoryImpl"
+FILE,WFCORE,WFCORE-1864,2016-10-13T09:12:31.000-05:00,Whitespaces are not removed from dependencies in module add command,lead whitespaces trail whitespaces strip module name in dependencies strip module name of leading strip module name of trailing,"org.jboss.as.cli.handlers.module.ASModuleHandler
+org.jboss.as.test.integration.management.cli.ModuleTestCase"
+FILE,WFCORE,WFCORE-1908,2016-10-31T08:13:57.000-05:00,Tab completion suggest writing attribute which has access type metric and is not writable,write attributes,"org.jboss.as.cli.impl.AttributeNamePathCompleter
+org.jboss.as.cli.parsing.test.AttributeNamePathCompletionTestCase
+org.jboss.as.cli.Util"
+FILE,WFCORE,WFCORE-1915,2016-10-31T19:24:55.000-05:00,ParseUtils.parseAttributeValue should not fail due to DMR type conversions,produce failures,org.jboss.as.controller.parsing.ParseUtils
+FILE,WFCORE,WFCORE-1552,2016-05-13T14:57:20.000-05:00,Slaves should report the master's version in the domain model,,"org.jboss.as.domain.controller.operations.SyncModelOperationHandler
+org.jboss.as.domain.controller.operations.SyncModelServerStateTestCase"
+FILE,WFCORE,WFCORE-2008,2016-11-17T14:07:57.000-06:00,Unable to use path in input-stream-index argument in /core-service=patching:patch,allow File system paths as arguments,org.jboss.as.patching.management.PatchResourceDefinition
+FILE,WFCORE,WFCORE-2021,2016-11-21T08:50:23.000-06:00,"""ls /socket-binding-group=*"" should print proper error message",print proper error message,org.jboss.as.cli.handlers.LsHandler
+FILE,WFCORE,WFCORE-2083,2016-12-05T14:02:40.000-06:00,Reduce number of object allocations and memory footprint,capture object reference,"org.jboss.as.controller.ResourceBuilderRoot
+org.jboss.as.controller.AttributeMarshaller
+org.jboss.as.controller.SimpleResourceDefinition
+org.jboss.as.controller.SimpleOperationDefinition
+org.jboss.as.controller.SimpleListAttributeDefinition
+org.jboss.as.controller.AbstractAttributeDefinitionBuilder
+org.jboss.as.controller.registry.AbstractModelResource
+org.jboss.as.controller.SimpleOperationDefinitionBuilder
+org.jboss.as.controller.AttributeMarshallers
+org.jboss.as.controller.AttributeDefinition"
+METHOD,tika-1.3,TIKA-1109,2013-04-18T06:06:06.000-05:00,Metadata not extracted before the content in OOXML (pptx),have metadata,org.apache.tika.parser.microsoft.ooxml.XSSFExcelExtractorDecorator:getMetadataExtractor()
+METHOD,eclipse-2.0,17707,2002-05-24T10:15:00.000-05:00,DAV: Reselecting the same location gives misleading warning,ignore in case,"org.eclipse.team.internal.ui.target.ConfigureTargetWizard:setMapping(IWizardContainer, IProject, Site, IPath)"
+METHOD,eclipse-2.0,19307,2002-06-05T08:43:00.000-05:00,FTP: Valid ftp url is rejected,enter ftp ott4f.ott.oti.com on most ftp programs connect ftp ott4f.ott.oti.com on most ftp programs,"org.eclipse.team.internal.ftp.ui.FTPMainPage:getCurrentValues()
+org.eclipse.team.internal.ftp.ui.FTPMainPage:validateFields()"
+METHOD,eclipse-2.0,19686,2002-06-07T16:42:00.000-05:00,hover help stops working after mousing over end of file,expect hover help mouse over text,org.eclipse.jface.text.TextViewerHoverManager:computeInformation()
+METHOD,eclipse-2.0,19976,2002-06-11T22:25:00.000-05:00,Dav: Choosing not to add a bad site should let user modify site properties,,org.eclipse.team.internal.webdav.ui.WebDavConfigurationWizard:performFinish()
+METHOD,eclipse-2.0,23140,2002-09-04T01:34:00.000-05:00,"[CVS EXTSSH] vulnerable to man in the middle attacks (dns poisoning, etc_",get prompt saying key,"org.eclipse.team.internal.ccvs.ssh.Client:connect(IProgressMonitor)
+org.eclipse.team.internal.ccvs.ssh.Client:send_SSH_CMSG_SESSION_KEY(byte[], byte[], byte[], byte[], byte[], byte[])
+org.eclipse.team.internal.ccvs.ssh.Client:receive_SSH_SMSG_PUBLIC_KEY(ServerPacket)"
+METHOD,eclipse-2.0,31779,2003-02-13T09:55:00.000-06:00,[resources] UnifiedTree should ensure file/folder exists,,"org.eclipse.core.internal.localstore.UnifiedTree:addChildrenFromFileSystem(UnifiedTreeNode, String, Object[], int)
+org.eclipse.core.internal.localstore.UnifiedTree:createChildNodeFromFileSystem(UnifiedTreeNode, String, String)"
