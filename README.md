@@ -23,4 +23,10 @@ The `results` directory contains:
 3. `stat-tests` contains the full results of the statistical tests presented in section 4.
 4. `query-stats.csv` contains the full Table 10.
 
+## See also
+
+The [replication package][2] of [Chaparro et al.'s work][3] which first defined the query reduction strategies that we adapt.
+
 [1]: https://doi.org/10.1145/3236024.3236065
+[2]: https://seers.utdallas.edu/projects/emse-query-reformulation/
+[3]: https://doi.org/10.1007/s10664-018-9672-z
